@@ -19,8 +19,9 @@
         "pandas_read_html": "Use pandas.read_html() to directly parse HTML tables from the URL. This method works for static HTML pages that contain <table> elements. Requires: pandas, html5lib, lxml (recommended).",
         "selenium": "Use Selenium WebDriver with Chrome (headless mode) to render JavaScript and extract table HTML, then parse with pandas.read_html(StringIO(html)). This method works for websites that dynamically load content via JavaScript. Requires: selenium, pandas, Chrome browser.",
         "artificial_analysis": "Extract data from Artificial Analysis unified leaderboard table (https://artificialanalysis.ai/leaderboards/models). The user must manually copy the <table> element HTML from the browser inspector, then use pandas.read_html() to parse it and extract individual benchmark columns. The extracted data is saved as CSV files. Requires: pandas, html5lib, lxml (recommended), browser developer tools for manual HTML table copying.",
-        "vals_ai_manual_json": "Load data from a manually copied JSON file from VALS.ai platform located at github/data/raw/benchmarks/manual/{benchmark_id}.json. The user must use browser developer tools to copy JSON data from the VALS.ai platform and save it as a JSON file in this location before the agent can process it. The data format is JSON (not CSV), and may need conversion to CSV in subsequent processing steps.",
-        "manual": "Load data from a manually downloaded CSV file located at github/data/raw/benchmarks/manual/{benchmark_id}.csv. The user must download or export the CSV file manually (e.g., from Kaggle, HuggingFace Spaces, or other platforms) and place it in this location before the agent can process it."
+        "vals_ai_manual_json": "Load data from a manually copied JSON file from VALS.ai platform. The user must copy JSON data from the webpage source code (which may contain irrelevant information before and after the JSON data) and save it as {benchmark_name}_input.json in the benchmark folder. The script then converts this JSON input to CSV format, and the final output data file {name}_data.csv follows the same format as other benchmarks (model_name and score columns).",
+        "manual": "Load data from a manually downloaded CSV file. The file location is Human-SIG/data/raw/benchmarks_with_data/manual_direct/{benchmark_name}/{name}_data.csv. The user must download or export the CSV file manually from the webpage (e.g., from Kaggle, HuggingFace Spaces, or other platforms) and place it in this location before the agent can process it.",
+        "manual_source_code": "Load data from a manually extracted CSV file. The user must manually extract data from the webpage source code (e.g., by inspecting the HTML/JavaScript source code or using browser developer tools) and save it as {name}_data.csv. The file location is Human-SIG/data/raw/benchmarks_without_data/manual_source_code/{benchmark_name}/{name}_data.csv. This method is used for benchmarks where automated scraping is difficult or not feasible."
       }
     }
   },
@@ -94,23 +95,23 @@
     "benchmark_name": "FrontierMath Tier 1-3",
     "leaderboard_url": "https://epoch.ai/frontiermath",
     "prompt_length": "Long",
-    "question_count": 300,
+    "question_count": 290,
     "question_type": "Research-level math proofs (Tier 1-3)",
     "category": "Math",
     "release_date": "2024-11-07",
     "task_type": "Generation",
-    "scraping_method": "manual"
+    "scraping_method": "manual_source_code"
   },
   {
     "benchmark_name": "FrontierMath Tier 4",
     "leaderboard_url": "https://epoch.ai/frontiermath",
     "prompt_length": "Long",
-    "question_count": 300,
+    "question_count": 48,
     "question_type": "Research-level math proofs (Tier 4)",
     "category": "Math",
     "release_date": "2024-11-07",
     "task_type": "Generation",
-    "scraping_method": "manual"
+    "scraping_method": "manual_source_code"
   },
   {
     "benchmark_name": "SciCode",
@@ -199,17 +200,6 @@
     "release_date": "2024-03-12",
     "task_type": "Mixed",
     "scraping_method": "artificial_analysis"
-  },
-  {
-    "benchmark_name": "EffiBench-X",
-    "leaderboard_url": "https://huggingface.co/spaces/EffiBench/effibench-leaderboard",
-    "prompt_length": "Medium",
-    "question_count": 623,
-    "question_type": "Code efficiency optimization",
-    "category": "Coding",
-    "release_date": "2025-05-19",
-    "task_type": "Generation",
-    "scraping_method": "manual"
   },
   {
     "benchmark_name": "Aider Polyglot",
@@ -320,17 +310,6 @@
     "release_date": "2025-07-03",
     "task_type": "Generation",
     "scraping_method": "artificial_analysis"
-  },
-  {
-    "benchmark_name": "StructEval",
-    "leaderboard_url": "https://huggingface.co/spaces/Bowieee/StructEval_leaderboard",
-    "prompt_length": "Medium",
-    "question_count": 2035,
-    "question_type": "Structured data & visual code generation",
-    "category": "Instruction Following",
-    "release_date": "2024-06-15",
-    "task_type": "Generation",
-    "scraping_method": "manual"
   },
   {
     "benchmark_name": "Arena-Hard (Auto v2.0)",

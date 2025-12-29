@@ -1,0 +1,8 @@
+https://artificialanalysis.ai/leaderboards/models
+
+获取方法:
+1. 访问上述URL
+2. 使用浏览器开发者工具（F12）打开检查器
+3. 在Elements标签页中找到<table>元素
+4. 右键点击<table>标签，选择 'Copy' -> 'Copy element' 或 'Copy outerHTML'
+5. 将复制的HTML保存为: input.html（在artificial_analysis目录下）

@@ -1,0 +1,4 @@
+https://artificialanalysis.ai/leaderboards/models
+注意: 所有artificial_analysis类别的benchmark共享同一个统一表格HTML文件。
+统一表格文件位置: data/raw/benchmarks_without_data/artificial_analysis/artificial_analysis_unified_table_givendata.html
+获取方法: 访问 https://artificialanalysis.ai/leaderboards/models，使用浏览器开发者工具复制<table>元素的HTML。

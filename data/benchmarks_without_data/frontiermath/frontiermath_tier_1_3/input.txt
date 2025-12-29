@@ -1,0 +1,3 @@
+https://epoch.ai/frontiermath
+
+需要手动从 https://epoch.ai/frontiermath 下载 Tier 1-3 的数据，并整理为CSV格式。
