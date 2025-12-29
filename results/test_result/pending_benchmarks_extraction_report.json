@@ -1,0 +1,297 @@
+{
+  "summary": {
+    "total_benchmarks": 15,
+    "successfully_extracted": 3,
+    "need_custom_parsing": 11
+  },
+  "extraction_results": [
+    {
+      "benchmark_name": "FACTS (Factuality, Accuracy, and Calibration Test Suite)",
+      "url": "https://www.kaggle.com/benchmarks/google/facts",
+      "methods_tested": [],
+      "extracted_data": []
+    },
+    {
+      "benchmark_name": "MMLU-Pro",
+      "url": "https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "Humanity's Last Exam (HLE)",
+      "url": "https://scale.com/leaderboard/humanitys_last_exam",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "SuperGPQA",
+      "url": "https://supergpqa.github.io/",
+      "methods_tested": [
+        "方法6: Selenium"
+      ],
+      "extracted_data": [
+        {
+          "method": "Selenium",
+          "success": true,
+          "file": "C:\\Users\\taoye\\Desktop\\Human-SIG\\github\\results\\pending_benchmarks_data\\supergpqa_selenium.csv",
+          "shape": [
+            70,
+            55
+          ],
+          "columns": [
+            "('Models', 'Models')",
+            "('Model Size(B)', 'Model Size(B)')",
+            "('overall', 'overall')",
+            "('Engineering', 'total')",
+            "('Engineering', 'easy')",
+            "('Engineering', 'middle')",
+            "('Engineering', 'hard')",
+            "('Philosophy', 'total')",
+            "('Philosophy', 'easy')",
+            "('Philosophy', 'middle')",
+            "('Philosophy', 'hard')",
+            "('Medicine', 'total')",
+            "('Medicine', 'easy')",
+            "('Medicine', 'middle')",
+            "('Medicine', 'hard')",
+            "('Economics', 'total')",
+            "('Economics', 'easy')",
+            "('Economics', 'middle')",
+            "('Economics', 'hard')",
+            "('Science', 'total')",
+            "('Science', 'easy')",
+            "('Science', 'middle')",
+            "('Science', 'hard')",
+            "('Law', 'total')",
+            "('Law', 'easy')",
+            "('Law', 'middle')",
+            "('Law', 'hard')",
+            "('History', 'total')",
+            "('History', 'easy')",
+            "('History', 'middle')",
+            "('History', 'hard')",
+            "('Education', 'total')",
+            "('Education', 'easy')",
+            "('Education', 'middle')",
+            "('Education', 'hard')",
+            "('Military Science', 'total')",
+            "('Military Science', 'easy')",
+            "('Military Science', 'middle')",
+            "('Military Science', 'hard')",
+            "('Management', 'total')",
+            "('Management', 'easy')",
+            "('Management', 'middle')",
+            "('Management', 'hard')",
+            "('Literature and Arts', 'total')",
+            "('Literature and Arts', 'easy')",
+            "('Literature and Arts', 'middle')",
+            "('Literature and Arts', 'hard')",
+            "('Agronomy', 'total')",
+            "('Agronomy', 'easy')",
+            "('Agronomy', 'middle')",
+            "('Agronomy', 'hard')",
+            "('Sociology', 'total')",
+            "('Sociology', 'easy')",
+            "('Sociology', 'middle')",
+            "('Sociology', 'hard')"
+          ]
+        }
+      ]
+    },
+    {
+      "benchmark_name": "FrontierMath",
+      "url": "https://epoch.ai/frontiermath",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "SciCode",
+      "url": "https://artificialanalysis.ai/evaluations/scicode",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "MATH-500",
+      "url": "https://www.vals.ai/benchmarks/math500",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "MGSM",
+      "url": "https://www.vals.ai/benchmarks/mgsm",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "ARC-AGI-2",
+      "url": "https://arcprize.org/leaderboard",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON",
+        "方法6: Selenium"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        },
+        {
+          "method": "Selenium",
+          "success": true,
+          "file": "C:\\Users\\taoye\\Desktop\\Human-SIG\\github\\results\\pending_benchmarks_data\\arc_agi_2_selenium.csv",
+          "shape": [
+            116,
+            7
+          ],
+          "columns": [
+            "AI System",
+            "Author",
+            "System Type",
+            "ARC-AGI-1",
+            "ARC-AGI-2",
+            "Cost/Task",
+            "Code / Paper"
+          ]
+        }
+      ]
+    },
+    {
+      "benchmark_name": "EffiBench-X",
+      "url": "https://huggingface.co/spaces/EffiBench/effibench-leaderboard",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "IOI (International Olympiad in Informatics)",
+      "url": "https://www.vals.ai/benchmarks/ioi",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "SWE-Bench (Bash Only)",
+      "url": "https://www.swebench.com/bash-only.html",
+      "methods_tested": [
+        "方法6: Selenium"
+      ],
+      "extracted_data": [
+        {
+          "method": "Selenium",
+          "success": true,
+          "file": "C:\\Users\\taoye\\Desktop\\Human-SIG\\github\\results\\pending_benchmarks_data\\swe_bench_bash_only_selenium.csv",
+          "shape": [
+            34,
+            8
+          ],
+          "columns": [
+            "Unnamed: 0",
+            "Model",
+            "% Resolved",
+            "Avg. $",
+            "TrajsNew!",
+            "Org",
+            "Date",
+            "Release"
+          ]
+        }
+      ]
+    },
+    {
+      "benchmark_name": "IFBench",
+      "url": "https://artificialanalysis.ai/evaluations/ifbench",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "StructEval",
+      "url": "https://huggingface.co/spaces/Bowieee/StructEval_leaderboard",
+      "methods_tested": [
+        "方法4: 查找内嵌JSON"
+      ],
+      "extracted_data": [
+        {
+          "method": "内嵌JSON",
+          "success": false,
+          "note": "需要针对每个网站定制JSON解析逻辑"
+        }
+      ]
+    },
+    {
+      "benchmark_name": "WritingBench",
+      "url": "https://huggingface.co/spaces/WritingBench/WritingBench",
+      "methods_tested": [],
+      "extracted_data": []
+    }
+  ]
+}

@@ -1,0 +1,773 @@
+{
+  "test_summary": {
+    "total_pending": 15,
+    "with_successful_methods": 13,
+    "need_manual_download": 2
+  },
+  "detailed_results": [
+    {
+      "benchmark_name": "FACTS (Factuality, Accuracy, and Calibration Test Suite)",
+      "url": "https://www.kaggle.com/benchmarks/google/facts",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": false,
+          "has_data": false,
+          "error": "未找到内嵌JSON数据"
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 0,
+      "successful_methods": []
+    },
+    {
+      "benchmark_name": "MMLU-Pro",
+      "url": "https://huggingface.co/spaces/TIGER-Lab/MMLU-Pro",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "Humanity's Last Exam (HLE)",
+      "url": "https://scale.com/leaderboard/humanitys_last_exam",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "SuperGPQA",
+      "url": "https://supergpqa.github.io/",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": false,
+          "has_data": false,
+          "error": "未找到内嵌JSON数据"
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": true,
+          "has_data": true,
+          "data_shape": [
+            70,
+            55
+          ],
+          "columns": [
+            "('Models', 'Models')",
+            "('Model Size(B)', 'Model Size(B)')",
+            "('overall', 'overall')",
+            "('Engineering', 'total')",
+            "('Engineering', 'easy')",
+            "('Engineering', 'middle')",
+            "('Engineering', 'hard')",
+            "('Philosophy', 'total')",
+            "('Philosophy', 'easy')",
+            "('Philosophy', 'middle')",
+            "('Philosophy', 'hard')",
+            "('Medicine', 'total')",
+            "('Medicine', 'easy')",
+            "('Medicine', 'middle')",
+            "('Medicine', 'hard')",
+            "('Economics', 'total')",
+            "('Economics', 'easy')",
+            "('Economics', 'middle')",
+            "('Economics', 'hard')",
+            "('Science', 'total')",
+            "('Science', 'easy')",
+            "('Science', 'middle')",
+            "('Science', 'hard')",
+            "('Law', 'total')",
+            "('Law', 'easy')",
+            "('Law', 'middle')",
+            "('Law', 'hard')",
+            "('History', 'total')",
+            "('History', 'easy')",
+            "('History', 'middle')",
+            "('History', 'hard')",
+            "('Education', 'total')",
+            "('Education', 'easy')",
+            "('Education', 'middle')",
+            "('Education', 'hard')",
+            "('Military Science', 'total')",
+            "('Military Science', 'easy')",
+            "('Military Science', 'middle')",
+            "('Military Science', 'hard')",
+            "('Management', 'total')",
+            "('Management', 'easy')",
+            "('Management', 'middle')",
+            "('Management', 'hard')",
+            "('Literature and Arts', 'total')",
+            "('Literature and Arts', 'easy')",
+            "('Literature and Arts', 'middle')",
+            "('Literature and Arts', 'hard')",
+            "('Agronomy', 'total')",
+            "('Agronomy', 'easy')",
+            "('Agronomy', 'middle')",
+            "('Agronomy', 'hard')",
+            "('Sociology', 'total')",
+            "('Sociology', 'easy')",
+            "('Sociology', 'middle')",
+            "('Sociology', 'hard')"
+          ],
+          "row_count": 70
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法6: Selenium"
+      ]
+    },
+    {
+      "benchmark_name": "FrontierMath",
+      "url": "https://epoch.ai/frontiermath",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "SciCode",
+      "url": "https://artificialanalysis.ai/evaluations/scicode",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "MATH-500",
+      "url": "https://www.vals.ai/benchmarks/math500",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "MGSM",
+      "url": "https://www.vals.ai/benchmarks/mgsm",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "ARC-AGI-2",
+      "url": "https://arcprize.org/leaderboard",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": true,
+          "has_data": true,
+          "data_shape": [
+            116,
+            7
+          ],
+          "columns": [
+            "AI System",
+            "Author",
+            "System Type",
+            "ARC-AGI-1",
+            "ARC-AGI-2",
+            "Cost/Task",
+            "Code / Paper"
+          ],
+          "row_count": 116
+        }
+      ],
+      "successful_methods_count": 2,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON",
+        "方法6: Selenium"
+      ]
+    },
+    {
+      "benchmark_name": "EffiBench-X",
+      "url": "https://huggingface.co/spaces/EffiBench/effibench-leaderboard",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "IOI (International Olympiad in Informatics)",
+      "url": "https://www.vals.ai/benchmarks/ioi",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "SWE-Bench (Bash Only)",
+      "url": "https://www.swebench.com/bash-only.html",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": false,
+          "has_data": false,
+          "error": "未找到内嵌JSON数据"
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": true,
+          "has_data": true,
+          "data_shape": [
+            34,
+            8
+          ],
+          "columns": [
+            "Unnamed: 0",
+            "Model",
+            "% Resolved",
+            "Avg. $",
+            "TrajsNew!",
+            "Org",
+            "Date",
+            "Release"
+          ],
+          "row_count": 34
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法6: Selenium"
+      ]
+    },
+    {
+      "benchmark_name": "IFBench",
+      "url": "https://artificialanalysis.ai/evaluations/ifbench",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: IncompleteRead(6514372 bytes read, 14524 more expected)"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "StructEval",
+      "url": "https://huggingface.co/spaces/Bowieee/StructEval_leaderboard",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": true,
+          "has_data": true
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 1,
+      "successful_methods": [
+        "方法4: 查找内嵌JSON"
+      ]
+    },
+    {
+      "benchmark_name": "WritingBench",
+      "url": "https://huggingface.co/spaces/WritingBench/WritingBench",
+      "methods": [
+        {
+          "method": "方法1: pandas.read_html()",
+          "success": false,
+          "has_data": false,
+          "error": "错误: No tables found"
+        },
+        {
+          "method": "方法2: requests + BeautifulSoup",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法3: requests + lxml",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        },
+        {
+          "method": "方法4: 查找内嵌JSON",
+          "success": false,
+          "has_data": false,
+          "error": "未找到内嵌JSON数据"
+        },
+        {
+          "method": "方法5: 尝试API端点",
+          "success": false,
+          "has_data": false,
+          "error": "跳过API端点测试（通常不可用）"
+        },
+        {
+          "method": "方法6: Selenium",
+          "success": false,
+          "has_data": false,
+          "error": "未找到表格"
+        }
+      ],
+      "successful_methods_count": 0,
+      "successful_methods": []
+    }
+  ]
+}

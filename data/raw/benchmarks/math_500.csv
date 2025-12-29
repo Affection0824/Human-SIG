@@ -1,0 +1,61 @@
+rank,model_name,score,company,price,time_seconds
+1,Google Gemini 3 Pro (11/25),96.4,Google,$2 / $12,32.15
+2,xAI Grok 4,96.2,xAI,$3 / $15,27.26
+3,OpenAI GPT 5,96.0,OpenAI,$1.25 / $10,32.22
+4,Anthropic Claude Opus 4.1 (Thinking),95.4,Anthropic,$15 / $75,45.98
+5,Google Gemini 2.5 Pro Exp,95.2,Google,$1.25 / $10,25.83
+6,OpenAI GPT OSS 120B,94.8,OpenAI,$0.15 / $0.6,16.28
+7,OpenAI GPT 5 Mini,94.8,OpenAI,$0.25 / $2,12.06
+8,Alibaba Qwen 3 (235B),94.6,Alibaba,$0.22 / $0.88,142.75
+9,OpenAI o3,94.6,OpenAI,$2 / $8,16.59
+10,Kimi Kimi K2 Instruct,94.2,Kimi,$1 / $3,37.35
+11,OpenAI GPT OSS 20B,94.2,OpenAI,$0.07 / $0.3,31.47
+12,xAI Grok 3 Mini Reasoning,94.2,xAI,$0.3 / $0.5,22.77
+13,OpenAI o4 Mini,94.2,OpenAI,$1.1 / $4.4,12.54
+14,zAI GLM 4.5,94.0,zAI,$0.6 / $2.2,84.93
+15,Anthropic Claude Sonnet 4 (Thinking),93.8,Anthropic,$3 / $15,63.47
+16,OpenAI GPT 5 Nano,93.8,OpenAI,$0.05 / $0.4,22.40
+17,Anthropic Claude Opus 4.1 (Nonthinking),93.0,Anthropic,$15 / $75,30.93
+18,DeepSeek DeepSeek R1,92.2,DeepSeek,$1.35 / $5.4,156.47
+19,Google Gemini 2.5 Flash Preview 4/17 (Thinking),91.8,Google,$0.3 / $2.5,23.66
+20,OpenAI o3 Mini,91.8,OpenAI,$1.1 / $4.4,14.36
+21,Anthropic Claude 3.7 Sonnet (Thinking),91.6,Anthropic,$3 / $15,94.24
+22,Google Gemini 2.5 Flash Preview 4/17 (Nonthinking),91.6,Google,$0.3 / $2.5,9.50
+23,NVIDIA Llama 3.3 Nemotron Super (Thinking),91.4,NVIDIA,N/A,42.83
+24,OpenAI o1,90.4,OpenAI,$15 / $60,23.54
+25,Anthropic Claude Opus 4 (Nonthinking),90.4,Anthropic,$15 / $75,14.81
+26,Anthropic Claude Sonnet 4 (Nonthinking),90.32,Anthropic,$3 / $15,10.03
+27,xAI Grok 3,89.8,xAI,$3 / $15,9.09
+28,MiniMax MiniMax-M2.1,89.0,MiniMax,$0.3 / $1.2,59.69
+29,Google Gemini 2.0 Flash Exp,89.0,Google,$0.075 / $0.3,3.35
+30,DeepSeek DeepSeek V3 (03/24/2025),88.6,DeepSeek,$0.9 / $0.9,12.54
+31,OpenAI GPT 4.1 Mini,88.0,OpenAI,$0.4 / $1.6,5.76
+32,Google Gemini 2.0 Flash (001),88.0,Google,$0.1 / $0.4,3.37
+33,OpenAI GPT 4.1,87.2,OpenAI,$2 / $8,12.53
+34,Mistral Mistral Medium 3.1 (05/2025),87.0,Mistral,$0.4 / $2,14.13
+35,Meta Llama 4 Maverick,85.2,Meta,$0.22 / $0.88,7.47
+36,Google Gemini 2.0 Flash Thinking Exp,84.6,Google,$0.1 / $0.7,11.80
+37,Google Gemini 1.5 Pro (002),82.8,Google,$1.25 / $5,5.02
+38,DeepSeek DeepSeek V3,80.4,DeepSeek,$0.9 / $0.9,7.94
+39,OpenAI GPT 4.1 Nano,80.2,OpenAI,$0.1 / $0.4,3.37
+40,Meta Llama 4 Scout,79.2,Meta,$0.18 / $0.59,10.52
+41,Google Gemini 1.5 Flash (002),78.8,Google,$0.075 / $0.3,2.65
+42,xAI Grok 2,78.4,xAI,$2 / $10,20.44
+43,Anthropic Claude 3.7 Sonnet (Nonthinking),76.8,Anthropic,$3 / $15,5.53
+44,Cohere Command A,76.2,Cohere,$2.5 / $10,8.66
+45,OpenAI GPT 4o (2024-08-06),75.2,OpenAI,$2.5 / $10,12.29
+46,Mistral Mistral Large (11/2024),74.4,Mistral,$2 / $6,9.93
+47,OpenAI GPT 4o (2024-11-20),74.0,OpenAI,$5 / $15,12.80
+48,Meta Llama 3.3 Instruct Turbo (70B),73.4,Meta,$0.88 / $0.88,5.41
+49,OpenAI GPT 4o Mini,72.6,OpenAI,$0.15 / $0.6,6.30
+50,Anthropic Claude 3.5 Sonnet Latest,72.4,Anthropic,$3 / $15,4.63
+51,Meta Llama 3.1 Instruct Turbo (405B),71.4,Meta,$3.5 / $3.5,45.30
+52,NVIDIA Llama 3.3 Nemotron Super (Nonthinking),71.2,NVIDIA,N/A,12.55
+53,Mistral Mistral Small (02/2024),70.6,Mistral,$0.2 / $0.6,4.89
+54,xAI Grok 3 Mini Reasoning,70.2,xAI,$0.3 / $0.5,9.88
+55,Mistral Mistral Small 3.1 (03/2025),68.4,Mistral,$0.075 / $0.3,6.41
+56,Meta Llama 3.1 Instruct Turbo (70B),65.0,Meta,$0.88 / $0.88,9.20
+57,Anthropic Claude 3.5 Haiku Latest,64.2,Anthropic,$0.8 / $4,5.13
+58,AI21 Labs Jamba 1.6 Large,54.8,AI21 Labs,$2 / $8,13.01
+59,Meta Llama 3.1 Instruct Turbo (8B),44.4,Meta,$0.18 / $0.18,5.84
+60,AI21 Labs Jamba 1.6 Mini,25.4,AI21 Labs,$0.2 / $0.4,4.86
