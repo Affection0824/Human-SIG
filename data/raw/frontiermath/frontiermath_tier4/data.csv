@@ -1,0 +1,43 @@
+model_key,name,score,score_value,score_error,n_correct,organization
+gemini-3-pro-preview-tier4,Gemini 3 Pro Preview,18.8% ±5.7%,18.8%,±5.7%,9 / 48,Google DeepMind
+gpt-5.2-2025-12-11_xhigh-tier4,GPT-5.2 (xhigh),16.7% ±5.4%,16.7%,±5.4%,8 / 48,OpenAI
+gpt-5.2-2025-12-11_high-tier4,GPT-5.2 (high),14.6% ±5.1%,14.6%,±5.1%,7 / 48,OpenAI
+gpt-5.2-2025-12-11_medium-tier4,GPT-5.2 (medium),14.6% ±5.1%,14.6%,±5.1%,7 / 48,OpenAI
+gpt-5.1-2025-11-13_high-tier4,GPT-5.1 (high),12.5% ±4.8%,12.5%,±4.8%,6 / 48,OpenAI
+gpt-5-2025-08-07_high-tier4,GPT-5 (high),12.5% ±4.8%,12.5%,±4.8%,6 / 48,OpenAI
+gpt-5-pro-2025-10-06_high-tier4,GPT-5 Pro,12.5% ±4.8%,12.5%,±4.8%,6 / 48,OpenAI
+gemini-2.5-deep-think-2025-08-01-webapp-tier4,Gemini 2.5 Deep Think,10.4% ±4.4%,10.4%,±4.4%,5 / 48,"Google,Google DeepMind"
+gpt-5.2-2025-12-11_low-tier4,GPT-5.2 (low),6.3% ±3.5%,6.3%,±3.5%,3 / 48,OpenAI
+gpt-5-mini-2025-08-07_high-tier4,GPT-5 mini (high),6.3% ±3.5%,6.3%,±3.5%,3 / 48,OpenAI
+gpt-5-2025-08-07_medium-tier4,GPT-5 (medium),6.3% ±3.5%,6.3%,±3.5%,3 / 48,OpenAI
+o4-mini-2025-04-16_high-tier4,o4-mini (high),6.3% ±3.5%,6.3%,±3.5%,3 / 48,OpenAI
+gemini-2.5-flash-tier4,Gemini 2.5 Flash (Jun 2025),4.2% ±2.9%,4.2%,±2.9%,2 / 48,Google DeepMind
+gemini-3-flash-preview-tier4,Gemini 3 Flash,4.2% ±2.9%,4.2%,±2.9%,2 / 48,Google DeepMind
+claude-opus-4-5-20251101-tier4,Claude Opus 4.5 (no thinking),4.2% ±2.9%,4.2%,±2.9%,2 / 48,Anthropic
+claude-opus-4-5-20251101_32K-tier4,Claude Opus 4.5 (32k thinking),4.2% ±2.9%,4.2%,±2.9%,2 / 48,Anthropic
+gpt-5.1-2025-11-13_medium-tier4,GPT-5.1 (medium),4.2% ±2.9%,4.2%,±2.9%,2 / 48,OpenAI
+claude-sonnet-4-5-20250929_32K-tier4,Claude Sonnet 4.5 (32k thinking),4.2% ±2.9%,4.2%,±2.9%,2 / 48,Anthropic
+gpt-5-mini-2025-08-07_medium-tier4,GPT-5 mini (medium),4.2% ±2.9%,4.2%,±2.9%,2 / 48,OpenAI
+claude-opus-4-1-20250805_27K-tier4,Claude Opus 4.1 (27K thinking),4.2% ±2.9%,4.2%,±2.9%,2 / 48,Anthropic
+gemini-2.5-pro-tier4,Gemini 2.5 Pro (Jun 2025),4.2% ±2.9%,4.2%,±2.9%,2 / 48,Google DeepMind
+o3-mini-2025-01-31_high-tier4,o3-mini (high),4.2% ±2.9%,4.2%,±2.9%,2 / 48,OpenAI
+claude-opus-4-20250514_27K-tier4,Claude Opus 4 (27K thinking),4.2% ±2.9%,4.2%,±2.9%,2 / 48,Anthropic
+zai-org/GLM-4.6-tier4,GLM 4.6,2.1% ±2.1%,2.1%,±2.1%,1 / 48,"Zhipu AI,Tsinghua University"
+fireworks/deepseek-v3p2-tier4,DeepSeek-V3.2,2.1% ±2.1%,2.1%,±2.1%,1 / 48,DeepSeek
+claude-opus-4-5-20251101_16K-tier4,Claude Opus 4.5 (16k thinking),2.1% ±2.1%,2.1%,±2.1%,1 / 48,Anthropic
+claude-haiku-4-5-20251001_32K-tier4,Claude Haiku 4.5 (32K thinking),2.1% ±2.1%,2.1%,±2.1%,1 / 48,Anthropic
+claude-sonnet-4-5-20250929-tier4,Claude Sonnet 4.5 (no thinking),2.1% ±2.1%,2.1%,±2.1%,1 / 48,Anthropic
+grok-4-0709-tier4,Grok 4,2.1% ±2.1%,2.1%,±2.1%,1 / 48,xAI
+o4-mini-2025-04-16_medium-tier4,o4-mini (medium),2.1% ±2.1%,2.1%,±2.1%,1 / 48,OpenAI
+gpt-5-nano-2025-08-07_medium-tier4,GPT-5 nano (medium),2.1% ±2.1%,2.1%,±2.1%,1 / 48,OpenAI
+gemini-2.5-pro-preview-06-05-tier4,Gemini 2.5 Pro (Preview),2.1% ±2.1%,2.1%,±2.1%,1 / 48,Google DeepMind
+o3-2025-04-16_high-tier4,o3 (high),2.1% ±2.1%,2.1%,±2.1%,1 / 48,OpenAI
+Qwen/Qwen3-235B-A22B-Thinking-2507-tier4,Qwen3-235B-A22B-Thinking-2507,0.0%,0.0%,,0 / 48,Alibaba
+moonshotai/Kimi-K2-Thinking-tier4,Kimi K2 Thinking,0.0%,0.0%,,0 / 48,Moonshot
+gpt-5-nano-2025-08-07_high-tier4,GPT-5 nano (high),0.0%,0.0%,,0 / 48,OpenAI
+gpt-4.1-2025-04-14-tier4,GPT-4.1,0.0%,0.0%,,0 / 48,OpenAI
+claude-opus-4-20250514-tier4,Claude Opus 4,0.0%,0.0%,,0 / 48,Anthropic
+claude-3-5-sonnet-20240620-tier4,Claude 3.5 Sonnet (Jun 2024),0.0%,0.0%,,0 / 48,Anthropic
+claude-3-5-sonnet-20241022-tier4,Claude 3.5 Sonnet (Oct 2024),0.0%,0.0%,,0 / 48,Anthropic
+grok-3-beta-tier4,Grok 3,0.0%,0.0%,,0 / 48,xAI
+claude-sonnet-4-20250514-tier4,Claude Sonnet 4,0.0%,0.0%,,0 / 48,Anthropic

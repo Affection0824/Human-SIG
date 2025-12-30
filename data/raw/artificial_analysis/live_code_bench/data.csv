@@ -1,0 +1,372 @@
+Model,Features Creator,Intelligence LiveCodeBench (Coding)
+Gemini 3 Pro Preview (high),Google,92%
+GPT-5.2 (xhigh),OpenAI,89%
+Gemini 3 Flash,Google,91%
+Claude Opus 4.5,Anthropic,87%
+GPT-5.1 (high),OpenAI,87%
+GPT-5 Codex (high),OpenAI,84%
+GPT-5 (high),OpenAI,85%
+GLM-4.7,Z AI,89%
+Kimi K2 Thinking,Kimi,85%
+GPT-5.1 Codex (high),OpenAI,85%
+GPT-5 (medium),OpenAI,70%
+MiMo-V2-Flash,Xiaomi,87%
+DeepSeek V3.2,DeepSeek,86%
+o3,OpenAI,81%
+Grok 4,xAI,82%
+o3-pro,OpenAI,--
+Gemini 3 Pro Preview (low),Google,86%
+GPT-5 mini (high),OpenAI,84%
+Grok 4.1 Fast,xAI,82%
+MiniMax-M2.1,MiniMax,81%
+KAT-Coder-Pro V1,KwaiKAT,75%
+Claude 4.5 Sonnet,Anthropic,71%
+Nova 2.0 Pro Preview (medium),Amazon,73%
+GPT-5.1 Codex mini (high),OpenAI,84%
+GPT-5 (low),OpenAI,76%
+MiniMax-M2,MiniMax,83%
+GPT-5 mini (medium),OpenAI,69%
+gpt-oss-120B (high),OpenAI,88%
+Grok 4 Fast,xAI,83%
+Claude Opus 4.5,Anthropic,74%
+Gemini 2.5 Pro,Google,80%
+o4-mini (high),OpenAI,86%
+Claude 4.1 Opus,Anthropic,65%
+DeepSeek V3.2 Speciale,DeepSeek,90%
+Nova 2.0 Lite (medium),Amazon,66%
+DeepSeek V3.1 Terminus,DeepSeek,80%
+Nova 2.0 Pro Preview (low),Amazon,64%
+Qwen3 235B A22B 2507,Alibaba,79%
+Doubao Seed Code,ByteDance Seed,77%
+Grok 3 mini Reasoning (high),xAI,70%
+Apriel-v1.6-15B-Thinker,ServiceNow,81%
+DeepSeek V3.2 Exp,DeepSeek,79%
+Claude 4 Sonnet,Anthropic,66%
+Nova 2.0 Omni (medium),Amazon,66%
+GLM-4.6,Z AI,70%
+Qwen3 Max Thinking,Alibaba,54%
+Qwen3 Max,Alibaba,77%
+Claude 4.5 Haiku,Anthropic,62%
+Gemini 3 Flash,Google,80%
+Gemini 2.5 Flash (Sep),Google,71%
+Qwen3 VL 235B A22B,Alibaba,65%
+Qwen3 Next 80B A3B,Alibaba,78%
+Claude 4 Opus,Anthropic,64%
+Gemini 2.5 Pro (Mar),Google,78%
+DeepSeek V3.1,DeepSeek,78%
+ERNIE 5.0 Thinking Preview,Baidu,81%
+Gemini 2.5 Pro (May),Google,77%
+DeepSeek V3.2,DeepSeek,59%
+gpt-oss-20B (high),OpenAI,78%
+Magistral Medium 1.2,Mistral,75%
+DeepSeek R1 0528,DeepSeek,77%
+Qwen3 VL 32B,Alibaba,74%
+NVIDIA Nemotron 3 Nano,NVIDIA,74%
+Seed-OSS-36B-Instruct,ByteDance Seed,77%
+Apriel-v1.5-15B-Thinker,ServiceNow,73%
+GLM-4.5,Z AI,74%
+Gemini 2.5 Flash,Google,70%
+GPT-5 nano (high),OpenAI,79%
+o3-mini (high),OpenAI,73%
+GLM-4.7,Z AI,56%
+Kimi K2 0905,Kimi,61%
+Claude 3.7 Sonnet,Anthropic,47%
+Claude 4.5 Sonnet,Anthropic,59%
+GPT-5 nano (medium),OpenAI,76%
+GLM-4.5-Air,Z AI,68%
+Nova 2.0 Omni (low),Amazon,59%
+Grok Code Fast 1,xAI,66%
+Qwen3 Max (Preview),Alibaba,65%
+Kimi K2,Kimi,56%
+o3-mini,OpenAI,72%
+o1-pro,OpenAI,--
+GPT-5.2,OpenAI,67%
+Gemini 2.5 Flash-Lite (Sep),Google,69%
+gpt-oss-120B (low),OpenAI,71%
+o1,OpenAI,68%
+Nova 2.0 Lite (low),Amazon,47%
+Gemini 2.5 Flash (Sep),Google,63%
+Qwen3 30B A3B 2507,Alibaba,71%
+K2-V2 (high),MBZUAI Institute of Foundation Models,69%
+Sonar Reasoning Pro,Perplexity,--
+DeepSeek V3.2 Exp,DeepSeek,55%
+MiniMax M1 80k,MiniMax,71%
+MiMo-V2-Flash,Xiaomi,40%
+Gemini 2.5 Flash,Google,51%
+DeepSeek V3.1 Terminus,DeepSeek,53%
+Qwen3 235B 2507,Alibaba,52%
+Qwen3 VL 30B A3B,Alibaba,70%
+Grok 3,xAI,43%
+Llama Nemotron Super 49B v1.5,NVIDIA,74%
+Motif-2-12.7B,Motif Technologies,65%
+o1-preview,OpenAI,--
+Qwen3 Next 80B A3B,Alibaba,68%
+Ling-1T,InclusionAI,68%
+DeepSeek V3.1,DeepSeek,58%
+GLM-4.6,Z AI,56%
+Claude 4.1 Opus,Anthropic,--
+HyperCLOVA X SEED Think (32B),Naver,63%
+Claude 4 Sonnet,Anthropic,45%
+gpt-oss-20B (low),OpenAI,65%
+Qwen3 VL 235B A22B,Alibaba,59%
+DeepSeek R1 (Jan),DeepSeek,62%
+Mi:dm K 2.5 Pro Preview,Korea Telecom,58%
+GPT-5 (minimal),OpenAI,56%
+GPT-4.1,OpenAI,46%
+Qwen3 4B 2507,Alibaba,64%
+Magistral Small 1.2,Mistral,72%
+GPT-5.1,OpenAI,49%
+EXAONE 4.0 32B,LG AI Research,75%
+GPT-4.1 mini,OpenAI,48%
+Claude 4 Opus,Anthropic,54%
+Qwen3 Coder 480B,Alibaba,59%
+Nova 2.0 Pro Preview,Amazon,47%
+Ring-1T,InclusionAI,64%
+GPT-5 (ChatGPT),OpenAI,54%
+Claude 4.5 Haiku,Anthropic,51%
+Qwen3 235B,Alibaba,62%
+Gemini 2.5 Flash-Lite (Sep),Google,64%
+GPT-5 mini (minimal),OpenAI,55%
+Hermes 4 405B,Nous Research,69%
+Grok 3 Reasoning Beta,xAI,--
+DeepSeek V3 0324,DeepSeek,41%
+Claude 3.7 Sonnet,Anthropic,39%
+Qwen3 VL 32B,Alibaba,51%
+GLM-4.6V,Z AI,16%
+NVIDIA Nemotron Nano 12B v2 VL,NVIDIA,69%
+Gemini 2.5 Flash,Google,50%
+Gemini 2.5 Flash-Lite,Google,59%
+MiniMax M1 40k,MiniMax,66%
+K2-V2 (medium),MBZUAI Institute of Foundation Models,54%
+Qwen3 Omni 30B A3B,Alibaba,68%
+Ring-flash-2.0,InclusionAI,63%
+o1-mini,OpenAI,58%
+Hermes 4 70B,Nous Research,65%
+Qwen3 32B,Alibaba,55%
+Grok 4 Fast,xAI,40%
+Llama Nemotron Ultra,NVIDIA,64%
+Qwen3 VL 30B A3B,Alibaba,48%
+Mistral Large 3,Mistral,47%
+GPT-4.5 (Preview),OpenAI,--
+Olmo 3.1 32B Think,Allen Institute for AI,70%
+Ling-flash-2.0,InclusionAI,59%
+Grok 4.1 Fast,xAI,40%
+QwQ-32B,Alibaba,63%
+Solar Pro 2,Upstage,62%
+Gemini 2.0 Flash Thinking exp. (Jan),Google,32%
+NVIDIA Nemotron Nano 9B V2,NVIDIA,72%
+GLM-4.5V,Z AI,60%
+Qwen3 30B A3B 2507,Alibaba,52%
+Qwen3 30B,Alibaba,51%
+Devstral 2,Mistral,45%
+OLMo 3 32B Think,Allen Institute for AI,67%
+Solar Pro 2,Upstage,46%
+NVIDIA Nemotron Nano 9B V2,NVIDIA,70%
+Qwen3 14B,Alibaba,52%
+Llama 4 Maverick,Meta,40%
+Nova 2.0 Lite,Amazon,35%
+GPT-4o (Mar),OpenAI,43%
+Llama 3.3 Nemotron Super 49B,NVIDIA,28%
+Mistral Medium 3.1,Mistral,41%
+Gemini 2.0 Pro Experimental,Google,35%
+Sonar Reasoning,Perplexity,--
+Gemini 2.5 Flash,Google,41%
+Nova 2.0 Omni,Amazon,31%
+Mistral Medium 3,Mistral,40%
+Gemini 2.0 Flash,Google,33%
+Qwen3 Coder 30B A3B,Alibaba,40%
+Magistral Medium 1,Mistral,53%
+ERNIE 4.5 300B A47B,Baidu,47%
+DeepSeek R1 Distill Qwen 32B,DeepSeek,27%
+Hermes 4 405B,Nous Research,55%
+DeepSeek V3 (Dec),DeepSeek,36%
+Nova Premier,Amazon,32%
+Qwen3 VL 8B,Alibaba,35%
+OLMo 3 7B Think,Allen Institute for AI,62%
+Magistral Small 1,Mistral,51%
+Gemini 2.0 Flash (exp),Google,21%
+Devstral Small 2,Mistral,35%
+K2-V2 (low),MBZUAI Institute of Foundation Models,39%
+DeepSeek R1 0528 Qwen3 8B,DeepSeek,51%
+Qwen2.5 Max,Alibaba,36%
+Ministral 14B (Dec '25),Mistral,35%
+GLM-4.6V,Z AI,41%
+Qwen3 4B 2507,Alibaba,38%
+EXAONE 4.0 32B,LG AI Research,47%
+Solar Pro 2,Upstage,42%
+Qwen3 Omni 30B A3B,Alibaba,42%
+Gemini 2.5 Flash-Lite,Google,40%
+Gemini 1.5 Pro (Sep),Google,32%
+Solar Pro 2,Upstage,39%
+Qwen3 235B,Alibaba,34%
+DeepSeek R1 Distill Llama 70B,DeepSeek,27%
+Claude 3.5 Sonnet (Oct),Anthropic,38%
+DeepSeek R1 Distill Qwen 14B,DeepSeek,38%
+Qwen3 14B,Alibaba,28%
+Mistral Small 3.2,Mistral,28%
+GPT-5 nano (minimal),OpenAI,47%
+GPT-4o (Aug),OpenAI,32%
+Qwen2.5 72B,Alibaba,28%
+Sonar,Perplexity,30%
+Qwen3 8B,Alibaba,41%
+Ministral 8B (Dec '25),Mistral,30%
+Sonar Pro,Perplexity,28%
+Llama 4 Scout,Meta,30%
+Llama 3.1 405B,Meta,31%
+QwQ 32B-Preview,Alibaba,34%
+Llama 3.3 70B,Meta,29%
+Devstral Medium,Mistral,34%
+Ling-mini-2.0,InclusionAI,43%
+Qwen3 VL 4B,Alibaba,32%
+GPT-4.1 nano,OpenAI,33%
+Devstral Small,Mistral,25%
+Qwen3 VL 8B,Alibaba,33%
+GPT-4o (Nov),OpenAI,31%
+Command A,Cohere,29%
+Gemini 2.0 Flash-Lite (Feb),Google,19%
+Mistral Large 2 (Nov),Mistral,29%
+Exaone 4.0 1.2B,LG AI Research,52%
+Llama Nemotron Super 49B v1.5,NVIDIA,29%
+Qwen3 30B,Alibaba,32%
+Qwen3 32B,Alibaba,29%
+GPT-4o (May),OpenAI,33%
+Gemini 2.0 Flash-Lite (Preview),Google,18%
+Llama 3.1 Nemotron Nano 4B v1.1,NVIDIA,49%
+Kimi Linear 48B A3B Instruct,Kimi,38%
+GLM-4.5V,Z AI,35%
+Reka Flash 3,Reka AI,44%
+Llama 3.3 Nemotron Super 49B,NVIDIA,28%
+Qwen3 4B,Alibaba,47%
+NVIDIA Nemotron 3 Nano,NVIDIA,36%
+Claude 3.5 Sonnet (June),Anthropic,--
+NVIDIA Nemotron Nano 12B v2 VL,NVIDIA,35%
+Tulu3 405B,Allen Institute for AI,29%
+GPT-4o (ChatGPT),OpenAI,--
+Qwen3 VL 4B,Alibaba,29%
+Nova Pro,Amazon,23%
+Pixtral Large,Mistral,26%
+Mistral Small 3.1,Mistral,21%
+Grok 2,xAI,27%
+Gemini 1.5 Flash (Sep),Google,27%
+GPT-4 Turbo,OpenAI,29%
+Hermes 4 70B,Nous Research,27%
+Llama 3.1 Nemotron 70B,NVIDIA,17%
+Grok Beta,xAI,24%
+Qwen3 8B,Alibaba,20%
+Qwen2.5 Instruct 32B,Alibaba,25%
+Granite 4.0 H Small,IBM,25%
+Phi-4,Microsoft Azure,23%
+Llama 3.1 70B,Meta,23%
+Qwen3 1.7B,Alibaba,31%
+Mistral Large 2 (Jul),Mistral,27%
+OLMo 3 7B,Allen Institute for AI,27%
+Gemma 3 27B,Google,14%
+Qwen2.5 Coder 32B,Alibaba,30%
+Ministral 3B (Dec '25),Mistral,25%
+GPT-4,OpenAI,--
+Nova Lite,Amazon,17%
+Mistral Small 3,Mistral,25%
+GPT-4o mini,OpenAI,23%
+Jamba Reasoning 3B,AI21 Labs,21%
+Jamba 1.7 Large,AI21 Labs,18%
+DeepSeek-V2.5 (Dec),DeepSeek,--
+Qwen3 4B,Alibaba,23%
+Claude 3 Opus,Anthropic,28%
+Exaone 4.0 1.2B,LG AI Research,29%
+Gemma 3 12B,Google,14%
+Claude 3.5 Haiku,Anthropic,31%
+Gemini 2.0 Flash Thinking exp. (Dec),Google,--
+DeepSeek-V2.5,DeepSeek,--
+Devstral Small (May),Mistral,26%
+Mistral Saba,Mistral,--
+DeepSeek R1 Distill Llama 8B,DeepSeek,23%
+Gemini 1.5 Pro (May),Google,24%
+R1 1776,Perplexity,--
+Qwen2.5 Turbo,Alibaba,16%
+Reka Flash,Reka AI,--
+Llama 3.2 90B (Vision),Meta,21%
+Solar Mini,Upstage,--
+Grok-1,xAI,--
+Qwen2 72B,Alibaba,16%
+Nova Micro,Amazon,14%
+LFM2 8B A1B,Liquid AI,15%
+Llama 3.1 8B,Meta,12%
+Gemini 1.5 Flash-8B,Google,22%
+Granite 4.0 Micro,IBM,18%
+Phi-4 Mini,Microsoft Azure,13%
+DeepHermes 3 - Mistral 24B,Nous Research,20%
+Llama 3.2 11B (Vision),Meta,11%
+Gemma 3n E4B,Google,15%
+Granite 3.3 8B,IBM,13%
+Jamba 1.5 Large,AI21 Labs,14%
+Jamba 1.7 Mini,AI21 Labs,6%
+Gemma 3 4B,Google,11%
+Hermes 3 - Llama-3.1 70B,Nous Research,19%
+DeepSeek-Coder-V2,DeepSeek,--
+Qwen3 1.7B,Alibaba,13%
+OLMo 2 32B,Allen Institute for AI,7%
+Jamba 1.6 Large,AI21 Labs,17%
+Qwen3 0.6B,Alibaba,12%
+Gemini 1.5 Flash (May),Google,20%
+Granite 4.0 H 1B,IBM,12%
+Claude 3 Sonnet,Anthropic,18%
+Granite 4.0 1B,IBM,5%
+Llama 3 70B,Meta,20%
+Mistral Small (Sep),Mistral,14%
+Gemini 1.0 Ultra,Google,--
+Phi-3 Mini,Microsoft Azure,12%
+Gemma 3n E4B (May),Google,14%
+Phi-4 Multimodal,Microsoft Azure,13%
+Qwen2.5 Coder 7B,Alibaba,13%
+Mistral Large (Feb),Mistral,18%
+LFM2 2.6B,Liquid AI,8%
+Mixtral 8x22B,Mistral,15%
+Llama 2 Chat 7B,Meta,0%
+Gemma 3n E2B,Google,10%
+Llama 3.2 3B,Meta,8%
+Qwen3 0.6B,Alibaba,7%
+Qwen1.5 Chat 110B,Alibaba,--
+LFM2 1.2B,Liquid AI,2%
+Claude 2.1,Anthropic,20%
+Claude 3 Haiku,Anthropic,15%
+OLMo 2 7B,Allen Institute for AI,4%
+Molmo 7B-D,Allen Institute for AI,4%
+Llama 3.2 1B,Meta,2%
+DeepSeek R1 Distill Qwen 1.5B,DeepSeek,7%
+Claude 2.0,Anthropic,17%
+DeepSeek-V2,DeepSeek,--
+Mistral Small (Feb),Mistral,11%
+Mistral Medium,Mistral,10%
+GPT-3.5 Turbo,OpenAI,--
+Granite 4.0 H 350M,IBM,2%
+Granite 4.0 350M,IBM,2%
+Arctic,Snowflake,--
+Qwen Chat 72B,Alibaba,--
+LFM 40B,Liquid AI,10%
+Llama 3 8B,Meta,10%
+Gemma 3 1B,Google,2%
+PALM-2,Google,--
+Gemini 1.0 Pro,Google,12%
+DeepSeek Coder V2 Lite,DeepSeek,16%
+Gemma 3 270M,Google,0%
+Llama 2 Chat 70B,Meta,10%
+DeepSeek LLM 67B (V1),DeepSeek,--
+Llama 2 Chat 13B,Meta,10%
+Command-R+ (Apr),Cohere,12%
+OpenChat 3.5,OpenChat,12%
+DBRX,Databricks,9%
+Jamba 1.5 Mini,AI21 Labs,6%
+Jamba 1.6 Mini,AI21 Labs,7%
+Mixtral 8x7B,Mistral,7%
+DeepHermes 3 - Llama-3.1 8B,Nous Research,9%
+Llama 65B,Meta,--
+Qwen Chat 14B,Alibaba,--
+Claude Instant,Anthropic,11%
+Mistral 7B,Mistral,5%
+Command-R (Mar),Cohere,5%
+DeepSeek-OCR,DeepSeek,--
+Grok Voice Agent,xAI,--
+Cogito v2.1,Deep Cogito,69%
+GPT-4o Realtime (Dec),OpenAI,--
+GPT-4o mini Realtime (Dec),OpenAI,--
+GPT-3.5 Turbo (0613),OpenAI,--

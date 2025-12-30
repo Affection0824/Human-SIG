@@ -3,7 +3,7 @@ name = "human-sig"
 version = "0.1.0"
 description = "Benchmark data scraping, processing, and statistical analysis pipeline"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.11"
 dependencies = [
     # Core dependencies (required for all methods)
     "pandas>=2.3.3",
@@ -20,4 +20,7 @@ dependencies = [
     "scipy>=1.16.3",
     "statsmodels>=0.14.6",
     "seaborn>=0.13.2",
+    "openpyxl>=3.1.5",
+    "fuzzywuzzy>=0.18.0",
+    "python-levenshtein>=0.27.3",
 ]

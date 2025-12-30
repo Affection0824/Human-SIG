@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Unified Model Registry mapping benchmark model names to LMArena model IDs",
+  "patternProperties": {
+    "^.+$": {
+      "type": "string",
+      "description": "Maps a benchmark model name (key) to its corresponding LMArena model ID (value). Used for entity resolution in Step 3.2."
+    }
+  },
+  "additionalProperties": false
+}
