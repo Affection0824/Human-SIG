@@ -8,74 +8,101 @@
 data/raw/
 ├── lmarena_leaderboard/          # LMArena数据（已预先准备好）
 │   └── filtered_elo_dump.json    # 包含所有LMArena类别的过滤和合并后的ELO分数
-├── benchmarks_with_data/          # 已有数据的benchmark
-│   ├── manual_direct/            # 没有爬取脚本，直接获取的数据
-│   │   └── {benchmark_name}/     # 每个benchmark一个文件夹
-│   │       └── {name}_data.csv   # 数据文件（CSV或JSON）
-│   ├── pandas_read_html/         # pandas.read_html方法爬取的数据
-│   │   └── {benchmark_name}/
-│   │       ├── input.txt         # URL文件，包含一行URL
-│   │       ├── scraper.py        # 爬取脚本
-│   │       └── {name}_data.csv   # 数据文件
-│   └── selenium/                 # Selenium方法爬取的数据
-│       └── {benchmark_name}/
-│           ├── input.txt         # URL文件，包含一行URL
-│           ├── scraper.py        # 爬取脚本
-│           └── {name}_data.csv   # 数据文件
-└── benchmarks_without_data/      # 还没有数据的benchmark
-    ├── artificial_analysis/      # 需要从Artificial Analysis总表提取
-    │   ├── input.txt             # 统一表格说明文件
-    │   └── {benchmark_name}/
-    │       ├── input.txt         # 统一表格HTML文件路径说明
-    │       ├── scraper.py        # 提取脚本（可选，待实现）
-    │       └── {name}_data.csv   # 提取后的数据文件
-    ├── vals_ai/                  # 需要从VALS.ai抓取
-    │   └── {benchmark_name}/
-    │       ├── input.txt         # URL文件
-    │       ├── {name}_input.json # 从网页源码复制的JSON数据（可能包含前后无关信息）
-    │       ├── scraper.py        # 转换脚本（将JSON转换为CSV）
-    │       └── {name}_data.csv   # 最终数据文件（CSV格式）
-    ├── lmarena/                  # LMArena数据已预先准备好（保留目录，实际数据在lmarena_leaderboard/）
-    │   └── {benchmark_name}/
-    │       ├── input.txt         # URL文件
-    │       ├── scraper.py        # 爬取脚本
-    │       └── {name}_data.csv   # 数据文件
-    └── manual_source_code/       # 需要从网页源码手动提取数据
-        └── {benchmark_name}/
-            ├── input.txt         # URL文件
-            └── {name}_data.csv   # 手动提取的数据文件
+├── artificial_analysis/          # Artificial Analysis统一表格提取
+│   ├── input.html                # 用户手动复制的<table>元素HTML（统一表格，所有benchmark共享）
+│   └── {benchmark_name}/         # 每个benchmark一个文件夹
+│       ├── input.txt             # 可选：benchmark说明或引用
+│       ├── scraper.py            # 提取脚本（可选，由agent生成）
+│       └── data.csv              # 提取后的数据文件
+├── frontiermath/                 # FrontierMath（manual_source_code方法）
+│   ├── frontiermath_tier_1_3/
+│   │   ├── input.html            # 用户手动复制的<table>元素HTML
+│   │   ├── scraper.py            # 提取脚本（可选，由agent生成）
+│   │   └── data.csv              # 提取后的数据文件
+│   └── frontiermath_tier4/
+│       ├── input.html            # 用户手动复制的<table>元素HTML
+│       ├── scraper.py            # 提取脚本（可选，由agent生成）
+│       └── data.csv              # 提取后的数据文件
+├── lmarena/                      # LMArena数据（lmarena方法）
+│   ├── common.py                 # 公共代码逻辑（由agent提取）
+│   ├── overall/                  # Overall category
+│   │   ├── input.html            # 用户手动复制的<table>元素HTML
+│   │   ├── scraper.py            # 提取脚本（可选，由agent生成）
+│   │   └── data.csv              # 提取后的数据文件
+│   ├── coding/                   # Coding category
+│   ├── math/                     # Math category
+│   ├── instruction_following/    # Instruction Following category
+│   ├── creative_writing/         # Creative Writing category
+│   ├── hard_prompts/             # Hard Prompts category
+│   └── expert/                   # Expert category
+│       ├── input.html            # 用户手动复制的<table>元素HTML
+│       ├── scraper.py            # 提取脚本（可选，由agent生成）
+│       └── data.csv              # 提取后的数据文件
+├── manual_direct/                # 直接提供的数据文件
+│   └── {benchmark_name}/
+│       └── data.csv              # 或data.xlsx（用户直接提供，重命名即可）
+├── pandas_read_html/             # pandas.read_html方法
+│   ├── common.py                 # 公共代码逻辑（由agent提取）
+│   └── {benchmark_name}/
+│       ├── input.txt             # URL文件（一行URL）
+│       ├── scraper.py            # 爬取脚本（调用common.py，包含benchmark特定逻辑）
+│       └── data.csv              # 爬取后的数据文件
+├── selenium/                     # Selenium方法
+│   ├── common.py                 # 公共代码逻辑（由agent提取）
+│   └── {benchmark_name}/
+│       ├── input.txt             # URL文件（一行URL）
+│       ├── scraper.py            # 爬取脚本（调用common.py，包含benchmark特定逻辑）
+│       └── data.csv              # 爬取后的数据文件
+└── vals_ai/                      # VALS.ai平台数据
+    └── {benchmark_name}/
+        ├── input.txt             # 可选：URL或说明
+        ├── input.json            # 用户手动复制的JSON元素（从网页源码）
+        ├── scraper.py            # 转换脚本（可选，由agent生成）
+        └── data.csv              # 转换后的数据文件
 ```
 
 ## 文件命名规则
 
 每个benchmark文件夹中的文件命名遵循以下规则：
-- `input.txt` 或 `input.html`: 输入文件
+- `input.txt` 或 `input.html` 或 `input.json`: 输入文件
   - **对于可爬取的benchmark（pandas_read_html, selenium）**: 包含一行URL
-  - **对于需要手动获取数据的benchmark（artificial_analysis, vals_ai, manual_source_code）**: 包含URL或数据获取说明，或者直接包含用户提供的数据
-  - **对于artificial_analysis的统一表格**: `artificial_analysis/input.html` 或 `artificial_analysis/input.txt`（说明文件）
-  - **注意**: LMArena数据已预先准备好，不需要爬取，直接从 `lmarena_leaderboard/filtered_elo_dump.json` 加载
-- `scraper.py`: 数据提取/转换脚本（Python文件，仅存在于有脚本的benchmark）
-- `{name}_data.csv` 或 `{name}_data.json`: 最终的数据文件
+  - **对于artificial_analysis**: `artificial_analysis/input.html` 是统一表格HTML文件（所有benchmark共享），各benchmark目录下的`input.txt`可选
+  - **对于frontiermath**: 每个子目录中的`input.html`包含该子目录对应的`<table>`元素HTML
+  - **对于lmarena**: 每个category子目录中的`input.html`包含该category的`<table>`元素HTML
+  - **对于vals_ai**: `input.json`包含从网页源码复制的JSON数据（可能包含前后无关信息）
+- `scraper.py`: 数据提取/转换脚本（Python文件，可选，由agent生成）
+- `data.csv`: 最终的数据文件（统一命名，不再使用`{name}_data.csv`）
+- `data.xlsx`: 对于manual_direct方法，用户可能直接提供Excel文件，需要转换为`data.csv`
 
-**说明**：
-- 由于每个benchmark都有自己的文件夹，输入文件和脚本文件不需要包含benchmark名称，直接使用 `input.txt/html` 和 `scraper.py`
-- `{name}` 是benchmark名称的文件系统友好版本（小写，空格和下划线替换，特殊字符处理），仅用于数据文件
+**重要说明**：
+- **统一文件命名**：所有benchmark的数据文件统一命名为`data.csv`（不再使用`{name}_data.csv`）
+- **公共代码提取**：对于`pandas_read_html`、`selenium`和`lmarena`方法，公共代码逻辑提取到方法目录下的`common.py`，各benchmark的`scraper.py`调用`common.py`并包含benchmark特定逻辑
+- **断点续传逻辑**：Agent必须首先检查每个benchmark目录中是否存在`data.csv`。如果存在，直接使用；如果不存在，检查`scraper.py`是否存在，存在则执行；如果都不存在但输入文件存在，则创建`scraper.py`并执行
 
 ## 各类别的文件格式说明
 
-### 1. 已有数据的benchmark
+### 1. manual_direct（直接提供的数据文件）
 
-#### 1.1 manual_direct（没有爬取脚本，直接获取的数据）
+**目录：** `data/raw/manual_direct/{benchmark_name}/`
 
 **文件格式：**
 
-1. **`{name}_data.csv`** 或 **`{name}_data.json`**
-   - 格式：CSV文件（UTF-8编码）或JSON文件
+1. **`data.csv`** 或 **`data.xlsx`**
+   - 格式：CSV文件（UTF-8编码）或Excel文件
    - 必需列（CSV）：`model_name`（字符串）, `score`（浮点数，0-100范围）
+   - 如果提供的是`data.xlsx`，需要使用pandas读取并转换为`data.csv`
+
+**操作流程：**
+- 检查目录中是否存在`data.csv`或`data.xlsx`
+- 如果存在`data.xlsx`，转换为`data.csv`（使用pandas读取并保存为CSV）
+- 如果存在`data.csv`，直接使用
+- 如果都不存在，跳过该条目
+
+**注意：** 此方法不需要创建脚本，只需重命名或转换文件格式
 
 **示例：**
-- `facts/facts_data.csv`: 包含model_name和score列的CSV文件
-- `writingbench/writingbench_data.csv`: 从网页上下载/获取的数据文件，包含model_name和score列（位于 `benchmarks_with_data/manual_direct/writingbench/`）
+- `facts/data.csv`: 包含model_name和score列的CSV文件
+- `writingbench/data.csv`: 从网页上下载/获取的数据文件，包含model_name和score列
 
 ---
 
@@ -90,10 +117,11 @@ data/raw/
 2. **`scraper.py`** (Python脚本)
    - 功能：使用 `pandas.read_html()` 从URL读取HTML表格并保存为CSV
    - 输入：读取 `input.txt` 文件中的URL
-   - 输出：生成 `{name}_data.csv`
+   - 输出：生成 `data.csv`
    - 必需库：`pandas`, `html5lib`, `lxml`（推荐）
+   - **代码组织**：调用`pandas_read_html/common.py`的公共函数，实现benchmark特定的列名映射、数据清洗、表格选择逻辑
 
-3. **`{name}_data.csv`**
+3. **`data.csv`**
    - 格式：CSV文件（UTF-8编码）
    - 必需列：`model_name`（字符串）, `score`（浮点数，0-100范围）
 
@@ -131,13 +159,13 @@ df = tables[0]  # 通常第一个表格包含排行榜数据
 # 例如：可能列名是 'Model', 'Score', 'Accuracy' 等
 # 需要进行映射：df.rename(columns={'Model': 'model_name', 'Score': 'score'}, inplace=True)
 df = df[['model_name', 'score']]  # 根据实际列名调整
-df.to_csv(script_dir / '{name}_data.csv', index=False, encoding='utf-8')
-print(f"数据已保存到: {script_dir / '{name}_data.csv'}")
+df.to_csv(script_dir / 'data.csv', index=False, encoding='utf-8')
+print(f"数据已保存到: {script_dir / 'data.csv'}")
 ```
 
 **运行方式：**
 ```bash
-cd data/raw/benchmarks_with_data/pandas_read_html/{benchmark_name}
+cd data/raw/pandas_read_html/{benchmark_name}
 python scraper.py
 ```
 
@@ -148,7 +176,9 @@ pip install pandas html5lib lxml
 
 ---
 
-#### 1.3 selenium（Selenium方法爬取的数据）
+### 3. selenium（Selenium方法爬取的数据）
+
+**目录：** `data/raw/selenium/{benchmark_name}/`
 
 **文件格式：**
 
@@ -159,12 +189,17 @@ pip install pandas html5lib lxml
 2. **`scraper.py`** (Python脚本)
    - 功能：使用Selenium WebDriver渲染JavaScript，提取表格HTML，解析并保存为CSV
    - 输入：读取 `input.txt` 文件中的URL
-   - 输出：生成 `{name}_data.csv`
+   - 输出：生成 `data.csv`
    - 必需库：`selenium`, `pandas`, Chrome浏览器
+   - **代码组织**：调用`selenium/common.py`的公共函数，实现benchmark特定的等待时间、元素选择器、表格选择逻辑
 
-3. **`{name}_data.csv`**
+3. **`data.csv`**
    - 格式：CSV文件（UTF-8编码）
    - 必需列：`model_name`（字符串）, `score`（浮点数，0-100范围）
+
+4. **`common.py`** (可选，在`selenium/`目录下)
+   - 公共代码逻辑（由agent提取）
+   - 实现通用的Selenium浏览器设置（Chrome headless模式）、页面加载等待逻辑、表格提取逻辑
 
 **脚本模板：**
 ```python
@@ -256,7 +291,7 @@ def main():
     
     if df is not None:
         script_dir = Path(__file__).parent
-        output_file = script_dir / '{name}_data.csv'
+        output_file = script_dir / 'data.csv'
         df.to_csv(output_file, index=False, encoding='utf-8')
         print(f"数据已保存到: {output_file}")
         print(f"数据形状: {df.shape}")
@@ -269,7 +304,7 @@ if __name__ == "__main__":
 
 **运行方式：**
 ```bash
-cd data/raw/benchmarks_with_data/selenium/{benchmark_name}
+cd data/raw/selenium/{benchmark_name}
 python scraper.py
 ```
 
@@ -297,14 +332,14 @@ pip install selenium pandas
 
 ---
 
-### 2. 还没有数据的benchmark
+### 4. artificial_analysis（需要从Artificial Analysis总表提取）
 
-#### 2.1 artificial_analysis（需要从Artificial Analysis总表提取）
+**目录：** `data/raw/artificial_analysis/{benchmark_name}/`
 
 **文件格式：**
 
 1. **`artificial_analysis/input.html`** (HTML文件)
-   - 位置：`data/raw/benchmarks_without_data/artificial_analysis/input.html`
+   - 位置：`data/raw/artificial_analysis/input.html`
    - 内容：从 https://artificialanalysis.ai/leaderboards/models 手动复制的完整 `<table>` 元素HTML
    - 获取方法：
      1. 访问 https://artificialanalysis.ai/leaderboards/models
@@ -312,16 +347,17 @@ pip install selenium pandas
      3. 在Elements标签页中找到 `<table>` 元素
      4. 右键点击 `<table>` 标签，选择 "Copy" -> "Copy element" 或 "Copy outerHTML"
      5. 将复制的HTML保存为 `input.html` 文件到 `artificial_analysis/` 目录下
-
-2. **`{name}/input.txt`** (说明文件)
-   - 位置：每个benchmark文件夹下的 `input.txt`
-   - 内容：指向统一表格的说明
-
-3. **`scraper.py`** (Python脚本，可选)
-   - 功能：从统一表格HTML中提取指定benchmark的数据列
-   - 输入：读取 `artificial_analysis/input.html`
-   - 输出：生成 `{name}_data.csv`
    - 说明：所有artificial_analysis类别的benchmark共享同一个统一表格HTML文件
+
+2. **`{benchmark_name}/input.txt`** (可选)
+   - 位置：每个benchmark文件夹下的 `input.txt`
+   - 内容：benchmark说明或引用
+
+3. **`scraper.py`** (Python脚本，可选，由agent生成)
+   - 功能：从统一表格HTML中提取指定benchmark的数据列
+   - 输入：读取 `../input.html`（父目录的统一表格文件）
+   - 输出：生成 `data.csv`
+   - 说明：每个benchmark的`scraper.py`独立实现，因为不同benchmark在统一表格中的列名不同
 
 **脚本模板：**
 ```python
@@ -369,7 +405,7 @@ def extract_benchmark_data():
     })
     
     # 保存结果
-    output_file = script_dir / "{name}_data.csv"
+    output_file = script_dir / "data.csv"
     result_df.to_csv(output_file, index=False, encoding='utf-8')
     print(f"数据已保存到: {output_file}")
 
@@ -379,18 +415,18 @@ if __name__ == "__main__":
 
 **运行方式：**
 ```bash
-cd data/raw/benchmarks_without_data/artificial_analysis/{benchmark_name}
+cd data/raw/artificial_analysis/{benchmark_name}
 python scraper.py
 ```
 
-4. **`{name}_data.csv`** (最终数据文件)
+4. **`data.csv`** (最终数据文件)
    - 格式：CSV文件（UTF-8编码）
    - 必需列：`model_name`（字符串）, `score`（浮点数，0-100范围）
 
 **执行流程：**
 1. 确保 `artificial_analysis/input.html` 文件存在（需要用户手动提供）
 2. 对于每个benchmark，运行对应的 `scraper.py`（如果存在）
-3. 脚本从统一表格中提取该benchmark对应的列，生成 `{name}_data.csv`
+3. 脚本从统一表格中提取该benchmark对应的列，生成 `data.csv`
 
 **包含的benchmark：**
 - Terminal-Bench Hard
@@ -406,27 +442,29 @@ python scraper.py
 
 ---
 
-#### 2.2 vals_ai（需要从VALS.ai抓取）
+### 5. vals_ai（需要从VALS.ai抓取）
+
+**目录：** `data/raw/vals_ai/{benchmark_name}/`
 
 **文件格式：**
 
-1. **`input.txt`** (文本文件)
-   - 包含：VALS.ai平台benchmark URL
-   - 格式：一行URL
+1. **`input.txt`** (可选)
+   - 包含：VALS.ai平台benchmark URL或说明
+   - 格式：一行URL或说明文本
 
-2. **`{name}_input.json`** (JSON文件)
+2. **`input.json`** (JSON文件)
    - 说明：用户需要从网页源码中复制JSON数据。这个JSON文件可能包含前后无关的信息，需要脚本提取有效的JSON部分
    - 获取方法：
      1. 打开浏览器开发者工具（F12）
      2. 查看网页源码（View Page Source）或在Elements标签页中查找包含JSON数据的`<script>`标签
      3. 复制包含leaderboard数据的JSON片段（可能包含前后无关的文本或HTML）
-     4. 将复制的数据保存为 `{name}_input.json` 文件到benchmark文件夹
+     4. 将复制的数据保存为 `input.json` 文件到benchmark文件夹
 
-3. **`scraper.py`** (Python脚本)
-   - 功能：从 `{name}_input.json` 文件中提取有效的JSON数据并转换为CSV格式
-   - 输入：读取 `{name}_input.json` 文件（需要处理可能的前后无关信息）
-   - 输出：生成 `{name}_data.csv`（与其他benchmark统一的CSV格式）
-   - 必需列：`model_name`（字符串）, `score`（浮点数，0-100范围）
+3. **`scraper.py`** (Python脚本，可选，由agent生成)
+   - 功能：从 `input.json` 文件中提取有效的JSON数据并转换为CSV格式
+   - 输入：读取 `input.json` 文件（需要处理可能的前后无关信息）
+   - 输出：生成 `data.csv`（与其他benchmark统一的CSV格式）
+   - 说明：每个benchmark的`scraper.py`独立实现，因为不同benchmark的JSON结构可能不同
 
 **脚本模板：**
 ```python
@@ -480,10 +518,10 @@ def convert_json_to_csv():
     script_dir = Path(__file__).parent
     
     # 读取JSON输入文件
-    json_input_file = script_dir / "{name}_input.json"
+    json_input_file = script_dir / "input.json"
     if not json_input_file.exists():
         print(f"错误: 找不到JSON输入文件 {json_input_file}")
-        print("请按照README说明从网页源码复制JSON数据并保存为{name}_input.json")
+        print("请按照README说明从网页源码复制JSON数据并保存为input.json")
         sys.exit(1)
     
     # 提取有效的JSON数据
@@ -508,7 +546,7 @@ def convert_json_to_csv():
     df = pd.DataFrame(records)
     
     # 保存为CSV（与其他benchmark统一的格式）
-    output_file = script_dir / "{name}_data.csv"
+    output_file = script_dir / "data.csv"
     df.to_csv(output_file, index=False, encoding='utf-8')
     print(f"CSV数据已保存到: {output_file}")
 
@@ -516,18 +554,16 @@ if __name__ == "__main__":
     convert_json_to_csv()
 ```
 
-4. **`{name}_data.csv`** (最终数据文件)
+4. **`data.csv`** (最终数据文件)
    - 格式：CSV文件（UTF-8编码）
    - 必需列：`model_name`（字符串）, `score`（浮点数，0-100范围）
    - 说明：最终输出格式与其他benchmark统一，均为CSV格式
 
 **执行流程：**
-1. 确保 `input.txt` 文件存在，包含正确的URL
-2. 从网页源码复制JSON数据，保存为 `{name}_input.json`
-3. 运行 `scraper.py` 脚本，将JSON数据转换为CSV格式
-4. 脚本生成 `{name}_data.csv` 文件
-
-**注意：** MATH-500已有CSV数据，已移至 `benchmarks_with_data/manual_direct/math_500/`。如果后续需要JSON格式的原始数据，可以从VALS.ai平台网页源码复制JSON数据。
+1. 确保 `input.txt` 文件存在（可选），包含正确的URL或说明
+2. 从网页源码复制JSON数据，保存为 `input.json`
+3. 运行 `scraper.py` 脚本（如果存在），将JSON数据转换为CSV格式
+4. 脚本生成 `data.csv` 文件
 
 **包含的benchmark（待获取数据）：**
 - MGSM
@@ -582,34 +618,48 @@ if __name__ == "__main__":
 
 ## 数据提取执行指南
 
-### 对于已有数据的benchmark
+### 断点续传逻辑
 
-1. **确认数据文件存在：** 检查 `{name}_data.csv` 或 `{name}_data.json` 文件是否存在
-2. **验证数据格式：** 确认数据文件包含必需的列（`model_name`, `score`）
-3. **如需重新爬取：** 运行对应的 `scraper.py` 脚本（如果存在）
+**核心原则：**
+- Agent必须首先检查每个benchmark目录中是否存在`data.csv`
+- 如果`data.csv`已存在，直接使用该文件，跳过数据生成步骤
+- 如果`data.csv`不存在，则检查是否存在`scraper.py`
+  - 如果`scraper.py`存在，执行它生成`data.csv`
+  - 如果`scraper.py`不存在，但存在`input.txt`（或`input.html`、`input.json`），则根据`scraping_method`创建`scraper.py`并执行
 
-### 对于还没有数据的benchmark
+**执行流程：**
+1. 遍历所有benchmark和LMArena category（从`Human-SIG/config/metadata.json`读取，包括所有条目）
+2. 对于每个条目：
+   - 读取`scraping_method`字段，确定数据获取方法
+   - 检查benchmark目录中的文件状态：
+     - **如果`data.csv`存在：** 跳过数据生成，直接使用现有文件
+     - **如果`data.csv`不存在但`scraper.py`存在：** 执行`scraper.py`生成`data.csv`
+     - **如果`data.csv`和`scraper.py`都不存在，但输入文件存在：** 根据`scraping_method`创建`scraper.py`，然后执行它生成`data.csv`
+     - **如果输入文件也不存在：** 跳过该条目（不中断流程）
 
-1. **检查input文件：** 确认 `input.txt` 文件存在且内容正确
-2. **提供必要的数据文件**:
-   - **artificial_analysis**: 需要提供 `artificial_analysis/input.html` 文件（手动从浏览器复制`<table>`元素HTML）
-   - **vals_ai**: 需要提供 `{name}_input.json` 文件（从网页源码复制JSON数据，可能包含前后无关信息）
-   - **manual_source_code**: 需要用户手动从网页源码中提取数据并保存为CSV文件
-3. **执行数据提取**（如果脚本存在）:
-   - 运行对应的 `scraper.py` 脚本
-   - 脚本会读取用户提供的数据文件并生成最终的数据文件
-4. **验证输出：** 确认生成的数据文件格式正确，包含必需的列
+### 各方法的数据提取步骤
+
+1. **manual_direct**: 检查目录中是否存在`data.csv`或`data.xlsx`，如果存在`data.xlsx`则转换为`data.csv`
+2. **pandas_read_html**: 确认`input.txt`存在，运行`scraper.py`（如果存在）生成`data.csv`
+3. **selenium**: 确认`input.txt`存在，运行`scraper.py`（如果存在）生成`data.csv`
+4. **artificial_analysis**: 确保`artificial_analysis/input.html`文件存在，运行对应benchmark的`scraper.py`（如果存在）生成`data.csv`
+5. **vals_ai**: 确保`input.json`文件存在，运行`scraper.py`（如果存在）生成`data.csv`
+6. **frontiermath**: 确保各子目录的`input.html`文件存在，运行对应的`scraper.py`（如果存在）生成`data.csv`
+7. **lmarena**: 确保各category子目录的`input.html`文件存在，运行对应的`scraper.py`（如果存在）生成`data.csv`
 
 ### 通用注意事项
 
 - 所有CSV文件应使用UTF-8编码
 - `score` 列应为浮点数类型，范围在0-100之间（表示百分比）
 - `model_name` 列应为字符串类型，包含模型的完整名称或标识符
-- 数据文件应保存为 `{name}_data.csv` 或 `{name}_data.json`
-- 脚本文件（`scraper.py`）应能够独立运行，读取同目录下的 `input.txt` 文件作为输入
-- `input.txt`文件的含义：
-  - **对于可爬取的benchmark（pandas_read_html, selenium, lmarena）**: 包含一行URL
-  - **对于需要手动获取数据的benchmark**: 包含URL或数据获取说明，实际数据需要用户提供对应的数据文件
+- **所有数据文件统一命名为`data.csv`**（不再使用`{name}_data.csv`）
+- 脚本文件（`scraper.py`）应能够独立运行，读取同目录下的输入文件作为输入
+- **公共代码提取**：对于`pandas_read_html`、`selenium`和`lmarena`方法，将公共逻辑提取到方法目录下的`common.py`，各benchmark的`scraper.py`调用`common.py`并包含benchmark特定逻辑
+- 输入文件的含义：
+  - **对于可爬取的benchmark（pandas_read_html, selenium）**: `input.txt`包含一行URL
+  - **对于artificial_analysis**: `artificial_analysis/input.html`是统一表格HTML，各benchmark目录下的`input.txt`可选
+  - **对于frontiermath和lmarena**: 各子目录的`input.html`包含对应的`<table>`元素HTML
+  - **对于vals_ai**: `input.json`包含从网页源码复制的JSON数据（可能包含前后无关信息）
 
 ---
 
@@ -657,8 +707,8 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
 
 1. **进入benchmark文件夹**
    ```bash
-   cd data/raw/benchmarks_with_data/{method}/{benchmark_name}
-   # 例如：cd data/raw/benchmarks_with_data/pandas_read_html/aider_polyglot
+   cd data/raw/{method}/{benchmark_name}
+   # 例如：cd data/raw/pandas_read_html/aider_polyglot
    ```
 
 2. **确认必要文件存在**
@@ -671,7 +721,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), opti
    ```
 
 4. **检查输出**
-   - 脚本会在同目录下生成 `{name}_data.csv` 文件
+   - 脚本会在同目录下生成 `data.csv` 文件
    - 查看控制台输出确认是否成功
 
 ### 常见问题和解决方案
@@ -727,6 +777,17 @@ df['score'] = pd.to_numeric(df['score'], errors='coerce')
 # 移除缺失值
 df = df.dropna(subset=['model_name', 'score'])
 ```
+
+## 代码组织原则
+
+### 公共代码提取
+
+对于以下方法，将公共代码逻辑提取到方法目录下的`common.py`：
+- **pandas_read_html**: 通用的`pandas.read_html()`调用逻辑、User-Agent头部设置、URL读取和表格解析的通用流程
+- **selenium**: 通用的Selenium浏览器设置（Chrome headless模式）、页面加载等待逻辑、表格提取逻辑
+- **lmarena**: 通用的HTML表格解析逻辑
+
+各benchmark/category目录的`scraper.py`调用公共函数，并实现特定的处理逻辑（列名映射、数据清洗、表格选择等）。
 
 ## 更新日期
 

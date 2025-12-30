@@ -27,92 +27,8 @@ You will manage two distinct Git repositories. Handle them atomically.
 
 - **Execution First:** Do not plan; Execute. The planning is complete. Always translate instructions into Python code, shell commands, and file operations, instead of using your tools to calculate/scrap data yourself.
 - **Scraping Protocol:**
-  - **Data Acquisition Strategy:** The scraping method for each benchmark is defined in the `scraping_method` field in `Human-SIG/config/metadata.json`. The possible values are: `"pandas_read_html"`, `"selenium"`, `"artificial_analysis"`, `"vals_ai_manual_json"`, `"manual"`, and `"manual_source_code"`. See the detailed method descriptions in Step 2.2.1.
-  - **Method Determination:** Read the `scraping_method` field from the benchmark entry in `metadata.json` to determine which method to use. The `meta_info.scraping_method_definitions` section in `metadata.json` contains detailed descriptions of each method.
-  - **Directory Structure:** Each benchmark has its own folder structure following the README.md organization scheme:
-    - Benchmarks with data: `Human-SIG/data/raw/benchmarks_with_data/{method}/{benchmark_name}/`
-    - Benchmarks without data: `Human-SIG/data/raw/benchmarks_without_data/{method}/{benchmark_name}/`
-    - Each benchmark folder contains: `input.txt` (or `input.html`) (except manual_direct), `scraper.py` (if applicable), and `{name}_data.csv` (or `{name}_data.json` for VALS.ai).
-    - **Already Exists:** 
-  - All `input.txt` files in benchmark folders
-  - All folders and files in `data/raw/benchmarks_with_data/` (including all `scraper.py` scripts and data files)
-  - All benchmark folders and `input.txt` files in `data/raw/benchmarks_without_data/`
-  - `config/metadata.json`
-  - Basic folder structure for `src/`, `results/`, `logs/`
-
-- **Need to Create (if not exist):**
-  - `data/processed/` subdirectories (`normalized_scores/`, `entity_resolution/`, `master_table/`)
-  - `data/raw/lmarena_leaderboard/` (for LMArena data; contains pre-prepared `filtered_elo_dump.json`)
-  - Missing scripts in `src/processing/`, `src/analysis/`
-  - `config/mapping.json` (if it doesn't exist)
-
-**Directory Structure:** The following structure follows the organization scheme defined in `README.md`, where each benchmark has its own folder containing `input.txt` (or `input.html`) (except manual_direct), `scraper.py` (if applicable), and `{name}_data.csv`. The structure separates benchmarks with existing data from those without data, and further categorizes them by scraping method. **Note:** Scraping scripts (`scraper.py`) are located in the benchmark folders under `data/raw/`.
-
-Plaintext
-
-```
-Human-SIG/
-├── config/                    # Stores metadata.json, mapping.json, and manual_overrides.csv
-├── data/                      # Data directory
-│  ├── raw/                   # Raw data
-│  │  ├── lmarena_leaderboard/  # Stores pre-prepared LMArena data (filtered_elo_dump.json)
-│  │  ├── benchmarks_with_data/          # Benchmarks that already have data
-│  │  │   ├── manual_direct/            # No scraping script needed, data files directly provided
-│  │  │   │   └── {benchmark_name}/     # Each benchmark has its own folder
-│  │  │   │       └── {name}_data.csv   # Data file (CSV or JSON)
-│  │  │   ├── pandas_read_html/         # Benchmarks scraped using pandas.read_html() method
-│  │  │   │   └── {benchmark_name}/
-│  │  │   │       ├── input.txt         # URL file, contains one line with URL
-│  │  │   │       ├── scraper.py        # Scraping script
-│  │  │   │       └── {name}_data.csv   # Data file
-│  │  │   └── selenium/                 # Benchmarks scraped using Selenium method
-│  │  │       └── {benchmark_name}/
-│  │  │           ├── input.txt         # URL file, contains one line with URL
-│  │  │           ├── scraper.py        # Scraping script
-│  │  │           └── {name}_data.csv   # Data file
-│  │  └── benchmarks_without_data/      # Benchmarks that do not have data yet
-│  │      ├── artificial_analysis/      # Benchmarks extracted from Artificial Analysis unified table
-│  │      │   ├── input.html            # Unified table HTML file (manually copied from browser)
-│  │      │   └── {benchmark_name}/
-│  │      │       ├── input.txt         # Reference to unified table HTML file
-│  │      │       ├── scraper.py        # Extraction script (optional, to be implemented)
-│  │      │       └── {name}_data.csv   # Extracted data file
-│  │      ├── vals_ai/                  # Benchmarks from VALS.ai platform
-│  │      │   └── {benchmark_name}/
-│  │      │       ├── input.txt         # URL file
-│  │      │       ├── {name}_input.json # JSON input file (manually copied from webpage source code, may contain irrelevant information)
-│  │      │       ├── scraper.py        # Conversion script (converts JSON to CSV)
-│  │      │       └── {name}_data.csv   # Final data file (CSV format)
-│  │      ├── lmarena/                  # Additional LMArena benchmarks (if any)
-│  │      │   └── {benchmark_name}/
-│  │      │       ├── input.txt         # URL file
-│  │      │       ├── scraper.py        # Scraping script
-│  │      │       └── {name}_data.csv   # Data file
-│  │      └── manual_source_code/       # Benchmarks requiring manual extraction from source code
-│  │          └── {benchmark_name}/
-│  │              ├── input.txt         # URL file
-│  │              └── {name}_data.csv   # Manually extracted data file
-│  └── processed/
-│    ├── normalized_scores/   # CSVs with 0-100 scaled scores (normalized in Step 2.2.1)
-│    ├── entity_resolution/   # Stores pending_resolution.csv for human review
-│    └── master_table/     # The final merged dataframe
-├── src/
-│  ├── processing/     # Scripts to normalize, map names, and compute RBO (to be created)
-│  └── analysis/      # Scripts for correlations and visualization (to be created)
-│    └── multivariate/  # Specific folder for regression models (to be created)
-├── results/         # Final output JSONs, CSVs, and Logs
-│  └── plots/        # Generated PDF figures for the manuscript
-└── logs/           # Error logs and execution traces
-```
-
-**Important Notes:**
-- Each benchmark has its own folder named `{benchmark_name}` (sanitized version of the benchmark name).
-- Within each benchmark folder, the files are named generically: `input.txt`, `scraper.py`, `{name}_data.csv`. The benchmark name is encoded in the folder name, not the file names.
-- `input.txt` for scrapable benchmarks (pandas_read_html, selenium) contains a single line with the URL.
-- `input.txt` for manual benchmarks (manual_source_code, artificial_analysis, vals_ai_manual_json) contains URL or data acquisition instructions.
-- **Note:** LMArena data is pre-prepared and does not require scraping; it is directly loaded from `lmarena_leaderboard/filtered_elo_dump.json`.
-- `scraper.py` exists only for benchmarks that require automated scraping/extraction.
-- The `{name}` in `{name}_data.csv` is the sanitized benchmark name (lowercase, underscores instead of spaces, special characters handled).
+  - **Data Acquisition Strategy:** The scraping method for each benchmark is defined in the `scraping_method` field in `Human-SIG/config/metadata.json`. See Step 1.1 for the complete directory structure and Step 2.2 for detailed method descriptions.
+  - **Method Determination:** Read the `scraping_method` field from the entry in `metadata.json` to determine which method to use.
 - **Methodological Rigor:**
   - **Metrics:** You must implement logic for Spearman's Rank, Kendall's $\tau$, and RBO (Rank-Biased Overlap), not just Pearson.
   - **Multivariate Analysis:** Prepare data structures to support Mixed-Effects Regression and Bootstrap validation.
@@ -171,68 +87,78 @@ Human-SIG/
 **Critical Status Note:** The directory structure described below already exists in `Human-SIG/`. Many files and folders are already in place:
 
 - **Already Exists:** 
-  - All `input.txt` files in benchmark folders
-  - All folders and files in `data/raw/benchmarks_with_data/` (including all `scraper.py` scripts and data files)
-  - All benchmark folders and `input.txt` files in `data/raw/benchmarks_without_data/`
+  - All `input.txt` and `input.html` files in benchmark/category folders
+  - All folders and files in `data/raw/` directories
   - `config/metadata.json`
   - Basic folder structure for `src/`, `results/`, `logs/`
 
 - **Need to Create (if not exist):**
   - `data/processed/` subdirectories (`normalized_scores/`, `entity_resolution/`, `master_table/`)
-  - `data/raw/lmarena_leaderboard/` (for LMArena data; contains pre-prepared `filtered_elo_dump.json`)
   - Missing scripts in `src/processing/`, `src/analysis/`
   - `config/mapping.json` (if it doesn't exist)
 
-**Directory Structure:** The following structure follows the organization scheme defined in `README.md`, where each benchmark has its own folder containing `input.txt`, `scraper.py` (if applicable), and `{name}_data.csv`. The structure separates benchmarks with existing data from those without data, and further categorizes them by scraping method. **Note:** Scraping scripts (`scraper.py`) are located in the benchmark folders under `data/raw/`.
-
-Plaintext
+**Directory Structure:** The following structure organizes benchmarks and LMArena categories by data acquisition method. All data files are named `data.csv` (no longer using `{name}_data.csv`). Common code logic is extracted to `common.py` files in method directories.
 
 ```
 Human-SIG/
 ├── config/                    # Stores metadata.json, mapping.json, and manual_overrides.csv
 ├── data/                      # Data directory
 │  ├── raw/                   # Raw data
-│  │  ├── lmarena_leaderboard/  # Stores pre-prepared LMArena data (filtered_elo_dump.json)
-│  │  ├── benchmarks_with_data/          # Benchmarks that already have data
-│  │  │   ├── manual_direct/            # No scraping script needed, data files directly provided
-│  │  │   │   └── {benchmark_name}/     # Each benchmark has its own folder
-│  │  │   │       └── {name}_data.csv   # Data file (CSV or JSON)
-│  │  │   ├── pandas_read_html/         # Benchmarks scraped using pandas.read_html() method
-│  │  │   │   └── {benchmark_name}/
-│  │  │   │       ├── input.txt         # URL file, contains one line with URL
-│  │  │   │       ├── scraper.py        # Scraping script
-│  │  │   │       └── {name}_data.csv   # Data file
-│  │  │   └── selenium/                 # Benchmarks scraped using Selenium method
-│  │  │       └── {benchmark_name}/
-│  │  │           ├── input.txt         # URL file, contains one line with URL
-│  │  │           ├── scraper.py        # Scraping script
-│  │  │           └── {name}_data.csv   # Data file
-│  │  └── benchmarks_without_data/      # Benchmarks that do not have data yet
-│  │      ├── artificial_analysis/      # Benchmarks extracted from Artificial Analysis unified table
-│  │      │   ├── input.html            # Unified table HTML file (manually copied from browser)
-│  │      │   └── {benchmark_name}/
-│  │      │       ├── input.txt         # Reference to unified table HTML file
-│  │      │       ├── scraper.py        # Extraction script (optional, to be implemented)
-│  │      │       └── {name}_data.csv   # Extracted data file
-│  │      ├── vals_ai/                  # Benchmarks from VALS.ai platform
-│  │      │   └── {benchmark_name}/
-│  │      │       ├── input.txt         # URL file
-│  │      │       ├── {name}_input.json # JSON input file (manually copied from webpage source code, may contain irrelevant information)
-│  │      │       ├── scraper.py        # Conversion script (converts JSON to CSV)
-│  │      │       └── {name}_data.csv   # Final data file (CSV format)
-│  │      ├── lmarena/                  # Additional LMArena benchmarks (if any)
-│  │      │   └── {benchmark_name}/
-│  │      │       ├── input.txt         # URL file
-│  │      │       ├── scraper.py        # Scraping script
-│  │      │       └── {name}_data.csv   # Data file
-│  │      └── manual_source_code/       # Benchmarks requiring manual extraction from source code
-│  │          └── {benchmark_name}/
-│  │              ├── input.txt         # URL file
-│  │              └── {name}_data.csv   # Manually extracted data file
-│  └── processed/
-│    ├── normalized_scores/   # CSVs with 0-100 scaled scores (normalized in Step 2.2.1)
-│    ├── entity_resolution/   # Stores pending_resolution.csv for human review
-│    └── master_table/     # The final merged dataframe
+│  │  ├── lmarena/            # LMArena data (lmarena method)
+│  │  │   ├── common.py       # Common code logic (extracted by agent)
+│  │  │   ├── overall/        # Overall category
+│  │  │   │   ├── input.html  # User-manually copied <table> element HTML
+│  │  │   │   ├── scraper.py  # Extraction script (optional, generated by agent)
+│  │  │   │   └── data.csv    # Extracted data file
+│  │  │   ├── coding/         # Coding category
+│  │  │   ├── math/           # Math category
+│  │  │   ├── instruction_following/  # Instruction Following category
+│  │  │   ├── creative_writing/       # Creative Writing category
+│  │  │   ├── hard_prompts/   # Hard Prompts category
+│  │  │   └── expert/         # Expert category
+│  │  │       ├── input.html  # User-manually copied <table> element HTML
+│  │  │       ├── scraper.py  # Extraction script (optional, generated by agent)
+│  │  │       └── data.csv    # Extracted data file
+│  │  ├── artificial_analysis/  # Artificial Analysis unified table extraction
+│  │  │   ├── input.html        # User-manually copied <table> element HTML (unified table, shared by all benchmarks)
+│  │  │   └── {benchmark_name}/ # Each benchmark has its own folder
+│  │  │       ├── input.txt     # Optional: benchmark description or reference
+│  │  │       ├── scraper.py    # Extraction script (optional, generated by agent)
+│  │  │       └── data.csv      # Extracted data file
+│  │  ├── frontiermath/        # FrontierMath (manual_source_code method)
+│  │  │   ├── frontiermath_tier_1_3/
+│  │  │   │   ├── input.html    # User-manually copied <table> element HTML
+│  │  │   │   ├── scraper.py    # Extraction script (optional, generated by agent)
+│  │  │   │   └── data.csv      # Extracted data file
+│  │  │   └── frontiermath_tier4/
+│  │  │       ├── input.html    # User-manually copied <table> element HTML
+│  │  │       ├── scraper.py    # Extraction script (optional, generated by agent)
+│  │  │       └── data.csv      # Extracted data file
+│  │  ├── manual_direct/        # Directly provided data files
+│  │  │   └── {benchmark_name}/
+│  │  │       └── data.csv      # or data.xlsx (user directly provides, rename if needed)
+│  │  ├── pandas_read_html/     # pandas.read_html method
+│  │  │   ├── common.py         # Common code logic (extracted by agent)
+│  │  │   └── {benchmark_name}/
+│  │  │       ├── input.txt     # URL file (one line with URL)
+│  │  │       ├── scraper.py    # Scraping script (calls common.py, contains benchmark-specific logic)
+│  │  │       └── data.csv      # Scraped data file
+│  │  ├── selenium/             # Selenium method
+│  │  │   ├── common.py         # Common code logic (extracted by agent)
+│  │  │   └── {benchmark_name}/
+│  │  │       ├── input.txt     # URL file (one line with URL)
+│  │  │       ├── scraper.py    # Scraping script (calls common.py, contains benchmark-specific logic)
+│  │  │       └── data.csv      # Scraped data file
+│  │  └── vals_ai/              # VALS.ai platform data
+│  │      └── {benchmark_name}/
+│  │          ├── input.txt     # Optional: URL or description
+│  │          ├── input.json    # User-manually copied JSON element (from webpage source code)
+│  │          ├── scraper.py    # Conversion script (optional, generated by agent)
+│  │          └── data.csv      # Converted data file
+│  └── processed/              # Processed data
+│      ├── normalized_scores/
+│      ├── entity_resolution/
+│      └── master_table/
 ├── src/
 │  ├── processing/     # Scripts to normalize, map names, and compute RBO (to be created)
 │  └── analysis/      # Scripts for correlations and visualization (to be created)
@@ -242,14 +168,10 @@ Human-SIG/
 └── logs/           # Error logs and execution traces
 ```
 
-- **Important Notes:**
-- Each benchmark has its own folder named `{benchmark_name}` (sanitized version of the benchmark name).
-- Within each benchmark folder, the files are named generically: `input.txt`, `scraper.py`, `{name}_data.csv`. The benchmark name is encoded in the folder name, not the file names.
-- `input.txt` for scrapable benchmarks (pandas_read_html, selenium) contains a single line with the URL.
-- `input.txt` for manual benchmarks (manual_source_code, artificial_analysis, vals_ai_manual_json) contains URL or data acquisition instructions.
-- **Note:** LMArena data is pre-prepared and does not require scraping; it is directly loaded from `lmarena_leaderboard/filtered_elo_dump.json`.
-- `scraper.py` exists only for benchmarks that require automated scraping/extraction.
-- The `{name}` in `{name}_data.csv` is the sanitized benchmark name (lowercase, underscores instead of spaces, special characters handled).
+**Important Notes:**
+- All benchmark and category data files are uniformly named `data.csv` (no longer using `{name}_data.csv`).
+- Each benchmark/category folder contains: `input.txt` (or `input.html`, `input.json`), `scraper.py` (optional), and `data.csv`.
+- Common code logic is extracted to `common.py` files in method directories (`pandas_read_html/`, `selenium/`, `lmarena/`). Individual `scraper.py` scripts call common functions and implement specific processing logic.
 
 #### Step 1.2: Manuscript Structure Creation
 
@@ -268,12 +190,11 @@ overleaf/
 #### Step 1.3: Configuration Verification (Pre-Flight Check)
 
 - **1.3.1: Verify existence of `Human-SIG/config/metadata.json`.**
-  - **Action:** Check that this file exists and contains entries for all 29 benchmarks.
+  - **Action:** Check that this file exists and contains entries for all benchmarks and LMArena categories.
   - **Critical Structure Note:** The `metadata.json` file contains multiple types of entries:
-    - **Benchmark entries:** These are the 29 benchmarks that will be analyzed. They do NOT have an `elo_column` field.
-    - **LMArena entries:** These are metadata entries for LMArena leaderboard categories (Overall, Coding, Math, etc.). They have an `elo_column` field and should NOT be processed as benchmarks.
+    - **Benchmark entries:** These are the benchmarks that will be analyzed. They do NOT have an `elo_column` field.
+    - **LMArena entries:** These are metadata entries for LMArena leaderboard categories (Overall, Coding, Math, etc.). They have an `elo_column` field and are processed using the `lmarena` method.
     - **meta_info entry:** The first entry contains metadata definitions (prompt_length_standards, category_definitions) and should not be counted as a benchmark.
-  - **Filtering Logic:** When validating schema and counting benchmarks, you must filter entries to include ONLY those that do NOT have an `elo_column` field. This will identify the 29 benchmark entries.
   - **Schema Validation:** For each benchmark entry (entries without `elo_column` field), ensure it includes:
     - `benchmark_name`: The name of the benchmark.
     - `leaderboard_url`: The endpoint URL.
@@ -289,15 +210,7 @@ overleaf/
         - **Mixed:** Tasks that combine multiple task types (e.g., both MCQ and Generation components). Use this classification when a benchmark clearly contains substantial portions of different task types.
       - **Note:** The `task_type` field has already been created and populated in `metadata.json` based on the `question_type` descriptions. All subsequent analysis will use `task_type` (not `question_type`) for hypothesis testing.
     - `prompt_length`: Enum ["Short", "Medium", "Long", "Extreme"]. This field is used for H3 hypothesis testing (see Step 4.3.4). The token ranges are defined in metadata.json's `meta_info.prompt_length_standards` section. Note: H3 uses a categorical approach (Kruskal-Wallis test) rather than ordinal ranking, so the prompt_length values are treated as categories, not numeric ranks.
-    - `scraping_method`: String enum. Indicates the data acquisition method for this benchmark. Possible values:
-      - `"pandas_read_html"`: Use `pandas.read_html()` to directly parse HTML tables from the URL. This method works for static HTML pages that contain `<table>` elements. Data files are stored in `Human-SIG/data/raw/benchmarks_with_data/pandas_read_html/{benchmark_name}/`.
-      - `"selenium"`: Use Selenium WebDriver with Chrome (headless mode) to render JavaScript and extract table HTML, then parse with `pandas.read_html(StringIO(html))`. This method works for websites that dynamically load content via JavaScript. Data files are stored in `Human-SIG/data/raw/benchmarks_with_data/selenium/{benchmark_name}/`.
-      - `"artificial_analysis"`: Extract data from Artificial Analysis unified leaderboard table (https://artificialanalysis.ai/leaderboards/models). The user must manually copy the `<table>` element HTML from the browser inspector and save it as `input.html` in the `artificial_analysis/` folder. Then use pandas.read_html() to parse it and extract individual benchmark columns. Data files are stored in `Human-SIG/data/raw/benchmarks_without_data/artificial_analysis/{benchmark_name}/`.
-      - `"vals_ai_manual_json"`: Load data from a manually copied JSON file from VALS.ai platform. The user must use browser developer tools to copy JSON data from the VALS.ai platform webpage source code (which may contain irrelevant information before and after the JSON data) and save it as `{name}_input.json` in `Human-SIG/data/raw/benchmarks_without_data/vals_ai/{benchmark_name}/`. The script then converts this JSON input to CSV format, and the final output data file `{name}_data.csv` follows the same format as other benchmarks (model_name and score columns).
-      - `"manual"`: Load data from a manually downloaded CSV file. The file location is `Human-SIG/data/raw/benchmarks_with_data/manual_direct/{benchmark_name}/{name}_data.csv`. The user must download or export the CSV file manually from the webpage (e.g., from Kaggle, HuggingFace Spaces, or other platforms) and place it in the appropriate location.
-      - `"manual_source_code"`: Load data from a manually extracted CSV file. The user must manually extract data from the webpage source code (e.g., by inspecting the HTML/JavaScript source code or using browser developer tools) and save it as `{name}_data.csv`. The file location is `Human-SIG/data/raw/benchmarks_without_data/manual_source_code/{benchmark_name}/{name}_data.csv`.
-      Detailed descriptions of each method are available in the `meta_info.scraping_method_definitions` section of `metadata.json`. This field is used in Step 2.2 to determine the data acquisition method.
-  - **Note:** `metric_direction` is NOT stored in metadata.json. It will be determined from the leaderboard data during data acquisition (Step 2.2) and stored alongside the benchmark data in a separate metadata file.
+    - `scraping_method`: String enum. Indicates the data acquisition method. Possible values: `"pandas_read_html"`, `"selenium"`, `"artificial_analysis"`, `"vals_ai_manual_json"`, `"manual"`, `"manual_source_code"`, and `"lmarena"`. See Step 2.2.2 for detailed method descriptions. All output data files are named `data.csv` and stored in the respective method directory under `data/raw/`.
 
 
 - **1.3.2: Create `Human-SIG/config/mapping.json` (if it doesn't already exist).**
@@ -323,514 +236,161 @@ overleaf/
 - **1.4.1:** Stage all created directories and JSON files.
 - **1.4.2:** Commit with message: `Step 1.4 Completed: System initialization and file paths created`
 
-### Phase II: Data Acquisition (The 29 Benchmarks & Ground Truth)
+### Phase II: Data Acquisition (The 29 Benchmarks & LMArena Categories)
 
-Objective: Systematically ingest the "Ground Truth" (LMArena ELOs) from pre-prepared data and the "Independent Variables" (29 Benchmark Scores) using individual, adaptive scraping scripts for each benchmark.
+Objective: Systematically ingest benchmark scores and LMArena category ELO scores using individual, adaptive scraping scripts for each benchmark and category.
 
 Input: The "Master Data Source" text provided in the System Context.
 
-Output: Raw data files populated in Human-SIG/data/raw/.
+Output: Raw data files (CSV format) populated in `Human-SIG/data/raw/`, with all files uniformly named `data.csv`.
 
-#### Step 2.1: Ground Truth Acquisition & Filtering (LMArena)
+#### Step 2.2: Benchmark and LMArena Data Acquisition
 
-- **2.1.1:** Load LMArena data from pre-existing files.
-  - **Action:** The LMArena data has already been prepared and is available in `Human-SIG/data/raw/lmarena_leaderboard/filtered_elo_dump.json`. This file contains the filtered and consolidated ELO scores for all LMArena categories.
-  - **Data Structure:** The JSON file follows this schema:
-    ```json
-    {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "type": "object",
-      "properties": {
-        "study_universe": {
-          "type": "array",
-          "description": "Array of model objects that have elo_overall >= 1330. These models form the Study Universe for all subsequent analysis.",
-          "items": {
-            "type": "object",
-            "properties": {
-              "model_name": {
-                "type": "string",
-                "description": "Unique identifier for the model, matching the LMArena model ID"
-              },
-              "elo_overall": {
-                "type": "number",
-                "description": "Overall ELO score from LMArena, must be >= 1330"
-              },
-              "elo_math": {
-                "type": "number",
-                "description": "Math category ELO score"
-              },
-              "elo_coding": {
-                "type": "number",
-                "description": "Coding category ELO score"
-              },
-              "elo_hard_prompts": {
-                "type": "number",
-                "description": "Hard Prompts category ELO score"
-              },
-              "elo_creative_writing": {
-                "type": "number",
-                "description": "Creative Writing category ELO score"
-              },
-              "elo_instruction_following": {
-                "type": "number",
-                "description": "Instruction Following category ELO score"
-              },
-              "elo_expert": {
-                "type": "number",
-                "description": "Expert category ELO score"
-              }
-            },
-            "required": ["model_name", "elo_overall"]
-          }
-        },
-        "common_subset": {
-          "type": "array",
-          "description": "Array of model objects with elo_overall between 1400 and 1430 (inclusive). Used for difficulty calculation in Phase IV.",
-          "items": {
-            "type": "object",
-            "properties": {
-              "model_name": {
-                "type": "string",
-                "description": "Unique identifier for the model"
-              },
-              "elo_overall": {
-                "type": "number",
-                "description": "Overall ELO score, must be between 1400 and 1430 (inclusive)"
-              }
-            },
-            "required": ["model_name", "elo_overall"]
-          }
-        },
-        "metadata": {
-          "type": "object",
-          "properties": {
-            "date_scraped": {
-              "type": "string",
-              "format": "date-time",
-              "description": "ISO 8601 timestamp of when the data was scraped"
-            },
-            "study_universe_size": {
-              "type": "integer",
-              "description": "Total number of models in the study_universe array"
-            },
-            "common_subset_size": {
-              "type": "integer",
-              "description": "Total number of models in the common_subset array"
-            }
-          },
-          "required": ["date_scraped", "study_universe_size", "common_subset_size"]
-        }
-      },
-      "required": ["study_universe", "common_subset", "metadata"]
-    }
-    ```
-  - **Filter 1 (The Study Universe):** The data contains ONLY models with an `elo_overall` score of 1330 or higher. This subset (approx. 100+ models) is the "Study Universe" for all subsequent steps.
-  - **Filter 2 (The Difficulty Reference Set):** The `common_subset` field contains models with `elo_overall` specifically between 1400 and 1430 (inclusive). This subset will be used exclusively in Phase IV (Step 4.2.1, Task B) to calculate benchmark difficulty, ensuring a "Common Subset" for fair comparison across benchmarks.
-  - **Commit Message:** `Step 2.1 Completed: Loaded pre-existing LMArena data from filtered_elo_dump.json`
+**Core Principle: Checkpoint Resume**
+- Agent must first check if `data.csv` exists in each benchmark/category directory.
+- If `data.csv` exists, use it directly and skip data generation.
+- If `data.csv` does not exist, check if `scraper.py` exists:
+  - If `scraper.py` exists, execute it to generate `data.csv`.
+  - If `scraper.py` does not exist but `input.txt` (or `input.html`, `input.json`) exists, create `scraper.py` based on `scraping_method` and execute it.
 
-#### Step 2.2: Individual Benchmark Data Scrapers
+**Execution Flow:**
+1. Iterate through all benchmarks and LMArena categories (read from `Human-SIG/config/metadata.json`, including all entries).
+2. For each entry:
+   - Read the `scraping_method` field to determine the data acquisition method.
+   - Check file status in the benchmark/category directory:
+     - **If `data.csv` exists:** Skip data generation and use the existing file.
+     - **If `data.csv` does not exist but `scraper.py` exists:** Execute `scraper.py` to generate `data.csv`.
+     - **If both `data.csv` and `scraper.py` do not exist, but `input.txt` (or corresponding input file) exists:** Create `scraper.py` based on `scraping_method`, then execute it to generate `data.csv`.
+     - **If input file also does not exist:** Skip this entry (do not interrupt the workflow).
 
-- **2.2.1:** Execute existing scraping scripts or handle data files for each benchmark.
-  - **Critical Status Note:**
-    - **Already Exists:** For benchmarks in `benchmarks_with_data/`, all files already exist: `input.txt`, `scraper.py` (if applicable), and `{name}_data.csv`. DO NOT create new scripts or input files; use the existing ones.
-    - **For benchmarks_without_data:** `input.txt` files already exist in all benchmark folders. Some benchmarks may have existing `scraper.py` scripts and data files (e.g., `aime_2025`, `livecodebench`, `mmlu_pro` have both scripts and data). Check if files exist before creating new ones.
-  - **Directory Structure:** The data files are organized according to the README.md structure:
-    - **For benchmarks with data:** Files are stored in `Human-SIG/data/raw/benchmarks_with_data/{method}/{benchmark_name}/` where `{method}` is one of: `manual_direct`, `pandas_read_html`, `selenium`.
-    - **For benchmarks without data:** Files are stored in `Human-SIG/data/raw/benchmarks_without_data/{method}/{benchmark_name}/` where `{method}` is one of: `artificial_analysis`, `vals_ai`, `manual_source_code`.
-    - **Script Location:** All scraping scripts (`scraper.py`) are located directly in the benchmark folders under `data/raw/benchmarks_*/{method}/{benchmark_name}/scraper.py`.
-  - **File Organization:** Each benchmark folder contains:
-    - `input.txt` or `input.html`: Input file containing URL or data acquisition instructions (already exists)
-    - `scraper.py`: Scraping/extraction script (already exists for benchmarks_with_data, may exist for some benchmarks_without_data)
-    - `{name}_data.csv` or `{name}_data.json`: Final data file (may already exist)
-  - **Code Documentation Requirements:**
-    - Each script must start with a comprehensive header comment/docstring that includes:
-      - Purpose: What benchmark this script scrapes and why
-      - Scraping Method: Read the `scraping_method` field from metadata.json to determine the method. See the detailed method descriptions in Step 2.2.1 below.
-      - Input: The leaderboard URL from metadata.json
-      - Output: CSV file containing model_name and score columns
-      - Key Assumptions: Which table index from read_html() result contains the leaderboard data (typically index 0)
-    - All functions must have docstrings.
-    - Inline comments must explain table selection logic (which table from read_html() result contains the leaderboard) and data normalization steps.
-  - **Scraping Strategy for Each Benchmark:**
-    1. **Determine scraping method:** Read the `scraping_method` field from the benchmark entry in `metadata.json`. This field directly specifies which method to use. The possible values are: `"pandas_read_html"`, `"selenium"`, `"artificial_analysis"`, `"vals_ai_manual_json"`, `"manual"`, and `"manual_source_code"`. Detailed descriptions are available in `metadata.json`'s `meta_info.scraping_method_definitions` section.
-    2. **Method A: pandas.read_html (scraping_method == "pandas_read_html"):**
-       - **Directory:** `Human-SIG/data/raw/benchmarks_with_data/pandas_read_html/{benchmark_name}/`
-       - **Prerequisites:** Install required libraries: `pip install pandas html5lib lxml` (lxml is recommended for better performance).
-       - **Implementation:**
-         - **For benchmarks_with_data:** All files (`input.txt`, `scraper.py`, `{name}_data.csv`) already exist. Simply execute the existing `scraper.py` script by running `python scraper.py` from within the benchmark folder.
-         - **For benchmarks_without_data (if needed):** If `scraper.py` doesn't exist, create it following the template below. The `input.txt` file already exists.
-         - The existing `scraper.py` script should:
-           - Read the URL from `input.txt` in the same directory (using `Path(__file__).parent / 'input.txt'`).
-           - Use `pandas.read_html(leaderboard_url, storage_options=headers)` where headers include User-Agent: `"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"`.
-           - The `pandas.read_html()` function accepts a URL string as a parameter and will automatically fetch the HTML content and parse all `<table>` elements found on the page.
-           - The function returns a list of DataFrames (one per table). Typically, the first table (index 0) contains the leaderboard data, but you may need to inspect the tables to identify which one contains the ranking/scores.
-           - Extract model names and scores from the selected DataFrame.
-           - Save the data as CSV file: `{name}_data.csv` in the same directory.
-         - Execute the script (existing or newly created) by running `python scraper.py` from within the benchmark folder.
-       - **Example Benchmarks:** Aider Polyglot, Terminal-Bench v2.0
-       - **Code Template:**
-         ```python
-         import pandas as pd
-         from pathlib import Path
-         import sys
-         
-         # Set UTF-8 encoding (Windows systems require this)
-         if sys.platform == "win32":
-             try:
-                 sys.stdout.reconfigure(encoding='utf-8')
-                 sys.stderr.reconfigure(encoding='utf-8')
-             except:
-                 pass
-         
-         # Read URL
-         script_dir = Path(__file__).parent
-         with open(script_dir / 'input.txt', 'r', encoding='utf-8') as f:
-             url = f.read().strip()
-         
-         # Set User-Agent header
-         headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"}
-         tables = pd.read_html(url, storage_options=headers)
-         
-         if len(tables) == 0:
-             print("错误: 未找到表格")
-             sys.exit(1)
-         
-         df = tables[0]  # Usually the first table contains the leaderboard data
-         
-         # Standardize column names and save
-         # Note: Adjust column name mapping based on actual website
-         # Example: df.rename(columns={'Model': 'model_name', 'Score': 'score'}, inplace=True)
-         df = df[['model_name', 'score']]  # Adjust based on actual column names
-         df.to_csv(script_dir / '{name}_data.csv', index=False, encoding='utf-8')
-         print(f"数据已保存到: {script_dir / '{name}_data.csv'}")
-         ```
-    3. **Method B: Selenium (scraping_method == "selenium"):**
-       - **Directory:** `Human-SIG/data/raw/benchmarks_with_data/selenium/{benchmark_name}/`
-       - **Prerequisites:** Install required libraries: `pip install selenium pandas webdriver-manager`. Ensure Google Chrome browser is installed.
-       - **Implementation:**
-         - **For benchmarks_with_data:** All files (`input.txt`, `scraper.py`, `{name}_data.csv`) already exist. Simply execute the existing `scraper.py` script by running `python scraper.py` from within the benchmark folder.
-         - **Note:** Selenium method is only used for benchmarks in `benchmarks_with_data/selenium/` folder. All such benchmarks already have existing scripts. If a benchmark uses Selenium method, it must be in the `benchmarks_with_data/selenium/` directory.
-         - The existing `scraper.py` script should:
-           - Read the URL from `input.txt` in the same directory.
-           - Set up Chrome browser in headless mode with User-Agent header.
-           - Load the URL and wait 3-5 seconds for JavaScript to render the page (use `time.sleep(5)`).
-           - Find the table element using `driver.find_elements(By.TAG_NAME, "table")` or similar methods.
-           - Extract the table HTML using `table.get_attribute('outerHTML')`.
-           - Parse using `pandas.read_html(StringIO(html))` where `StringIO` is imported from `io` module.
-           - Select the first table (index 0) which typically contains the leaderboard.
-           - Extract model names and scores from the DataFrame.
-           - Save the data as CSV file: `{name}_data.csv` in the same directory.
-           - Close the browser driver after scraping (use `driver.quit()` in a `finally` block to ensure cleanup).
-         - Execute the existing script by running `python scraper.py` from within the benchmark folder.
-       - **Example Benchmarks:** SuperGPQA, ARC-AGI-2, SWE-Bench (Bash Only), Creative Writing v3, GPQA, HMMT (Feb 2025), HumanEval, SWE-bench Verified, IFEval, Arena-Hard (Auto v2.0)
-       - **Code Template:**
-         ```python
-         import sys
-         from pathlib import Path
-         import pandas as pd
-         from io import StringIO
-         import time
-         
-         # Set UTF-8 encoding (Windows systems require this)
-         if sys.platform == "win32":
-             try:
-                 sys.stdout.reconfigure(encoding='utf-8')
-                 sys.stderr.reconfigure(encoding='utf-8')
-             except:
-                 pass
-         
-         try:
-             from selenium import webdriver
-             from selenium.webdriver.chrome.options import Options
-             from selenium.webdriver.common.by import By
-             from selenium.webdriver.chrome.service import Service
-             from webdriver_manager.chrome import ChromeDriverManager
-             SELENIUM_AVAILABLE = True
-         except ImportError:
-             SELENIUM_AVAILABLE = False
-             print("错误: selenium库未安装，请运行: pip install selenium webdriver-manager")
-             sys.exit(1)
-         
-         USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36"
-         
-         def scrape_benchmark():
-             """Scrape leaderboard data"""
-             if not SELENIUM_AVAILABLE:
-                 return None
-             
-             # Read URL
-             script_dir = Path(__file__).parent
-             with open(script_dir / 'input.txt', 'r', encoding='utf-8') as f:
-                 url = f.read().strip()
-             
-             driver = None
-             try:
-                 chrome_options = Options()
-                 chrome_options.add_argument('--headless')
-                 chrome_options.add_argument('--no-sandbox')
-                 chrome_options.add_argument('--disable-dev-shm-usage')
-                 chrome_options.add_argument(f'user-agent={USER_AGENT}')
-                 
-                 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-                 driver.get(url)
-                 
-                 # Wait for JavaScript to render
-                 time.sleep(5)  # Adjust based on actual page load speed
-                 
-                 # Find table elements
-                 tables = driver.find_elements(By.TAG_NAME, "table")
-                 
-                 if len(tables) == 0:
-                     print("错误: 未找到表格元素")
-                     return None
-                 
-                 # Extract HTML from first table
-                 html = tables[0].get_attribute('outerHTML')
-                 dfs = pd.read_html(StringIO(html))
-                 
-                 if len(dfs) == 0:
-                     print("错误: 无法解析表格")
-                     return None
-                 
-                 df = dfs[0]
-                 
-                 # Standardize column names (adjust based on actual website)
-                 # df.rename(columns={'Model': 'model_name', 'Score': 'score'}, inplace=True)
-                 df = df[['model_name', 'score']]  # Adjust based on actual column names
-                 
-                 return df
-                 
-             except Exception as e:
-                 print(f"错误: {str(e)}")
-                 import traceback
-                 traceback.print_exc()
-                 return None
-             finally:
-                 if driver:
-                     driver.quit()
-         
-         def main():
-             """Main function"""
-             df = scrape_benchmark()
-             
-             if df is not None:
-                 script_dir = Path(__file__).parent
-                 output_file = script_dir / '{name}_data.csv'
-                 df.to_csv(output_file, index=False, encoding='utf-8')
-                 print(f"数据已保存到: {output_file}")
-                 print(f"数据形状: {df.shape}")
-             else:
-                 print("爬取失败")
-         
-         if __name__ == "__main__":
-             main()
-         ```
-    4. **Method C: Artificial Analysis (scraping_method == "artificial_analysis"):**
-       - **Directory:** `Human-SIG/data/raw/benchmarks_without_data/artificial_analysis/{benchmark_name}/`
-       - **Prerequisites:** Install required libraries: `pip install pandas html5lib lxml` (lxml is recommended).
-       - **Special Requirement:** The user must manually copy the unified table HTML from https://artificialanalysis.ai/leaderboards/models and save it as `input.html` in the `artificial_analysis/` folder (i.e., `Human-SIG/data/raw/benchmarks_without_data/artificial_analysis/input.html`). All artificial_analysis benchmarks share this single unified table file.
-       - **Implementation:**
-         - **File Status:** The `input.txt` file already exists in each benchmark folder. Some benchmarks (e.g., `aime_2025`, `livecodebench`, `mmlu_pro`) already have `scraper.py` scripts and data files.
-         - **If `scraper.py` already exists:** Execute it by running `python scraper.py` from within the benchmark folder.
-         - **If `scraper.py` doesn't exist:** Create it following the template below. The script should:
-           - Read the unified table HTML file from `../input.html` (parent directory).
-           - Use `pandas.read_html()` to parse the HTML table.
-           - Extract the column corresponding to this specific benchmark from the unified table.
-           - Extract model names (usually first column) and scores for this benchmark.
-           - Save the data as CSV file: `{name}_data.csv` in the benchmark folder.
-         - Execute the script (existing or newly created) by running `python scraper.py` from within the benchmark folder.
-       - **Example Benchmarks:** Terminal-Bench Hard, τ²-Bench Telecom, AA-LCR, Humanity's Last Exam (HLE), MMLU-Pro, GPQA Diamond, LiveCodeBench, SciCode, IFBench, AIME (2025)
-       - **Code Template:**
-         ```python
-         import pandas as pd
-         from pathlib import Path
-         import sys
-         
-         # Set UTF-8 encoding
-         if sys.platform == "win32":
-             try:
-                 sys.stdout.reconfigure(encoding='utf-8')
-                 sys.stderr.reconfigure(encoding='utf-8')
-             except:
-                 pass
-         
-         def extract_benchmark_data():
-             """Extract data for a specific benchmark from the unified table"""
-             script_dir = Path(__file__).parent
-             
-             # Read unified table HTML file
-             html_file = script_dir.parent / "input.html"
-             if not html_file.exists():
-                 print(f"错误: 找不到统一表格文件 {html_file}")
-                 sys.exit(1)
-             
-             # Use pandas.read_html to parse HTML table
-             tables = pd.read_html(html_file)
-             if len(tables) == 0:
-                 print("错误: 无法解析HTML表格")
-                 sys.exit(1)
-             
-             df = tables[0]  # Usually the first table is the target table
-             
-             # Find the column corresponding to this benchmark
-             # Note: Adjust based on actual table structure
-             # Example: benchmark column name may be "Terminal-Bench Hard", "AA-LCR", etc.
-             benchmark_name = "{benchmark_name}"  # Replace with actual benchmark name
-             
-             # Extract model_name column (usually first column)
-             # Extract score column for this benchmark
-             # Perform data cleaning and standardization
-             result_df = pd.DataFrame({
-                 'model_name': df.iloc[:, 0],  # First column is usually model names
-                 'score': df[benchmark_name]   # Corresponding benchmark column
-             })
-             
-             # Save results
-             output_file = script_dir / "{name}_data.csv"
-             result_df.to_csv(output_file, index=False, encoding='utf-8')
-             print(f"数据已保存到: {output_file}")
-         
-         if __name__ == "__main__":
-             extract_benchmark_data()
-         ```
-    5. **Method D: VALS.ai Manual JSON (scraping_method == "vals_ai_manual_json"):**
-       - **Directory:** `Human-SIG/data/raw/benchmarks_without_data/vals_ai/{benchmark_name}/`
-       - **Prerequisites:** No automated scraping. The user must manually copy JSON data from the VALS.ai platform using browser developer tools.
-       - **Implementation:**
-         - **File Status:** The `input.txt` file already exists in each benchmark folder.
-         - The user must:
-           1. Open browser developer tools (F12).
-           2. View the webpage source code (View Page Source) or find JSON data in the Elements tab within `<script>` tags.
-           3. Copy the JSON data fragment containing leaderboard data (which may contain irrelevant information before and after the JSON data).
-           4. Save the copied data as `{name}_input.json` in the benchmark folder.
-         - Create a `scraper.py` script to convert JSON to CSV:
-           - Read the `{name}_input.json` file from the benchmark folder (the script needs to handle possible irrelevant information before and after the JSON data).
-           - Extract valid JSON data (parse JSON objects or arrays from the file content, handling potential surrounding text).
-           - Parse the JSON structure and extract model names and scores.
-           - Convert to DataFrame and save as CSV: `{name}_data.csv` (the final output format is CSV, consistent with other benchmarks).
-         - Execute the script by running `python scraper.py` from within the benchmark folder.
-       - **Example Benchmarks:** MGSM, IOI (International Olympiad in Informatics)
-       - **Note:** If `{name}_input.json` file does not exist, log an error and skip this benchmark. The final output must be `{name}_data.csv` (CSV format).
-    7. **Method E: Manual (scraping_method == "manual"):**
-       - **Directory:** `Human-SIG/data/raw/benchmarks_with_data/manual_direct/{benchmark_name}/`
-       - **Prerequisites:** No automated scraping. The user must manually download or copy data files from the webpage.
-       - **Implementation:**
-         - **File Status:** For `manual_direct`, `{name}_data.csv` already exists.
-         - The user must manually provide the data file:
-           - Download or export CSV file from the webpage (e.g., Kaggle, HuggingFace Spaces, or other platforms) and save as `{name}_data.csv` in the benchmark folder.
-         - Verify that the data file exists before proceeding. If it doesn't exist, log an error and skip this benchmark.
-       - **Example Benchmarks:** FACTS, WritingBench
-    6. **Method F: Manual Source Code (scraping_method == "manual_source_code"):**
-       - **Directory:** `Human-SIG/data/raw/benchmarks_without_data/manual_source_code/{benchmark_name}/`
-       - **Prerequisites:** No automated scraping. The user must manually extract data from the webpage source code.
-       - **Implementation:**
-         - **File Status:** The `input.txt` file already exists in each benchmark folder.
-         - The user must manually extract data from the webpage source code (e.g., by inspecting the HTML/JavaScript source code or using browser developer tools) and save it as `{name}_data.csv` in the benchmark folder.
-         - Verify that the data file exists before proceeding. If it doesn't exist, log an error and skip this benchmark.
-       - **Example Benchmarks:** FrontierMath Tier 1-3, FrontierMath Tier 4
-    8. **Table Selection:** For both `pandas.read_html()` and Selenium methods, you may need to inspect the tables to identify which one contains the leaderboard ranking. Typically, it's the first table (index 0), but verify by checking column names and row counts.
-  - **Data Extraction Requirements:**
-    - Extract leaderboard data: model names and scores from the DataFrame returned by `pandas.read_html()`.
-    - Determine `metric_direction`: From the leaderboard data or webpage context, determine whether higher scores are better ("higher_is_better") or lower scores are better ("lower_is_better"). This information may be found in:
-      - Column headers or table structure in the DataFrame
-      - Benchmark documentation (you may need to fetch the page separately to read documentation, or infer from context)
-      - Metric name or context (e.g., "Accuracy" implies higher_is_better, "Perplexity" implies lower_is_better)
-    - Store `metric_direction` separately in a metadata file (see output format below).
-  - **Standardization:** Regardless of source, the output CSV for every benchmark must contain at minimum:
-    - `model_name`: Raw string from source (column name may vary, standardize to "model_name").
-    - `score`: Float (0.0 - 100.0). Normalize all scores to this 0-100 scale using appropriate transformation:
-      - For percentage-based metrics (e.g., "Accuracy", "Pass@1"): If already in 0-100 range, use as-is. If in 0-1 range, multiply by 100.
-      - For non-percentage metrics (e.g., raw counts, perplexity, bits-per-byte): **STOP and ask the user for normalization instructions.** Display the benchmark name, the raw score range (min, max, mean, median), and the metric name. Ask the user to specify: (1) whether to use linear scaling (min-max normalization), (2) whether to apply logarithmic transformation first, (3) any other custom transformation. Do not proceed until the user provides explicit instructions.
-      - **Critical Directionality Handling:** After normalization, ensure ALL scores in the output CSV represent "higher is better" performance (i.e., higher scores indicate better model performance). If the original metric direction is "lower_is_better", you must:
-        - **Apply Inversion:** Transform scores using the inverted min-max formula: $Score_{inverted} = 100 - Score_{normalized}$, where $Score_{normalized}$ is the score after normalization to 0-100 range. This ensures that after inversion, higher values represent better performance.
-        - **Store Original Direction:** Store the ORIGINAL metric direction (before inversion) in a separate metadata file (see output format below). This field will be used in Step 4.2.1 for verification purposes.
-- **2.2.2:** Execution Loop
-  - **Action:** Iterate through all 29 benchmarks defined in `Human-SIG/config/metadata.json`. 
-    - **Critical Filtering Logic:** The `metadata.json` file contains both benchmark entries and LMArena entries. You must filter the entries to include ONLY benchmark entries (exclude LMArena entries). LMArena entries can be identified by the presence of the `elo_column` field (which is NOT present in benchmark entries). Only process entries that do NOT have the `elo_column` field.
-    - **File Status Check (Critical):** Before processing each benchmark, check the benchmark folder. If the folder contains ONLY the `input.txt` (or `input.html`) file and is missing both `scraper.py` and `{name}_data.csv`, you MUST:
-      1. Create the `scraper.py` script based on the `scraping_method` field in metadata.json (use the appropriate code template from Step 2.2.1).
-      2. Execute the newly created `scraper.py` script to generate the `{name}_data.csv` file.
-      3. Continue with the normal processing flow.
-    - For each benchmark entry:
-      1. Load the benchmark metadata (especially `leaderboard_url` and `scraping_method`).
-      2. Check the benchmark folder file status:
-         - If only `input.txt` (or `input.html`) exists: Create `scraper.py` and execute it to generate `{name}_data.csv`.
-         - If `scraper.py` exists but `{name}_data.csv` is missing: Execute the existing `scraper.py` to generate `{name}_data.csv`.
-         - If both files exist: Proceed with data loading/validation.
-      3. Determine scraping method from the `scraping_method` field:
-         - **If `scraping_method == "pandas_read_html"`:** 
-           - **For benchmarks_with_data:** The `scraper.py` script already exists. Execute it by running `python scraper.py` from within `Human-SIG/data/raw/benchmarks_with_data/pandas_read_html/{benchmark_name}/`.
-           - **For benchmarks_without_data:** 
-             - If `scraper.py` exists, execute it.
-             - **If only `input.txt` exists (missing both `scraper.py` and `{name}_data.csv`):** Create `scraper.py` using the template from Method A in Step 2.2.1, then execute it to generate `{name}_data.csv`.
-           - See Method A in Step 2.2.1 for detailed implementation.
-         - **If `scraping_method == "selenium"`:** 
-           - **For benchmarks_with_data:** The `scraper.py` script already exists. Execute it by running `python scraper.py` from within `Human-SIG/data/raw/benchmarks_with_data/selenium/{benchmark_name}/`.
-           - **Note:** Selenium method is only used for benchmarks in `benchmarks_with_data/selenium/` folder. All such benchmarks already have existing scripts.
-           - See Method B in Step 2.2.1 for detailed implementation.
-         - **If `scraping_method == "artificial_analysis"`:** 
-           - Check if `scraper.py` exists in `Human-SIG/data/raw/benchmarks_without_data/artificial_analysis/{benchmark_name}/`. 
-             - If `scraper.py` exists, execute it.
-             - **If only `input.txt` exists (missing both `scraper.py` and `{name}_data.csv`):** Create `scraper.py` using the template from Method C in Step 2.2.1, then execute it to generate `{name}_data.csv`.
-           - The script should read the unified table from `../input.html`. See Method C in Step 2.2.1 for detailed implementation.
-         - **If `scraping_method == "vals_ai_manual_json"`:** 
-           - Check if `{name}_input.json` exists. If it doesn't exist, log an error and skip this benchmark.
-           - Check if `scraper.py` exists:
-             - If `scraper.py` exists, execute it to convert JSON to CSV format.
-             - **If only `input.txt` and `{name}_input.json` exist (missing `scraper.py` and `{name}_data.csv`):** Create `scraper.py` using the template from Method D in Step 2.2.1, then execute it to generate `{name}_data.csv`.
-           - The final output should be `{name}_data.csv` in the same directory. See Method D in Step 2.2.1 for details.
-         - **If `scraping_method == "manual"`:** 
-           - Data files already exist. Load data from `Human-SIG/data/raw/benchmarks_with_data/manual_direct/{benchmark_name}/{name}_data.csv`.
-           - See Method E in Step 2.2.1 for details.
-         - **If `scraping_method == "manual_source_code"`:** 
-           - Load data from `Human-SIG/data/raw/benchmarks_without_data/manual_source_code/{benchmark_name}/{name}_data.csv`. If the file doesn't exist, log an error and skip this benchmark (data must be manually provided by the user).
-           - See Method F in Step 2.2.1 for details.
-      3. Verify the output CSV contains the required columns (model_name, score).
-      4. Save the `metric_direction` metadata separately (see output format below).
-  - **Error Handling:** 
-    - For Selenium method: If browser setup fails, table not found, or parsing errors occur, log the error to `Human-SIG/logs/ingestion_errors.log` with details, but do not stop the process. Continue to the next benchmark.
-    - For pandas.read_html() method: If parsing fails (e.g., no tables found, parsing error, network error), log the error to `Human-SIG/logs/ingestion_errors.log` with details, but do not stop the process. Continue to the next benchmark.
-    - For benchmarks with `scraping_method == "artificial_analysis"`, if the unified table HTML is not available or parsing fails, log an error and skip.
-    - For benchmarks with `scraping_method == "vals_ai_manual_json"`, if the manual JSON file is missing, log an error and skip.
-    - For benchmarks with `scraping_method == "manual"`, if the manual CSV file is missing, log an error and skip.
-  - **Output Format:** Save data files in the appropriate benchmark folder:
-    1. **Data file:**
-       - For `pandas_read_html` method: `Human-SIG/data/raw/benchmarks_with_data/pandas_read_html/{benchmark_name}/{name}_data.csv`
-       - For `selenium` method: `Human-SIG/data/raw/benchmarks_with_data/selenium/{benchmark_name}/{name}_data.csv`
-       - For `artificial_analysis` method: `Human-SIG/data/raw/benchmarks_without_data/artificial_analysis/{benchmark_name}/{name}_data.csv`
-       - For `vals_ai_manual_json` method: `Human-SIG/data/raw/benchmarks_without_data/vals_ai/{benchmark_name}/{name}_data.csv` (final output CSV file, converted from `{name}_input.json`)
-       - For `manual` method: `Human-SIG/data/raw/benchmarks_with_data/manual_direct/{benchmark_name}/{name}_data.csv`
-       - For `manual_source_code` method: `Human-SIG/data/raw/benchmarks_without_data/manual_source_code/{benchmark_name}/{name}_data.csv`
-       - The CSV must contain at minimum:
-         - `model_name`: String column with model identifiers
-         - `score`: Float column with normalized scores (0-100 range, higher is better)
-    2. **Metadata file:** `Human-SIG/data/raw/benchmarks_with_data/{method}/{benchmark_name}/{name}_metadata.json` or `Human-SIG/data/raw/benchmarks_without_data/{method}/{benchmark_name}/{name}_metadata.json` (for `pandas_read_html`, `selenium`, and `artificial_analysis` methods only). This JSON file stores supplementary information. The schema is:
-    ```json
-    {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "type": "object",
-      "properties": {
-        "metric_direction": {
-          "type": "string",
-          "enum": ["higher_is_better", "lower_is_better"],
-          "description": "Indicates the ORIGINAL metric direction (before inversion if applied). If scores were inverted during normalization, this still stores the original direction for verification purposes."
-        },
-        "date_scraped": {
-          "type": "string",
-          "format": "date-time",
-          "description": "ISO 8601 timestamp of when the data was scraped or loaded"
-        },
-        "source": {
-          "type": "string",
-          "enum": ["pandas_read_html", "selenium", "artificial_analysis", "vals_ai_manual_json", "manual", "manual_source_code"],
-          "description": "Indicates the data acquisition method: pandas.read_html(), Selenium (for JavaScript-rendered pages), Artificial Analysis unified table, VALS.ai manual JSON file, manual CSV file, or manual source code extraction"
-        }
-      },
-      "required": ["metric_direction", "date_scraped", "source"]
-    }
-    ```
-- **2.2.3:** Commit State
-  - **Message:** `Step 2.2 Completed: Executed existing scraping scripts and processed benchmark data (for benchmarks_with_data, scripts already exist; for benchmarks_without_data, executed existing scripts where available) and extracted/validated leaderboard data as CSV files with metadata`
+#### Step 2.2.2: Method Implementation Guidelines
+
+**Method 1: artificial_analysis**
+
+- **Directory:** `Human-SIG/data/raw/artificial_analysis/{benchmark_name}/`
+- **Input files:** 
+  - `artificial_analysis/input.html`: User-manually copied `<table>` element HTML (unified table, shared by all benchmarks).
+  - `{benchmark_name}/input.txt`: Optional, benchmark description or reference file.
+- **Script tasks:**
+  - Read `../input.html` (unified table file in parent directory).
+  - Use `pandas.read_html()` to parse the HTML table.
+  - Extract the column corresponding to this specific benchmark from the unified table (benchmark name used as column name).
+  - Extract model names (usually first column) and scores for this benchmark.
+  - Save as `data.csv` (containing `model_name` and `score` columns).
+- **Code organization:** Each benchmark's `scraper.py` is implemented independently, as different benchmarks have different column names in the unified table.
+
+**Method 2: frontiermath (manual_source_code)**
+
+- **Directory:** `Human-SIG/data/raw/frontiermath/{subdirectory}/`
+  - `frontiermath_tier_1_3/`
+  - `frontiermath_tier4/`
+- **Input file:** `input.html` in each subdirectory: User-manually copied `<table>` element HTML.
+- **Script tasks:**
+  - Read `input.html` in the subdirectory.
+  - Parse HTML table (may need to use BeautifulSoup or pandas.read_html).
+  - Extract model names and scores.
+  - Save as `data.csv` (containing `model_name` and `score` columns).
+- **Code organization:** Each subdirectory's `scraper.py` is implemented independently, as the two subdirectories may have different table structures.
+
+**Method 3: manual_direct**
+
+- **Directory:** `Human-SIG/data/raw/manual_direct/{benchmark_name}/`
+- **Input file:** User directly provided CSV or XLSX file.
+- **Operations:**
+  - Check if `data.csv` or `data.xlsx` exists in the directory.
+  - If `data.xlsx` exists, convert to `data.csv` (use pandas to read and save as CSV).
+  - If `data.csv` exists, use it directly.
+  - If neither exists, skip this entry.
+- **Note:** This method does not require creating scripts, only renaming or converting file formats.
+
+**Method 4: pandas_read_html**
+
+- **Directory:** `Human-SIG/data/raw/pandas_read_html/{benchmark_name}/`
+- **Input file:** `input.txt` (contains one line with URL).
+- **Code organization:**
+  - **Common code:** Extracted to `pandas_read_html/common.py`
+    - Implements common `pandas.read_html()` calling logic.
+    - Sets User-Agent header.
+    - Handles URL reading and table parsing common flow.
+    - Provides `run_scraper(benchmark_dir)` function for benchmarks to call.
+  - **Benchmark-specific code:** Remains in each benchmark directory's `scraper.py`
+    - Calls common functions from `common.py`.
+    - Handles benchmark-specific column name mapping, data cleaning, table selection logic (if the first table is not the target table).
+    - Saves as `data.csv`.
+- **Script tasks:**
+  - Read URL from `input.txt`.
+  - Call common logic from `common.py` to get table data.
+  - Process data according to benchmark-specific needs (column mapping, select specific table, etc.).
+  - Save as `data.csv` (containing `model_name` and `score` columns).
+
+**Method 5: selenium**
+
+- **Directory:** `Human-SIG/data/raw/selenium/{benchmark_name}/`
+- **Input file:** `input.txt` (contains one line with URL).
+- **Code organization:**
+  - **Common code:** Extracted to `selenium/common.py`
+    - Implements common Selenium browser setup (Chrome headless mode).
+    - Implements common page loading wait logic.
+    - Implements common table extraction logic (find table elements, extract HTML, parse with pandas).
+    - Provides `run_scraper(benchmark_dir)` function for benchmarks to call.
+  - **Benchmark-specific code:** Remains in each benchmark directory's `scraper.py`
+    - Calls common functions from `common.py`.
+    - Handles benchmark-specific wait times, element selectors, table selection logic.
+    - Saves as `data.csv`.
+- **Script tasks:**
+  - Read URL from `input.txt`.
+  - Call common logic from `common.py` to set up browser and load page.
+  - Wait for page rendering and select specific table elements according to benchmark-specific needs.
+  - Extract table HTML and parse with pandas.
+  - Save as `data.csv` (containing `model_name` and `score` columns).
+
+**Method 6: vals_ai**
+
+- **Directory:** `Human-SIG/data/raw/vals_ai/{benchmark_name}/`
+- **Input file:** `input.json`: User-manually copied JSON element (from webpage source code, may contain irrelevant information before and after).
+- **Script tasks:**
+  - Read `input.json` file.
+  - Handle possible irrelevant information before and after (extract valid JSON data).
+  - Parse JSON structure and extract model names and scores.
+  - Convert to DataFrame and save as `data.csv` (containing `model_name` and `score` columns).
+- **Code organization:** Each benchmark's `scraper.py` is implemented independently, as different benchmarks may have different JSON structures.
+
+**Method 7: lmarena**
+
+- **Directory:** `Human-SIG/data/raw/lmarena/{category_name}/`
+  - `overall/` (Overall category)
+  - `coding/` (Coding category)
+  - `math/` (Math category)
+  - `instruction_following/` (Instruction Following category)
+  - `creative_writing/` (Creative Writing category)
+  - `hard_prompts/` (Hard Prompts category)
+  - `expert/` (Expert category)
+- **Input file:** `input.html` in each category subdirectory: User-manually copied `<table>` element HTML.
+- **Script tasks:**
+  - Read `input.html` in the category subdirectory.
+  - Use `pandas.read_html()` to parse the HTML table.
+  - Extract model names and ELO scores.
+  - Save as `data.csv` (containing `model_name` and `elo_score` columns, or adjust column names based on actual table structure).
+- **Code organization:** Category-specific `scraper.py` scripts can share common logic (extracted to `lmarena/common.py`), as all categories have the same table structure.
+
+#### Step 2.2.3: Execution Loop
+
+- **Operation:** Iterate through all benchmarks and LMArena categories (read all entries from `metadata.json`).
+  - **Checkpoint resume check:** Execute file status check from Step 2.2.1 for each entry.
+  - **Method execution:** Execute corresponding method based on `scraping_method` field (Step 2.2.2).
+  - **Data validation:** Verify that generated `data.csv` contains basic column structure (at least contains model name and score-related columns, specific column names may vary by benchmark/category).
+  - **Error handling:** If an entry fails to process, continue processing other entries (do not interrupt the entire workflow).
+
+- **Output file locations:**
+  - `pandas_read_html`: `Human-SIG/data/raw/pandas_read_html/{benchmark_name}/data.csv`
+  - `selenium`: `Human-SIG/data/raw/selenium/{benchmark_name}/data.csv`
+  - `artificial_analysis`: `Human-SIG/data/raw/artificial_analysis/{benchmark_name}/data.csv`
+  - `vals_ai`: `Human-SIG/data/raw/vals_ai/{benchmark_name}/data.csv`
+  - `manual`: `Human-SIG/data/raw/manual_direct/{benchmark_name}/data.csv`
+  - `manual_source_code`: `Human-SIG/data/raw/frontiermath/{subdirectory}/data.csv`
+  - `lmarena`: `Human-SIG/data/raw/lmarena/{category_name}/data.csv`
+
+- **Commit Message:** `Step 2.2 Completed: Executed data acquisition for all benchmarks and LMArena categories with checkpoint resume logic`
 
 ### Phase III: Data Processing, Entity Resolution & Master Table Synthesis
 
@@ -838,11 +398,9 @@ Objective: Transform raw, heterogeneous benchmark data into a unified, normalize
 
 Input:
 
-- `Human-SIG/data/raw/` (Raw CSV files and metadata from Phase II).
+- `Human-SIG/data/raw/` (Raw CSV files from Phase II).
 
 - `Human-SIG/config/mapping.json` (The Unified Model Registry).
-
-- `Human-SIG/data/raw/lmarena_leaderboard/filtered_elo_dump.json` (The Study Universe filtered in Step 2.1).
 
   Output:
 
@@ -854,13 +412,13 @@ Input:
 
 - **3.1.1:** Create `Human-SIG/src/processing/parser_utils.py`.
   - **Code Documentation Requirements:**
-    - File header must explain the purpose (parsing and normalizing benchmark scores from CSV files), the score normalization methodology (ensuring all scores are in 0-100 range as specified in Step 2.2.1), ranking logic, and tie-breaking strategy.
+    - File header must explain the purpose (parsing and normalizing benchmark scores from CSV files), the score normalization methodology (ensuring all scores are in 0-100 range as specified in Step 2.2), ranking logic, and tie-breaking strategy.
     - All classes and methods must have docstrings.
   - **Class Definition:** Implement `BenchmarkParser`.
-  - **Ranking Logic:** Compute rank strictly within the Study Universe (models present in `filtered_elo_dump.json`). Only rank models that appear in both the benchmark data and the Study Universe. Models that appear in the benchmark but not in the Study Universe should be excluded from ranking.
+  - **Ranking Logic:** Compute rank strictly within the Study Universe (models present in LMArena data). Only rank models that appear in both the benchmark data and the Study Universe. Models that appear in the benchmark but not in the Study Universe should be excluded from ranking.
   - **Tie-Breaking:** Use `method='min'` (e.g., if two models tie for first place with score 95, assign both rank 1, and the next model gets rank 3) to support rigorous RBO calculation. This ensures that tied models receive the same rank, which is important for RBO computation.
-  - **Directionality:** When ranking, ensure that higher scores receive better (lower) ranks. All scores from Step 2.2.1 should already represent "higher is better" performance (after normalization and inversion if needed), so the ranking logic should always assume "higher score = better rank".
-  - **Note:** Scores should already be normalized to 0-100 range from Step 2.2.1 and stored in CSV files. This parser loads CSV files, performs ranking, and outputs data structure transformation. The parser should output both the original scores and the computed ranks.
+  - **Directionality:** When ranking, ensure that higher scores receive better (lower) ranks. All scores from Step 2.2 should already represent "higher is better" performance (after normalization and inversion if needed), so the ranking logic should always assume "higher score = better rank".
+  - **Note:** Scores should already be normalized to 0-100 range from Step 2.2 and stored in CSV files. This parser loads CSV files, performs ranking, and outputs data structure transformation. The parser should output both the original scores and the computed ranks.
 - **3.1.2:** Commit State.
   - **Message:** `Step 3.1.2 Completed: Implemented BenchmarkParser with ranking logic for RBO calculation`
 
@@ -1028,6 +586,16 @@ Input:
     - **Wait for User:** Do not proceed until resolved. The user must verify and fix the data issue before continuing.
 - **4.2.3:** Persistence.
   - **Output:** Save the fully engineered table to `Human-SIG/results/analysis_ready_data.csv`.
+  - **CSV Column Structure:** The output CSV file must contain the following columns for each benchmark:
+    - `benchmark_name` or `benchmark_id`: Benchmark identifier
+    - `subset_avg_score`: Difficulty feature (mean score across Common Subset models, as computed in Task B). Lower values indicate harder benchmarks.
+    - `is_estimated_difficulty`: Boolean flag (True if fallback method was used due to insufficient Common Subset overlap, False otherwise)
+    - `cv` or `coefficient_of_variation`: Variance feature (Coefficient of Variation, as computed in Task C). Formula: CV = σ/μ, where σ is standard deviation and μ is mean score.
+    - `spearman_rho`: Spearman rank correlation coefficient between benchmark scores and corresponding LMArena ELO scores
+    - `kendall_tau`: Kendall's τ correlation coefficient
+    - `rbo`: Rank-Biased Overlap (p=0.9)
+    - Additional metadata columns from metadata.json (e.g., `release_date`, `task_type`, `prompt_length`, `question_count`, `category`)
+  - **Data Format:** All numerical values should be stored as floats. Boolean values can be stored as True/False or 1/0. Missing values should be represented as empty cells or NaN.
   - **Message:** `Step 4.2.3 Completed: Computed robust features (CV, Inverted Scores) and verified directionality`
 
 #### Step 4.3: Hypothesis Testing Strategy (The Small-N Protocol)
