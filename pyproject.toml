@@ -1,15 +1,23 @@
 [project]
-name = "github"
+name = "human-sig"
 version = "0.1.0"
-description = "Add your description here"
+description = "Benchmark data scraping, processing, and statistical analysis pipeline"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.7"
 dependencies = [
-    "beautifulsoup4>=4.14.3",
-    "lxml>=6.0.2",
+    # Core dependencies (required for all methods)
     "pandas>=2.3.3",
+    # Dependencies for pandas.read_html method
+    "html5lib>=1.1",
+    "lxml>=6.0.2",
+    # Dependencies for Selenium method
+    "selenium>=4.0.0",
+    "webdriver-manager>=3.8.0",
+    # HTML parsing (used in some scenarios)
+    "beautifulsoup4>=4.14.3",
+    # Statistical analysis dependencies
     "rbo>=0.1.3",
     "scipy>=1.16.3",
-    "seaborn>=0.13.2",
     "statsmodels>=0.14.6",
+    "seaborn>=0.13.2",
 ]
