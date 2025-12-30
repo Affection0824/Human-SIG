@@ -11,7 +11,6 @@ data/raw/
 ├── benchmarks_with_data/          # 已有数据的benchmark
 │   ├── manual_direct/            # 没有爬取脚本，直接获取的数据
 │   │   └── {benchmark_name}/     # 每个benchmark一个文件夹
-│   │       ├── input.txt         # URL或数据说明文件
 │   │       └── {name}_data.csv   # 数据文件（CSV或JSON）
 │   ├── pandas_read_html/         # pandas.read_html方法爬取的数据
 │   │   └── {benchmark_name}/
@@ -52,7 +51,7 @@ data/raw/
 每个benchmark文件夹中的文件命名遵循以下规则：
 - `input.txt` 或 `input.html`: 输入文件
   - **对于可爬取的benchmark（pandas_read_html, selenium）**: 包含一行URL
-  - **对于需要手动获取数据的benchmark（manual_direct, artificial_analysis, vals_ai, manual_source_code）**: 包含URL或数据获取说明，或者直接包含用户提供的数据
+  - **对于需要手动获取数据的benchmark（artificial_analysis, vals_ai, manual_source_code）**: 包含URL或数据获取说明，或者直接包含用户提供的数据
   - **对于artificial_analysis的统一表格**: `artificial_analysis/input.html` 或 `artificial_analysis/input.txt`（说明文件）
   - **注意**: LMArena数据已预先准备好，不需要爬取，直接从 `lmarena_leaderboard/filtered_elo_dump.json` 加载
 - `scraper.py`: 数据提取/转换脚本（Python文件，仅存在于有脚本的benchmark）
@@ -70,18 +69,12 @@ data/raw/
 
 **文件格式：**
 
-1. **`input.txt`** (文本文件)
-   - 包含：数据来源URL或数据获取说明
-   - 格式：纯文本，一行URL或多行说明
-
-2. **`{name}_data.csv`** 或 **`{name}_data.json`**
+1. **`{name}_data.csv`** 或 **`{name}_data.json`**
    - 格式：CSV文件（UTF-8编码）或JSON文件
    - 必需列（CSV）：`model_name`（字符串）, `score`（浮点数，0-100范围）
 
 **示例：**
-- `facts/input.txt`: `https://www.kaggle.com/benchmarks/google/facts`
 - `facts/facts_data.csv`: 包含model_name和score列的CSV文件
-- `writingbench/input.txt`: `https://huggingface.co/spaces/WritingBench/WritingBench`
 - `writingbench/writingbench_data.csv`: 从网页上下载/获取的数据文件，包含model_name和score列（位于 `benchmarks_with_data/manual_direct/writingbench/`）
 
 ---

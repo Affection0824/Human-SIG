@@ -1,0 +1,2195 @@
+<div class="table-container" style="grid-template-columns: max-content 1fr max-content max-content max-content;">
+        <div class="table-header" style="display: grid;">
+        <div class="header-cell name-header name-cell " data-field="name" data-col="1">
+          <span>Model</span>
+          <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.5 13L14.5 17.107L18.5 13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M10.5 9L6.5 5L2.5 8.997" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M6.5 5V17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M14.5 5V17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+
+
+        </div>
+      <div class="graph-header" data-col="2"></div>
+        <div class="header-cell score-header column-cell " data-field="score" data-col="3">
+          <span>Accuracy</span>
+          <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M7 13L11 17.107L15 13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+    <path d="M11 5V17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+
+
+        </div>
+      
+        <div class="header-cell n_correct-header column-cell " data-field="n_correct" data-col="4">
+          <span># Correct</span>
+          <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.5 13L14.5 17.107L18.5 13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M10.5 9L6.5 5L2.5 8.997" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M6.5 5V17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M14.5 5V17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+
+
+        </div>
+      
+        <div class="header-cell organization-header column-cell " data-field="organization" data-col="5">
+          <span>Organization</span>
+          <svg width="21" height="22" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10.5 13L14.5 17.107L18.5 13" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M10.5 9L6.5 5L2.5 8.997" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M6.5 5V17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="M14.5 5V17" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
+
+
+        </div>
+      </div>
+        <div class="table-row" data-model-key="gemini-3-pro-preview-tier4"><div class="cell name-cell" data-col="1">Gemini 3 Pro Preview</div><div class="cell chart-cell" data-chart-index="0" data-model-key="gemini-3-pro-preview-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="106.927734375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 74.45996258121095 8 l 0 8
+              M 74.45996258121095 12 L 139.39550616878907 12
+              M 139.39550616878907 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">18.8%</span>
+              <span class="score-error">±5.7%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="4">9 / 48</div><div class="cell organization-cell column-cell" data-col="4">Google DeepMind</div></div><div class="table-row" data-model-key="gpt-5.2-2025-12-11_xhigh-tier4"><div class="cell name-cell" data-col="1">GPT-5.2 (xhigh)</div><div class="cell chart-cell" data-chart-index="1" data-model-key="gpt-5.2-2025-12-11_xhigh-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="95.23696875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 64.44178125 8 l 0 8
+              M 64.44178125 12 L 126.03215625 12
+              M 126.03215625 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">16.7%</span>
+              <span class="score-error">±5.4%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="5">8 / 48</div><div class="cell organization-cell column-cell" data-col="5">OpenAI</div></div><div class="table-row" data-model-key="gpt-5.2-2025-12-11_high-tier4"><div class="cell name-cell" data-col="1">GPT-5.2 (high)</div><div class="cell chart-cell" data-chart-index="2" data-model-key="gpt-5.2-2025-12-11_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="83.166015625" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 53.8071091894819 8 l 0 8
+              M 53.8071091894819 12 L 112.52492206051812 12
+              M 112.52492206051812 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">14.6%</span>
+              <span class="score-error">±5.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="6">7 / 48</div><div class="cell organization-cell column-cell" data-col="6">OpenAI</div></div><div class="table-row" data-model-key="gpt-5.2-2025-12-11_medium-tier4"><div class="cell name-cell" data-col="1">GPT-5.2 (medium)</div><div class="cell chart-cell" data-chart-index="3" data-model-key="gpt-5.2-2025-12-11_medium-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="83.166015625" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 53.8071091894819 8 l 0 8
+              M 53.8071091894819 12 L 112.52492206051812 12
+              M 112.52492206051812 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">14.6%</span>
+              <span class="score-error">±5.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="7">7 / 48</div><div class="cell organization-cell column-cell" data-col="7">OpenAI</div></div><div class="table-row" data-model-key="gpt-5.1-2025-11-13_high-tier4"><div class="cell name-cell" data-col="1">GPT-5.1 (high)</div><div class="cell chart-cell" data-chart-index="4" data-model-key="gpt-5.1-2025-11-13_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="71.28515625" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 43.77461107217719 8 l 0 8
+              M 43.77461107217719 12 L 98.7957014278228 12
+              M 98.7957014278228 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">12.5%</span>
+              <span class="score-error">±4.8%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="8">6 / 48</div><div class="cell organization-cell column-cell" data-col="8">OpenAI</div></div><div class="table-row" data-model-key="gpt-5-2025-08-07_high-tier4"><div class="cell name-cell" data-col="1">GPT-5 (high)</div><div class="cell chart-cell" data-chart-index="5" data-model-key="gpt-5-2025-08-07_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="71.28515625" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 43.77461107217719 8 l 0 8
+              M 43.77461107217719 12 L 98.7957014278228 12
+              M 98.7957014278228 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">12.5%</span>
+              <span class="score-error">±4.8%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="9">6 / 48</div><div class="cell organization-cell column-cell" data-col="9">OpenAI</div></div><div class="table-row" data-model-key="gpt-5-pro-2025-10-06_high-tier4"><div class="cell name-cell" data-col="1">GPT-5 Pro</div><div class="cell chart-cell" data-chart-index="6" data-model-key="gpt-5-pro-2025-10-06_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="71.28515625" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 43.91165625 8 l 0 8
+              M 43.91165625 12 L 98.65865624999999 12
+              M 98.65865624999999 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">12.5%</span>
+              <span class="score-error">±4.8%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="10">6 / 48</div><div class="cell organization-cell column-cell" data-col="10">OpenAI</div></div><div class="table-row" data-model-key="gemini-2.5-deep-think-2025-08-01-webapp-tier4"><div class="cell name-cell" data-col="1">Gemini 2.5 Deep Think</div><div class="cell chart-cell" data-chart-index="7" data-model-key="gemini-2.5-deep-think-2025-08-01-webapp-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="59.30925" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 34.216875 8 l 0 8
+              M 34.216875 12 L 84.401625 12
+              M 84.401625 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">10.4%</span>
+              <span class="score-error">±4.4%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="11">5 / 48</div><div class="cell organization-cell column-cell" data-col="11">Google,Google DeepMind</div></div><div class="table-row" data-model-key="gpt-5.2-2025-12-11_low-tier4"><div class="cell name-cell" data-col="1">GPT-5.2 (low)</div><div class="cell chart-cell" data-chart-index="8" data-model-key="gpt-5.2-2025-12-11_low-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="35.642578125" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 15.5069208405816 8 l 0 8
+              M 15.5069208405816 12 L 55.7782354094184 12
+              M 55.7782354094184 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">6.3%</span>
+              <span class="score-error">±3.5%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="12">3 / 48</div><div class="cell organization-cell column-cell" data-col="12">OpenAI</div></div><div class="table-row" data-model-key="gpt-5-mini-2025-08-07_high-tier4"><div class="cell name-cell" data-col="1">GPT-5 mini (high)</div><div class="cell chart-cell" data-chart-index="9" data-model-key="gpt-5-mini-2025-08-07_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="35.642578125" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 15.5069208405816 8 l 0 8
+              M 15.5069208405816 12 L 55.7782354094184 12
+              M 55.7782354094184 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">6.3%</span>
+              <span class="score-error">±3.5%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="13">3 / 48</div><div class="cell organization-cell column-cell" data-col="13">OpenAI</div></div><div class="table-row" data-model-key="gpt-5-2025-08-07_medium-tier4"><div class="cell name-cell" data-col="1">GPT-5 (medium)</div><div class="cell chart-cell" data-chart-index="10" data-model-key="gpt-5-2025-08-07_medium-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="35.642578125" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 15.5069208405816 8 l 0 8
+              M 15.5069208405816 12 L 55.7782354094184 12
+              M 55.7782354094184 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">6.3%</span>
+              <span class="score-error">±3.5%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="14">3 / 48</div><div class="cell organization-cell column-cell" data-col="14">OpenAI</div></div><div class="table-row" data-model-key="o4-mini-2025-04-16_high-tier4"><div class="cell name-cell" data-col="1">o4-mini (high)</div><div class="cell chart-cell" data-chart-index="11" data-model-key="o4-mini-2025-04-16_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="35.642578125" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 15.5069208405816 8 l 0 8
+              M 15.5069208405816 12 L 55.7782354094184 12
+              M 55.7782354094184 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">6.3%</span>
+              <span class="score-error">±3.5%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="15">3 / 48</div><div class="cell organization-cell column-cell" data-col="15">OpenAI</div></div><div class="table-row" data-model-key="gemini-2.5-flash-tier4"><div class="cell name-cell" data-col="1">Gemini 2.5 Flash (Jun 2025)</div><div class="cell chart-cell" data-chart-index="12" data-model-key="gemini-2.5-flash-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769312 8 l 0 8
+              M 7.139352765769312 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="16">2 / 48</div><div class="cell organization-cell column-cell" data-col="16">Google DeepMind</div></div><div class="table-row" data-model-key="gemini-3-flash-preview-tier4"><div class="cell name-cell" data-col="1">Gemini 3 Flash</div><div class="cell chart-cell" data-chart-index="13" data-model-key="gemini-3-flash-preview-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769312 8 l 0 8
+              M 7.139352765769312 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="17">2 / 48</div><div class="cell organization-cell column-cell" data-col="17">Google DeepMind</div></div><div class="table-row" data-model-key="claude-opus-4-5-20251101-tier4"><div class="cell name-cell" data-col="1">Claude Opus 4.5 (no thinking)</div><div class="cell chart-cell" data-chart-index="14" data-model-key="claude-opus-4-5-20251101-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769312 8 l 0 8
+              M 7.139352765769312 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="18">2 / 48</div><div class="cell organization-cell column-cell" data-col="18">Anthropic</div></div><div class="table-row" data-model-key="claude-opus-4-5-20251101_32K-tier4"><div class="cell name-cell" data-col="1">Claude Opus 4.5 (32k thinking)</div><div class="cell chart-cell" data-chart-index="15" data-model-key="claude-opus-4-5-20251101_32K-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769312 8 l 0 8
+              M 7.139352765769312 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="19">2 / 48</div><div class="cell organization-cell column-cell" data-col="19">Anthropic</div></div><div class="table-row" data-model-key="gpt-5.1-2025-11-13_medium-tier4"><div class="cell name-cell" data-col="1">GPT-5.1 (medium)</div><div class="cell chart-cell" data-chart-index="16" data-model-key="gpt-5.1-2025-11-13_medium-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769314 8 l 0 8
+              M 7.139352765769314 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="20">2 / 48</div><div class="cell organization-cell column-cell" data-col="20">OpenAI</div></div><div class="table-row" data-model-key="claude-sonnet-4-5-20250929_32K-tier4"><div class="cell name-cell" data-col="1">Claude Sonnet 4.5 (32k thinking)</div><div class="cell chart-cell" data-chart-index="17" data-model-key="claude-sonnet-4-5-20250929_32K-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769314 8 l 0 8
+              M 7.139352765769314 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="21">2 / 48</div><div class="cell organization-cell column-cell" data-col="21">Anthropic</div></div><div class="table-row" data-model-key="gpt-5-mini-2025-08-07_medium-tier4"><div class="cell name-cell" data-col="1">GPT-5 mini (medium)</div><div class="cell chart-cell" data-chart-index="18" data-model-key="gpt-5-mini-2025-08-07_medium-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769312 8 l 0 8
+              M 7.139352765769312 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="22">2 / 48</div><div class="cell organization-cell column-cell" data-col="22">OpenAI</div></div><div class="table-row" data-model-key="claude-opus-4-1-20250805_27K-tier4"><div class="cell name-cell" data-col="1">Claude Opus 4.1 (27K thinking)</div><div class="cell chart-cell" data-chart-index="19" data-model-key="claude-opus-4-1-20250805_27K-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769314 8 l 0 8
+              M 7.139352765769314 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="23">2 / 48</div><div class="cell organization-cell column-cell" data-col="23">Anthropic</div></div>
+        <div class="table-row" data-model-key="gemini-2.5-pro-tier4"><div class="cell name-cell" data-col="1">Gemini 2.5 Pro (Jun 2025)</div><div class="cell chart-cell" data-chart-index="20" data-model-key="gemini-2.5-pro-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769312 8 l 0 8
+              M 7.139352765769312 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="24">2 / 48</div><div class="cell organization-cell column-cell" data-col="24">Google DeepMind</div></div><div class="table-row" data-model-key="o3-mini-2025-01-31_high-tier4"><div class="cell name-cell" data-col="1">o3-mini (high)</div><div class="cell chart-cell" data-chart-index="21" data-model-key="o3-mini-2025-01-31_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769314 8 l 0 8
+              M 7.139352765769314 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="25">2 / 48</div><div class="cell organization-cell column-cell" data-col="25">OpenAI</div></div><div class="table-row" data-model-key="claude-opus-4-20250514_27K-tier4"><div class="cell name-cell" data-col="1">Claude Opus 4 (27K thinking)</div><div class="cell chart-cell" data-chart-index="22" data-model-key="claude-opus-4-20250514_27K-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="23.76171875" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 7.139352765769314 8 l 0 8
+              M 7.139352765769314 12 L 40.38408473423068 12
+              M 40.38408473423068 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">4.2%</span>
+              <span class="score-error">±2.9%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="26">2 / 48</div><div class="cell organization-cell column-cell" data-col="26">Anthropic</div></div><div class="table-row" data-model-key="zai-org/GLM-4.6-tier4"><div class="cell name-cell" data-col="1">GLM 4.6</div><div class="cell chart-cell" data-chart-index="23" data-model-key="zai-org/GLM-4.6-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="12.133643617021276" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 24.267287234042552 12
+              M 24.267287234042552 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="27">1 / 48</div><div class="cell organization-cell column-cell" data-col="27">Zhipu AI,Tsinghua University</div></div><div class="table-row" data-model-key="fireworks/deepseek-v3p2-tier4"><div class="cell name-cell" data-col="1">DeepSeek-V3.2</div><div class="cell chart-cell" data-chart-index="24" data-model-key="fireworks/deepseek-v3p2-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.975906250000001" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.951812500000003 12
+              M 23.951812500000003 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="28">1 / 48</div><div class="cell organization-cell column-cell" data-col="28">DeepSeek</div></div><div class="table-row" data-model-key="claude-opus-4-5-20251101_16K-tier4"><div class="cell name-cell" data-col="1">Claude Opus 4.5 (16k thinking)</div><div class="cell chart-cell" data-chart-index="25" data-model-key="claude-opus-4-5-20251101_16K-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible; cursor: default;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.880859375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.76171875 12
+              M 23.76171875 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border: medium; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none; top: 273px; left: 375px;">
+    <div style="width: 290px;" class="tooltip-table tooltip-table-stripped">
+      
+        <div style="background: var(--Gray-200); display: flex; padding: 12px 16px 8px 16px; border-radius: 8px 8px 0 0;">
+            
+      <span style="flex: 1;font-weight: bold;" class="label">
+        
+        Model
+      </span>
+    <span style="flex: 1;font-weight: 600;">
+      
+      Claude Opus 4.5 (16k thinking)
+    </span>
+        </div>
+    
+      
+        <div style=" display: flex; padding: 8px 16px; border-radius: null;" class="tooltip-table-row" tooltip-table-first-row="">
+            
+      <span style="flex: 1;" class="label">
+        
+        Model Identifier
+      </span>
+    <span style="flex: 1;" class="value">
+      
+      claude-opus-4-5-20251101_16K
+    </span>
+        </div>
+    
+        <div style=" display: flex; padding: 8px 16px; border-radius: null;" class="tooltip-table-row">
+            
+      <span style="flex: 1;" class="label">
+        
+        Organization
+      </span>
+    <span style="flex: 1;" class="value">
+      
+      Anthropic
+    </span>
+        </div>
+    
+        <div style=" display: flex; padding: 8px 16px; border-radius: null;" class="tooltip-table-row">
+            
+      <span style="flex: 1;" class="label">
+        
+        Accuracy
+      </span>
+    <span style="flex: 1;" class="value">
+      
+      2.1%
+    </span>
+        </div>
+    
+        <div style=" display: flex; padding: 8px 16px; border-radius: null;" class="tooltip-table-row">
+            
+      <span style="flex: 1;" class="label">
+        
+        Standard Error
+      </span>
+    <span style="flex: 1;" class="value">
+      
+      2.1%
+    </span>
+        </div>
+    
+        <div style=" display: flex; padding: 8px 16px; border-radius: null;" class="tooltip-table-row">
+            
+      <span style="flex: 1;" class="label">
+        
+        Release Date
+      </span>
+    <span style="flex: 1;" class="value">
+      
+      Nov. 24, 2025
+    </span>
+        </div>
+    
+      
+    </div>
+  </div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="29">1 / 48</div><div class="cell organization-cell column-cell" data-col="29">Anthropic</div></div><div class="table-row" data-model-key="claude-haiku-4-5-20251001_32K-tier4"><div class="cell name-cell" data-col="1">Claude Haiku 4.5 (32K thinking)</div><div class="cell chart-cell" data-chart-index="26" data-model-key="claude-haiku-4-5-20251001_32K-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.880859375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.76171875 12
+              M 23.76171875 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="30">1 / 48</div><div class="cell organization-cell column-cell" data-col="30">Anthropic</div></div><div class="table-row" data-model-key="claude-sonnet-4-5-20250929-tier4"><div class="cell name-cell" data-col="1">Claude Sonnet 4.5 (no thinking)</div><div class="cell chart-cell" data-chart-index="27" data-model-key="claude-sonnet-4-5-20250929-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.880859375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.76171875 12
+              M 23.76171875 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="31">1 / 48</div><div class="cell organization-cell column-cell" data-col="31">Anthropic</div></div><div class="table-row" data-model-key="grok-4-0709-tier4"><div class="cell name-cell" data-col="1">Grok 4</div><div class="cell chart-cell" data-chart-index="28" data-model-key="grok-4-0709-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.880859375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.76171875 12
+              M 23.76171875 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="32">1 / 48</div><div class="cell organization-cell column-cell" data-col="32">xAI</div></div><div class="table-row" data-model-key="o4-mini-2025-04-16_medium-tier4"><div class="cell name-cell" data-col="1">o4-mini (medium)</div><div class="cell chart-cell" data-chart-index="29" data-model-key="o4-mini-2025-04-16_medium-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.880859375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.76171875 12
+              M 23.76171875 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="33">1 / 48</div><div class="cell organization-cell column-cell" data-col="33">OpenAI</div></div><div class="table-row" data-model-key="gpt-5-nano-2025-08-07_medium-tier4"><div class="cell name-cell" data-col="1">GPT-5 nano (medium)</div><div class="cell chart-cell" data-chart-index="30" data-model-key="gpt-5-nano-2025-08-07_medium-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.880859375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.76171875 12
+              M 23.76171875 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="34">1 / 48</div><div class="cell organization-cell column-cell" data-col="34">OpenAI</div></div><div class="table-row" data-model-key="gemini-2.5-pro-preview-06-05-tier4"><div class="cell name-cell" data-col="1">Gemini 2.5 Pro (Preview)</div><div class="cell chart-cell" data-chart-index="31" data-model-key="gemini-2.5-pro-preview-06-05-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.880859375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.76171875 12
+              M 23.76171875 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="35">1 / 48</div><div class="cell organization-cell column-cell" data-col="35">Google DeepMind</div></div><div class="table-row" data-model-key="o3-2025-04-16_high-tier4"><div class="cell name-cell" data-col="1">o3 (high)</div><div class="cell chart-cell" data-chart-index="32" data-model-key="o3-2025-04-16_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="11.880859375" height="24"></rect></g></g><path stroke="#2B424B" d="
+              M 0 8 l 0 8
+              M 0 12 L 23.76171875 12
+              M 23.76171875 8 l 0 8
+            "></path></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">2.1%</span>
+              <span class="score-error">±2.1%</span>
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="36">1 / 48</div><div class="cell organization-cell column-cell" data-col="36">OpenAI</div></div><div class="table-row" data-model-key="Qwen/Qwen3-235B-A22B-Thinking-2507-tier4"><div class="cell name-cell" data-col="1">Qwen3-235B-A22B-Thinking-2507</div><div class="cell chart-cell" data-chart-index="33" data-model-key="Qwen/Qwen3-235B-A22B-Thinking-2507-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="37">0 / 48</div><div class="cell organization-cell column-cell" data-col="37">Alibaba</div></div><div class="table-row" data-model-key="moonshotai/Kimi-K2-Thinking-tier4"><div class="cell name-cell" data-col="1">Kimi K2 Thinking</div><div class="cell chart-cell" data-chart-index="34" data-model-key="moonshotai/Kimi-K2-Thinking-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="38">0 / 48</div><div class="cell organization-cell column-cell" data-col="38">Moonshot</div></div><div class="table-row" data-model-key="gpt-5-nano-2025-08-07_high-tier4"><div class="cell name-cell" data-col="1">GPT-5 nano (high)</div><div class="cell chart-cell" data-chart-index="35" data-model-key="gpt-5-nano-2025-08-07_high-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="39">0 / 48</div><div class="cell organization-cell column-cell" data-col="39">OpenAI</div></div><div class="table-row" data-model-key="gpt-4.1-2025-04-14-tier4"><div class="cell name-cell" data-col="1">GPT-4.1</div><div class="cell chart-cell" data-chart-index="36" data-model-key="gpt-4.1-2025-04-14-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="40">0 / 48</div><div class="cell organization-cell column-cell" data-col="40">OpenAI</div></div><div class="table-row" data-model-key="claude-opus-4-20250514-tier4"><div class="cell name-cell" data-col="1">Claude Opus 4</div><div class="cell chart-cell" data-chart-index="37" data-model-key="claude-opus-4-20250514-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="41">0 / 48</div><div class="cell organization-cell column-cell" data-col="41">Anthropic</div></div><div class="table-row" data-model-key="claude-3-5-sonnet-20240620-tier4"><div class="cell name-cell" data-col="1">Claude 3.5 Sonnet (Jun 2024)</div><div class="cell chart-cell" data-chart-index="38" data-model-key="claude-3-5-sonnet-20240620-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="42">0 / 48</div><div class="cell organization-cell column-cell" data-col="42">Anthropic</div></div><div class="table-row" data-model-key="claude-3-5-sonnet-20241022-tier4"><div class="cell name-cell" data-col="1">Claude 3.5 Sonnet (Oct 2024)</div><div class="cell chart-cell" data-chart-index="39" data-model-key="claude-3-5-sonnet-20241022-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="43">0 / 48</div><div class="cell organization-cell column-cell" data-col="43">Anthropic</div></div><div class="table-row" data-model-key="grok-3-beta-tier4"><div class="cell name-cell" data-col="1">Grok 3</div><div class="cell chart-cell" data-chart-index="40" data-model-key="grok-3-beta-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="44">0 / 48</div><div class="cell organization-cell column-cell" data-col="44">xAI</div></div><div class="table-row" data-model-key="claude-sonnet-4-20250514-tier4"><div class="cell name-cell" data-col="1">Claude Sonnet 4</div><div class="cell chart-cell" data-chart-index="41" data-model-key="claude-sonnet-4-20250514-tier4" data-col="2" style="position: relative;"><svg preserveAspectRatio="xMinYMin meet" viewBox="0 0 570.28125 24" height="24" style="width: 100%; height: auto; overflow: visible;"><g class="chart" transform="translate(0, 0)" style="shape-rendering: crispedges;"><g class="chart-area" transform="translate(0, 0)"><g class="grid grid-container"><g class="grid x-grid"></g><g class="grid y-grid"></g></g><g><g class="bar-group"><rect class="bar hoverable" fill="#00A5A6" fill-opacity="0.9" x="0" y="0" width="0" height="24"></rect></g></g></g><g class="x-axis" transform="translate(0, 24)" fill="none" font-size="10" font-family="sans-serif" text-anchor="middle"></g><g class="y-axis" fill="none" font-size="10" font-family="sans-serif" text-anchor="end" transform="translate(0, 0)"></g><text class="x-axis-label" text-anchor="middle" dominant-baseline="hanging" transform="translate(285.140625, 24)"></text></g></svg><div class="tooltip" style="opacity: 1; position: fixed; background-color: white; border-width: 1px; border-top-style: ; border-right-style: ; border-bottom-style: ; border-left-style: ; border-top-color: ; border-right-color: ; border-bottom-color: ; border-left-color: ; border-image-source: ; border-image-slice: ; border-image-width: ; border-image-outset: ; border-image-repeat: ; border-radius: 8px; z-index: 1001; pointer-events: none; box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px -3px; display: none;"></div><style>
+    .tooltip {
+        --tooltip-radius: 8px;
+
+        color: var(--Gray-900);
+        text-overflow: ellipsis;
+        font-family: "Messina Sans";
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        letter-spacing: -0.26px;
+
+        background: #fff;
+        padding: 0;
+        box-shadow: 0px 5px 15px -3px rgba(0, 0, 0, 0.15);
+        width: 290px;
+        border: 1px solid var(--Gray-200);
+        border-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table {
+        border-radius: var(--tooltip-radius);
+        border: 0.75px solid var(--Gray-200);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:nth-child(odd) {
+        background: var(--Gray-50);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:first-child {
+        padding-top: 12px;
+        border-top-left-radius: var(--tooltip-radius);
+        border-top-right-radius: var(--tooltip-radius);
+    }
+
+    .tooltip-table-stripped .tooltip-table-row:last-child {
+        padding-bottom: 12px;
+        border-bottom-left-radius: var(--tooltip-radius);
+        border-bottom-right-radius: var(--tooltip-radius);
+    }
+</style></div><div class="cell score-cell" data-col="3">
+            <div class="score-text">
+              <span class="score-value">0.0%</span>
+              
+            </div>
+          </div><div class="cell n_correct-cell column-cell" data-col="45">0 / 48</div><div class="cell organization-cell column-cell" data-col="45">Anthropic</div></div><div class="show-toggle-container">
+            <button class="show-toggle">Show less</button>
+           </div>
+      </div>
