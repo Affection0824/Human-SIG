@@ -3,7 +3,7 @@ name = "human-sig"
 version = "0.1.0"
 description = "Benchmark data scraping, processing, and statistical analysis pipeline"
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.14"
 dependencies = [
     # Core dependencies (required for all methods)
     "pandas>=2.3.3",
@@ -11,8 +11,8 @@ dependencies = [
     "html5lib>=1.1",
     "lxml>=6.0.2",
     # Dependencies for Selenium method
-    "selenium>=4.0.0",
-    "webdriver-manager>=3.8.0",
+    "selenium>=4.39.0",
+    "webdriver-manager>=4.0.2",
     # HTML parsing (used in some scenarios)
     "beautifulsoup4>=4.14.3",
     # Statistical analysis dependencies
@@ -20,4 +20,8 @@ dependencies = [
     "scipy>=1.16.3",
     "statsmodels>=0.14.6",
     "seaborn>=0.13.2",
+    "openpyxl>=3.1.5",
+    "fuzzywuzzy>=0.18.0",
+    "numpy>=1.26.4",
+    "python-levenshtein>=0.27.3",
 ]

@@ -1,0 +1,292 @@
+Rank,Rank Spread,Model,Score,95% CI (±),Votes,Organization,License
+1,1◄─►2,gemini-3-pro,1490,±6,20141,Google,Proprietary
+2,1◄─►7,gemini-3-flash,1478Preliminary,±9,5333,Google,Proprietary
+3,2◄─►6,grok-4.1-thinking,1477,±6,20967,xAI,Proprietary
+4,2◄─►7,claude-opus-4-5-20251101-thinking-32k,1469,±6,13596,Anthropic,Proprietary
+5,2◄─►7,claude-opus-4-5-20251101,1467,±6,14395,Anthropic,Proprietary
+6,3◄─►8,grok-4.1,1464,±5,21934,xAI,Proprietary
+7,2◄─►11,gemini-3-flash (thinking-minimal),1463Preliminary,±9,5629,Google,Proprietary
+8,6◄─►14,gpt-5.1-high,1455,±6,17868,OpenAI,Proprietary
+9,7◄─►16,gemini-2.5-pro,1451,±3,80690,Google,Proprietary
+10,8◄─►16,claude-sonnet-4-5-20250929-thinking-32k,1450,±4,31992,Anthropic,Proprietary
+11,8◄─►17,claude-opus-4-1-20250805-thinking-16k,1448,±4,47738,Anthropic,Proprietary
+12,8◄─►19,claude-sonnet-4-5-20250929,1447,±5,27356,Anthropic,Proprietary
+13,7◄─►24,ernie-5.0-preview-1203,1446Preliminary,±11,3185,Baidu,Proprietary
+14,7◄─►25,gpt-5.2,1443Preliminary,±12,2435,OpenAI,Proprietary
+15,9◄─►23,gpt-4.5-preview-2025-02-27,1443,±6,14646,OpenAI,Proprietary
+16,11◄─►21,claude-opus-4-1-20250805,1441,±4,60843,Anthropic,Proprietary
+17,12◄─►21,chatgpt-4o-latest-20250326,1440,±3,67658,OpenAI,Proprietary
+18,9◄─►25,gpt-5.2-high,1440Preliminary,±9,6193,OpenAI,Proprietary
+19,12◄─►25,gpt-5.1,1438,±6,19276,OpenAI,Proprietary
+20,13◄─►25,gpt-5-high,1436,±5,32759,OpenAI,Proprietary
+21,15◄─►26,o3-2025-04-16,1433,±4,61371,OpenAI,Proprietary
+22,13◄─►29,qwen3-max-preview,1433,±5,28023,Alibaba,Proprietary
+23,16◄─►37,grok-4-1-fast-reasoning,1430,±6,13526,xAI,Proprietary
+24,15◄─►42,ernie-5.0-preview-1103,1429,±8,7430,Baidu,Proprietary
+25,17◄─►40,kimi-k2-thinking-turbo,1428,±5,19526,Moonshot,Modified MIT
+26,22◄─►44,gpt-5-chat,1425,±4,32021,OpenAI,Proprietary
+27,22◄─►44,glm-4.6,1424,±4,27979,Z.ai,MIT
+28,21◄─►44,qwen3-max-2025-09-23,1424,±6,9222,Alibaba,Proprietary
+29,22◄─►44,-v3.2-exp,1423,±7,11926,DeepSeek AI,MIT
+30,23◄─►44,claude-opus-4-20250514-thinking-16k,1423,±4,37703,Anthropic,Proprietary
+31,23◄─►46,-v3.2-exp-thinking,1422,±7,9188,DeepSeek AI,MIT
+32,23◄─►47,-v3.2-thinking,1422,±7,9657,DeepSeek AI,MIT
+33,23◄─►44,qwen3-235b-a22b-instruct-2507,1421,±4,55241,Alibaba,Apache 2.0
+34,23◄─►49,grok-4-fast-chat,1420,±8,7036,xAI,Proprietary
+35,23◄─►50,-v3.2,1419,±7,11544,DeepSeek AI,MIT
+36,23◄─►50,kimi-k2-0905-preview,1419,±7,11873,Moonshot,Modified MIT
+37,24◄─►49,-r1-0528,1418,±6,19162,DeepSeek,MIT
+38,24◄─►51,-large-3,1417,±7,10299,Mistral,Apache 2.0
+39,25◄─►51,-v3.1,1417,±6,15210,DeepSeek,MIT
+40,26◄─►50,kimi-k2-0711-preview,1416,±5,28520,Moonshot,Modified MIT
+41,25◄─►51,-v3.1-thinking,1416,±7,11944,DeepSeek,MIT
+42,23◄─►55,-v3.1-terminus,1415,±10,3733,DeepSeek AI,MIT
+43,26◄─►52,qwen3-vl-235b-a22b-instruct,1414,±7,9449,Alibaba,Apache 2.0
+44,24◄─►58,-v3.1-terminus-thinking,1414,±10,3508,DeepSeek AI,MIT
+45,32◄─►52,gpt-4.1-2025-04-14,1412,±4,52374,OpenAI,Proprietary
+46,32◄─►52,claude-opus-4-20250514,1412,±4,45461,Anthropic,Proprietary
+47,33◄─►52,-medium-2508,1411,±4,49247,Mistral,Proprietary
+48,34◄─►55,grok-3-preview-02-24,1410,±4,34041,xAI,Proprietary
+49,36◄─►57,grok-4-0709,1409,±4,42387,xAI,Proprietary
+50,34◄─►58,glm-4.5,1409,±5,24723,Z.ai,MIT
+51,39◄─►57,gemini-2.5-flash,1408,±3,80226,Google,Proprietary
+52,42◄─►63,gemini-2.5-flash-preview-09-2025,1405,±4,33373,Google,Proprietary
+53,46◄─►64,claude-haiku-4-5-20251001,1402,±4,30384,Anthropic,Proprietary
+54,46◄─►64,grok-4-fast-reasoning,1402,±5,18804,xAI,Proprietary
+55,48◄─►65,o1-2024-12-17,1401,±4,28039,OpenAI,Proprietary
+56,48◄─►67,qwen3-next-80b-a3b-instruct,1400,±5,23005,Alibaba,Apache 2.0
+57,46◄─►68,longcat-flash-chat,1400,±6,11465,Meituan,MIT
+58,50◄─►67,qwen3-235b-a22b-no-thinking,1400,±4,39231,Alibaba,Apache 2.0
+59,52◄─►68,claude-sonnet-4-20250514-thinking-32k,1399,±4,36055,Anthropic,Proprietary
+60,52◄─►73,qwen3-235b-a22b-thinking-2507,1397,±6,9310,Alibaba,Apache 2.0
+61,52◄─►72,-r1,1396,±5,18722,DeepSeek,MIT
+62,52◄─►75,qwen3-vl-235b-a22b-thinking,1394,±7,7959,Alibaba,Apache 2.0
+63,56◄─►73,-v3-0324,1392,±4,46613,DeepSeek,MIT
+64,55◄─►74,gpt-5-mini-high,1392,±5,27328,OpenAI,Proprietary
+65,52◄─►80,hunyuan-vision-1.5-thinking,1391,±12,2204,Tencent,Proprietary
+66,58◄─►75,o4-mini-2025-04-16,1391,±4,46697,OpenAI,Proprietary
+67,56◄─►76,mai-1-preview,1391,±5,18102,Microsoft AI,Proprietary
+68,60◄─►77,claude-sonnet-4-20250514,1389,±4,41477,Anthropic,Proprietary
+69,53◄─►82,mimo-v2-flash (non-thinking),1388,±12,2604,Xiaomi,MIT
+70,60◄─►78,o1-preview,1387,±5,31505,OpenAI,Proprietary
+71,61◄─►77,claude-3-7-sonnet-20250219-thinking-32k,1387,±4,39815,Anthropic,Proprietary
+72,60◄─►78,qwen3-coder-480b-a35b-instruct,1386,±5,24124,Alibaba,Apache 2.0
+73,60◄─►81,hunyuan-t1-20250711,1385,±9,4802,Tencent,Proprietary
+74,63◄─►80,-medium-2505,1383,±5,34390,Mistral,Proprietary
+75,64◄─►80,qwen3-30b-a3b-instruct-2507,1382,±5,24105,Alibaba,Apache 2.0
+76,67◄─►81,gpt-4.1-mini-2025-04-14,1381,±4,40365,OpenAI,Proprietary
+77,66◄─►85,hunyuan-turbos-20250416,1380,±6,11094,Tencent,Proprietary
+78,69◄─►85,gemini-2.5-flash-lite-preview-09-2025-no-thinking,1378,±4,33428,Google,Proprietary
+79,71◄─►86,gemini-2.5-flash-lite-preview-06-17-thinking,1375,±4,33803,Google,Proprietary
+80,71◄─►87,qwen3-235b-a22b,1374,±5,27066,Alibaba,Apache 2.0
+81,74◄─►87,qwen2.5-max,1373,±4,33497,Alibaba,Proprietary
+82,77◄─►87,claude-3-5-sonnet-20241022,1372,±3,89725,Anthropic,Proprietary
+83,77◄─►90,claude-3-7-sonnet-20250219,1371,±4,44474,Anthropic,Proprietary
+84,77◄─►90,glm-4.5-air,1370,±4,31522,Z.ai,MIT
+85,79◄─►94,qwen3-next-80b-a3b-thinking,1367,±6,13762,Alibaba,Apache 2.0
+86,80◄─►93,-m1,1366,±4,36709,MiniMax,Apache 2.0
+87,76◄─►102,-nova-experimental-chat-11-10,1365Preliminary,±11,3479,Amazon,Proprietary
+88,83◄─►94,gemma-3-27b-it,1364,±4,49174,Google,Gemma
+89,83◄─►98,o3-mini-high,1362,±5,18725,OpenAI,Proprietary
+90,83◄─►98,grok-3-mini-high,1362,±5,17496,xAI,Proprietary
+91,85◄─►101,gemini-2.0-flash-001,1360,±4,45008,Google,Proprietary
+92,85◄─►109,-v3,1357,±5,21995,DeepSeek,DeepSeek
+93,86◄─►109,grok-3-mini-beta,1357,±5,23693,xAI,Proprietary
+94,85◄─►115,intellect-3,1355,±8,5426,Prime Intellect,MIT
+95,88◄─►114,-small-2506,1355,±5,18247,Mistral,Apache 2.0
+96,90◄─►115,gpt-oss-120b,1353,±4,31118,OpenAI,Apache 2.0
+97,90◄─►114,gemini-2.0-flash-lite-preview-02-05,1352,±4,25222,Google,Proprietary
+98,88◄─►117,glm-4.5v,1352,±8,4967,Z.ai,MIT
+99,91◄─►114,command-a-03-2025,1352,±3,57626,Cohere,CC-BY-NC-4.0
+100,92◄─►115,gemini-1.5-pro-002,1351,±3,56014,Google,Proprietary
+101,94◄─►117,o3-mini,1348,±3,58682,OpenAI,Proprietary
+102,92◄─►118,-nova-experimental-chat-10-20,1347,±6,11625,Amazon,Proprietary
+103,88◄─►127,hunyuan-turbos-20250226,1346,±12,2254,Tencent,Proprietary
+104,92◄─►122,step-3,1346,±7,6611,StepFun,Apache 2.0
+105,92◄─►121,ling-flash-2.0,1346,±7,7120,Ant Group,MIT
+106,90◄─►127,-nova-experimental-chat-10-09,1346,±11,2878,Amazon,Proprietary
+107,92◄─►124,-m2,1346,±8,7084,MiniMax,Apache 2.0
+108,88◄─►128,llama-3.1-nemotron-ultra-253b-v1,1346,±12,2573,Nvidia,Nvidia Open Model
+109,97◄─►117,gpt-4o-2024-05-13,1345,±3,113568,OpenAI,Proprietary
+110,92◄─►127,qwen3-32b,1345,±9,3944,Alibaba,Apache 2.0
+111,92◄─►127,qwen-plus-0125,1344,±8,5862,Alibaba,Proprietary
+112,94◄─►127,glm-4-plus-0111,1343,±8,5808,Zhipu,Proprietary
+113,100◄─►122,claude-3-5-sonnet-20240620,1342,±3,82864,Anthropic,Proprietary
+114,94◄─►131,gemma-3-12b-it,1340,±9,3866,Google,Gemma
+115,94◄─►133,-llama-3.3-nemotron-super-49b-v1.5,1340,±10,3468,Nvidia,Nvidia Open
+116,94◄─►135,hunyuan-turbo-0110,1339,±11,2324,Tencent,Proprietary
+117,100◄─►130,gpt-5-nano-high,1338,±7,8363,OpenAI,Proprietary
+118,104◄─►129,o1-mini,1336,±4,52303,OpenAI,Proprietary
+119,105◄─►130,llama-3.1-405b-instruct-bf16,1335,±4,41948,Meta,Llama 3.1 Community
+120,107◄─►133,gpt-4o-2024-08-06,1334,±4,45787,OpenAI,Proprietary
+121,108◄─►131,grok-2-2024-08-13,1334,±4,63725,xAI,Proprietary
+122,107◄─►133,qwq-32b,1334,±4,26194,Alibaba,Apache 2.0
+123,104◄─►133,gemini-advanced-0514,1334,±5,50652,Google,Proprietary
+124,104◄─►137,nova-2-lite,1334,±7,9785,Amazon,Proprietary
+125,108◄─►133,llama-3.1-405b-instruct-fp8,1333,±3,60273,Meta,Llama 3.1 Community
+126,103◄─►143,step-2-16k-exp-202412,1332,±9,4896,StepFun,Proprietary
+127,114◄─►144,yi-lightning,1328,±5,27624,01 AI,Proprietary
+128,117◄─►145,llama-4-maverick-17b-128e-instruct,1327,±4,41081,Meta,Llama 4
+129,119◄─►147,qwen3-30b-a3b,1326,±5,27398,Alibaba,Apache 2.0
+130,108◄─►155,llama-3.3-nemotron-49b-super-v1,1326,±12,2246,Nvidia,Nvidia
+131,113◄─►154,hunyuan-large-2025-02-10,1325,±10,3760,Tencent,Proprietary
+132,124◄─►148,gpt-4-turbo-2024-04-09,1324,±4,98965,OpenAI,Proprietary
+133,115◄─►155,-nemotron-3-nano-30b-a3b-bf16,1323Preliminary,±9,5033,Nvidia,NVIDIA Open Model
+134,126◄─►150,claude-3-5-haiku-20241022,1322,±3,71235,Anthropic,Proprietary
+135,125◄─►150,llama-4-scout-17b-16e-instruct,1322,±5,31060,Meta,Llama
+136,119◄─►154,-v2.5-1210,1322,±8,6877,DeepSeek,DeepSeek
+137,126◄─►150,gemini-1.5-pro-001,1322,±4,79769,Google,Proprietary
+138,126◄─►150,claude-3-opus-20240229,1322,±3,196365,Anthropic,Proprietary
+139,124◄─►155,gpt-4.1-nano-2025-04-14,1321,±8,6146,OpenAI,Proprietary
+140,125◄─►156,ring-flash-2.0,1320,±7,7246,Ant Group,MIT
+141,126◄─►155,step-1o-turbo-202506,1320,±7,9635,StepFun,Proprietary
+142,129◄─►154,llama-3.3-70b-instruct,1319,±3,55954,Meta,Llama-3.3
+143,127◄─►155,gemma-3n-e4b-it,1318,±5,23417,Google,Gemma
+144,128◄─►155,glm-4-plus,1318,±5,26343,Zhipu AI,Proprietary
+145,126◄─►157,gpt-oss-20b,1318,±6,10825,OpenAI,Apache 2.0
+146,129◄─►157,qwen-max-0919,1317,±6,16599,Alibaba,Qwen
+147,131◄─►155,gpt-4o-mini-2024-07-18,1316,±3,69292,OpenAI,Proprietary
+148,130◄─►162,qwen2.5-plus-1127,1314,±6,10254,Alibaba,Proprietary
+149,135◄─►161,-large-2407,1313,±4,45968,Mistral,Mistral Research
+150,135◄─►161,gpt-4-0125-preview,1313,±4,94534,OpenAI,Proprietary
+151,135◄─►161,gpt-4-1106-preview,1313,±4,101116,OpenAI,Proprietary
+152,135◄─►162,athene-v2-chat,1313,±4,24880,NexusFlow,NexusFlow
+153,126◄─►166,mercury,1311,±14,1960,Inception AI,Proprietary
+154,131◄─►166,hunyuan-standard-2025-02-10,1310,±10,3923,Tencent,Proprietary
+155,138◄─►163,gemini-1.5-flash-002,1310,±4,35180,Google,Proprietary
+156,148◄─►165,grok-2-mini-2024-08-13,1307,±4,52792,xAI,Proprietary
+157,148◄─►166,-v2.5,1306,±5,24839,DeepSeek,DeepSeek
+158,148◄─►166,athene-70b-0725,1305,±6,19795,NexusFlow,CC-BY-NC-4.0
+159,148◄─►166,magistral-medium-2506,1305,±6,11952,Mistral,Proprietary
+160,151◄─►166,-large-2411,1305,±4,28454,Mistral,MRL
+161,145◄─►168,olmo-3-32b-think,1304,±8,5976,Allen AI,Apache 2.0
+162,153◄─►166,-small-3.1-24b-instruct-2503,1303,±4,34024,Mistral,Apache 2.0
+163,146◄─►172,gemma-3-4b-it,1302,±9,4196,Google,Gemma
+164,154◄─►166,qwen2.5-72b-instruct,1302,±4,39634,Alibaba,Qwen
+165,154◄─►175,llama-3.1-nemotron-70b-instruct,1297,±8,7216,Nvidia,Llama 3.1
+166,155◄─►177,hunyuan-large-vision,1294,±9,5575,Tencent,Proprietary
+167,163◄─►175,llama-3.1-70b-instruct,1293,±4,56002,Meta,Llama 3.1 Community
+168,164◄─►180,jamba-1.5-large,1288,±7,8730,AI21 Labs,Jamba Open
+169,165◄─►178,-nova-pro-v1.0,1288,±4,25218,Amazon,Proprietary
+170,164◄─►185,ibm-granite-h-small,1287,±8,5686,IBM,Apache 2.0
+171,165◄─►178,gemma-2-27b-it,1287,±3,76196,Google,Gemma license
+172,164◄─►180,reka-core-20240904,1287,±7,7380,Reka AI,Proprietary
+173,165◄─►180,gpt-4-0314,1286,±5,54754,OpenAI,Proprietary
+174,164◄─►186,llama-3.1-nemotron-51b-instruct,1286,±10,3777,Nvidia,Llama 3.1
+175,163◄─►186,llama-3.1-tulu-3-70b,1286,±10,2882,Ai2,Llama 3.1
+176,167◄─►180,gemini-1.5-flash-001,1284,±4,63418,Google,Proprietary
+177,168◄─►186,claude-3-sonnet-20240229,1281,±4,110173,Anthropic,Proprietary
+178,167◄─►186,gemma-2-9b-it-simpo,1279,±7,10108,Princeton,MIT
+179,170◄─►186,nemotron-4-340b-instruct,1277,±5,19913,Nvidia,NVIDIA Open Model
+180,170◄─►187,command-r-plus-08-2024,1277,±7,9932,Cohere,CC-BY-NC-4.0
+181,174◄─►186,llama-3-70b-instruct,1276,±3,158907,Meta,Llama 3 Community
+182,174◄─►187,gpt-4-0613,1275,±4,89612,OpenAI,Proprietary
+183,174◄─►189,-small-24b-instruct-2501,1274,±6,14831,Mistral,Apache 2.0
+184,174◄─►191,glm-4-0520,1273,±7,9857,Zhipu AI,Proprietary
+185,174◄─►191,reka-flash-20240904,1273,±7,7585,Reka AI,Proprietary
+186,175◄─►195,qwen2.5-coder-32b-instruct,1269,±8,5452,Alibaba,Apache 2.0
+187,181◄─►195,c4ai-aya-expanse-32b,1267,±5,27362,Cohere,CC-BY-NC-4.0
+188,183◄─►195,gemma-2-9b-it,1265,±4,54957,Google,Gemma license
+189,183◄─►197,-coder-v2,1264,±6,15242,DeepSeek AI,DeepSeek License
+190,184◄─►196,command-r-plus,1263,±4,78400,Cohere,CC-BY-NC-4.0
+191,184◄─►197,qwen2-72b-instruct,1262,±5,37688,Alibaba,Qianwen LICENSE
+192,186◄─►197,claude-3-haiku-20240307,1261,±4,118626,Anthropic,Proprietary
+193,186◄─►197,-nova-lite-v1.0,1260,±5,19765,Amazon,Proprietary
+194,186◄─►197,gemini-1.5-flash-8b-001,1259,±4,35914,Google,Proprietary
+195,189◄─►197,phi-4,1255,±5,24355,Microsoft,MIT
+196,186◄─►203,olmo-2-0325-32b-instruct,1252,±11,3379,Allen AI,Apache-2.0
+197,190◄─►202,command-r-08-2024,1251,±7,10229,Cohere,CC-BY-NC-4.0
+198,196◄─►206,-large-2402,1242,±5,63404,Mistral,Proprietary
+199,196◄─►206,-nova-micro-v1.0,1241,±5,19776,Amazon,Proprietary
+200,196◄─►211,jamba-1.5-mini,1239,±7,8918,AI21 Labs,Jamba Open
+201,196◄─►214,ministral-8b-2410,1237,±9,4833,Mistral,MRL
+202,197◄─►214,gemini-pro-dev-api,1234,±7,18454,Google,Proprietary
+203,198◄─►213,qwen1.5-110b-chat,1234,±5,26679,Alibaba,Qianwen LICENSE
+204,198◄─►214,qwen1.5-72b-chat,1234,±5,39689,Alibaba,Qianwen LICENSE
+205,198◄─►215,reka-flash-21b-20240226-online,1233,±7,15606,Reka AI,Proprietary
+206,196◄─►216,hunyuan-standard-256k,1233,±12,2761,Tencent,Proprietary
+207,200◄─►215,mixtral-8x22b-instruct-v0.1,1230,±4,52214,Mistral,Apache 2.0
+208,200◄─►216,command-r,1228,±5,54710,Cohere,CC-BY-NC-4.0
+209,200◄─►216,reka-flash-21b-20240226,1227,±6,25026,Reka AI,Proprietary
+210,201◄─►217,gpt-3.5-turbo-0125,1224,±5,67214,OpenAI,Proprietary
+211,201◄─►218,-medium,1223,±5,34893,Mistral,Proprietary
+212,201◄─►218,c4ai-aya-expanse-8b,1223,±7,9922,Cohere,CC-BY-NC-4.0
+213,205◄─►217,llama-3-8b-instruct,1223,±4,106055,Meta,Llama 3 Community
+214,200◄─►221,gemini-pro,1222,±12,6418,Google,Proprietary
+215,200◄─►220,llama-3.1-tulu-3-8b,1222,±11,2943,Ai2,Llama 3.1
+216,207◄─►222,zephyr-orpo-141b-A35b-v0.1,1214,±11,4712,HuggingFace,Apache 2.0
+217,212◄─►221,yi-1.5-34b-chat,1213,±5,24417,01 AI,Apache-2.0
+218,214◄─►221,llama-3.1-8b-instruct,1211,±4,50235,Meta,Llama 3.1 Community
+219,210◄─►227,granite-3.1-8b-instruct,1210,±11,3142,IBM,Apache 2.0
+220,214◄─►226,qwen1.5-32b-chat,1205,±6,22068,Alibaba,Qianwen LICENSE
+221,215◄─►229,gpt-3.5-turbo-1106,1202,±9,16760,OpenAI,Proprietary
+222,219◄─►229,gemma-2-2b-it,1198,±4,46900,Google,Gemma license
+223,218◄─►229,phi-3-medium-4k-instruct,1198,±5,25301,Microsoft,MIT
+224,219◄─►229,mixtral-8x7b-instruct-v0.1,1198,±4,74303,Mistral,Apache 2.0
+225,219◄─►234,dbrx-instruct-preview,1196,±6,32760,Databricks,DBRX LICENSE
+226,219◄─►238,qwen1.5-14b-chat,1193,±7,18066,Alibaba,Qianwen LICENSE
+227,220◄─►238,2_5-20b-chat,1192,±7,10038,InternLM,Other
+228,221◄─►244,wizardlm-70b,1185,±9,8270,Microsoft,Llama 2 Community
+229,221◄─►245,-llm-67b-chat,1184,±12,4950,DeepSeek AI,DeepSeek License
+230,225◄─►242,yi-34b-chat,1184,±7,15624,01 AI,Yi License
+231,225◄─►244,granite-3.0-8b-instruct,1184,±9,6727,IBM,Apache 2.0
+232,225◄─►244,-3.5-0106,1183,±8,12712,OpenChat,Apache-2.0
+233,225◄─►245,-3.5,1182,±10,8009,OpenChat,Apache-2.0
+234,225◄─►246,granite-3.1-2b-instruct,1181,±11,3236,IBM,Apache 2.0
+235,226◄─►244,-arctic-instruct,1180,±6,33272,Snowflake,Apache 2.0
+236,226◄─►245,gemma-1.1-7b-it,1180,±6,24327,Google,Gemma license
+237,226◄─►247,tulu-2-dpo-70b,1179,±10,6579,AllenAI/UW,AI2 ImpACT Low-risk
+238,226◄─►249,openhermes-2.5-mistral-7b,1176,±10,5026,NousResearch,Apache-2.0
+239,228◄─►248,vicuna-33b,1173,±6,22613,LMSYS,Non-commercial
+240,228◄─►249,starling-lm-7b-beta,1173,±7,16190,Nexusflow,Apache-2.0
+241,228◄─►249,phi-3-small-8k-instruct,1172,±6,17983,Microsoft,MIT
+242,229◄─►249,llama-2-70b-chat,1171,±5,38767,Meta,Llama 2 Community
+243,229◄─►252,starling-lm-7b-alpha,1168,±8,10267,UC Berkeley,CC-BY-NC-4.0
+244,233◄─►253,llama-3.2-3b-instruct,1167,±8,8043,Meta,Llama 3.2
+245,228◄─►254,nous-hermes-2-mixtral-8x7b-dpo,1166,±12,3792,NousResearch,Apache-2.0
+246,236◄─►259,qwq-32b-preview,1159,±11,3256,Alibaba,Apache 2.0
+247,237◄─►262,llama2-70b-steerlm-chat,1157,±13,3605,Nvidia,Llama 2 Community
+248,243◄─►259,granite-3.0-2b-instruct,1157,±8,6922,IBM,Apache 2.0
+249,239◄─►263,solar-10.7b-instruct-v1.0,1154,±13,4187,Upstage AI,CC-BY-NC-4.0
+250,238◄─►267,dolphin-2.2.1-mistral-7b,1152,±15,1685,Cognitive Computations,Apache-2.0
+251,243◄─►265,mpt-30b-chat,1151,±12,2606,MosaicML,CC-BY-NC-SA-4.0
+252,245◄─►263,-7b-instruct-v0.2,1151,±7,19603,Mistral,Apache-2.0
+253,244◄─►263,wizardlm-13b,1150,±9,7122,Microsoft,Llama 2 Community
+254,243◄─►270,falcon-180b-chat,1147,±17,1312,TII,Falcon-180B TII License
+255,246◄─►268,qwen1.5-7b-chat,1144,±10,4782,Alibaba,Qianwen LICENSE
+256,246◄─►267,phi-3-mini-4k-instruct-june-2024,1143,±6,12414,Microsoft,MIT
+257,246◄─►267,llama-2-13b-chat,1142,±7,19357,Meta,Llama 2 Community
+258,246◄─►268,vicuna-13b,1142,±7,19539,LMSYS,Llama 2 Community
+259,246◄─►270,qwen-14b-chat,1139,±11,5004,Alibaba,Qianwen LICENSE
+260,248◄─►270,palm-2,1137,±9,8634,Google,Proprietary
+261,248◄─►270,codellama-34b-instruct,1137,±9,7417,Meta,Llama 2 Community
+262,248◄─►270,gemma-7b-it,1135,±9,9034,Google,Gemma license
+263,252◄─►271,zephyr-7b-beta,1132,±9,11220,HuggingFace,MIT
+264,253◄─►271,phi-3-mini-128k-instruct,1131,±7,21024,Microsoft,MIT
+265,256◄─►271,phi-3-mini-4k-instruct,1129,±6,20539,Microsoft,MIT
+266,249◄─►275,zephyr-7b-alpha,1128,±16,1803,HuggingFace,MIT
+267,252◄─►274,guanaco-33b,1128,±12,2955,UW,Non-commercial
+268,258◄─►275,stripedhyena-nous-7b,1121,±11,5214,Together AI,Apache 2.0
+269,253◄─►276,codellama-70b-instruct,1119,±18,1151,Meta,Llama 2 Community
+270,258◄─►275,smollm2-1.7b-instruct,1119,±14,2244,HuggingFace,Apache 2.0
+271,263◄─►275,vicuna-7b,1115,±9,6972,LMSYS,Llama 2 Community
+272,266◄─►275,gemma-1.1-2b-it,1114,±8,11035,Google,Gemma license
+273,266◄─►275,llama-3.2-1b-instruct,1113,±8,8166,Meta,Llama 3.2
+274,266◄─►276,-7b-instruct,1111,±9,9042,Mistral,Apache 2.0
+275,267◄─►276,llama-2-7b-chat,1109,±7,14272,Meta,Llama 2 Community
+276,273◄─►280,gemma-2b-it,1091,±12,4817,Google,Gemma license
+277,276◄─►278,qwen1.5-4b-chat,1091,±9,7662,Alibaba,Qianwen LICENSE
+278,276◄─►283,olmo-7b-instruct,1074,±11,6412,Allen AI,Apache-2.0
+279,277◄─►283,koala-13b,1071,±10,6998,UC Berkeley,Non-commercial
+280,278◄─►283,alpaca-13b,1067,±11,5828,Stanford,Non-commercial
+281,277◄─►284,gpt4all-13b-snoozy,1066,±15,1773,Nomic AI,Non-commercial
+282,278◄─►284,mpt-7b-chat,1062,±12,3977,MosaicML,CC-BY-NC-SA-4.0
+283,278◄─►284,chatglm3-6b,1057,±12,4692,Tsinghua,Apache-2.0
+284,281◄─►286,-4-Raven-14B,1042,±11,4898,RWKV,Apache 2.0
+285,284◄─►286,chatglm2-6b,1026,±14,2683,Tsinghua,Apache-2.0
+286,284◄─►286,oasst-pythia-12b,1023,±11,6343,OpenAssistant,Apache 2.0
+287,287◄─►290,chatglm-6b,996,±13,4968,Tsinghua,Non-commercial
+288,287◄─►290,fastchat-t5-3b,992,±12,4270,LMSYS,Apache 2.0
+289,287◄─►290,dolly-v2-12b,980,±14,3471,Databricks,MIT
+290,287◄─►291,llama-13b,972,±16,2441,Meta,Non-commercial
+291,290◄─►291,stablelm-tuned-alpha-7b,953,±13,3325,Stability AI,CC-BY-NC-SA-4.0
