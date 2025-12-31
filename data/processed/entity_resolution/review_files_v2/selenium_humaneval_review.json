@@ -1,58 +1,33 @@
 {
-  "Kimi K2 0905": {
+  "Kimi K2 0905Moonshot AI": {
     "benchmark_info": {
       "family": "kimi",
-      "subfamily": "kimi-k2",
-      "version": "2",
+      "subfamily": "kimi-k",
+      "version": "2.0",
       "date": "0905",
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "Moonshot",
+        "AI"
+      ]
     },
     "candidates": [
       {
-        "lmarena_model": "kimi-k2-thinking-turbo",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "thinking",
-          "turbo"
-        ]
-      },
-      {
-        "lmarena_model": "kimi-k2-0905-preview",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": "0905",
-        "parameters": null,
-        "other_info": [
-          "preview"
-        ]
-      },
-      {
-        "lmarena_model": "kimi-k2-0711-preview",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": "0711",
-        "parameters": null,
-        "other_info": [
-          "preview"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
-  "Claude 3.5 Sonnet": {
+  "Claude 3.5 SonnetAnthropic": {
     "benchmark_info": {
       "family": "claude",
       "subfamily": "claude-sonnet",
       "version": "3.5",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "3.5",
+        "SonnetAnthropic"
+      ]
     },
     "candidates": [
       {
@@ -60,115 +35,77 @@
       }
     ]
   },
-  "GPT-5": {
+  "GPT-5OpenAI": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5",
-      "version": "5",
-      "date": null,
-      "parameters": null,
-      "other_info": null
-    },
-    "candidates": [
-      {
-        "lmarena_model": "gpt-5-high",
-        "family": "gpt",
-        "subfamily": "gpt-5",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high"
-        ]
-      },
-      {
-        "lmarena_model": "gpt-5-chat",
-        "family": "gpt",
-        "subfamily": "gpt-5",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "chat"
-        ]
-      }
-    ]
-  },
-  "Kimi K2 Instruct": {
-    "benchmark_info": {
-      "family": "kimi",
-      "subfamily": "kimi-k2",
-      "version": "2",
+      "subfamily": null,
+      "version": "5.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "Instruct"
+        "OpenAI"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "kimi-k2-thinking-turbo",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "thinking",
-          "turbo"
-        ]
-      },
-      {
-        "lmarena_model": "kimi-k2-0905-preview",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": "0905",
-        "parameters": null,
-        "other_info": [
-          "preview"
-        ]
-      },
-      {
-        "lmarena_model": "kimi-k2-0711-preview",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": "0711",
-        "parameters": null,
-        "other_info": [
-          "preview"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
-  "Qwen2.5-Coder 32B Instruct": {
+  "Kimi K2 InstructMoonshot AI": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-k-instruct",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "InstructMoonshot",
+        "AI"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Qwen2.5-Coder 32B InstructAlibaba Cloud / Qwen Team": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2.5-coder",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
       "parameters": "32B",
       "other_info": [
-        "Instruct"
+        "Qwen",
+        "Team"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "NO_MATCH_FOUND"
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
       }
     ]
   },
-  "o1-mini": {
+  "o1-miniOpenAI": {
     "benchmark_info": {
       "family": "gpt",
       "subfamily": "o1",
-      "version": "1",
+      "version": "1.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "mini",
-        "o1"
+        "miniOpenAI"
       ]
     },
     "candidates": [
@@ -176,22 +113,19 @@
         "lmarena_model": "o1-2024-12-17",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": "2024-12-17",
         "parameters": null,
-        "other_info": [
-          "o1"
-        ]
+        "other_info": null
       },
       {
         "lmarena_model": "o1-preview",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "o1",
           "preview"
         ]
       },
@@ -199,25 +133,25 @@
         "lmarena_model": "o1-mini",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "mini",
-          "o1"
+          "mini"
         ]
       }
     ]
   },
-  "Large 2Mistral AI": {
+  "Mistral Large 2Mistral AI": {
     "benchmark_info": {
-      "family": "large",
-      "subfamily": null,
-      "version": "2",
+      "family": "mistral",
+      "subfamily": "mistral-large",
+      "version": "2.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "2Mistral"
+        "Mistral",
+        "AI"
       ]
     },
     "candidates": [
@@ -226,62 +160,84 @@
       }
     ]
   },
-  "Qwen2.5 VL 32B Instruct": {
+  "Qwen2.5 VL 32B InstructAlibaba Cloud / Qwen Team": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2.5-vl",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
       "parameters": "32B",
       "other_info": [
-        "Instruct",
-        "VL"
+        "Qwen",
+        "Team"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "NO_MATCH_FOUND"
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
       }
     ]
   },
-  "GPT-4o": {
+  "GPT-4oOpenAI": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-4o",
-      "version": "4",
+      "subfamily": null,
+      "version": "4.0",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "oOpenAI"
+      ]
     },
     "candidates": [
       {
         "lmarena_model": "gpt-4o-2024-05-13",
         "family": "gpt",
-        "subfamily": "gpt-4o",
-        "version": "4",
+        "subfamily": null,
+        "version": "4.0",
         "date": "2024-05-13",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "o",
+          "202",
+          "05",
+          "13"
+        ]
       },
       {
         "lmarena_model": "gpt-4o-2024-08-06",
         "family": "gpt",
-        "subfamily": "gpt-4o",
-        "version": "4",
+        "subfamily": null,
+        "version": "4.0",
         "date": "2024-08-06",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "o",
+          "202",
+          "08",
+          "06"
+        ]
       }
     ]
   },
   "Granite 3.3 8B InstructIBM": {
     "benchmark_info": {
       "family": "granite",
-      "subfamily": null,
+      "subfamily": "granite-instruct",
       "version": "3.3",
       "date": null,
       "parameters": "8B",
       "other_info": [
+        "3.3",
         "InstructIBM"
       ]
     },
@@ -294,11 +250,12 @@
   "Granite 3.3 8B BaseIBM": {
     "benchmark_info": {
       "family": "granite",
-      "subfamily": null,
+      "subfamily": "granite-base",
       "version": "3.3",
       "date": null,
       "parameters": "8B",
       "other_info": [
+        "3.3",
         "BaseIBM"
       ]
     },
@@ -308,7 +265,7 @@
       }
     ]
   },
-  "Gemini Diffusion": {
+  "Gemini DiffusionGoogle": {
     "benchmark_info": {
       "family": "gemini",
       "subfamily": null,
@@ -316,31 +273,8 @@
       "date": null,
       "parameters": null,
       "other_info": [
-        "Diffusion"
+        "DiffusionGoogle"
       ]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "gemini-advanced-0514",
-        "family": "gemini",
-        "subfamily": null,
-        "version": null,
-        "date": "0514",
-        "parameters": null,
-        "other_info": [
-          "advanced"
-        ]
-      }
-    ]
-  },
-  "Nova Pro": {
-    "benchmark_info": {
-      "family": "nova",
-      "subfamily": "nova-pro",
-      "version": null,
-      "date": null,
-      "parameters": null,
-      "other_info": null
     },
     "candidates": [
       {
@@ -348,52 +282,74 @@
       }
     ]
   },
-  "Llama 3.1 405B Instruct": {
+  "Nova ProAmazon": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": null,
+      "version": null,
+      "date": "Nov",
+      "parameters": null,
+      "other_info": [
+        "ProAmazon"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Llama 3.1 405B InstructMeta": {
     "benchmark_info": {
       "family": "llama",
-      "subfamily": "llama-3.1",
+      "subfamily": "llama-instruct",
       "version": "3.1",
       "date": null,
       "parameters": "405B",
       "other_info": [
-        "Instruct"
+        "3.1",
+        "InstructMeta"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "llama-3.1-405b-instruct-bf16",
+        "lmarena_model": "Metallama-3.1-405b-instruct-bf16",
         "family": "llama",
-        "subfamily": "llama-3.1",
+        "subfamily": "llama-instruct",
         "version": "3.1",
         "date": null,
         "parameters": "405B",
         "other_info": [
-          "bf16",
-          "instruct"
+          "Metallama",
+          "3.1",
+          "bf16"
         ]
       },
       {
-        "lmarena_model": "llama-3.1-405b-instruct-fp8",
+        "lmarena_model": "Metallama-3.1-405b-instruct-fp8",
         "family": "llama",
-        "subfamily": "llama-3.1",
+        "subfamily": "llama-instruct",
         "version": "3.1",
         "date": null,
         "parameters": "405B",
         "other_info": [
-          "fp8",
-          "instruct"
+          "Metallama",
+          "3.1",
+          "fp8"
         ]
       }
     ]
   },
-  "-V2.5": {
+  "DeepSeek-V2.5DeepSeek": {
     "benchmark_info": {
       "family": "deepseek",
-      "subfamily": "deepseek-v2.5",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "V2.5DeepSeek"
+      ]
     },
     "candidates": [
       {
@@ -401,15 +357,17 @@
       }
     ]
   },
-  "Small 3.1 24B InstructMistral AI": {
+  "Mistral Small 3.1 24B InstructMistral AI": {
     "benchmark_info": {
-      "family": "small",
-      "subfamily": null,
+      "family": "mistral",
+      "subfamily": "mistral-small-instruct",
       "version": "3.1",
       "date": null,
       "parameters": "24B",
       "other_info": [
-        "InstructMistral"
+        "3.1",
+        "InstructMistral",
+        "AI"
       ]
     },
     "candidates": [
@@ -418,32 +376,43 @@
       }
     ]
   },
-  "Qwen2.5 32B Instruct": {
+  "Qwen2.5 32B InstructAlibaba Cloud / Qwen Team": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2.5",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
       "parameters": "32B",
       "other_info": [
-        "Instruct"
+        "Qwen",
+        "Team"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "NO_MATCH_FOUND"
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
       }
     ]
   },
-  "Llama 3.3 70B Instruct": {
+  "Llama 3.3 70B InstructMeta": {
     "benchmark_info": {
       "family": "llama",
-      "subfamily": "llama-3.3",
+      "subfamily": "llama-instruct",
       "version": "3.3",
       "date": null,
       "parameters": "70B",
       "other_info": [
-        "Instruct"
+        "3.3",
+        "InstructMeta"
       ]
     },
     "candidates": [
@@ -452,120 +421,84 @@
       }
     ]
   },
-  "Qwen2.5-Coder 7B Instruct": {
+  "Qwen2.5-Coder 7B InstructAlibaba Cloud / Qwen Team": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2.5-coder",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
       "parameters": "7B",
       "other_info": [
-        "Instruct"
+        "Qwen",
+        "Team"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "NO_MATCH_FOUND"
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
       }
     ]
   },
-  "Grok-2": {
+  "Grok-2xAI": {
     "benchmark_info": {
       "family": "grok",
-      "subfamily": "grok-2",
-      "version": "2",
+      "subfamily": null,
+      "version": "2.0",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "xAI"
+      ]
     },
     "candidates": [
       {
         "lmarena_model": "grok-2-2024-08-13",
         "family": "grok",
-        "subfamily": "grok-2",
-        "version": "2",
+        "subfamily": null,
+        "version": "2.0",
         "date": "2024-08-13",
         "parameters": null,
-        "other_info": [
-          "04",
-          "08",
-          "13"
-        ]
+        "other_info": null
       }
     ]
   },
-  "Claude 3.5 Haiku": {
+  "Claude 3.5 HaikuAnthropic": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-haiku",
+      "subfamily": "claude-haiku-h",
       "version": "3.5",
       "date": null,
       "parameters": null,
-      "other_info": null
-    },
-    "candidates": [
-      {
-        "lmarena_model": "NO_MATCH_FOUND"
-      }
-    ]
-  },
-  "o1": {
-    "benchmark_info": {
-      "family": "gpt",
-      "subfamily": "o1",
-      "version": "1",
-      "date": null,
-      "parameters": null,
       "other_info": [
-        "o1"
+        "3.5",
+        "HaikuAnthropic"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "o1-2024-12-17",
-        "family": "gpt",
-        "subfamily": "o1",
-        "version": "1",
-        "date": "2024-12-17",
-        "parameters": null,
-        "other_info": [
-          "o1"
-        ]
-      },
-      {
-        "lmarena_model": "o1-preview",
-        "family": "gpt",
-        "subfamily": "o1",
-        "version": "1",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "o1",
-          "preview"
-        ]
-      },
-      {
-        "lmarena_model": "o1-mini",
-        "family": "gpt",
-        "subfamily": "o1",
-        "version": "1",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "mini",
-          "o1"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
-  "GPT-4.5": {
+  "o1OpenAI": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-4.5",
-      "version": "4.5",
+      "subfamily": null,
+      "version": "1.0",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "oOpenAI"
+      ]
     },
     "candidates": [
       {
@@ -573,151 +506,51 @@
       }
     ]
   },
-  "Gemma 3 27B": {
+  "GPT-4.5OpenAI": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.5OpenAI"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Gemma 3 27BGoogle": {
     "benchmark_info": {
       "family": "gemma",
       "subfamily": null,
-      "version": "3",
+      "version": "3.0",
       "date": null,
-      "parameters": "27B",
-      "other_info": null
+      "parameters": null,
+      "other_info": [
+        "27BGoogle"
+      ]
     },
     "candidates": [
       {
         "lmarena_model": "gemma-3-27b-it",
         "family": "gemma",
         "subfamily": null,
-        "version": "3",
+        "version": "3.0",
         "date": null,
         "parameters": "27B",
         "other_info": [
           "it"
         ]
-      }
-    ]
-  },
-  "GPT-4o mini": {
-    "benchmark_info": {
-      "family": "gpt",
-      "subfamily": "gpt-4o-mini",
-      "version": "4",
-      "date": null,
-      "parameters": null,
-      "other_info": null
-    },
-    "candidates": [
-      {
-        "lmarena_model": "NO_MATCH_FOUND"
-      }
-    ]
-  },
-  "GPT-4 Turbo": {
-    "benchmark_info": {
-      "family": "gpt",
-      "subfamily": "gpt-4-turbo",
-      "version": "4",
-      "date": null,
-      "parameters": null,
-      "other_info": null
-    },
-    "candidates": [
-      {
-        "lmarena_model": "NO_MATCH_FOUND"
-      }
-    ]
-  },
-  "Qwen2.5 72B Instruct": {
-    "benchmark_info": {
-      "family": "qwen",
-      "subfamily": "qwen2.5",
-      "version": "2.5",
-      "date": null,
-      "parameters": "72B",
-      "other_info": [
-        "Instruct"
-      ]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "NO_MATCH_FOUND"
-      }
-    ]
-  },
-  "Qwen2 72B Instruct": {
-    "benchmark_info": {
-      "family": "qwen",
-      "subfamily": "qwen2",
-      "version": "2",
-      "date": null,
-      "parameters": "72B",
-      "other_info": [
-        "7B",
-        "Instruct"
-      ]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "NO_MATCH_FOUND"
-      }
-    ]
-  },
-  "Grok-2 mini": {
-    "benchmark_info": {
-      "family": "grok",
-      "subfamily": "grok-2",
-      "version": "2",
-      "date": null,
-      "parameters": null,
-      "other_info": [
-        "mini"
-      ]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "grok-2-2024-08-13",
-        "family": "grok",
-        "subfamily": "grok-2",
-        "version": "2",
-        "date": "2024-08-13",
-        "parameters": null,
-        "other_info": [
-          "04",
-          "08",
-          "13"
-        ]
-      }
-    ]
-  },
-  "Nova Lite": {
-    "benchmark_info": {
-      "family": "nova",
-      "subfamily": "nova-lite",
-      "version": null,
-      "date": null,
-      "parameters": null,
-      "other_info": null
-    },
-    "candidates": [
-      {
-        "lmarena_model": "NO_MATCH_FOUND"
-      }
-    ]
-  },
-  "Gemma 3 12B": {
-    "benchmark_info": {
-      "family": "gemma",
-      "subfamily": null,
-      "version": "3",
-      "date": null,
-      "parameters": "12B",
-      "other_info": null
-    },
-    "candidates": [
+      },
       {
         "lmarena_model": "gemma-3-12b-it",
         "family": "gemma",
         "subfamily": null,
-        "version": "3",
+        "version": "3.0",
         "date": null,
         "parameters": "12B",
         "other_info": [
@@ -726,30 +559,16 @@
       }
     ]
   },
-  "Claude 3 Opus": {
+  "GPT-4o miniOpenAI": {
     "benchmark_info": {
-      "family": "claude",
-      "subfamily": "claude-opus",
-      "version": "3",
+      "family": "gpt",
+      "subfamily": "gpt-mini",
+      "version": "4.0",
       "date": null,
       "parameters": null,
-      "other_info": null
-    },
-    "candidates": [
-      {
-        "lmarena_model": "NO_MATCH_FOUND"
-      }
-    ]
-  },
-  "Small 3 24B InstructMistral AI": {
-    "benchmark_info": {
-      "family": "small",
-      "subfamily": null,
-      "version": "3",
-      "date": null,
-      "parameters": "24B",
       "other_info": [
-        "InstructMistral"
+        "o",
+        "miniOpenAI"
       ]
     },
     "candidates": [
@@ -758,31 +577,211 @@
       }
     ]
   },
-  "Qwen2.5 7B Instruct": {
+  "GPT-4 TurboOpenAI": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-turbo",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "TurboOpenAI"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Qwen2.5 72B InstructAlibaba Cloud / Qwen Team": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2.5",
+      "subfamily": null,
+      "version": "2.5",
+      "date": null,
+      "parameters": "72B",
+      "other_info": [
+        "Qwen",
+        "Team"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
+      }
+    ]
+  },
+  "Qwen2 72B InstructAlibaba Cloud / Qwen Team": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": "72B",
+      "other_info": [
+        "Qwen",
+        "Team"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Grok-2 minixAI": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-mini",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "minixAI"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Nova LiteAmazon": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": null,
+      "version": null,
+      "date": "Nov",
+      "parameters": null,
+      "other_info": [
+        "LiteAmazon"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Gemma 3 12BGoogle": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "12BGoogle"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemma-3-27b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "27B",
+        "other_info": [
+          "it"
+        ]
+      },
+      {
+        "lmarena_model": "gemma-3-12b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "12B",
+        "other_info": [
+          "it"
+        ]
+      }
+    ]
+  },
+  "Claude 3 OpusAnthropic": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "OpusAnthropic"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Mistral Small 3 24B InstructMistral AI": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-small-instruct",
+      "version": "3.0",
+      "date": null,
+      "parameters": "24B",
+      "other_info": [
+        "InstructMistral",
+        "AI"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Qwen2.5 7B InstructAlibaba Cloud / Qwen Team": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
       "parameters": "7B",
       "other_info": [
-        "Instruct"
+        "Qwen",
+        "Team"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "NO_MATCH_FOUND"
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
       }
     ]
   },
-  "Gemini 1.5 Pro": {
+  "Gemini 1.5 ProGoogle": {
     "benchmark_info": {
       "family": "gemini",
       "subfamily": "gemini-pro",
       "version": "1.5",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "1.5",
+        "ProGoogle"
+      ]
     },
     "candidates": [
       {
@@ -793,36 +792,49 @@
         "date": null,
         "parameters": null,
         "other_info": [
+          "1.5",
           "002"
         ]
       }
     ]
   },
-  "Qwen2.5 14B Instruct": {
+  "Qwen2.5 14B InstructAlibaba Cloud / Qwen Team": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2.5",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
       "parameters": "14B",
       "other_info": [
-        "Instruct"
+        "Qwen",
+        "Team"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "NO_MATCH_FOUND"
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
       }
     ]
   },
-  "Phi 4": {
+  "Phi 4Microsoft": {
     "benchmark_info": {
       "family": "phi",
       "subfamily": null,
-      "version": "4",
+      "version": "4.0",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "Microsoft"
+      ]
     },
     "candidates": [
       {
@@ -833,14 +845,16 @@
   "IBM Granite 4.0 Tiny PreviewIBM": {
     "benchmark_info": {
       "family": "granite",
-      "subfamily": null,
+      "subfamily": "granite-preview",
       "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": [
         "IBM",
-        "PreviewIBM",
-        "Tiny"
+        "Granite",
+        ".0",
+        "Tiny",
+        "PreviewIBM"
       ]
     },
     "candidates": [
@@ -849,14 +863,16 @@
       }
     ]
   },
-  "Nova Micro": {
+  "Nova MicroAmazon": {
     "benchmark_info": {
       "family": "nova",
-      "subfamily": "nova-micro",
+      "subfamily": null,
       "version": null,
-      "date": null,
+      "date": "Nov",
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "MicroAmazon"
+      ]
     },
     "candidates": [
       {
@@ -868,11 +884,12 @@
     "benchmark_info": {
       "family": "codestral",
       "subfamily": null,
-      "version": "22",
+      "version": "22.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "22BMistral"
+        "BMistral",
+        "AI"
       ]
     },
     "candidates": [
@@ -881,15 +898,16 @@
       }
     ]
   },
-  "Llama 3.1 70B Instruct": {
+  "Llama 3.1 70B InstructMeta": {
     "benchmark_info": {
       "family": "llama",
-      "subfamily": "llama-3.1",
+      "subfamily": "llama-instruct",
       "version": "3.1",
       "date": null,
       "parameters": "70B",
       "other_info": [
-        "Instruct"
+        "3.1",
+        "InstructMeta"
       ]
     },
     "candidates": [
@@ -898,15 +916,16 @@
       }
     ]
   },
-  "Qwen2 7B Instruct": {
+  "Qwen2 7B InstructAlibaba Cloud / Qwen Team": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2",
-      "version": "2",
+      "subfamily": null,
+      "version": "2.0",
       "date": null,
       "parameters": "7B",
       "other_info": [
-        "Instruct"
+        "Qwen",
+        "Team"
       ]
     },
     "candidates": [
@@ -915,46 +934,42 @@
       }
     ]
   },
-  "Qwen2.5-Omni-7B": {
+  "Qwen2.5-Omni-7BAlibaba Cloud / Qwen Team": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2.5-omni",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
-      "parameters": "7B",
-      "other_info": null
+      "parameters": null,
+      "other_info": [
+        "Qwen",
+        "Team"
+      ]
     },
     "candidates": [
       {
-        "lmarena_model": "NO_MATCH_FOUND"
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
       }
     ]
   },
-  "Claude 3 Haiku": {
+  "Claude 3 HaikuAnthropic": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-haiku",
-      "version": "3",
+      "subfamily": "claude-haiku-h",
+      "version": "3.0",
       "date": null,
       "parameters": null,
-      "other_info": null
-    },
-    "candidates": [
-      {
-        "lmarena_model": "NO_MATCH_FOUND"
-      }
-    ]
-  },
-  "Gemma 3n E4B Instructed": {
-    "benchmark_info": {
-      "family": "gemma",
-      "subfamily": null,
-      "version": "3",
-      "date": null,
-      "parameters": "4B",
       "other_info": [
-        "3n",
-        "Instructed"
+        "HaikuAnthropic"
       ]
     },
     "candidates": [
@@ -963,17 +978,38 @@
       }
     ]
   },
-  "Gemma 3n E4B Instructed LiteRT Preview": {
+  "Gemma 3n E4B InstructedGoogle": {
     "benchmark_info": {
       "family": "gemma",
-      "subfamily": "gemma-preview",
-      "version": "3",
+      "subfamily": "gemma-instruct",
+      "version": "3.0",
       "date": null,
-      "parameters": "4B",
+      "parameters": null,
       "other_info": [
-        "3n",
+        "n",
+        "E4B",
+        "InstructedGoogle"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Gemma 3n E4B Instructed LiteRT PreviewGoogle": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": "gemma-preview-lite-instruct",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "n",
+        "E4B",
         "Instructed",
-        "LiteRT"
+        "LiteRT",
+        "PreviewGoogle"
       ]
     },
     "candidates": [
@@ -982,14 +1018,17 @@
       }
     ]
   },
-  "Gemini 1.5 Flash": {
+  "Gemini 1.5 FlashGoogle": {
     "benchmark_info": {
       "family": "gemini",
       "subfamily": "gemini-flash",
       "version": "1.5",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "1.5",
+        "FlashGoogle"
+      ]
     },
     "candidates": [
       {
@@ -997,14 +1036,16 @@
       }
     ]
   },
-  "Grok-1.5": {
+  "Grok-1.5xAI": {
     "benchmark_info": {
       "family": "grok",
-      "subfamily": "grok-1.5",
+      "subfamily": null,
       "version": "1.5",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "1.5xAI"
+      ]
     },
     "candidates": [
       {
@@ -1012,54 +1053,53 @@
       }
     ]
   },
-  "Claude 3 Sonnet": {
+  "Claude 3 SonnetAnthropic": {
     "benchmark_info": {
       "family": "claude",
       "subfamily": "claude-sonnet",
-      "version": "3",
+      "version": "3.0",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "SonnetAnthropic"
+      ]
     },
     "candidates": [
       {
-        "lmarena_model": "claude-3-7-sonnet-20250219-thinking-32k",
+        "lmarena_model": "Anthropicclaude-3-5-sonnet-20241022",
         "family": "claude",
         "subfamily": "claude-sonnet",
-        "version": "3",
-        "date": "2025-02-19",
+        "version": "3.0",
+        "date": "20241022",
         "parameters": null,
         "other_info": [
-          "32k",
-          "thinking"
+          "Anthropicclaude",
+          "5"
         ]
       },
       {
-        "lmarena_model": "claude-3-5-sonnet-20241022",
+        "lmarena_model": "Anthropicclaude-3-7-sonnet-20250219",
         "family": "claude",
         "subfamily": "claude-sonnet",
-        "version": "3",
-        "date": "2024-10-22",
+        "version": "3.0",
+        "date": "20250219",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "Anthropicclaude",
+          "7"
+        ]
       },
       {
-        "lmarena_model": "claude-3-7-sonnet-20250219",
+        "lmarena_model": "Anthropicclaude-3-5-sonnet-20240620",
         "family": "claude",
         "subfamily": "claude-sonnet",
-        "version": "3",
-        "date": "2025-02-19",
+        "version": "3.0",
+        "date": "20240620",
         "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "claude-3-5-sonnet-20240620",
-        "family": "claude",
-        "subfamily": "claude-sonnet",
-        "version": "3",
-        "date": "2024-06-20",
-        "parameters": null,
-        "other_info": null
+        "other_info": [
+          "Anthropicclaude",
+          "5"
+        ]
       }
     ]
   }

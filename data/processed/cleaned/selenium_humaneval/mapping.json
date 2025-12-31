@@ -1,0 +1,10 @@
+{
+  "Qwen2.5-Coder 32B InstructAlibaba Cloud / Qwen Team": "qwen2.5-max",
+  "o1-miniOpenAI": "o1-2024-12-17",
+  "GPT-4oOpenAI": "gpt-4o-2024-05-13",
+  "Llama 3.1 405B InstructMeta": "Metallama-3.1-405b-instruct-bf16",
+  "Grok-2xAI": "grok-2-2024-08-13",
+  "Gemma 3 27BGoogle": "gemma-3-27b-it",
+  "Gemini 1.5 ProGoogle": "gemini-1.5-pro-002",
+  "Claude 3 SonnetAnthropic": "Anthropicclaude-3-5-sonnet-20241022"
+}

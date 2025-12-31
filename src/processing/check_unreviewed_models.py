@@ -83,27 +83,28 @@ def is_model_reviewed(model_name: str, review_data: Dict) -> bool:
     """
     检查模型是否已经被审核
     
-    审核标准：
+    审核标准（从 reviewed_files 读取）：
     1. 模型在审核文件中存在
-    2. candidates 数组只有一个元素
-    3. 该元素的 lmarena_model 不是 'NO_MATCH_FOUND'
+    2. human_approved == 1（人类已认可）
+    3. selected_lmarena_model 是模型名称（字符串），不是 0 或 -1
     """
     if model_name not in review_data:
         return False
     
     model_data = review_data[model_name]
-    candidates = model_data.get('candidates', [])
     
-    # 如果没有候选，或候选为空，视为未审核
-    if not candidates:
+    # 检查 human_approved 字段（从 reviewed_files 读取）
+    human_approved = model_data.get('human_approved', 0)
+    if human_approved != 1:
         return False
     
-    # 如果只有一个候选，且不是 NO_MATCH_FOUND，视为已审核
-    if len(candidates) == 1:
-        lmarena_model = candidates[0].get('lmarena_model')
-        return lmarena_model is not None and lmarena_model != 'NO_MATCH_FOUND'
+    # 检查 selected_lmarena_model 字段
+    selected_model = model_data.get('selected_lmarena_model')
+    # 只有是字符串（模型名称）才视为已审核
+    if isinstance(selected_model, str) and selected_model:
+        return True
     
-    # 如果有多个候选，视为未审核（需要用户选择）
+    # 如果是 0 或 -1，视为未审核（无匹配）
     return False
 
 
@@ -282,7 +283,8 @@ def main():
     import sys
     
     base_dir = Path(__file__).parent.parent.parent
-    review_files_dir = base_dir / 'data' / 'processed' / 'entity_resolution' / 'review_files_v2'
+    # 从 reviewed_files 读取（包含 human_approved 和 selected_lmarena_model 字段）
+    review_files_dir = base_dir / 'data' / 'processed' / 'entity_resolution' / 'reviewed_files'
     
     # 如果提供了命令行参数，检查指定的文件
     if len(sys.argv) > 1:

@@ -1,0 +1,17 @@
+{
+  "o3-miniOpenAI": "o3-2025-04-16",
+  "Gemma 3 27BGoogle": "gemma-3-27b-it",
+  "Llama 3.1 Nemotron Ultra 253B v1NVIDIA": "Nvidiallama-3.1-nemotron-ultra-253b-v1",
+  "Qwen3-Next-80B-A3B-ThinkingAlibaba Cloud / Qwen Team": "qwen3-next-80b-a3b-instruct",
+  "Qwen3-235B-A22B-Instruct-2507Alibaba Cloud / Qwen Team": "qwen3-235b-a22b-instruct-2507",
+  "Llama 3.1 405B InstructMeta": "Metallama-3.1-405b-instruct-bf16",
+  "Qwen3 VL 32B ThinkingAlibaba Cloud / Qwen Team": "qwen3-32b",
+  "GPT-4.1OpenAI": "gpt-4.1-2025-04-14",
+  "DeepSeek-V3DeepSeek": "deepseek-v3-0324",
+  "Qwen3 VL 30B A3B InstructAlibaba Cloud / Qwen Team": "qwen3-30b-a3b-instruct-2507",
+  "GPT-4.1 miniOpenAI": "gpt-4.1-mini-2025-04-14",
+  "Qwen2.5 72B InstructAlibaba Cloud / Qwen Team": "qwen2.5-max",
+  "QwQ-32BAlibaba Cloud / Qwen Team": "qwq-32b",
+  "Qwen3 VL 8B InstructAlibaba Cloud / Qwen Team": "qwen3-max-2025-09-23",
+  "GPT-4oOpenAI": "gpt-4o-2024-05-13"
+}

@@ -18,16 +18,16 @@ class StructuredMatcher:
     """基于结构化信息的匹配器"""
     
     def _normalize_version(self, version: Optional[str]) -> Optional[str]:
-        """标准化版本号：3和3.0视为相同"""
+        """标准化版本号：3和3.0视为相同，统一为浮点数格式（如3.0）"""
         if version is None:
             return None
         
         try:
-            # 尝试转换为浮点数，然后标准化
+            # 尝试转换为浮点数，然后标准化为浮点数格式
             version_float = float(version)
-            # 如果小数点后是0，去掉.0
+            # 统一格式：如果是整数，显示为 3.0，否则保持原样
             if version_float == int(version_float):
-                return str(int(version_float))
+                return f"{int(version_float)}.0"
             else:
                 return str(version_float)
         except (ValueError, TypeError):

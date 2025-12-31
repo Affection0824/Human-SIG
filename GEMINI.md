@@ -136,8 +136,20 @@ Human-SIG/
 │  │          ├── input.txt     # User-manually copied JSON element (from webpage source code, JSON format text)
 │  │          └── data.csv      # Converted data file
 │  └── processed/              # Processed data
+│      ├── model_extraction/   # Structured model information extracted from raw data
+│      │   ├── lmarena_models.json
+│      │   ├── artificial_analysis_models.json
+│      │   └── {method}_{benchmark_name}_models.json
+│      ├── entity_resolution/  # Entity resolution and review files
+│      │   ├── review_files_v2/    # Initial review files with candidates
+│      │   │   └── {benchmark_id}_review.json
+│      │   └── reviewed_files/     # Auto-reviewed files ready for human approval
+│      │       └── {benchmark_id}_review.json
+│      ├── cleaned/            # Cleaned benchmark data with scores and rankings
+│      │   └── {benchmark_id}/     # One folder per benchmark/category
+│      │       ├── cleaned_data.csv    # Model names, scores, and ranks
+│      │       └── mapping.json        # Model name to LMArena model ID mapping
 │      ├── normalized_scores/
-│      ├── entity_resolution/
 │      └── master_table/
 ├── src/
 │  ├── main.py        # Unified CLI entry point
@@ -234,71 +246,356 @@ Objective: Transform raw, heterogeneous benchmark data into a unified, normalize
 
 Input:
 
-- `Human-SIG/data/cleaned/` (Cleaned CSV files from Step 3.1).
+- `Human-SIG/data/raw/` (Raw CSV files from Phase II).
 
-- `Human-SIG/config/mapping.json` (The Unified Model Registry).
+- `Human-SIG/data/processed/model_extraction/` (Structured model information JSON files from Step 3.1).
 
-  Output:
+- `Human-SIG/config/mapping.json` (The Unified Model Registry, generated/updated in Step 3.2.4).
 
-- `Human-SIG/data/processed/master_table/master_correlation_matrix.csv`.
+Output:
 
-- `Human-SIG/data/processed/entity_resolution/pending_resolution.csv` (For human review, generated in Step 3.3.2).
+- `Human-SIG/data/processed/model_extraction/*_models.json` (Structured model information, Step 3.1 output).
 
-#### Step 3.1: Preliminary Data Cleaning
+- `Human-SIG/data/processed/entity_resolution/review_files_v2/*_review.json` (Initial review files with candidates, Step 3.2.1 output).
 
-**Objective:** Clean the raw data to remove organization suffixes and standardise model names before further processing. This step addresses issues where scraping concatenated Model and Organization columns (e.g., "GPT-5.1 ThinkingOpenAI").
+- `Human-SIG/data/processed/entity_resolution/reviewed_files/*_review.json` (Auto-reviewed files ready for human approval, Step 3.2.2 output).
 
-- **3.1.1:** Create `Human-SIG/src/processing/clean_raw_data.py`.
-  - **Action:** Implement a script that:
-    1. Reads all `data.csv` files from `Human-SIG/data/raw/`.
-    2. Identifies the model name column.
-    3. Strips known organization suffixes (e.g., "OpenAI", "Google", "xAI", "Anthropic", "DeepSeek") from model names.
-    4. Saves the cleaned files to a new directory `Human-SIG/data/cleaned/`, preserving the subdirectory structure.
-  - **Input:** `Human-SIG/data/raw/`
-  - **Output:** `Human-SIG/data/cleaned/` (mirroring the structure of `data/raw/` but with cleaned CSVs).
+- `Human-SIG/config/mapping.json` (The Unified Model Registry, Step 3.2.4 output).
+
+- `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv` (Cleaned data with scores and ranks, Step 3.2.6 output).
+
+- `Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json` (Per-benchmark mapping files, Step 3.2.6 output).
+
+- `Human-SIG/data/processed/master_table/master_correlation_matrix.csv` (Generated in Step 3.4).
+
+#### Step 3.1: Model Information Extraction from Raw Data
+
+**Objective:** Extract structured model information from raw CSV files and generate standardized JSON files for each benchmark. This step transforms raw model names into structured data (family, subfamily, version, date, parameters, other_info) that will be used for entity resolution.
+
+- **3.1.1:** Create model information extraction scripts.
+  - **Input:** All `data.csv` files from `Human-SIG/data/raw/` directory, organized by scraping method (lmarena, artificial_analysis, selenium, pandas_read_html, manual_direct, vals_ai, frontiermath).
+  - **Action:** Implement extraction logic that:
+    1. Reads each `data.csv` file and identifies the model name column (may be named "Model", "model", "Model Name", "AI System", etc.).
+    2. For LMArena Overall data: Filters models to only include those with Overall Score >= 1330 (this defines the Study Universe).
+    3. For each model name, parses and extracts structured information:
+       - **family** (required): Model family name (e.g., "gpt", "gemini", "claude", "mistral", "llama"). Must handle special cases:
+         - Organization names concatenated with model names (e.g., "Anthropicclaude-opus-4-5" → "claude", "MoonshotAIkimi-k2" → "kimi").
+         - Model names with prefixes (e.g., "google/gemini-3-pro" → extract "gemini" after removing "google/").
+         - Special model series that map to families (e.g., "o1", "o3", "o4", "o5" → "gpt" family; "Magistral" → "mistral" family; "Devstral" → "mistral" family; "Terminus" → "deepseek" family; "Hermes" → "llama" family).
+       - **subfamily** (optional): Subfamily name including suffixes (e.g., "gpt-5", "gemini-pro", "gemini-pro-preview"). Suffixes like "pro", "preview", "flash", "heavy", "r1" should be included in subfamily. Subfamily names should be combined with family names (e.g., "o1" should be identified as GPT family with subfamily "o1").
+       - **version** (optional): Version number, standardized to float format (e.g., "3.0"). Versions like "v3" and "3.0" should be normalized to the same format (e.g., "3.0").
+       - **date** (optional): Date suffix if present, kept in original format (e.g., "dec", "2412", "1205", "2025-04-16"). No normalization or conversion required.
+       - **parameters** (optional): Parameter count in formats like "20B", "1B". Exclude formats like "thinking-32k" and "A2B". Handle special cases like model names with slash-separated parameter variants (e.g., "Qwen3-Coder 480B/A35B" → extract "480B" or handle appropriately).
+       - **other_info** (optional): List of strings containing all remaining information from the model name that was not captured in the above fields.
+    4. For Artificial Analysis benchmarks: All 10 benchmarks (aa_lcr, aime_2025, gpqa_diamond, humanitys_last_exam, ifbench, live_code_bench, mmlu_pro, scicode, tau_bench_telecom, terminal_bench_hard) share the same model list, so extract once and save to a single JSON file.
+    5. Saves structured information to JSON files in `Human-SIG/data/processed/model_extraction/`:
+       - `lmarena_models.json` - Contains all LMArena models with Overall Score >= 1330.
+       - `artificial_analysis_models.json` - Contains all models from Artificial Analysis benchmarks (shared across 10 benchmarks).
+       - `{method}_{benchmark_name}_models.json` - For other benchmarks, where method is the scraping method and benchmark_name is sanitized (e.g., "selenium_humaneval_models.json").
+  - **Output Schema:** Each JSON file follows this structure:
+    ```json
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "description": "Structured model information extracted from raw benchmark data",
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "description": "Model information keyed by the original model name from the benchmark",
+          "properties": {
+            "family": {
+              "type": ["string", "null"],
+              "description": "Model family name (e.g., 'gpt', 'gemini', 'claude'). Null if family cannot be determined."
+            },
+            "subfamily": {
+              "type": ["string", "null"],
+              "description": "Subfamily name including suffixes (e.g., 'gpt-5', 'gemini-pro-preview'). Null if no subfamily identified."
+            },
+            "version": {
+              "type": ["string", "null"],
+              "description": "Version number standardized to float format (e.g., '3.0', '5.2'). Null if no version found."
+            },
+            "date": {
+              "type": ["string", "null"],
+              "description": "Date suffix in original format (e.g., 'dec', '2412', '2025-04-16'). Null if no date found."
+            },
+            "parameters": {
+              "type": ["string", "null"],
+              "description": "Parameter count in formats like '20B', '1B'. Null if no parameters found or format not recognized."
+            },
+            "other_info": {
+              "type": ["array", "null"],
+              "items": {
+                "type": "string"
+              },
+              "description": "List of remaining information from model name not captured in other fields. Null if empty."
+            }
+          },
+          "required": ["family", "subfamily", "version", "date", "parameters", "other_info"]
+        }
+      }
+    }
+    ```
+  - **Validation Requirements:** After extraction, validate the generated JSON files:
+    - Check for models with `family: null` (unable to extract family) and report them for manual review.
+    - Verify version numbers are in consistent format (all should be float strings like "3.0", not mixed "3" and "3.0").
+    - Verify parameter formats are consistent (should all end with "B").
+    - Report any abnormal model name formats that required special handling.
+  - **Error Handling:** If model name formats are abnormal or parsing fails, apply special case handling and report these cases at the end. The extraction should be robust enough to handle edge cases while maintaining data quality.
 - **3.1.2:** Commit State.
-  - **Message:** `Step 3.1.2 Completed: Executed preliminary data cleaning to remove organization suffixes`
+  - **Message:** `Step 3.1.2 Completed: Extracted structured model information from raw data to JSON files`
 
-#### Step 3.2: Human-in-the-Loop Entity Resolution (Smart Structured Matching)
+#### Step 3.2: Entity Resolution and Model Mapping Review
 
-- **3.2.1:** Create `Human-SIG/src/processing/resolve_identities.py` (or use `resolve_identities_smart.py` for improved algorithm).
-  - **Code Documentation Requirements:**
-    - File header must explain the multi-level entity resolution strategy with structured matching, the purpose of preventing data contamination, and the human-in-the-loop verification process.
-    - All functions must have docstrings explaining their matching logic, especially the structured parsing and similarity calculation methods.
-  - **Input:** Load the **FULL** LMArena dataset (all ELOs) and the cleaned benchmark datasets from `Human-SIG/data/cleaned/`.
-  - **Study Universe Definition:** Define `target_candidates` as LMArena models with `elo_overall >= 1330`.
-  - **The Resolution Loop:** Iterate through every raw model name in the benchmarks:
-    - **Level 0 (Global Exact Match - The "Low ELO" Filter):** Check if `raw_name` exists in the **FULL** LMArena dataset (after normalization: lowercase, standardize separators).
-      - If Match Found AND ELO < 1330: **Auto-Discard** (Log as "Known Low-ELO"). Do not proceed to fuzzy matching.
-      - If Match Found AND ELO >= 1330: **Auto-Map** (Keep).
-    - **Level 1 (Target Exact Match):** (Redundant if Level 0 matches, but serves as sanity check) Does `raw_name == lmarena_id` (normalized, in Study Universe)? -> Auto-Map.
-    - **Level 2 (Registry Lookup):** Check `Human-SIG/config/mapping.json`. Is `raw_name` a known alias? -> Auto-Map.
-    - **Level 3 (Smart Structured Matching - The Core Innovation):** If unmatched at Levels 0-2, use **Structured Matching** to find the best candidates within the **Study Universe (ELO >= 1330) ONLY**.
-      - **3a. Structured Parsing:** Parse the benchmark model name into components:
-        - `family`: Model family name (e.g., "gpt", "claude", "gemini")
-        - `version`: Version number (e.g., "5.1", "4.5")
-        - `variant`: Variant markers (e.g., {"high", "thinking"})
-        - `date`: Date suffix if present
-      - **3b. Family-Based Filtering:** Only consider LMArena models whose family name matches (or is highly similar to) the benchmark model's family. This prevents cross-family false matches (e.g., "gpt-4" should NOT match "glm-4").
-      - **3c. Structured Similarity Calculation:** For each candidate LMArena model, compute a structured similarity score based on:
-        - Family match (40% weight, **must match**): Exact match = 1.0, containment = 0.9, string similarity > 0.7 = partial match, otherwise = 0.0 (disqualifies candidate)
-        - Version similarity (30% weight): Uses exponential decay based on numerical difference (e.g., 5.1 vs 5.2 ≈ 0.5 similarity)
-        - Variant overlap (20% weight): Jaccard similarity of variant marker sets
-        - Overall string similarity (10% weight): Auxiliary metric using SequenceMatcher
-      - **3d. Top-K Candidate Selection:** Generate at most K candidates (default K=3) with the highest structured similarity scores. Only candidates with similarity > 0.3 are considered.
-      - **3e. Output:** Add to `pending_resolution.csv` with columns: `benchmark`, `raw_name`, `proposed_lmarena_id`, `confidence` (the structured similarity score), `alternative_candidates` (other top candidates with their scores).
-      - If no candidates found (similarity <= 0.3 for all models): Add to `unmatched_log.csv` for quick sanity check.
-    - **Exclusion:** Models in `unmatched_log.csv` are considered discarded *unless* manually moved to mapping.json.
-  - **Key Improvement:** The structured matching approach dramatically reduces the number of candidates that need human review (from potentially 10,000+ to 500-2,000 manageable cases) while ensuring all plausible matches are included. Unlike simple fuzzy string matching (e.g., Levenshtein distance), structured matching prevents cross-family false positives (e.g., "gpt-4" matching "glm-4") and correctly identifies matches with different formatting (e.g., "GPT-5.1 (high)" matching "gpt-5.1-high").
-- **3.2.2:** Interactive Verification.
-  - **Action:** Generate `Human-SIG/data/processed/entity_resolution/pending_resolution.csv` containing: `benchmark`, `raw_name`, `proposed_lmarena_id`, `confidence`, `alternative_candidates`.
-  - **Interactive Pause:** Check if `Human-SIG/data/processed/entity_resolution/pending_resolution.csv` is not empty.
-  - **If populated:** PAUSE execution. Print: "Unmatched models detected. Please manually review 'Human-SIG/data/processed/entity_resolution/pending_resolution.csv'. The structured matching algorithm has generated a manageable list of candidates (typically 500-2000 entries, reduced from 10,000+ using simple fuzzy matching). Review the proposed matches, paying attention to confidence scores (> 0.8 = high confidence, 0.5-0.8 = medium, < 0.5 = low). Confirm correct matches, fix errors, or delete rows to discard models. Then update 'mapping.json' manually or type 'CONTINUE' to let me append approved matches."
-  - **Wait for User Input.**
-  - **Post-Processing:** Read the user-verified CSV. APPEND the new confirmed aliases to `Human-SIG/config/mapping.json`. Constraint: Never overwrite `mapping.json` completely; only append new keys/values to preserve history.
-- **3.2.3:** Final Merge.
-  - **Action:** Reload all data using the updated `mapping.json`. Discard any models that remain unmatched.
-  - **Message:** `Step 3.2.3 Completed: Executed smart structured matching and human verification, updated mapping registry`
+**Objective:** Match benchmark model names to LMArena model IDs using structured information, generate review files for human verification, and create the final mapping table. This step implements a multi-stage process: (1) generate initial review files with candidate matches, (2) automatically select best matches, (3) allow human review and approval, and (4) apply approved results to create the final mapping.
+
+- **3.2.1:** Generate Initial Review Files (Candidate Matching).
+  - **Input:** 
+    - Structured model information from `Human-SIG/data/processed/model_extraction/` (all `*_models.json` files).
+    - LMArena model information from `Human-SIG/data/processed/model_extraction/lmarena_models.json` (Study Universe: models with Overall Score >= 1330).
+  - **Action:** Create a script that:
+    1. Loads LMArena model information from `lmarena_models.json` (this serves as the target matching database).
+    2. For each benchmark's model extraction JSON file:
+       - Loads the benchmark's structured model information.
+       - For each benchmark model, finds all candidate LMArena models that match based on structured matching rules:
+         - **Matching Rules:**
+           - `family` (家族) must match exactly.
+           - `subfamily` (子家族) must match exactly if both have subfamily values. If one has subfamily and the other doesn't, they don't match.
+           - `version` (版本号) must match after normalization (e.g., "3" and "3.0" are considered the same). If one has version and the other doesn't, they don't match.
+           - `parameters` (参数量): If both have parameters and they don't match, exclude the match. If only one has parameters or both don't have parameters, this doesn't prevent matching.
+           - `date` (日期): Does not participate in matching (different date formats may correspond to the same model).
+           - `other_info` (其他信息): Does not affect matching.
+       - Collects all matching candidates for each benchmark model.
+       - If no candidates found, includes a single candidate with `lmarena_model: "NO_MATCH_FOUND"`.
+    3. Generates JSON review files in `Human-SIG/data/processed/entity_resolution/review_files_v2/`:
+       - `artificial_analysis_review.json` - Will be applied to all 10 Artificial Analysis benchmarks.
+       - `lmarena_review.json` - LMArena models self-matching.
+       - `{method}_{benchmark_name}_review.json` - For other benchmarks.
+  - **Output Schema:** Each review file follows this structure:
+    ```json
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "description": "Initial review file containing benchmark models and their candidate LMArena matches",
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "description": "Review entry for a single benchmark model, keyed by the original model name",
+          "properties": {
+            "benchmark_info": {
+              "type": "object",
+              "description": "Structured information extracted from the benchmark model name",
+              "properties": {
+                "family": {"type": ["string", "null"]},
+                "subfamily": {"type": ["string", "null"]},
+                "version": {"type": ["string", "null"]},
+                "date": {"type": ["string", "null"]},
+                "parameters": {"type": ["string", "null"]},
+                "other_info": {"type": ["array", "null"], "items": {"type": "string"}}
+              },
+              "required": ["family", "subfamily", "version", "date", "parameters", "other_info"]
+            },
+            "candidates": {
+              "type": "array",
+              "description": "List of candidate LMArena models that match the benchmark model based on structured matching rules",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "lmarena_model": {
+                    "type": "string",
+                    "description": "LMArena model ID, or 'NO_MATCH_FOUND' if no candidates found"
+                  },
+                  "family": {"type": ["string", "null"]},
+                  "subfamily": {"type": ["string", "null"]},
+                  "version": {"type": ["string", "null"]},
+                  "date": {"type": ["string", "null"]},
+                  "parameters": {"type": ["string", "null"]},
+                  "other_info": {"type": ["array", "null"], "items": {"type": "string"}}
+                },
+                "required": ["lmarena_model", "family", "subfamily", "version", "date", "parameters", "other_info"]
+              },
+              "minItems": 1
+            }
+          },
+          "required": ["benchmark_info", "candidates"]
+        }
+      }
+    }
+    ```
+  - **Special Handling:** For `artificial_analysis`, generate a single review file that will be applied to all 10 Artificial Analysis benchmarks (aa_lcr, aime_2025, gpqa_diamond, humanitys_last_exam, ifbench, live_code_bench, mmlu_pro, scicode, tau_bench_telecom, terminal_bench_hard).
+- **3.2.2:** Automatic Review (Best Match Selection).
+  - **Input:** Review files from `Human-SIG/data/processed/entity_resolution/review_files_v2/` (all `*_review.json` files).
+  - **Action:** Create a script that:
+    1. Reads each review file and processes every benchmark model entry.
+    2. For each entry, automatically selects the best match and adds three new fields:
+       - **`human_approved`**: Integer (0 or 1). Initialized to 0. Set to 1 when human approves the result.
+       - **`selected_lmarena_model`**: String, Integer (0), or Integer (-1). The selected LMArena model name, or 0 (auto-determined no match), or -1 (human-confirmed no match).
+       - **`needs_review`**: Boolean (true or false). Indicates whether human review is needed.
+    3. **Automatic Selection Logic:**
+       - If there is exactly one candidate and it's not "NO_MATCH_FOUND": Use that candidate's `lmarena_model` as `selected_lmarena_model`. Set `needs_review: false`.
+       - If there are multiple candidates: Use a similarity scoring algorithm to select the best match:
+         - **Similarity Factors (weighted):**
+           - `other_info` similarity (50% weight): Use Jaccard similarity to compare the sets of other_info items.
+           - Date matching (20% weight): Full match = 1.0, same year = 0.5, otherwise = 0.2.
+           - Parameters matching (20% weight): Full match = 1.0, otherwise = 0.0.
+           - Subfamily matching (10% weight): Full match = 1.0, containment relationship = 0.5, otherwise = 0.2.
+         - Select the candidate with the highest similarity score. Set `needs_review: true` (even though a match was selected, human confirmation is needed when multiple candidates exist).
+         - If similarity is too low (< 0.3) or cannot determine best match: Set `selected_lmarena_model: 0` and `needs_review: true`.
+       - If there are no valid candidates or only "NO_MATCH_FOUND": Set `selected_lmarena_model: 0` and `needs_review: false`.
+    4. Saves the enhanced review files to `Human-SIG/data/processed/entity_resolution/reviewed_files/` (same filenames as input).
+  - **Output Schema:** Each reviewed file follows this structure (extends the review file schema):
+    ```json
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "description": "Auto-reviewed file ready for human approval, extends the initial review file with selection fields",
+      "patternProperties": {
+        "^.+$": {
+          "type": "object",
+          "description": "Reviewed entry for a single benchmark model",
+          "properties": {
+            "benchmark_info": {
+              "type": "object",
+              "description": "Structured information from benchmark model (same as review file)"
+            },
+            "candidates": {
+              "type": "array",
+              "description": "List of candidate matches (same as review file)"
+            },
+            "human_approved": {
+              "type": "integer",
+              "enum": [0, 1],
+              "description": "0 = not yet approved by human, 1 = approved by human"
+            },
+            "selected_lmarena_model": {
+              "oneOf": [
+                {"type": "string", "description": "Selected LMArena model name"},
+                {"type": "integer", "enum": [0], "description": "Auto-determined: no matching model"},
+                {"type": "integer", "enum": [-1], "description": "Human-confirmed: no matching model in Study Universe"}
+              ],
+              "description": "The selected LMArena model, or 0 (auto no-match) or -1 (human-confirmed no-match)"
+            },
+            "needs_review": {
+              "type": "boolean",
+              "description": "true = requires human review (multiple candidates or low confidence), false = auto-processed"
+            }
+          },
+          "required": ["benchmark_info", "candidates", "human_approved", "selected_lmarena_model", "needs_review"]
+        }
+      }
+    }
+    ```
+  - **Note:** Even when `needs_review: true`, the script should still provide an automatic selection in `selected_lmarena_model` based on highest confidence. This gives humans a starting point for review.
+- **3.2.3:** Human Review and Approval (Manual Step).
+  - **Input:** Reviewed files from `Human-SIG/data/processed/entity_resolution/reviewed_files/` (all `*_review.json` files).
+  - **Action:** This is a manual step where humans review and approve the automatic selections:
+    1. **Identify entries needing review:**
+       - Search for entries with `"needs_review": true` (these have multiple candidates or low confidence).
+       - Also check entries with `"human_approved": 0` (even if `needs_review: false`, verify auto-selections are correct).
+    2. **Review each entry:**
+       - If `selected_lmarena_model` is correct: Set `"human_approved": 1`.
+       - If `selected_lmarena_model` is incorrect: Update `selected_lmarena_model` to the correct value, then set `"human_approved": 1`.
+       - If confirming no match: Set `"selected_lmarena_model": -1` and `"human_approved": 1`.
+       - If `selected_lmarena_model: 0` (auto-determined no match): Verify if there's truly no match. If confirmed, set to `-1` and `"human_approved": 1`. If a match exists, add it to `candidates` and update `selected_lmarena_model`.
+    3. **Special handling:** For `artificial_analysis_review.json`, any changes will apply to all 10 Artificial Analysis benchmarks.
+  - **Output:** Updated reviewed files with `human_approved: 1` for approved entries.
+  - **Note:** This step is performed manually by humans. The agent should pause and wait for human completion before proceeding to Step 3.2.4.
+- **3.2.4:** Apply Review Results to Mapping Table.
+  - **Input:** 
+    - Reviewed files from `Human-SIG/data/processed/entity_resolution/reviewed_files/` (all `*_review.json` files with human approvals).
+    - Existing `Human-SIG/config/mapping.json` (if it exists).
+  - **Action:** Create a script that:
+    1. Reads all reviewed files from `reviewed_files/` directory.
+    2. For each benchmark model entry:
+       - Checks `human_approved` field. If `human_approved: 0`, the entry is skipped (not yet approved).
+       - Reads `selected_lmarena_model` field:
+         - If it's a string (model name): Creates a mapping entry `{benchmark_model_name: selected_lmarena_model}`.
+         - If it's `0` or `-1`: Skips this entry (no mapping created).
+    3. For `artificial_analysis_review.json`: Applies the mappings to all 10 Artificial Analysis benchmarks (each benchmark model name maps to the same LMArena model).
+    4. Merges new mappings with existing `mapping.json` (if it exists). Never overwrites the entire file; only appends/updates new mappings.
+    5. Saves the updated mapping table to `Human-SIG/config/mapping.json`.
+  - **Output:** Updated `Human-SIG/config/mapping.json` with format:
+    ```json
+    {
+      "benchmark_model_name_1": "lmarena_model_id_1",
+      "benchmark_model_name_2": "lmarena_model_id_2",
+      ...
+    }
+    ```
+  - **Validation:** Before applying, the script should optionally check for unreviewed models (entries with `human_approved: 0`) and warn the user. Unreviewed models will be skipped (not added to mapping). The user can choose to proceed anyway or pause to complete reviews.
+- **3.2.5:** Commit State.
+  - **Message:** `Step 3.2.5 Completed: Generated review files, performed automatic matching, and applied human-approved results to mapping table`
+
+#### Step 3.2.6: Generate Cleaned Data Files
+
+**Objective:** Generate cleaned data files for each benchmark containing model names, scores, and ranks, along with per-benchmark mapping files. This step prepares standardized data files that will be used in subsequent parsing and master table construction.
+
+- **3.2.6.1:** Create cleaned data generation script.
+  - **Input:**
+    - Raw CSV files from `Human-SIG/data/raw/` (all `data.csv` files).
+    - Structured model information from `Human-SIG/data/processed/model_extraction/` (all `*_models.json` files).
+    - Reviewed files from `Human-SIG/data/processed/entity_resolution/reviewed_files/` (all `*_review.json` files).
+  - **Action:** Implement a script that:
+    1. Iterates through all `data.csv` files in `data/raw/` directory.
+    2. For each benchmark/category CSV file:
+       - **Identifies the model name column:** Searches for columns named "Model", "model", "Model Name", "AI System", "name", "model_name", or "Agent" (depending on benchmark type).
+       - **Identifies the score column:** Determines the appropriate score column based on benchmark type:
+         - LMArena: "Score" column.
+         - Artificial Analysis: Column containing percentage values (e.g., "Intelligence AA-LCR (Long Context Reasoning)").
+         - FrontierMath: "score_value" column.
+         - Manual Direct: "Numerical_Result" for facts, "Overall" for writingbench.
+         - Selenium: "Score" (or "Elo Score" for creative_writing_v3, "ARC-AGI-2" for arc_agi_2, "% Resolved" for swe_bench_bash_only).
+         - Pandas Read HTML: "Percent correct" for aider_polyglot, "Accuracy" for terminal_bench_v20.
+         - VALS AI: "accuracy" column.
+         - Falls back to any column containing "score", "result", "accuracy", or "correct" if specific patterns not found.
+       - **Extracts model data:** For each row in the CSV:
+         - Reads the model name from the identified model column.
+         - Checks if the model name exists in the corresponding `model_extraction` JSON file (ensuring consistency with extracted model names).
+         - Extracts the score from the identified score column, handling various formats:
+           - Removes ± error portions (e.g., "1490 ±6" → 1490.0).
+           - Handles percentage formats (e.g., "71%" → 71.0).
+           - Handles decimal formats (e.g., "0.945" → 0.945).
+           - Converts to float for ranking.
+         - Only includes models that exist in the `model_extraction` JSON file.
+       - **Calculates ranks:** Sorts models by score (descending), then assigns ranks with tie-breaking:
+         - Models with the same score receive the same rank.
+         - Next rank skips the number of tied models (e.g., scores [99, 98, 98, 97] → ranks [1, 2, 2, 4]).
+       - **Generates cleaned_data.csv:** Creates a CSV file with columns: `model_name`, `score`, `rank`. Model names must exactly match those in the `model_extraction` JSON file.
+       - **Generates mapping.json:** Reads the corresponding `reviewed_files` JSON file:
+         - For each model entry, checks `selected_lmarena_model` field.
+         - If `selected_lmarena_model` is a string (model name, not 0 or -1), creates a mapping entry.
+         - **Duplicate handling:** If multiple benchmark models map to the same LMArena model, only keeps the first mapping encountered (silently skips subsequent duplicates). This is a safety patch to handle data inconsistencies.
+         - Saves as a simple key-value JSON: `{benchmark_model_name: lmarena_model_id}`.
+    3. Creates output directory structure in `Human-SIG/data/processed/cleaned/`:
+       - One folder per benchmark/category (e.g., `artificial_analysis_aa_lcr/`, `lmarena_overall/`, `selenium_humaneval/`).
+       - Each folder contains `cleaned_data.csv` and `mapping.json`.
+  - **Output Schema - cleaned_data.csv:** Standard CSV format with three columns:
+    - `model_name`: String, must exactly match model names from `model_extraction` JSON files.
+    - `score`: Float, extracted and normalized score value.
+    - `rank`: Integer, calculated rank with tie-breaking (same scores get same rank).
+  - **Output Schema - mapping.json:** Simple key-value mapping:
+    ```json
+    {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "type": "object",
+      "description": "Per-benchmark mapping from benchmark model names to LMArena model IDs",
+      "patternProperties": {
+        "^.+$": {
+          "type": "string",
+          "description": "Maps a benchmark model name (key) to its corresponding LMArena model ID (value). Each LMArena model ID appears at most once (duplicates are removed, keeping only the first occurrence)."
+        }
+      },
+      "additionalProperties": false
+    }
+    ```
+  - **Special Handling:**
+    - For Artificial Analysis benchmarks: All 10 benchmarks share the same `artificial_analysis_models.json` and `artificial_analysis_review.json`, but each benchmark gets its own folder with its own `cleaned_data.csv` (scores differ per benchmark) and `mapping.json` (same mapping for all).
+    - For LMArena categories: All categories share `lmarena_models.json` and `lmarena_review.json`, but each category gets its own folder with category-specific scores.
+    - Model name extraction must be consistent with `model_extraction` step: only models present in the extraction JSON are included.
+    - Score extraction must handle encoding issues (try UTF-8, then GBK, then other encodings).
+    - Duplicate LMArena mappings are automatically deduplicated (only first occurrence kept) to prevent downstream processing errors.
+- **3.2.6.2:** Commit State.
+  - **Message:** `Step 3.2.6.2 Completed: Generated cleaned data files with scores, ranks, and per-benchmark mappings`
 
 #### Step 3.3: Robust Parsing & Score Normalization Strategy
 
@@ -307,12 +604,14 @@ Input:
     - File header must explain the purpose (parsing and normalizing benchmark scores from CSV files), the score normalization methodology (ensuring all scores are in 0-100 range as specified in Step 2.2), ranking logic, and tie-breaking strategy.
     - All classes and methods must have docstrings.
   - **Class Definition:** Implement `BenchmarkParser`.
+  - **Input:** Cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`. The parser reads from the cleaned data directory, which contains standardized CSV files with model names, scores, and ranks already extracted and calculated.
   - **Ranking Logic:** Compute rank strictly within the Study Universe.
-    - **Study Universe Definition:** The "Study Universe" consists of all models in the LMArena dataset with `elo_overall >= 1330`. Models with ELO below this threshold are excluded from the Study Universe.
-    - **Ranking Filter:** Only rank models that appear in both the benchmark data and the Study Universe. Models that appear in the benchmark but not in the Study Universe should be excluded from ranking.
+    - **Study Universe Definition:** The "Study Universe" consists of all models in the LMArena dataset with `elo_overall >= 1330`. This Study Universe is defined by the models present in `Human-SIG/data/processed/model_extraction/lmarena_models.json` (which already contains only models with Overall Score >= 1330 from Step 3.1).
+    - **Entity Resolution:** Use the mapping table from `Human-SIG/config/mapping.json` (generated in Step 3.2.4) to map benchmark model names to LMArena model IDs. Only models that can be mapped to the Study Universe are included in ranking.
+    - **Ranking Filter:** Only rank models that appear in both the benchmark data (after entity resolution) and the Study Universe. Models that appear in the benchmark but cannot be mapped to the Study Universe should be excluded from ranking.
   - **Tie-Breaking:** Use `method='min'` (e.g., if two models tie for first place with score 95, assign both rank 1, and the next model gets rank 3) to support rigorous RBO calculation. This ensures that tied models receive the same rank, which is important for RBO computation.
   - **Directionality:** When ranking, ensure that higher scores receive better (lower) ranks. All scores from Step 2.2 should already represent "higher is better" performance (after normalization and inversion if needed), so the ranking logic should always assume "higher score = better rank".
-  - **Note:** Scores should already be normalized to 0-100 range from Step 2.2 (and cleaned in Step 3.1) and stored in CSV files. This parser loads CSV files from `data/cleaned/`, performs ranking, and outputs data structure transformation. The parser should output both the original scores and the computed ranks.
+  - **Note:** Scores should already be normalized to 0-100 range from Step 2.2 and stored in CSV files. This parser loads CSV files, performs entity resolution using the mapping table, filters to Study Universe, performs ranking, and outputs data structure transformation. The parser should output both the original scores and the computed ranks.
 - **3.3.2:** Commit State.
   - **Message:** `Step 3.3.2 Completed: Implemented BenchmarkParser with ranking logic for RBO calculation`
 
@@ -325,16 +624,9 @@ Input:
   - **Initialization:** Create the `df_master` DataFrame using LMArena models as the index.
     - **Columns:** `elo_overall`, `elo_math`, `elo_coding`, `elo_hard_prompts`, `elo_creative_writing`, `elo_instruction_following`, `elo_expert`.
   - **Merge Loop:** For each benchmark (e.g., humaneval):
-    1. Load parsed data (Score + Rank) from the parser output (created in Step 3.2.1). The parser must read CSV files from the appropriate benchmark folder based on the scraping method:
-       - For `pandas_read_html`: `Human-SIG/data/raw/pandas_read_html/{benchmark_name}/data.csv`
-       - For `selenium`: `Human-SIG/data/raw/selenium/{benchmark_name}/data.csv`
-       - For `manual_source_code`: `Human-SIG/data/raw/frontiermath/{subdirectory}/data.csv`
-       - For `artificial_analysis`: `Human-SIG/data/raw/artificial_analysis/{benchmark_name}/data.csv`
-       - For `manual_direct`: `Human-SIG/data/raw/manual_direct/{benchmark_name}/data.csv`
-       - For `vals_ai_manual_json`: `Human-SIG/data/raw/vals_ai/{benchmark_name}/data.csv`
-       - For `lmarena`: `Human-SIG/data/raw/lmarena/{category_name}/data.csv`
-    2. Map model names using the entity resolution logic from Step 3.3 (exact match, registry lookup, or verified fuzzy match).
-    3. Left Join onto `df_master` (Keep only models present in LMArena Study Universe). Models that appear in the benchmark but not in the Study Universe will be excluded.
+    1. Load parsed data (Score + Rank) from the parser output (created in Step 3.3.1). The parser reads cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`, which already contains standardized model names, scores, and ranks.
+    2. Map model names using the per-benchmark mapping table from `Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json` (generated in Step 3.2.6). This per-benchmark mapping takes precedence over the global `config/mapping.json` as it contains benchmark-specific mappings with duplicate handling already applied. If a model is not found in the per-benchmark mapping, fall back to `Human-SIG/config/mapping.json` (generated in Step 3.2.4).
+    3. Left Join onto `df_master` (Keep only models present in LMArena Study Universe). Models that appear in the benchmark but cannot be mapped to the Study Universe will be excluded.
     4. Add columns: `{benchmark_id}_score` AND `{benchmark_id}_rank`. (Both are needed: Score for Pearson/Spearman correlation, Rank for RBO calculation). Use the sanitized benchmark_id (e.g., "humaneval", "mmlu_pro") as the column name prefix.
     5. Handle missing values: If a model in the Study Universe does not have a score for a particular benchmark, leave the score and rank as `NaN` (do not fill with zeros or default values).
   - **Data Type Enforcement:** Ensure all Score columns are `float64` and Rank columns are `int` (or nullable int).

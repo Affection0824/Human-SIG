@@ -1,0 +1,338 @@
+model_name,score,rank
+Gemini 3 Pro Preview (high),90.0,1
+Claude Opus 4.5,90.0,1
+Gemini 3 Pro Preview (low),90.0,1
+Gemini 3 Flash,89.0,4
+Claude Opus 4.5,89.0,4
+MiniMax-M2.1,88.0,6
+Claude 4.5 Sonnet,88.0,6
+Claude 4.1 Opus,88.0,6
+Gemini 3 Flash,88.0,6
+GPT-5.2 (xhigh),87.0,10
+GPT-5.1 (high),87.0,10
+GPT-5 Codex (high),87.0,10
+GPT-5 (high),87.0,10
+GPT-5 (medium),87.0,10
+Grok 4,87.0,10
+Claude 4 Opus,87.0,10
+GLM-4.7,86.0,17
+GPT-5.1 Codex (high),86.0,17
+DeepSeek V3.2,86.0,17
+GPT-5 (low),86.0,17
+Gemini 2.5 Pro,86.0,17
+DeepSeek V3.2 Speciale,86.0,17
+Gemini 2.5 Pro (Mar),86.0,17
+Claude 4.5 Sonnet,86.0,17
+Claude 4 Opus,86.0,17
+Kimi K2 Thinking,85.0,26
+o3,85.0,26
+Grok 4.1 Fast,85.0,26
+Grok 4 Fast,85.0,26
+DeepSeek V3.1 Terminus,85.0,26
+Doubao Seed Code,85.0,26
+DeepSeek V3.2 Exp,85.0,26
+DeepSeek V3.1,85.0,26
+DeepSeek R1 0528,85.0,26
+Cogito v2.1,85.0,26
+MiMo-V2-Flash,84.0,36
+GPT-5 mini (high),84.0,36
+Qwen3 235B A22B 2507,84.0,36
+Claude 4 Sonnet,84.0,36
+Qwen3 Max,84.0,36
+Gemini 2.5 Flash (Sep),84.0,36
+Qwen3 VL 235B A22B,84.0,36
+Gemini 2.5 Pro (May),84.0,36
+DeepSeek V3.2,84.0,36
+GLM-4.5,84.0,36
+Claude 3.7 Sonnet,84.0,36
+Qwen3 Max (Preview),84.0,36
+o1,84.0,36
+Gemini 2.5 Flash (Sep),84.0,36
+DeepSeek V3.2 Exp,84.0,36
+DeepSeek V3.1 Terminus,84.0,36
+Claude 4 Sonnet,84.0,36
+DeepSeek R1 (Jan),84.0,36
+Nova 2.0 Pro Preview (medium),83.0,54
+GPT-5 mini (medium),83.0,54
+o4-mini (high),83.0,54
+Grok 3 mini Reasoning (high),83.0,54
+GLM-4.6,83.0,54
+ERNIE 5.0 Thinking Preview,83.0,54
+Gemini 2.5 Flash,83.0,54
+Qwen3 235B 2507,83.0,54
+DeepSeek V3.1,83.0,54
+Qwen3 235B,83.0,54
+Hermes 4 405B,83.0,54
+Llama Nemotron Ultra,83.0,54
+GPT-5.1 Codex mini (high),82.0,66
+MiniMax-M2,82.0,66
+Nova 2.0 Pro Preview (low),82.0,66
+Qwen3 Max Thinking,82.0,66
+Qwen3 Next 80B A3B,82.0,66
+Magistral Medium 1.2,82.0,66
+Qwen3 VL 32B,82.0,66
+Seed-OSS-36B-Instruct,82.0,66
+Kimi K2 0905,82.0,66
+GLM-4.5-Air,82.0,66
+Kimi K2,82.0,66
+MiniMax M1 80k,82.0,66
+Qwen3 Next 80B A3B,82.0,66
+Ling-1T,82.0,66
+Qwen3 VL 235B A22B,82.0,66
+EXAONE 4.0 32B,82.0,66
+GPT-5 (ChatGPT),82.0,66
+DeepSeek V3 0324,82.0,66
+KAT-Coder-Pro V1,81.0,84
+gpt-oss-120B (high),81.0,84
+Nova 2.0 Lite (medium),81.0,84
+Nova 2.0 Omni (medium),81.0,84
+GPT-5.2,81.0,84
+Gemini 2.5 Flash-Lite (Sep),81.0,84
+Qwen3 30B A3B 2507,81.0,84
+Qwen3 VL 30B A3B,81.0,84
+Llama Nemotron Super 49B v1.5,81.0,84
+Mi:dm K 2.5 Pro Preview,81.0,84
+GPT-5 (minimal),81.0,84
+GPT-4.1,81.0,84
+Ring-1T,81.0,84
+Gemini 2.5 Flash,81.0,84
+MiniMax M1 40k,81.0,84
+Hermes 4 70B,81.0,84
+Mistral Large 3,81.0,84
+Solar Pro 2,81.0,84
+Llama 4 Maverick,81.0,84
+Gemini 2.0 Pro Experimental,81.0,84
+o3-mini (high),80.0,104
+Nova 2.0 Omni (low),80.0,104
+Gemini 2.5 Flash,80.0,104
+Grok 3,80.0,104
+Motif-2-12.7B,80.0,104
+GPT-5.1,80.0,104
+Claude 4.5 Haiku,80.0,104
+Gemini 2.5 Flash-Lite (Sep),80.0,104
+Claude 3.7 Sonnet,80.0,104
+GLM-4.6V,80.0,104
+Qwen3 32B,80.0,104
+Gemini 2.0 Flash Thinking exp. (Jan),80.0,104
+GPT-4o (Mar),80.0,104
+DeepSeek R1 Distill Llama 70B,80.0,104
+Apriel-v1.6-15B-Thinker,79.0,118
+NVIDIA Nemotron 3 Nano,79.0,118
+GLM-4.7,79.0,118
+Grok Code Fast 1,79.0,118
+o3-mini,79.0,118
+Nova 2.0 Lite (low),79.0,118
+K2-V2 (high),79.0,118
+HyperCLOVA X SEED Think (32B),79.0,118
+Qwen3 Coder 480B,79.0,118
+Qwen3 VL 32B,79.0,118
+Qwen3 Omni 30B A3B,79.0,118
+Ring-flash-2.0,79.0,118
+GLM-4.5V,79.0,118
+Llama 3.3 Nemotron Super 49B,79.0,118
+GPT-5 nano (high),78.0,132
+gpt-oss-120B (low),78.0,132
+GLM-4.6,78.0,132
+GPT-4.1 mini,78.0,132
+GPT-5 mini (minimal),78.0,132
+Ling-flash-2.0,78.0,132
+Qwen3 30B A3B 2507,78.0,132
+Qwen3 30B,78.0,132
+Gemini 2.5 Flash,78.0,132
+Gemini 2.0 Flash,78.0,132
+ERNIE 4.5 300B A47B,78.0,132
+Gemini 2.0 Flash (exp),78.0,132
+Apriel-v1.5-15B-Thinker,77.0,144
+GPT-5 nano (medium),77.0,144
+Magistral Small 1.2,77.0,144
+Nova 2.0 Pro Preview,77.0,144
+Solar Pro 2,77.0,144
+Qwen3 14B,77.0,144
+EXAONE 4.0 32B,77.0,144
+Claude 3.5 Sonnet (Oct),77.0,144
+GPT-4o (ChatGPT),77.0,144
+Claude 4.5 Haiku,76.0,153
+NVIDIA Nemotron Nano 12B v2 VL,76.0,153
+Gemini 2.5 Flash-Lite,76.0,153
+K2-V2 (medium),76.0,153
+Qwen3 VL 30B A3B,76.0,153
+Olmo 3.1 32B Think,76.0,153
+QwQ-32B,76.0,153
+Devstral 2,76.0,153
+OLMo 3 32B Think,76.0,153
+Mistral Medium 3,76.0,153
+Qwen2.5 Max,76.0,153
+Qwen3 235B,76.0,153
+Sonar Pro,76.0,153
+gpt-oss-20B (high),75.0,166
+Magistral Medium 1,75.0,166
+DeepSeek V3 (Dec),75.0,166
+Qwen3 VL 8B,75.0,166
+Magistral Small 1,75.0,166
+GLM-4.6V,75.0,166
+Solar Pro 2,75.0,166
+Gemini 1.5 Pro (Sep),75.0,166
+Llama 4 Scout,75.0,166
+GPT-4o (Nov),75.0,166
+GLM-4.5V,75.0,166
+Claude 3.5 Sonnet (June),75.0,166
+MiMo-V2-Flash,74.0,178
+Qwen3 4B 2507,74.0,178
+o1-mini,74.0,178
+Grok 4.1 Fast,74.0,178
+NVIDIA Nemotron Nano 9B V2,74.0,178
+NVIDIA Nemotron Nano 9B V2,74.0,178
+Nova 2.0 Lite,74.0,178
+DeepSeek R1 Distill Qwen 32B,74.0,178
+DeepSeek R1 0528 Qwen3 8B,74.0,178
+DeepSeek R1 Distill Qwen 14B,74.0,178
+Qwen3 8B,74.0,178
+GPT-4o (May),74.0,178
+Grok 4 Fast,73.0,190
+Hermes 4 405B,73.0,190
+Nova Premier,73.0,190
+Qwen3 Omni 30B A3B,73.0,190
+Solar Pro 2,73.0,190
+Llama 3.1 405B,73.0,190
+Qwen3 32B,73.0,190
+gpt-oss-20B (low),72.0,197
+Nova 2.0 Omni,72.0,197
+Gemini 2.5 Flash-Lite,72.0,197
+Qwen2.5 72B,72.0,197
+Gemini 2.0 Flash-Lite (Feb),72.0,197
+Tulu3 405B,72.0,197
+Qwen3 Coder 30B A3B,71.0,203
+K2-V2 (low),71.0,203
+Llama 3.3 70B,71.0,203
+Devstral Medium,71.0,203
+Command A,71.0,203
+Qwen3 30B,71.0,203
+Grok 2,71.0,203
+Phi-4,71.0,203
+Qwen3 VL 4B,70.0,211
+Mistral Large 2 (Nov),70.0,211
+Llama 3.3 Nemotron Super 49B,70.0,211
+Qwen3 4B,70.0,211
+Pixtral Large,70.0,211
+Grok Beta,70.0,211
+Qwen2.5 Instruct 32B,70.0,211
+Claude 3 Opus,70.0,211
+Ministral 14B (Dec '25),69.0,219
+Sonar,69.0,219
+Qwen3 VL 8B,69.0,219
+Llama Nemotron Super 49B v1.5,69.0,219
+Nova Pro,69.0,219
+GPT-4 Turbo,69.0,219
+Llama 3.1 Nemotron 70B,69.0,219
+Mistral Medium 3.1,68.0,226
+Devstral Small 2,68.0,226
+Qwen3 14B,68.0,226
+Mistral Small 3.2,68.0,226
+Gemini 1.5 Flash (Sep),68.0,226
+Llama 3.1 70B,68.0,226
+Mistral Large 2 (Jul),68.0,226
+Qwen3 4B 2507,67.0,233
+Ling-mini-2.0,67.0,233
+Reka Flash 3,67.0,233
+Gemma 3 27B,67.0,233
+Llama 3.2 90B (Vision),67.0,233
+OLMo 3 7B Think,66.0,238
+GPT-4.1 nano,66.0,238
+Mistral Small 3.1,66.0,238
+Hermes 4 70B,66.0,238
+Gemini 1.5 Pro (May),66.0,238
+QwQ 32B-Preview,65.0,243
+NVIDIA Nemotron Nano 12B v2 VL,65.0,243
+Mistral Small 3,65.0,243
+GPT-4o mini,65.0,243
+Ministral 8B (Dec '25),64.0,247
+Qwen3 8B,64.0,247
+Qwen2.5 Coder 32B,64.0,247
+Qwen3 VL 4B,63.0,250
+Claude 3.5 Haiku,63.0,250
+Devstral Small (May),63.0,250
+Qwen2.5 Turbo,63.0,250
+Devstral Small,62.0,254
+Granite 4.0 H Small,62.0,254
+Qwen2 72B,62.0,254
+Mistral Saba,61.0,257
+Gemma 3 12B,60.0,258
+Exaone 4.0 1.2B,59.0,259
+Kimi Linear 48B A3B Instruct,59.0,259
+Nova Lite,59.0,259
+Qwen3 4B,59.0,259
+NVIDIA Nemotron 3 Nano,58.0,263
+Jamba Reasoning 3B,58.0,263
+Jamba 1.7 Large,58.0,263
+DeepHermes 3 - Mistral 24B,58.0,263
+Claude 3 Sonnet,58.0,263
+Qwen3 1.7B,57.0,268
+Gemini 1.5 Flash-8B,57.0,268
+Jamba 1.5 Large,57.0,268
+Hermes 3 - Llama-3.1 70B,57.0,268
+Gemini 1.5 Flash (May),57.0,268
+Llama 3 70B,57.0,268
+GPT-5 nano (minimal),56.0,274
+Llama 3.1 Nemotron Nano 4B v1.1,56.0,274
+Jamba 1.6 Large,56.0,274
+DeepSeek R1 Distill Llama 8B,54.0,277
+Mixtral 8x22B,54.0,277
+Nova Micro,53.0,279
+Mistral Small (Sep),53.0,279
+OLMo 3 7B,52.0,281
+Ministral 3B (Dec '25),52.0,281
+Mistral Large (Feb),52.0,281
+LFM2 8B A1B,51.0,284
+OLMo 2 32B,51.0,284
+Exaone 4.0 1.2B,50.0,286
+Claude 2.1,50.0,286
+Gemma 3n E4B,49.0,288
+Phi-4 Multimodal,49.0,288
+Claude 2.0,49.0,288
+Mistral Medium,49.0,288
+Llama 3.1 8B,48.0,292
+Gemma 3n E4B (May),48.0,292
+Phi-4 Mini,47.0,294
+Granite 3.3 8B,47.0,294
+Qwen2.5 Coder 7B,47.0,294
+Llama 3.2 11B (Vision),46.0,297
+GPT-3.5 Turbo,46.0,297
+Granite 4.0 Micro,45.0,299
+Phi-3 Mini,44.0,300
+LFM 40B,43.0,301
+Gemini 1.0 Pro,43.0,301
+DeepSeek Coder V2 Lite,43.0,301
+Command-R+ (Apr),43.0,301
+Claude Instant,43.0,301
+Gemma 3 4B,42.0,306
+Mistral Small (Feb),42.0,306
+Qwen3 1.7B,41.0,308
+Llama 3 8B,41.0,308
+Llama 2 Chat 70B,41.0,308
+Llama 2 Chat 13B,41.0,308
+DBRX,40.0,312
+Jamba 1.7 Mini,39.0,313
+Mixtral 8x7B,39.0,313
+Gemma 3n E2B,38.0,315
+Molmo 7B-D,37.0,316
+Jamba 1.5 Mini,37.0,316
+Jamba 1.6 Mini,37.0,316
+DeepHermes 3 - Llama-3.1 8B,37.0,316
+Qwen3 0.6B,35.0,320
+Llama 3.2 3B,35.0,320
+Command-R (Mar),34.0,322
+Granite 4.0 1B,33.0,323
+OpenChat 3.5,31.0,324
+LFM2 2.6B,30.0,325
+Granite 4.0 H 1B,28.0,326
+OLMo 2 7B,28.0,326
+DeepSeek R1 Distill Qwen 1.5B,27.0,328
+LFM2 1.2B,26.0,329
+Mistral 7B,25.0,330
+Qwen3 0.6B,23.0,331
+Llama 3.2 1B,20.0,332
+Llama 2 Chat 7B,16.0,333
+Gemma 3 1B,14.0,334
+Granite 4.0 H 350M,13.0,335
+Granite 4.0 350M,12.0,336
+Gemma 3 270M,6.0,337

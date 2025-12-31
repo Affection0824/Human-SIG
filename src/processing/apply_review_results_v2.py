@@ -28,7 +28,7 @@ def load_review_file_json(review_file: Path) -> Dict[str, str]:
     加载JSON格式的审核文件，提取每个benchmark模型的最终映射
     
     返回: {benchmark_model: lmarena_model} 字典
-    注意：每个模型应该只保留一个候选（审核后candidates数组应该只有一个元素）
+    注意：从 reviewed_files 读取，使用 selected_lmarena_model 字段
     """
     mappings = {}
     
@@ -40,20 +40,12 @@ def load_review_file_json(review_file: Path) -> Dict[str, str]:
         review_data = json.load(f)
     
     for benchmark_model, model_data in review_data.items():
-        candidates = model_data.get('candidates', [])
+        # 从 reviewed_files 读取，使用 selected_lmarena_model 字段
+        selected_model = model_data.get('selected_lmarena_model')
         
-        # 跳过未匹配的模型
-        if not candidates or candidates[0].get('lmarena_model') == 'NO_MATCH_FOUND':
-            continue
-        
-        # 如果审核正确，应该只有一个候选
-        if len(candidates) > 1:
-            print(f"  警告: {benchmark_model} 有 {len(candidates)} 个候选，只保留第一个")
-        
-        # 取第一个候选（应该是审核后保留的唯一候选）
-        lmarena_model = candidates[0].get('lmarena_model')
-        if lmarena_model and lmarena_model != 'NO_MATCH_FOUND':
-            mappings[benchmark_model] = lmarena_model
+        # 只处理模型名称（字符串），跳过 0 和 -1
+        if isinstance(selected_model, str) and selected_model:
+            mappings[benchmark_model] = selected_model
     
     return mappings
 
@@ -188,7 +180,8 @@ def apply_review_results(
 def main():
     """主函数"""
     base_dir = Path(__file__).parent.parent.parent
-    review_files_dir = base_dir / 'data' / 'processed' / 'entity_resolution' / 'review_files_v2'
+    # 从 reviewed_files 读取（包含 selected_lmarena_model 字段）
+    review_files_dir = base_dir / 'data' / 'processed' / 'entity_resolution' / 'reviewed_files'
     mapping_json_path = base_dir / 'config' / 'mapping.json'
     
     artificial_analysis_benchmarks = [

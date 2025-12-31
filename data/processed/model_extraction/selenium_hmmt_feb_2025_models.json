@@ -1,171 +1,180 @@
 {
-  "GPT-5.2 Pro": {
-    "model_name": "GPT-5.2 Pro",
+  "GPT-5.2 ProOpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5.2-pro",
+    "subfamily": "gpt-pro",
     "version": "5.2",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "5.2",
+      "ProOpenAI"
+    ]
   },
-  "GPT-5.2": {
-    "model_name": "GPT-5.2",
+  "GPT-5.2OpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5.2",
+    "subfamily": null,
     "version": "5.2",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "5.2OpenAI"
+    ]
   },
-  "-V3.2-Speciale": {
-    "model_name": "-V3.2-Speciale",
+  "DeepSeek-V3.2-SpecialeDeepSeek": {
     "family": "deepseek",
-    "subfamily": "deepseek-v3.2",
+    "subfamily": "deepseek-special-speciale",
     "version": "3.2",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Speciale"
+      "V3.2",
+      "SpecialeDeepSeek"
     ]
   },
-  "Kimi K2-Thinking-0905": {
-    "model_name": "Kimi K2-Thinking-0905",
+  "Kimi K2-Thinking-0905Moonshot AI": {
     "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "subfamily": "kimi-k-thinking-think",
+    "version": "2.0",
     "date": "0905",
     "parameters": null,
     "other_info": [
-      "Thinking"
+      "Moonshot",
+      "AI"
     ]
   },
-  "Grok 4 Fast": {
-    "model_name": "Grok 4 Fast",
+  "Grok 4 FastxAI": {
     "family": "grok",
-    "subfamily": "grok-4",
-    "version": "4",
+    "subfamily": "grok-fast",
+    "version": "4.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Fast"
+      "FastxAI"
     ]
   },
-  "GPT-5": {
-    "model_name": "GPT-5",
+  "GPT-5OpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5",
-    "version": "5",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "-V3.2 (Thinking)": {
-    "model_name": "-V3.2 (Thinking)",
-    "family": "deepseek",
-    "subfamily": "deepseek-v3.2",
-    "version": "3.2",
+    "subfamily": null,
+    "version": "5.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Thinking"
+      "OpenAI"
     ]
   },
-  "GPT-5 mini": {
-    "model_name": "GPT-5 mini",
-    "family": "gpt",
-    "subfamily": "gpt-5-mini",
-    "version": "5",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "MiMo-V2-Flash": {
-    "model_name": "MiMo-V2-Flash",
-    "family": "mimo",
-    "subfamily": "mimo-flash",
-    "version": "2",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "-V3.2-Exp": {
-    "model_name": "-V3.2-Exp",
-    "family": "deepseek",
-    "subfamily": "deepseek-v3.2",
-    "version": "3.2",
-    "date": null,
-    "parameters": null,
-    "other_info": [
-      "Exp"
-    ]
-  },
-  "-R1-0528": {
-    "model_name": "-R1-0528",
+  "DeepSeek-V3.2 (Thinking)DeepSeek": {
     "family": "deepseek",
     "subfamily": null,
-    "version": "1",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "V3.2",
+      "DeepSeek"
+    ]
+  },
+  "GPT-5 miniOpenAI": {
+    "family": "gpt",
+    "subfamily": "gpt-mini",
+    "version": "5.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "miniOpenAI"
+    ]
+  },
+  "MiMo-V2-FlashXiaomi": {
+    "family": "mimo",
+    "subfamily": "mimo-flash",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "FlashXiaomi"
+    ]
+  },
+  "DeepSeek-V3.2-ExpDeepSeek": {
+    "family": "deepseek",
+    "subfamily": "deepseek-exp",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "V3.2",
+      "ExpDeepSeek"
+    ]
+  },
+  "DeepSeek-R1-0528DeepSeek": {
+    "family": "deepseek",
+    "subfamily": "deepseek-r",
+    "version": "1.0",
     "date": "0528",
     "parameters": null,
     "other_info": [
-      "R1"
+      "DeepSeek"
     ]
   },
-  "GPT-5 nano": {
-    "model_name": "GPT-5 nano",
+  "GPT-5 nanoOpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5-nano",
-    "version": "5",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "Kimi K2 Instruct": {
-    "model_name": "Kimi K2 Instruct",
-    "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "subfamily": "gpt-nano",
+    "version": "5.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Instruct"
+      "nanoOpenAI"
     ]
   },
-  "Kimi K2-Instruct-0905": {
-    "model_name": "Kimi K2-Instruct-0905",
+  "Kimi K2 InstructMoonshot AI": {
     "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "subfamily": "kimi-k-instruct",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "InstructMoonshot",
+      "AI"
+    ]
+  },
+  "Kimi K2-Instruct-0905Moonshot AI": {
+    "family": "kimi",
+    "subfamily": "kimi-k-instruct",
+    "version": "2.0",
     "date": "0905",
     "parameters": null,
     "other_info": [
-      "Instruct"
+      "Moonshot",
+      "AI"
     ]
   },
-  "GPT-4.1 mini": {
-    "model_name": "GPT-4.1 mini",
+  "GPT-4.1 miniOpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-4.1-mini",
+    "subfamily": "gpt-mini",
     "version": "4.1",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.1",
+      "miniOpenAI"
+    ]
   },
-  "-V3.1": {
-    "model_name": "-V3.1",
+  "DeepSeek-V3.1DeepSeek": {
     "family": "deepseek",
-    "subfamily": "deepseek-v3.1",
+    "subfamily": null,
     "version": "3.1",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "V3.1DeepSeek"
+    ]
   },
-  "GPT-4.1": {
-    "model_name": "GPT-4.1",
+  "GPT-4.1OpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-4.1",
+    "subfamily": null,
     "version": "4.1",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.1OpenAI"
+    ]
   }
 }

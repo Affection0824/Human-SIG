@@ -1,544 +1,542 @@
 {
-  "o3-mini": {
-    "model_name": "o3-mini",
+  "o3-miniOpenAI": {
     "family": "gpt",
     "subfamily": "o3",
-    "version": "3",
+    "version": "3.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "mini",
-      "o3"
+      "miniOpenAI"
     ]
   },
-  "Claude 3.7 Sonnet": {
-    "model_name": "Claude 3.7 Sonnet",
+  "Claude 3.7 SonnetAnthropic": {
     "family": "claude",
     "subfamily": "claude-sonnet",
     "version": "3.7",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "3.7",
+      "SonnetAnthropic"
+    ]
   },
-  "Nova Pro": {
-    "model_name": "Nova Pro",
+  "Nova ProAmazon": {
     "family": "nova",
-    "subfamily": "nova-pro",
+    "subfamily": null,
     "version": null,
-    "date": null,
+    "date": "Nov",
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "ProAmazon"
+    ]
   },
-  "Llama 3.3 70B Instruct": {
-    "model_name": "Llama 3.3 70B Instruct",
+  "Llama 3.3 70B InstructMeta": {
     "family": "llama",
-    "subfamily": "llama-3.3",
+    "subfamily": "llama-instruct",
     "version": "3.3",
     "date": null,
     "parameters": "70B",
     "other_info": [
-      "Instruct"
+      "3.3",
+      "InstructMeta"
     ]
   },
-  "Gemma 3 27B": {
-    "model_name": "Gemma 3 27B",
+  "Gemma 3 27BGoogle": {
     "family": "gemma",
     "subfamily": null,
-    "version": "3",
-    "date": null,
-    "parameters": "27B",
-    "other_info": null
-  },
-  "Nemotron Nano 9B v2": {
-    "model_name": "Nemotron Nano 9B v2",
-    "family": "nemotron",
-    "subfamily": "nemotron-nano",
-    "version": "2",
-    "date": null,
-    "parameters": "9B",
-    "other_info": null
-  },
-  "Gemma 3 4B": {
-    "model_name": "Gemma 3 4B",
-    "family": "gemma",
-    "subfamily": null,
-    "version": "3",
-    "date": null,
-    "parameters": "4B",
-    "other_info": null
-  },
-  "Kimi K2 Instruct": {
-    "model_name": "Kimi K2 Instruct",
-    "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "version": "3.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Instruct"
+      "27BGoogle"
     ]
   },
-  "Kimi K2-Instruct-0905": {
-    "model_name": "Kimi K2-Instruct-0905",
+  "Nemotron Nano 9B v2NVIDIA": {
+    "family": "llama",
+    "subfamily": null,
+    "version": "9.0",
+    "date": null,
+    "parameters": "9B",
+    "other_info": [
+      "Nemotron",
+      "Nano",
+      "B",
+      "v2NVIDIA"
+    ]
+  },
+  "Gemma 3 4BGoogle": {
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "4BGoogle"
+    ]
+  },
+  "Kimi K2 InstructMoonshot AI": {
     "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "subfamily": "kimi-k-instruct",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "InstructMoonshot",
+      "AI"
+    ]
+  },
+  "Kimi K2-Instruct-0905Moonshot AI": {
+    "family": "kimi",
+    "subfamily": "kimi-k-instruct",
+    "version": "2.0",
     "date": "0905",
     "parameters": null,
     "other_info": [
-      "Instruct"
+      "Moonshot",
+      "AI"
     ]
   },
-  "Nova Lite": {
-    "model_name": "Nova Lite",
+  "Nova LiteAmazon": {
     "family": "nova",
-    "subfamily": "nova-lite",
+    "subfamily": null,
     "version": null,
-    "date": null,
+    "date": "Nov",
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "LiteAmazon"
+    ]
   },
-  "Llama 3.1 Nemotron Ultra 253B v1": {
-    "model_name": "Llama 3.1 Nemotron Ultra 253B v1",
+  "Llama 3.1 Nemotron Ultra 253B v1NVIDIA": {
     "family": "llama",
-    "subfamily": "llama-3.1",
+    "subfamily": "llama-nemotron-ultra",
     "version": "3.1",
     "date": null,
     "parameters": "253B",
     "other_info": [
-      "Nemotron",
-      "Ultra",
-      "v1"
+      "3.1",
+      "v1NVIDIA"
     ]
   },
-  "Gemma 3 12B": {
-    "model_name": "Gemma 3 12B",
+  "Gemma 3 12BGoogle": {
     "family": "gemma",
     "subfamily": null,
-    "version": "3",
+    "version": "3.0",
     "date": null,
-    "parameters": "12B",
-    "other_info": null
+    "parameters": null,
+    "other_info": [
+      "12BGoogle"
+    ]
   },
-  "Qwen3-Next-80B-A3B-Thinking": {
-    "model_name": "Qwen3-Next-80B-A3B-Thinking",
+  "Qwen3-Next-80B-A3B-ThinkingAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-next",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "80B",
     "other_info": [
-      "A3B",
-      "Thinking"
+      "Qwen",
+      "Team"
     ]
   },
-  "Qwen3-235B-A22B-Instruct-2507": {
-    "model_name": "Qwen3-235B-A22B-Instruct-2507",
+  "Qwen3-235B-A22B-Instruct-2507Alibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": "2507",
     "parameters": "235B",
     "other_info": [
-      "25B",
-      "A22B",
-      "Instruct"
+      "Qwen",
+      "Team"
     ]
   },
-  "Llama 3.1 405B Instruct": {
-    "model_name": "Llama 3.1 405B Instruct",
+  "Llama 3.1 405B InstructMeta": {
     "family": "llama",
-    "subfamily": "llama-3.1",
+    "subfamily": "llama-instruct",
     "version": "3.1",
     "date": null,
     "parameters": "405B",
     "other_info": [
-      "Instruct"
+      "3.1",
+      "InstructMeta"
     ]
   },
-  "GPT-4.5": {
-    "model_name": "GPT-4.5",
+  "GPT-4.5OpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-4.5",
+    "subfamily": null,
     "version": "4.5",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.5OpenAI"
+    ]
   },
-  "Qwen3 VL 235B A22B Thinking": {
-    "model_name": "Qwen3 VL 235B A22B Thinking",
+  "Qwen3 VL 235B A22B ThinkingAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "235B",
     "other_info": [
-      "A22B",
-      "Thinking",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "Qwen3 VL 235B A22B Instruct": {
-    "model_name": "Qwen3 VL 235B A22B Instruct",
+  "Qwen3 VL 235B A22B InstructAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "235B",
     "other_info": [
-      "A22B",
-      "Instruct",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "Qwen3-235B-A22B-Thinking-2507": {
-    "model_name": "Qwen3-235B-A22B-Thinking-2507",
+  "Qwen3-235B-A22B-Thinking-2507Alibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": "2507",
     "parameters": "235B",
     "other_info": [
-      "25B",
-      "A22B",
-      "Thinking"
+      "Qwen",
+      "Team"
     ]
   },
-  "Qwen3 VL 32B Thinking": {
-    "model_name": "Qwen3 VL 32B Thinking",
+  "Qwen3 VL 32B ThinkingAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "32B",
     "other_info": [
-      "Thinking",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "Qwen3-Next-80B-A3B-Instruct": {
-    "model_name": "Qwen3-Next-80B-A3B-Instruct",
+  "Qwen3-Next-80B-A3B-InstructAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-next",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "80B",
     "other_info": [
-      "A3B",
-      "Instruct"
+      "Qwen",
+      "Team"
     ]
   },
-  "Llama 3.1 70B Instruct": {
-    "model_name": "Llama 3.1 70B Instruct",
+  "Llama 3.1 70B InstructMeta": {
     "family": "llama",
-    "subfamily": "llama-3.1",
+    "subfamily": "llama-instruct",
     "version": "3.1",
     "date": null,
     "parameters": "70B",
     "other_info": [
-      "Instruct"
+      "3.1",
+      "InstructMeta"
     ]
   },
-  "GPT-4.1": {
-    "model_name": "GPT-4.1",
+  "GPT-4.1OpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-4.1",
+    "subfamily": null,
     "version": "4.1",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.1OpenAI"
+    ]
   },
-  "Kimi-k1.5": {
-    "model_name": "Kimi-k1.5",
+  "Kimi-k1.5Moonshot AI": {
     "family": "kimi",
-    "subfamily": "kimi-k1",
+    "subfamily": "kimi-k",
     "version": "1.5",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "1.5Moonshot",
+      "AI"
+    ]
   },
-  "Nova Micro": {
-    "model_name": "Nova Micro",
+  "Nova MicroAmazon": {
     "family": "nova",
-    "subfamily": "nova-micro",
+    "subfamily": null,
     "version": null,
-    "date": null,
+    "date": "Nov",
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "MicroAmazon"
+    ]
   },
-  "-V3": {
-    "model_name": "-V3",
+  "DeepSeek-V3DeepSeek": {
     "family": "deepseek",
-    "subfamily": "deepseek-v3",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "DeepSeek"
+    ]
   },
-  "Qwen3 VL 30B A3B Instruct": {
-    "model_name": "Qwen3 VL 30B A3B Instruct",
+  "Qwen3 VL 30B A3B InstructAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "30B",
     "other_info": [
-      "A3B",
-      "Instruct",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "Phi 4 Reasoning Plus": {
-    "model_name": "Phi 4 Reasoning Plus",
+  "Phi 4 Reasoning PlusMicrosoft": {
     "family": "phi",
-    "subfamily": null,
-    "version": "4",
+    "subfamily": "phi-plus-reasoning",
+    "version": "4.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Plus",
-      "Reasoning"
+      "PlusMicrosoft"
     ]
   },
-  "Qwen3 VL 32B Instruct": {
-    "model_name": "Qwen3 VL 32B Instruct",
+  "Qwen3 VL 32B InstructAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "32B",
     "other_info": [
-      "Instruct",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "GPT-4.1 mini": {
-    "model_name": "GPT-4.1 mini",
+  "GPT-4.1 miniOpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-4.1-mini",
+    "subfamily": "gpt-mini",
     "version": "4.1",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.1",
+      "miniOpenAI"
+    ]
   },
-  "Qwen2.5 72B Instruct": {
-    "model_name": "Qwen2.5 72B Instruct",
+  "Qwen2.5 72B InstructAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen2.5",
+    "subfamily": null,
     "version": "2.5",
     "date": null,
     "parameters": "72B",
     "other_info": [
-      "Instruct"
+      "Qwen",
+      "Team"
     ]
   },
-  "QwQ-32B": {
-    "model_name": "QwQ-32B",
-    "family": "qwq",
-    "subfamily": null,
-    "version": null,
-    "date": null,
-    "parameters": "32B",
-    "other_info": null
-  },
-  "Qwen3 VL 8B Instruct": {
-    "model_name": "Qwen3 VL 8B Instruct",
+  "QwQ-32BAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
-    "date": null,
-    "parameters": "8B",
-    "other_info": [
-      "Instruct",
-      "VL"
-    ]
-  },
-  "Phi 4 Reasoning": {
-    "model_name": "Phi 4 Reasoning",
-    "family": "phi",
     "subfamily": null,
-    "version": "4",
+    "version": "32.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Reasoning"
+      "Qwen",
+      "Team"
     ]
   },
-  "Qwen3 VL 8B Thinking": {
-    "model_name": "Qwen3 VL 8B Thinking",
+  "Qwen3 VL 8B InstructAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "8B",
     "other_info": [
-      "Thinking",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "Small 3 24B InstructMistral AI": {
-    "model_name": "Small 3 24B InstructMistral AI",
-    "family": "small",
+  "Phi 4 ReasoningMicrosoft": {
+    "family": "phi",
+    "subfamily": "phi-reasoning",
+    "version": "4.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "ReasoningMicrosoft"
+    ]
+  },
+  "Qwen3 VL 8B ThinkingAlibaba Cloud / Qwen Team": {
+    "family": "qwen",
     "subfamily": null,
-    "version": "3",
+    "version": "3.0",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "Qwen",
+      "Team"
+    ]
+  },
+  "Mistral Small 3 24B InstructMistral AI": {
+    "family": "mistral",
+    "subfamily": "mistral-small-instruct",
+    "version": "3.0",
     "date": null,
     "parameters": "24B",
     "other_info": [
-      "InstructMistral"
+      "InstructMistral",
+      "AI"
     ]
   },
-  "Qwen3 VL 4B Thinking": {
-    "model_name": "Qwen3 VL 4B Thinking",
+  "Qwen3 VL 4B ThinkingAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "4B",
     "other_info": [
-      "Thinking",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "Qwen3 VL 4B Instruct": {
-    "model_name": "Qwen3 VL 4B Instruct",
+  "Qwen3 VL 4B InstructAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "4B",
     "other_info": [
-      "Instruct",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "Qwen3 VL 30B A3B Thinking": {
-    "model_name": "Qwen3 VL 30B A3B Thinking",
+  "Qwen3 VL 30B A3B ThinkingAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "30B",
     "other_info": [
-      "A3B",
-      "Thinking",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   },
-  "GPT-4o": {
-    "model_name": "GPT-4o",
+  "GPT-4oOpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-4o",
-    "version": "4",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "Llama 3.1 8B Instruct": {
-    "model_name": "Llama 3.1 8B Instruct",
-    "family": "llama",
-    "subfamily": "llama-3.1",
-    "version": "3.1",
-    "date": null,
-    "parameters": "8B",
-    "other_info": [
-      "Instruct"
-    ]
-  },
-  "Gemma 3 1B": {
-    "model_name": "Gemma 3 1B",
-    "family": "gemma",
-    "subfamily": null,
-    "version": "3",
-    "date": null,
-    "parameters": "1B",
-    "other_info": null
-  },
-  "Llama 3.1 Nemotron Nano 8B V1": {
-    "model_name": "Llama 3.1 Nemotron Nano 8B V1",
-    "family": "llama",
-    "subfamily": "llama-3.1",
-    "version": "3.1",
-    "date": null,
-    "parameters": "8B",
-    "other_info": [
-      "Nano",
-      "Nemotron",
-      "V1"
-    ]
-  },
-  "Llama 3.2 3B Instruct": {
-    "model_name": "Llama 3.2 3B Instruct",
-    "family": "llama",
-    "subfamily": "llama-3.2",
-    "version": "3.2",
-    "date": null,
-    "parameters": "3B",
-    "other_info": [
-      "Instruct"
-    ]
-  },
-  "Granite 3.3 8B BaseIBM": {
-    "model_name": "Granite 3.3 8B BaseIBM",
-    "family": "granite",
-    "subfamily": null,
-    "version": "3.3",
-    "date": null,
-    "parameters": "8B",
-    "other_info": [
-      "BaseIBM"
-    ]
-  },
-  "Granite 3.3 8B InstructIBM": {
-    "model_name": "Granite 3.3 8B InstructIBM",
-    "family": "granite",
-    "subfamily": null,
-    "version": "3.3",
-    "date": null,
-    "parameters": "8B",
-    "other_info": [
-      "InstructIBM"
-    ]
-  },
-  "GPT-4.1 nano": {
-    "model_name": "GPT-4.1 nano",
-    "family": "gpt",
-    "subfamily": "gpt-4.1-nano",
-    "version": "4.1",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "Qwen2.5 7B Instruct": {
-    "model_name": "Qwen2.5 7B Instruct",
-    "family": "qwen",
-    "subfamily": "qwen2.5",
-    "version": "2.5",
-    "date": null,
-    "parameters": "7B",
-    "other_info": [
-      "Instruct"
-    ]
-  },
-  "Phi 4": {
-    "model_name": "Phi 4",
-    "family": "phi",
-    "subfamily": null,
-    "version": "4",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "IBM Granite 4.0 Tiny PreviewIBM": {
-    "model_name": "IBM Granite 4.0 Tiny PreviewIBM",
-    "family": "granite",
     "subfamily": null,
     "version": "4.0",
     "date": null,
     "parameters": null,
     "other_info": [
+      "oOpenAI"
+    ]
+  },
+  "Llama 3.1 8B InstructMeta": {
+    "family": "llama",
+    "subfamily": "llama-instruct",
+    "version": "3.1",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "3.1",
+      "InstructMeta"
+    ]
+  },
+  "Gemma 3 1BGoogle": {
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1BGoogle"
+    ]
+  },
+  "Llama 3.1 Nemotron Nano 8B V1NVIDIA": {
+    "family": "llama",
+    "subfamily": "llama-nano-nemotron",
+    "version": "3.1",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "3.1",
+      "V1NVIDIA"
+    ]
+  },
+  "Llama 3.2 3B InstructMeta": {
+    "family": "llama",
+    "subfamily": "llama-instruct",
+    "version": "3.2",
+    "date": null,
+    "parameters": "3B",
+    "other_info": [
+      "3.2",
+      "InstructMeta"
+    ]
+  },
+  "Granite 3.3 8B BaseIBM": {
+    "family": "granite",
+    "subfamily": "granite-base",
+    "version": "3.3",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "3.3",
+      "BaseIBM"
+    ]
+  },
+  "Granite 3.3 8B InstructIBM": {
+    "family": "granite",
+    "subfamily": "granite-instruct",
+    "version": "3.3",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "3.3",
+      "InstructIBM"
+    ]
+  },
+  "GPT-4.1 nanoOpenAI": {
+    "family": "gpt",
+    "subfamily": "gpt-nano",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "4.1",
+      "nanoOpenAI"
+    ]
+  },
+  "Qwen2.5 7B InstructAlibaba Cloud / Qwen Team": {
+    "family": "qwen",
+    "subfamily": null,
+    "version": "2.5",
+    "date": null,
+    "parameters": "7B",
+    "other_info": [
+      "Qwen",
+      "Team"
+    ]
+  },
+  "Phi 4Microsoft": {
+    "family": "phi",
+    "subfamily": null,
+    "version": "4.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Microsoft"
+    ]
+  },
+  "IBM Granite 4.0 Tiny PreviewIBM": {
+    "family": "granite",
+    "subfamily": "granite-preview",
+    "version": "4.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
       "IBM",
-      "PreviewIBM",
-      "Tiny"
+      "Granite",
+      ".0",
+      "Tiny",
+      "PreviewIBM"
     ]
   }
 }
