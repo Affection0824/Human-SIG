@@ -2,11 +2,12 @@
   "GPT-5.2 (xhigh)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5.2",
+      "subfamily": null,
       "version": "5.2",
       "date": null,
       "parameters": null,
       "other_info": [
+        "5.2",
         "xhigh"
       ]
     },
@@ -14,21 +15,12 @@
       {
         "lmarena_model": "gpt-5.2",
         "family": "gpt",
-        "subfamily": "gpt-5.2",
-        "version": "5.2",
-        "date": null,
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "gpt-5.2-high",
-        "family": "gpt",
-        "subfamily": "gpt-5.2",
+        "subfamily": null,
         "version": "5.2",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high"
+          "5.2"
         ]
       }
     ]
@@ -36,11 +28,12 @@
   "GPT-5.2 (high)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5.2",
+      "subfamily": null,
       "version": "5.2",
       "date": null,
       "parameters": null,
       "other_info": [
+        "5.2",
         "high"
       ]
     },
@@ -48,21 +41,12 @@
       {
         "lmarena_model": "gpt-5.2",
         "family": "gpt",
-        "subfamily": "gpt-5.2",
-        "version": "5.2",
-        "date": null,
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "gpt-5.2-high",
-        "family": "gpt",
-        "subfamily": "gpt-5.2",
+        "subfamily": null,
         "version": "5.2",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high"
+          "5.2"
         ]
       }
     ]
@@ -71,7 +55,7 @@
     "benchmark_info": {
       "family": "gemini",
       "subfamily": "gemini-pro-preview",
-      "version": "3",
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": null
@@ -85,11 +69,12 @@
   "GPT-5.2 (medium)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5.2",
+      "subfamily": null,
       "version": "5.2",
       "date": null,
       "parameters": null,
       "other_info": [
+        "5.2",
         "medium"
       ]
     },
@@ -97,21 +82,12 @@
       {
         "lmarena_model": "gpt-5.2",
         "family": "gpt",
-        "subfamily": "gpt-5.2",
-        "version": "5.2",
-        "date": null,
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "gpt-5.2-high",
-        "family": "gpt",
-        "subfamily": "gpt-5.2",
+        "subfamily": null,
         "version": "5.2",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high"
+          "5.2"
         ]
       }
     ]
@@ -120,7 +96,7 @@
     "benchmark_info": {
       "family": "gemini",
       "subfamily": "gemini-flash",
-      "version": "3",
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": null
@@ -130,29 +106,18 @@
         "lmarena_model": "gemini-3-flash",
         "family": "gemini",
         "subfamily": "gemini-flash",
-        "version": "3",
+        "version": "3.0",
         "date": null,
         "parameters": null,
         "other_info": null
-      },
-      {
-        "lmarena_model": "gemini-3-flash (thinking-minimal)",
-        "family": "gemini",
-        "subfamily": "gemini-flash",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "thinking-minimal"
-        ]
       }
     ]
   },
   "GPT-5 (high)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5",
-      "version": "5",
+      "subfamily": null,
+      "version": "5.0",
       "date": null,
       "parameters": null,
       "other_info": [
@@ -161,73 +126,45 @@
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5-high",
-        "family": "gpt",
-        "subfamily": "gpt-5",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high"
-        ]
-      },
-      {
-        "lmarena_model": "gpt-5-chat",
-        "family": "gpt",
-        "subfamily": "gpt-5",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "chat"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "GPT-5.1 (high)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5.1",
+      "subfamily": null,
       "version": "5.1",
       "date": null,
       "parameters": null,
       "other_info": [
+        "5.1",
         "high"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5.1-high",
+        "lmarena_model": "gpt-5.1",
         "family": "gpt",
-        "subfamily": "gpt-5.1",
+        "subfamily": null,
         "version": "5.1",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high"
+          "5.1"
         ]
-      },
-      {
-        "lmarena_model": "gpt-5.1",
-        "family": "gpt",
-        "subfamily": "gpt-5.1",
-        "version": "5.1",
-        "date": null,
-        "parameters": null,
-        "other_info": null
       }
     ]
   },
   "Gemini 2.5 Deep Think": {
     "benchmark_info": {
       "family": "gemini",
-      "subfamily": null,
+      "subfamily": "gemini-deep-think",
       "version": "2.5",
       "date": null,
       "parameters": null,
       "other_info": [
-        "Deep",
-        "Think"
+        "2.5"
       ]
     },
     "candidates": [
@@ -239,8 +176,8 @@
   "GPT-5 mini (high)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5-mini",
-      "version": "5",
+      "subfamily": "gpt-mini",
+      "version": "5.0",
       "date": null,
       "parameters": null,
       "other_info": [
@@ -249,23 +186,15 @@
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5-mini-high",
-        "family": "gpt",
-        "subfamily": "gpt-5-mini",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "GPT-5 (medium)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5",
-      "version": "5",
+      "subfamily": null,
+      "version": "5.0",
       "date": null,
       "parameters": null,
       "other_info": [
@@ -274,71 +203,45 @@
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5-high",
-        "family": "gpt",
-        "subfamily": "gpt-5",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high"
-        ]
-      },
-      {
-        "lmarena_model": "gpt-5-chat",
-        "family": "gpt",
-        "subfamily": "gpt-5",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "chat"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "GPT-5.1 (medium)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5.1",
+      "subfamily": null,
       "version": "5.1",
       "date": null,
       "parameters": null,
       "other_info": [
+        "5.1",
         "medium"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5.1-high",
+        "lmarena_model": "gpt-5.1",
         "family": "gpt",
-        "subfamily": "gpt-5.1",
+        "subfamily": null,
         "version": "5.1",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high"
+          "5.1"
         ]
-      },
-      {
-        "lmarena_model": "gpt-5.1",
-        "family": "gpt",
-        "subfamily": "gpt-5.1",
-        "version": "5.1",
-        "date": null,
-        "parameters": null,
-        "other_info": null
       }
     ]
   },
   "GPT-5.2 (low)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5.2",
+      "subfamily": null,
       "version": "5.2",
       "date": null,
       "parameters": null,
       "other_info": [
+        "5.2",
         "low"
       ]
     },
@@ -346,21 +249,12 @@
       {
         "lmarena_model": "gpt-5.2",
         "family": "gpt",
-        "subfamily": "gpt-5.2",
-        "version": "5.2",
-        "date": null,
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "gpt-5.2-high",
-        "family": "gpt",
-        "subfamily": "gpt-5.2",
+        "subfamily": null,
         "version": "5.2",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high"
+          "5.2"
         ]
       }
     ]
@@ -369,13 +263,12 @@
     "benchmark_info": {
       "family": "gpt",
       "subfamily": "o4",
-      "version": "4",
+      "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "high",
         "mini",
-        "o4"
+        "high"
       ]
     },
     "candidates": [
@@ -383,129 +276,68 @@
         "lmarena_model": "o4-mini-2025-04-16",
         "family": "gpt",
         "subfamily": "o4",
-        "version": "4",
+        "version": "4.0",
         "date": "2025-04-16",
         "parameters": null,
         "other_info": [
           "mini",
-          "o4"
+          "2025",
+          "0",
+          "16"
         ]
       }
     ]
   },
-  "-V3.2": {
+  "DeepSeek-V3.2": {
     "benchmark_info": {
       "family": "deepseek",
-      "subfamily": "deepseek-v3.2",
+      "subfamily": null,
       "version": "3.2",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "V3.2"
+      ]
     },
     "candidates": [
       {
-        "lmarena_model": "-v3.2-exp",
+        "lmarena_model": "deepseek-v3.2",
         "family": "deepseek",
-        "subfamily": "deepseek-v3.2",
+        "subfamily": null,
         "version": "3.2",
         "date": null,
         "parameters": null,
         "other_info": [
-          "exp"
+          "v3.2"
         ]
-      },
-      {
-        "lmarena_model": "-v3.2-exp-thinking",
-        "family": "deepseek",
-        "subfamily": "deepseek-v3.2",
-        "version": "3.2",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "exp",
-          "thinking"
-        ]
-      },
-      {
-        "lmarena_model": "-v3.2-thinking",
-        "family": "deepseek",
-        "subfamily": "deepseek-v3.2",
-        "version": "3.2",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "thinking"
-        ]
-      },
-      {
-        "lmarena_model": "-v3.2",
-        "family": "deepseek",
-        "subfamily": "deepseek-v3.2",
-        "version": "3.2",
-        "date": null,
-        "parameters": null,
-        "other_info": null
       }
     ]
   },
   "Kimi K2 Thinking": {
     "benchmark_info": {
       "family": "kimi",
-      "subfamily": "kimi-k2",
-      "version": "2",
+      "subfamily": "kimi-k-thinking-think",
+      "version": "2.0",
       "date": null,
       "parameters": null,
-      "other_info": [
-        "Thinking"
-      ]
+      "other_info": null
     },
     "candidates": [
       {
-        "lmarena_model": "kimi-k2-thinking-turbo",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "thinking",
-          "turbo"
-        ]
-      },
-      {
-        "lmarena_model": "kimi-k2-0905-preview",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": "0905",
-        "parameters": null,
-        "other_info": [
-          "preview"
-        ]
-      },
-      {
-        "lmarena_model": "kimi-k2-0711-preview",
-        "family": "kimi",
-        "subfamily": "kimi-k2",
-        "version": "2",
-        "date": "0711",
-        "parameters": null,
-        "other_info": [
-          "preview"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "Claude Opus 4.5 (no thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-opus",
+      "subfamily": "claude-opus-thinking-think",
       "version": "4.5",
       "date": null,
       "parameters": null,
       "other_info": [
-        "no",
-        "thinking"
+        "4.5",
+        "no"
       ]
     },
     "candidates": [
@@ -517,13 +349,12 @@
   "Claude Opus 4.5 (32k thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-opus",
+      "subfamily": "claude-opus-thinking-think",
       "version": "4.5",
       "date": null,
       "parameters": null,
       "other_info": [
-        "32k",
-        "thinking"
+        "4.5"
       ]
     },
     "candidates": [
@@ -535,13 +366,12 @@
   "Claude Opus 4.5 (16k thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-opus",
+      "subfamily": "claude-opus-thinking-think",
       "version": "4.5",
       "date": null,
       "parameters": null,
       "other_info": [
-        "16k",
-        "thinking"
+        "4.5"
       ]
     },
     "candidates": [
@@ -553,8 +383,8 @@
   "GPT-5 mini (medium)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5-mini",
-      "version": "5",
+      "subfamily": "gpt-mini",
+      "version": "5.0",
       "date": null,
       "parameters": null,
       "other_info": [
@@ -563,72 +393,28 @@
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5-mini-high",
-        "family": "gpt",
-        "subfamily": "gpt-5-mini",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "Grok 4": {
     "benchmark_info": {
       "family": "grok",
-      "subfamily": "grok-4",
-      "version": "4",
+      "subfamily": null,
+      "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": null
     },
     "candidates": [
       {
-        "lmarena_model": "grok-4-1-fast-reasoning",
-        "family": "grok",
-        "subfamily": "grok-4",
-        "version": "4",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "fast",
-          "reasoning"
-        ]
-      },
-      {
-        "lmarena_model": "grok-4-fast-chat",
-        "family": "grok",
-        "subfamily": "grok-4",
-        "version": "4",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "chat",
-          "fast"
-        ]
-      },
-      {
         "lmarena_model": "grok-4-0709",
         "family": "grok",
-        "subfamily": "grok-4",
-        "version": "4",
+        "subfamily": null,
+        "version": "4.0",
         "date": "0709",
         "parameters": null,
         "other_info": null
-      },
-      {
-        "lmarena_model": "grok-4-fast-reasoning",
-        "family": "grok",
-        "subfamily": "grok-4",
-        "version": "4",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "fast",
-          "reasoning"
-        ]
       }
     ]
   },
@@ -636,13 +422,12 @@
     "benchmark_info": {
       "family": "gpt",
       "subfamily": "o4",
-      "version": "4",
+      "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "medium",
         "mini",
-        "o4"
+        "medium"
       ]
     },
     "candidates": [
@@ -650,12 +435,14 @@
         "lmarena_model": "o4-mini-2025-04-16",
         "family": "gpt",
         "subfamily": "o4",
-        "version": "4",
+        "version": "4.0",
         "date": "2025-04-16",
         "parameters": null,
         "other_info": [
           "mini",
-          "o4"
+          "2025",
+          "0",
+          "16"
         ]
       }
     ]
@@ -663,149 +450,74 @@
   "o3 (high)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "o3",
-      "version": "3",
+      "subfamily": null,
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "high",
-        "o3"
+        "o",
+        "high"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "o3-2025-04-16",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": "2025-04-16",
-        "parameters": null,
-        "other_info": [
-          "o3"
-        ]
-      },
-      {
-        "lmarena_model": "o3-mini-high",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high",
-          "mini",
-          "o3"
-        ]
-      },
-      {
-        "lmarena_model": "o3-mini",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "mini",
-          "o3"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "GPT-5.1 (low)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5.1",
+      "subfamily": null,
       "version": "5.1",
       "date": null,
       "parameters": null,
       "other_info": [
+        "5.1",
         "low"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5.1-high",
+        "lmarena_model": "gpt-5.1",
         "family": "gpt",
-        "subfamily": "gpt-5.1",
+        "subfamily": null,
         "version": "5.1",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high"
+          "5.1"
         ]
-      },
-      {
-        "lmarena_model": "gpt-5.1",
-        "family": "gpt",
-        "subfamily": "gpt-5.1",
-        "version": "5.1",
-        "date": null,
-        "parameters": null,
-        "other_info": null
       }
     ]
   },
   "o3 (medium)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "o3",
-      "version": "3",
+      "subfamily": null,
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "medium",
-        "o3"
+        "o",
+        "medium"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "o3-2025-04-16",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": "2025-04-16",
-        "parameters": null,
-        "other_info": [
-          "o3"
-        ]
-      },
-      {
-        "lmarena_model": "o3-mini-high",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high",
-          "mini",
-          "o3"
-        ]
-      },
-      {
-        "lmarena_model": "o3-mini",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "mini",
-          "o3"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "Claude Sonnet 4.5 (32k thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-sonnet",
+      "subfamily": "claude-sonnet-thinking-think",
       "version": "4.5",
       "date": null,
       "parameters": null,
       "other_info": [
-        "32k",
-        "thinking"
+        "4.5"
       ]
     },
     "candidates": [
@@ -822,7 +534,7 @@
       "date": "2025",
       "parameters": null,
       "other_info": [
-        "2025",
+        "2.5",
         "Jun"
       ]
     },
@@ -834,20 +546,22 @@
         "version": "2.5",
         "date": null,
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "2.5"
+        ]
       }
     ]
   },
   "Claude Sonnet 4.5 (59k thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-sonnet",
+      "subfamily": "claude-sonnet-thinking-think",
       "version": "4.5",
       "date": null,
       "parameters": null,
       "other_info": [
-        "59k",
-        "thinking"
+        "4.5",
+        "59k"
       ]
     },
     "candidates": [
@@ -860,13 +574,12 @@
     "benchmark_info": {
       "family": "gpt",
       "subfamily": "o3",
-      "version": "3",
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "high",
         "mini",
-        "o3"
+        "high"
       ]
     },
     "candidates": [
@@ -874,36 +587,32 @@
         "lmarena_model": "o3-2025-04-16",
         "family": "gpt",
         "subfamily": "o3",
-        "version": "3",
+        "version": "3.0",
         "date": "2025-04-16",
         "parameters": null,
-        "other_info": [
-          "o3"
-        ]
+        "other_info": null
       },
       {
         "lmarena_model": "o3-mini-high",
         "family": "gpt",
         "subfamily": "o3",
-        "version": "3",
+        "version": "3.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high",
           "mini",
-          "o3"
+          "high"
         ]
       },
       {
         "lmarena_model": "o3-mini",
         "family": "gpt",
         "subfamily": "o3",
-        "version": "3",
+        "version": "3.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "mini",
-          "o3"
+          "mini"
         ]
       }
     ]
@@ -912,13 +621,12 @@
     "benchmark_info": {
       "family": "gpt",
       "subfamily": "o4",
-      "version": "4",
+      "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "low",
         "mini",
-        "o4"
+        "low"
       ]
     },
     "candidates": [
@@ -926,12 +634,14 @@
         "lmarena_model": "o4-mini-2025-04-16",
         "family": "gpt",
         "subfamily": "o4",
-        "version": "4",
+        "version": "4.0",
         "date": "2025-04-16",
         "parameters": null,
         "other_info": [
           "mini",
-          "o4"
+          "2025",
+          "0",
+          "16"
         ]
       }
     ]
@@ -939,11 +649,40 @@
   "Gemini 2.5 Pro (Preview)": {
     "benchmark_info": {
       "family": "gemini",
-      "subfamily": "gemini-pro-preview",
+      "subfamily": "gemini-pro",
       "version": "2.5",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "2.5",
+        "Preview"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-pro",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5"
+        ]
+      }
+    ]
+  },
+  "o3 (low)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "o",
+        "low"
+      ]
     },
     "candidates": [
       {
@@ -951,67 +690,16 @@
       }
     ]
   },
-  "o3 (low)": {
-    "benchmark_info": {
-      "family": "gpt",
-      "subfamily": "o3",
-      "version": "3",
-      "date": null,
-      "parameters": null,
-      "other_info": [
-        "low",
-        "o3"
-      ]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "o3-2025-04-16",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": "2025-04-16",
-        "parameters": null,
-        "other_info": [
-          "o3"
-        ]
-      },
-      {
-        "lmarena_model": "o3-mini-high",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high",
-          "mini",
-          "o3"
-        ]
-      },
-      {
-        "lmarena_model": "o3-mini",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "mini",
-          "o3"
-        ]
-      }
-    ]
-  },
   "Claude Sonnet 4.5 (no thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-sonnet",
+      "subfamily": "claude-sonnet-thinking-think",
       "version": "4.5",
       "date": null,
       "parameters": null,
       "other_info": [
-        "no",
-        "thinking"
+        "4.5",
+        "no"
       ]
     },
     "candidates": [
@@ -1023,76 +711,80 @@
   "o1 (high)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "o1",
-      "version": "1",
+      "subfamily": null,
+      "version": "1.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "high",
-        "o1"
+        "o",
+        "high"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "o1-2024-12-17",
-        "family": "gpt",
-        "subfamily": "o1",
-        "version": "1",
-        "date": "2024-12-17",
-        "parameters": null,
-        "other_info": [
-          "o1"
-        ]
-      },
-      {
-        "lmarena_model": "o1-preview",
-        "family": "gpt",
-        "subfamily": "o1",
-        "version": "1",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "o1",
-          "preview"
-        ]
-      },
-      {
-        "lmarena_model": "o1-mini",
-        "family": "gpt",
-        "subfamily": "o1",
-        "version": "1",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "mini",
-          "o1"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "Qwen3-235B-A22B-Thinking-2507": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen3",
-      "version": "3",
+      "subfamily": null,
+      "version": "3.0",
       "date": "2507",
       "parameters": "235B",
       "other_info": [
-        "25B",
-        "A22B",
-        "Thinking"
+        "A22B"
       ]
     },
     "candidates": [
       {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      },
+      {
         "lmarena_model": "qwen3-235b-a22b-instruct-2507",
         "family": "qwen",
-        "subfamily": "qwen3",
-        "version": "3",
+        "subfamily": null,
+        "version": "3.0",
         "date": "2507",
         "parameters": "235B",
         "other_info": [
-          "25b",
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-vl-235b-a22b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235B",
+        "other_info": [
+          "vl",
           "a22b",
           "instruct"
         ]
@@ -1100,39 +792,46 @@
       {
         "lmarena_model": "qwen3-235b-a22b-no-thinking",
         "family": "qwen",
-        "subfamily": "qwen3",
-        "version": "3",
+        "subfamily": null,
+        "version": "3.0",
         "date": null,
         "parameters": "235B",
         "other_info": [
-          "25b",
           "a22b",
-          "no",
-          "thinking"
+          "no"
         ]
       },
       {
         "lmarena_model": "qwen3-235b-a22b-thinking-2507",
         "family": "qwen",
-        "subfamily": "qwen3",
-        "version": "3",
+        "subfamily": null,
+        "version": "3.0",
         "date": "2507",
         "parameters": "235B",
         "other_info": [
-          "25b",
-          "a22b",
-          "thinking"
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-vl-235b-a22b-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235B",
+        "other_info": [
+          "vl",
+          "a22b"
         ]
       },
       {
         "lmarena_model": "qwen3-235b-a22b",
         "family": "qwen",
-        "subfamily": "qwen3",
-        "version": "3",
+        "subfamily": null,
+        "version": "3.0",
         "date": null,
         "parameters": "235B",
         "other_info": [
-          "25b",
           "a22b"
         ]
       }
@@ -1141,8 +840,8 @@
   "GPT-5 nano (high)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5-nano",
-      "version": "5",
+      "subfamily": "gpt-nano",
+      "version": "5.0",
       "date": null,
       "parameters": null,
       "other_info": [
@@ -1151,15 +850,7 @@
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5-nano-high",
-        "family": "gpt",
-        "subfamily": "gpt-5-nano",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
@@ -1167,13 +858,12 @@
     "benchmark_info": {
       "family": "gpt",
       "subfamily": "o3",
-      "version": "3",
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "medium",
         "mini",
-        "o3"
+        "medium"
       ]
     },
     "candidates": [
@@ -1181,36 +871,32 @@
         "lmarena_model": "o3-2025-04-16",
         "family": "gpt",
         "subfamily": "o3",
-        "version": "3",
+        "version": "3.0",
         "date": "2025-04-16",
         "parameters": null,
-        "other_info": [
-          "o3"
-        ]
+        "other_info": null
       },
       {
         "lmarena_model": "o3-mini-high",
         "family": "gpt",
         "subfamily": "o3",
-        "version": "3",
+        "version": "3.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "high",
           "mini",
-          "o3"
+          "high"
         ]
       },
       {
         "lmarena_model": "o3-mini",
         "family": "gpt",
         "subfamily": "o3",
-        "version": "3",
+        "version": "3.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "mini",
-          "o3"
+          "mini"
         ]
       }
     ]
@@ -1218,8 +904,8 @@
   "GPT-5 nano (medium)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5-nano",
-      "version": "5",
+      "subfamily": "gpt-nano",
+      "version": "5.0",
       "date": null,
       "parameters": null,
       "other_info": [
@@ -1228,28 +914,20 @@
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5-nano-high",
-        "family": "gpt",
-        "subfamily": "gpt-5-nano",
-        "version": "5",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "Claude Opus 4.1 (27K thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-opus",
+      "subfamily": "claude-opus-thinking-think",
       "version": "4.1",
       "date": null,
       "parameters": null,
       "other_info": [
-        "27K",
-        "thinking"
+        "4.1",
+        "27K"
       ]
     },
     "candidates": [
@@ -1261,13 +939,12 @@
   "Claude Haiku 4.5 (32K thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-haiku",
+      "subfamily": "claude-haiku-thinking-think",
       "version": "4.5",
       "date": null,
       "parameters": null,
       "other_info": [
-        "32K",
-        "thinking"
+        "4.5"
       ]
     },
     "candidates": [
@@ -1283,7 +960,9 @@
       "version": "4.1",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "4.1"
+      ]
     },
     "candidates": [
       {
@@ -1294,72 +973,40 @@
   "Grok-3 mini": {
     "benchmark_info": {
       "family": "grok",
-      "subfamily": "grok-3",
-      "version": "3",
-      "date": null,
-      "parameters": null,
-      "other_info": [
-        "mini"
-      ]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "grok-3-preview-02-24",
-        "family": "grok",
-        "subfamily": "grok-3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "02",
-          "24",
-          "preview"
-        ]
-      },
-      {
-        "lmarena_model": "grok-3-mini-high",
-        "family": "grok",
-        "subfamily": "grok-3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high",
-          "mini"
-        ]
-      },
-      {
-        "lmarena_model": "grok-3-mini-beta",
-        "family": "grok",
-        "subfamily": "grok-3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "beta",
-          "mini"
-        ]
-      }
-    ]
-  },
-  "GPT-4.1": {
-    "benchmark_info": {
-      "family": "gpt",
-      "subfamily": "gpt-4.1",
-      "version": "4.1",
+      "subfamily": "grok-mini",
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": null
     },
     "candidates": [
       {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "GPT-4.1": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "4.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.1"
+      ]
+    },
+    "candidates": [
+      {
         "lmarena_model": "gpt-4.1-2025-04-14",
         "family": "gpt",
-        "subfamily": "gpt-4.1",
+        "subfamily": null,
         "version": "4.1",
         "date": "2025-04-14",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "4.1"
+        ]
       }
     ]
   },
@@ -1371,7 +1018,7 @@
       "date": "2025",
       "parameters": null,
       "other_info": [
-        "2025",
+        "2.5",
         "Jun"
       ]
     },
@@ -1383,7 +1030,9 @@
         "version": "2.5",
         "date": null,
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "2.5"
+        ]
       }
     ]
   },
@@ -1391,95 +1040,72 @@
     "benchmark_info": {
       "family": "claude",
       "subfamily": "claude-opus",
-      "version": "4",
+      "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": null
     },
     "candidates": [
       {
-        "lmarena_model": "claude-opus-4-5-20251101-thinking-32k",
+        "lmarena_model": "Anthropicclaude-opus-4-5-20251101",
         "family": "claude",
         "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-11-01",
+        "version": "4.0",
+        "date": "20251101",
         "parameters": null,
         "other_info": [
-          "32k",
-          "thinking"
+          "Anthropicclaude",
+          "5"
         ]
       },
       {
-        "lmarena_model": "claude-opus-4-5-20251101",
+        "lmarena_model": "Anthropicclaude-opus-4-1-20250805",
         "family": "claude",
         "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-11-01",
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "claude-opus-4-1-20250805-thinking-16k",
-        "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-08-05",
+        "version": "4.0",
+        "date": "20250805",
         "parameters": null,
         "other_info": [
-          "16k",
-          "thinking"
+          "Anthropicclaude",
+          "1"
         ]
       },
       {
-        "lmarena_model": "claude-opus-4-1-20250805",
+        "lmarena_model": "Anthropicclaude-opus-4-20250514",
         "family": "claude",
         "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-08-05",
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "claude-opus-4-20250514-thinking-16k",
-        "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-05-14",
+        "version": "4.0",
+        "date": "20250514",
         "parameters": null,
         "other_info": [
-          "16k",
-          "thinking"
+          "Anthropicclaude",
+          "2025051"
         ]
-      },
-      {
-        "lmarena_model": "claude-opus-4-20250514",
-        "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-05-14",
-        "parameters": null,
-        "other_info": null
       }
     ]
   },
   "GPT-4.1 mini": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-4.1-mini",
+      "subfamily": "gpt-mini",
       "version": "4.1",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "4.1"
+      ]
     },
     "candidates": [
       {
         "lmarena_model": "gpt-4.1-mini-2025-04-14",
         "family": "gpt",
-        "subfamily": "gpt-4.1-mini",
+        "subfamily": "gpt-mini",
         "version": "4.1",
         "date": "2025-04-14",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "4.1"
+        ]
       }
     ]
   },
@@ -1490,7 +1116,9 @@
       "version": "4.5",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "4.5"
+      ]
     },
     "candidates": [
       {
@@ -1501,78 +1129,50 @@
   "Claude Opus 4 (27K thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-opus",
-      "version": "4",
+      "subfamily": "claude-opus-thinking-think",
+      "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "27K",
-        "thinking"
+        "27K"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "claude-opus-4-5-20251101-thinking-32k",
+        "lmarena_model": "Anthropicclaude-opus-4-5-20251101-thinking-32k",
         "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-11-01",
+        "subfamily": "claude-opus-thinking-think",
+        "version": "4.0",
+        "date": "20251101",
         "parameters": null,
         "other_info": [
-          "32k",
-          "thinking"
+          "Anthropicclaude",
+          "5"
         ]
       },
       {
-        "lmarena_model": "claude-opus-4-5-20251101",
+        "lmarena_model": "Anthropicclaude-opus-4-1-20250805-thinking-16k",
         "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-11-01",
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "claude-opus-4-1-20250805-thinking-16k",
-        "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-08-05",
+        "subfamily": "claude-opus-thinking-think",
+        "version": "4.0",
+        "date": "20250805",
         "parameters": null,
         "other_info": [
-          "16k",
-          "thinking"
+          "Anthropicclaude",
+          "1"
         ]
       },
       {
-        "lmarena_model": "claude-opus-4-1-20250805",
+        "lmarena_model": "Anthropicclaude-opus-4-20250514-thinking-16k",
         "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-08-05",
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "claude-opus-4-20250514-thinking-16k",
-        "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-05-14",
+        "subfamily": "claude-opus-thinking-think",
+        "version": "4.0",
+        "date": "20250514",
         "parameters": null,
         "other_info": [
-          "16k",
-          "thinking"
+          "Anthropicclaude",
+          "2025051"
         ]
-      },
-      {
-        "lmarena_model": "claude-opus-4-20250514",
-        "family": "claude",
-        "subfamily": "claude-opus",
-        "version": "4",
-        "date": "2025-05-14",
-        "parameters": null,
-        "other_info": null
       }
     ]
   },
@@ -1580,66 +1180,47 @@
     "benchmark_info": {
       "family": "claude",
       "subfamily": "claude-sonnet",
-      "version": "4",
+      "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": null
     },
     "candidates": [
       {
-        "lmarena_model": "claude-sonnet-4-5-20250929-thinking-32k",
+        "lmarena_model": "Anthropicclaude-sonnet-4-5-20250929",
         "family": "claude",
         "subfamily": "claude-sonnet",
-        "version": "4",
-        "date": "2025-09-29",
+        "version": "4.0",
+        "date": "20250929",
         "parameters": null,
         "other_info": [
-          "32k",
-          "thinking"
+          "Anthropicclaude",
+          "5"
         ]
       },
       {
-        "lmarena_model": "claude-sonnet-4-5-20250929",
+        "lmarena_model": "Anthropicclaude-sonnet-4-20250514",
         "family": "claude",
         "subfamily": "claude-sonnet",
-        "version": "4",
-        "date": "2025-09-29",
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "claude-sonnet-4-20250514-thinking-32k",
-        "family": "claude",
-        "subfamily": "claude-sonnet",
-        "version": "4",
-        "date": "2025-05-14",
+        "version": "4.0",
+        "date": "20250514",
         "parameters": null,
         "other_info": [
-          "32k",
-          "thinking"
+          "Anthropicclaude",
+          "2025051"
         ]
-      },
-      {
-        "lmarena_model": "claude-sonnet-4-20250514",
-        "family": "claude",
-        "subfamily": "claude-sonnet",
-        "version": "4",
-        "date": "2025-05-14",
-        "parameters": null,
-        "other_info": null
       }
     ]
   },
   "Claude 3.7 Sonnet (16k thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-sonnet",
+      "subfamily": "claude-sonnet-thinking-think",
       "version": "3.7",
       "date": null,
       "parameters": null,
       "other_info": [
-        "16k",
-        "thinking"
+        "3.7"
       ]
     },
     "candidates": [
@@ -1651,83 +1232,52 @@
   "GLM 4.6": {
     "benchmark_info": {
       "family": "glm",
-      "subfamily": "glm-4.6",
+      "subfamily": null,
       "version": "4.6",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "4.6"
+      ]
     },
     "candidates": [
       {
         "lmarena_model": "glm-4.6",
         "family": "glm",
-        "subfamily": "glm-4.6",
+        "subfamily": null,
         "version": "4.6",
         "date": null,
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "4.6"
+        ]
       }
     ]
   },
   "Grok 3": {
     "benchmark_info": {
       "family": "grok",
-      "subfamily": "grok-3",
-      "version": "3",
+      "subfamily": null,
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": null
     },
     "candidates": [
       {
-        "lmarena_model": "grok-3-preview-02-24",
-        "family": "grok",
-        "subfamily": "grok-3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "02",
-          "24",
-          "preview"
-        ]
-      },
-      {
-        "lmarena_model": "grok-3-mini-high",
-        "family": "grok",
-        "subfamily": "grok-3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high",
-          "mini"
-        ]
-      },
-      {
-        "lmarena_model": "grok-3-mini-beta",
-        "family": "grok",
-        "subfamily": "grok-3",
-        "version": "3",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "beta",
-          "mini"
-        ]
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
   "Claude 3.7 Sonnet (32k thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-sonnet",
+      "subfamily": "claude-sonnet-thinking-think",
       "version": "3.7",
       "date": null,
       "parameters": null,
       "other_info": [
-        "32k",
-        "thinking"
+        "3.7"
       ]
     },
     "candidates": [
@@ -1739,13 +1289,13 @@
   "Claude 3.7 Sonnet (64k thinking)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-sonnet",
+      "subfamily": "claude-sonnet-thinking-think",
       "version": "3.7",
       "date": null,
       "parameters": null,
       "other_info": [
-        "64k",
-        "thinking"
+        "3.7",
+        "64k"
       ]
     },
     "candidates": [
@@ -1761,7 +1311,9 @@
       "version": "3.7",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "3.7"
+      ]
     },
     "candidates": [
       {
@@ -1772,35 +1324,18 @@
   "GPT-5.1 (no thinking)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-5.1",
+      "subfamily": "gpt-thinking-think",
       "version": "5.1",
       "date": null,
       "parameters": null,
       "other_info": [
-        "no",
-        "thinking"
+        "5.1",
+        "no"
       ]
     },
     "candidates": [
       {
-        "lmarena_model": "gpt-5.1-high",
-        "family": "gpt",
-        "subfamily": "gpt-5.1",
-        "version": "5.1",
-        "date": null,
-        "parameters": null,
-        "other_info": [
-          "high"
-        ]
-      },
-      {
-        "lmarena_model": "gpt-5.1",
-        "family": "gpt",
-        "subfamily": "gpt-5.1",
-        "version": "5.1",
-        "date": null,
-        "parameters": null,
-        "other_info": null
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
@@ -1812,7 +1347,7 @@
       "date": "2024",
       "parameters": null,
       "other_info": [
-        "2024",
+        "3.5",
         "Oct"
       ]
     },
@@ -1825,21 +1360,17 @@
   "Qwen Plus": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen-plus",
+      "subfamily": null,
       "version": null,
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "Plus"
+      ]
     },
     "candidates": [
       {
-        "lmarena_model": "qwen-plus-0125",
-        "family": "qwen",
-        "subfamily": "qwen-plus",
-        "version": null,
-        "date": "0125",
-        "parameters": null,
-        "other_info": null
+        "lmarena_model": "NO_MATCH_FOUND"
       }
     ]
   },
@@ -1851,7 +1382,7 @@
       "date": "2025",
       "parameters": null,
       "other_info": [
-        "2025",
+        ".0",
         "Feb"
       ]
     },
@@ -1864,35 +1395,36 @@
         "date": null,
         "parameters": null,
         "other_info": [
+          ".0",
           "001"
         ]
       }
     ]
   },
-  "-V3": {
+  "DeepSeek-V3": {
     "benchmark_info": {
       "family": "deepseek",
-      "subfamily": "deepseek-v3",
-      "version": "3",
+      "subfamily": null,
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": null
     },
     "candidates": [
       {
-        "lmarena_model": "-v3-0324",
+        "lmarena_model": "deepseek-v3-0324",
         "family": "deepseek",
-        "subfamily": "deepseek-v3",
-        "version": "3",
+        "subfamily": null,
+        "version": "3.0",
         "date": "0324",
         "parameters": null,
         "other_info": null
       },
       {
-        "lmarena_model": "-v3",
+        "lmarena_model": "deepseek-v3",
         "family": "deepseek",
-        "subfamily": "deepseek-v3",
-        "version": "3",
+        "subfamily": null,
+        "version": "3.0",
         "date": null,
         "parameters": null,
         "other_info": null
@@ -1903,13 +1435,12 @@
     "benchmark_info": {
       "family": "gpt",
       "subfamily": "o1",
-      "version": "1",
+      "version": "1.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "medium",
         "mini",
-        "o1"
+        "medium"
       ]
     },
     "candidates": [
@@ -1917,22 +1448,19 @@
         "lmarena_model": "o1-2024-12-17",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": "2024-12-17",
         "parameters": null,
-        "other_info": [
-          "o1"
-        ]
+        "other_info": null
       },
       {
         "lmarena_model": "o1-preview",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "o1",
           "preview"
         ]
       },
@@ -1940,12 +1468,11 @@
         "lmarena_model": "o1-mini",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "mini",
-          "o1"
+          "mini"
         ]
       }
     ]
@@ -1954,13 +1481,12 @@
     "benchmark_info": {
       "family": "gpt",
       "subfamily": "o1",
-      "version": "1",
+      "version": "1.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "high",
         "mini",
-        "o1"
+        "high"
       ]
     },
     "candidates": [
@@ -1968,22 +1494,19 @@
         "lmarena_model": "o1-2024-12-17",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": "2024-12-17",
         "parameters": null,
-        "other_info": [
-          "o1"
-        ]
+        "other_info": null
       },
       {
         "lmarena_model": "o1-preview",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "o1",
           "preview"
         ]
       },
@@ -1991,12 +1514,11 @@
         "lmarena_model": "o1-mini",
         "family": "gpt",
         "subfamily": "o1",
-        "version": "1",
+        "version": "1.0",
         "date": null,
         "parameters": null,
         "other_info": [
-          "mini",
-          "o1"
+          "mini"
         ]
       }
     ]
@@ -2004,11 +1526,13 @@
   "GPT-4.1 nano": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-4.1-nano",
+      "subfamily": "gpt-nano",
       "version": "4.1",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "4.1"
+      ]
     },
     "candidates": [
       {
@@ -2019,21 +1543,27 @@
   "Qwen2.5-Max": {
     "benchmark_info": {
       "family": "qwen",
-      "subfamily": "qwen2.5-max",
+      "subfamily": null,
       "version": "2.5",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "2.5",
+        "Max"
+      ]
     },
     "candidates": [
       {
         "lmarena_model": "qwen2.5-max",
         "family": "qwen",
-        "subfamily": "qwen2.5-max",
+        "subfamily": null,
         "version": "2.5",
         "date": null,
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "2.5",
+          "max"
+        ]
       }
     ]
   },
@@ -2045,7 +1575,7 @@
       "date": "2024",
       "parameters": null,
       "other_info": [
-        "2024",
+        "3.5",
         "Jun"
       ]
     },
@@ -2058,13 +1588,12 @@
   "Llama 4 Maverick (FP8)": {
     "benchmark_info": {
       "family": "llama",
-      "subfamily": "llama-4",
-      "version": "4",
+      "subfamily": "llama-maverick",
+      "version": "4.0",
       "date": null,
       "parameters": null,
       "other_info": [
-        "FP8",
-        "Maverick"
+        "FP8"
       ]
     },
     "candidates": [
@@ -2076,8 +1605,8 @@
   "Grok-2": {
     "benchmark_info": {
       "family": "grok",
-      "subfamily": "grok-2",
-      "version": "2",
+      "subfamily": null,
+      "version": "2.0",
       "date": null,
       "parameters": null,
       "other_info": null
@@ -2086,23 +1615,19 @@
       {
         "lmarena_model": "grok-2-2024-08-13",
         "family": "grok",
-        "subfamily": "grok-2",
-        "version": "2",
+        "subfamily": null,
+        "version": "2.0",
         "date": "2024-08-13",
         "parameters": null,
-        "other_info": [
-          "04",
-          "08",
-          "13"
-        ]
+        "other_info": null
       }
     ]
   },
-  "Medium 3": {
+  "Mistral Medium 3": {
     "benchmark_info": {
-      "family": "medium",
-      "subfamily": null,
-      "version": "3",
+      "family": "mistral",
+      "subfamily": "mistral-medium",
+      "version": "3.0",
       "date": null,
       "parameters": null,
       "other_info": null
@@ -2116,45 +1641,56 @@
   "GPT-4o (Aug 2024)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-4o",
-      "version": "4",
+      "subfamily": null,
+      "version": "4.0",
       "date": "2024",
       "parameters": null,
       "other_info": [
-        "2024",
-        "Aug"
+        "o",
+        "Aug",
+        "202"
       ]
     },
     "candidates": [
       {
         "lmarena_model": "gpt-4o-2024-05-13",
         "family": "gpt",
-        "subfamily": "gpt-4o",
-        "version": "4",
+        "subfamily": null,
+        "version": "4.0",
         "date": "2024-05-13",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "o",
+          "202",
+          "05",
+          "13"
+        ]
       },
       {
         "lmarena_model": "gpt-4o-2024-08-06",
         "family": "gpt",
-        "subfamily": "gpt-4o",
-        "version": "4",
+        "subfamily": null,
+        "version": "4.0",
         "date": "2024-08-06",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "o",
+          "202",
+          "08",
+          "06"
+        ]
       }
     ]
   },
   "Claude 3.5 Haiku (Oct 2024)": {
     "benchmark_info": {
       "family": "claude",
-      "subfamily": "claude-haiku",
+      "subfamily": "claude-haiku-h",
       "version": "3.5",
       "date": "2024",
       "parameters": null,
       "other_info": [
-        "2024",
+        "3.5",
         "Oct"
       ]
     },
@@ -2164,11 +1700,11 @@
       }
     ]
   },
-  "Large 2": {
+  "Mistral Large 2": {
     "benchmark_info": {
-      "family": "large",
-      "subfamily": null,
-      "version": "2",
+      "family": "mistral",
+      "subfamily": "mistral-large",
+      "version": "2.0",
       "date": null,
       "parameters": null,
       "other_info": null
@@ -2182,46 +1718,55 @@
   "GPT-4o (Nov 2024)": {
     "benchmark_info": {
       "family": "gpt",
-      "subfamily": "gpt-4o",
-      "version": "4",
+      "subfamily": null,
+      "version": "4.0",
       "date": "2024",
       "parameters": null,
       "other_info": [
-        "2024",
-        "Nov"
+        "o",
+        "Nov",
+        "202"
       ]
     },
     "candidates": [
       {
         "lmarena_model": "gpt-4o-2024-05-13",
         "family": "gpt",
-        "subfamily": "gpt-4o",
-        "version": "4",
+        "subfamily": null,
+        "version": "4.0",
         "date": "2024-05-13",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "o",
+          "202",
+          "05",
+          "13"
+        ]
       },
       {
         "lmarena_model": "gpt-4o-2024-08-06",
         "family": "gpt",
-        "subfamily": "gpt-4o",
-        "version": "4",
+        "subfamily": null,
+        "version": "4.0",
         "date": "2024-08-06",
         "parameters": null,
-        "other_info": null
+        "other_info": [
+          "o",
+          "202",
+          "08",
+          "06"
+        ]
       }
     ]
   },
   "Llama 4 Scout": {
     "benchmark_info": {
       "family": "llama",
-      "subfamily": "llama-4",
-      "version": "4",
+      "subfamily": "llama-scout",
+      "version": "4.0",
       "date": null,
       "parameters": null,
-      "other_info": [
-        "Scout"
-      ]
+      "other_info": null
     },
     "candidates": [
       {
@@ -2237,7 +1782,7 @@
       "date": "2024",
       "parameters": null,
       "other_info": [
-        "2024",
+        "1.5",
         "Sep"
       ]
     },

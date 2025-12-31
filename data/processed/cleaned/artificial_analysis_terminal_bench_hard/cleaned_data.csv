@@ -1,0 +1,250 @@
+model_name,score,rank
+GPT-5.2 (xhigh),44.0,1
+Claude Opus 4.5,44.0,1
+GPT-5.1 (high),43.0,3
+Gemini 3 Pro Preview (high),39.0,4
+Grok 4,38.0,5
+Claude Opus 4.5,38.0,5
+Gemini 3 Flash,36.0,7
+GPT-5 Codex (high),36.0,7
+GPT-5 (medium),36.0,7
+o3,35.0,10
+GPT-5.1 Codex (high),33.0,11
+DeepSeek V3.2,33.0,11
+Claude 4.5 Sonnet,33.0,11
+DeepSeek V3.2 Speciale,33.0,11
+Gemini 3 Pro Preview (low),32.0,15
+Claude 4.1 Opus,32.0,15
+GPT-5 (high),31.0,17
+GPT-5 mini (high),31.0,17
+GPT-5.1 Codex mini (high),31.0,17
+DeepSeek V3.2,31.0,17
+GLM-4.7,30.0,21
+Claude 4 Sonnet,30.0,21
+Gemini 3 Flash,30.0,21
+GPT-5.2,30.0,21
+DeepSeek V3.1 Terminus,30.0,21
+Kimi K2 Thinking,29.0,26
+DeepSeek V3.2 Exp,29.0,26
+Claude 4 Opus,29.0,26
+DeepSeek V3.1 Terminus,28.0,29
+GLM-4.7,28.0,29
+MiniMax-M2.1,27.0,31
+GPT-5 mini (medium),27.0,31
+Claude 4.5 Sonnet,27.0,31
+GLM-4.6,27.0,31
+MiMo-V2-Flash,26.0,35
+Claude 4.5 Haiku,26.0,35
+Claude 4 Sonnet,26.0,35
+Claude 4.5 Haiku,26.0,35
+GPT-5 (low),25.0,39
+Gemini 2.5 Pro,25.0,39
+Doubao Seed Code,25.0,39
+MiniMax-M2,24.0,42
+DeepSeek V3.1,24.0,42
+MiMo-V2-Flash,24.0,42
+Grok 4.1 Fast,23.0,45
+Nova 2.0 Pro Preview (medium),23.0,45
+GLM-4.6,23.0,45
+ERNIE 5.0 Thinking Preview,23.0,45
+Kimi K2 0905,23.0,45
+DeepSeek V3.2 Exp,23.0,45
+DeepSeek V3.1,23.0,45
+gpt-oss-120B (high),22.0,52
+GLM-4.5,21.0,53
+GPT-5.1,21.0,53
+Claude 3.7 Sonnet,20.0,55
+Claude 3.7 Sonnet,20.0,55
+Qwen3 Max,19.0,57
+GLM-4.5-Air,19.0,57
+Grok 4 Fast,18.0,59
+Qwen3 Max (Preview),18.0,59
+GPT-5 (minimal),18.0,59
+Qwen3 Coder 480B,18.0,59
+Devstral 2,18.0,59
+Nova 2.0 Lite (medium),16.0,64
+Nova 2.0 Pro Preview (low),16.0,64
+Grok 3 mini Reasoning (high),16.0,64
+Qwen3 Max Thinking,16.0,64
+Gemini 2.5 Flash (Sep),16.0,64
+GPT-5 nano (medium),16.0,64
+Grok Code Fast 1,16.0,64
+Nova 2.0 Pro Preview,16.0,64
+Devstral Small 2,16.0,64
+Cogito v2.1,16.0,64
+DeepSeek R1 0528,15.0,74
+Kimi K2,15.0,74
+Mistral Large 3,15.0,74
+o4-mini (high),14.0,77
+Apriel-v1.6-15B-Thinker,14.0,77
+Gemini 2.5 Flash (Sep),14.0,77
+Qwen3 235B 2507,14.0,77
+GPT-5 mini (minimal),14.0,77
+DeepSeek V3 0324,14.0,77
+GLM-4.6V,14.0,77
+Grok 4.1 Fast,14.0,77
+Qwen3 Coder 30B A3B,14.0,77
+Qwen3 235B A22B 2507,13.0,86
+Magistral Medium 1.2,13.0,86
+NVIDIA Nemotron 3 Nano,13.0,86
+Gemini 2.5 Flash,13.0,86
+GPT-4.1,13.0,86
+Gemini 2.5 Flash-Lite (Sep),12.0,91
+o1,12.0,91
+GPT-5 (ChatGPT),12.0,91
+Qwen3 VL 235B A22B,11.0,94
+GPT-5 nano (high),11.0,94
+Grok 3,11.0,94
+HyperCLOVA X SEED Think (32B),11.0,94
+Hermes 4 405B,11.0,94
+Gemini 2.5 Flash,11.0,94
+Grok 4 Fast,11.0,94
+Kimi Linear 48B A3B Instruct,11.0,94
+NVIDIA Nemotron 3 Nano,11.0,94
+gpt-oss-20B (high),10.0,103
+Apriel-v1.5-15B-Thinker,10.0,103
+Ling-1T,10.0,103
+Ling-flash-2.0,10.0,103
+Mistral Medium 3.1,10.0,103
+KAT-Coder-Pro V1,9.0,108
+Qwen3 Next 80B A3B,9.0,108
+K2-V2 (high),9.0,108
+Magistral Medium 1,9.0,108
+Hermes 4 405B,9.0,108
+Devstral Medium,9.0,108
+Qwen3 VL 32B,8.0,114
+K2-V2 (medium),8.0,114
+GPT-4o (Nov),8.0,114
+Qwen3 VL 32B,7.0,117
+Qwen3 Next 80B A3B,7.0,117
+GPT-4.1 mini,7.0,117
+Gemini 2.5 Flash-Lite (Sep),7.0,117
+Ring-flash-2.0,7.0,117
+Mistral Small 3.1,7.0,117
+Seed-OSS-36B-Instruct,6.0,123
+o3-mini,6.0,123
+Qwen3 VL 235B A22B,6.0,123
+DeepSeek R1 (Jan),6.0,123
+Ring-1T,6.0,123
+Qwen3 235B,6.0,123
+Qwen3 VL 30B A3B,6.0,123
+Qwen3 30B A3B 2507,6.0,123
+Llama 4 Maverick,6.0,123
+Nova 2.0 Lite,6.0,123
+Nova 2.0 Omni,6.0,123
+ERNIE 4.5 300B A47B,6.0,123
+DeepSeek V3 (Dec),6.0,123
+Nova Premier,6.0,123
+Qwen3 235B,6.0,123
+Mistral Small 3.2,6.0,123
+GPT-5 nano (minimal),6.0,123
+Llama 3.1 405B,6.0,123
+Devstral Small,6.0,123
+Mistral Large 2 (Nov),6.0,123
+Qwen3 30B,6.0,123
+GLM-4.5V,6.0,123
+Nova Pro,6.0,123
+gpt-oss-120B (low),5.0,146
+Qwen3 30B A3B 2507,5.0,146
+Qwen3 VL 30B A3B,5.0,146
+Llama Nemotron Super 49B v1.5,5.0,146
+GLM-4.5V,5.0,146
+Qwen3 14B,5.0,146
+Nova 2.0 Omni (medium),4.0,152
+Nova 2.0 Omni (low),4.0,152
+Nova 2.0 Lite (low),4.0,152
+Motif-2-12.7B,4.0,152
+gpt-oss-20B (low),4.0,152
+Magistral Small 1.2,4.0,152
+EXAONE 4.0 32B,4.0,152
+NVIDIA Nemotron Nano 12B v2 VL,4.0,152
+Gemini 2.5 Flash-Lite,4.0,152
+Qwen3 Omni 30B A3B,4.0,152
+Hermes 4 70B,4.0,152
+Qwen3 14B,4.0,152
+Mistral Medium 3,4.0,152
+Gemini 2.0 Flash,4.0,152
+Qwen3 VL 8B,4.0,152
+Magistral Small 1,4.0,152
+K2-V2 (low),4.0,152
+Ministral 14B (Dec '25),4.0,152
+Qwen3 4B 2507,4.0,152
+Solar Pro 2,4.0,152
+Qwen2.5 72B,4.0,152
+Ministral 8B (Dec '25),4.0,152
+GPT-4.1 nano,4.0,152
+Llama Nemotron Super 49B v1.5,4.0,152
+Llama 3.1 Nemotron 70B,4.0,152
+Phi-4,4.0,152
+Gemma 3 27B,4.0,152
+MiniMax M1 80k,3.0,179
+Mi:dm K 2.5 Pro Preview,3.0,179
+Qwen3 32B,3.0,179
+Solar Pro 2,3.0,179
+GLM-4.6V,3.0,179
+Llama 3.3 70B,3.0,179
+Llama 3.1 70B,3.0,179
+MiniMax M1 40k,2.0,186
+Llama Nemotron Ultra,2.0,186
+Qwen3 30B,2.0,186
+Gemini 2.5 Flash-Lite,2.0,186
+Qwen3 8B,2.0,186
+Qwen3 VL 8B,2.0,186
+Qwen3 8B,2.0,186
+Granite 4.0 H Small,2.0,186
+Jamba 1.7 Large,2.0,186
+Gemma 3n E4B,2.0,186
+Qwen3 4B 2507,1.0,196
+NVIDIA Nemotron Nano 9B V2,1.0,196
+OLMo 3 32B Think,1.0,196
+NVIDIA Nemotron Nano 9B V2,1.0,196
+OLMo 3 7B Think,1.0,196
+DeepSeek R1 0528 Qwen3 8B,1.0,196
+EXAONE 4.0 32B,1.0,196
+Qwen3 Omni 30B A3B,1.0,196
+DeepSeek R1 Distill Llama 70B,1.0,196
+Llama 4 Scout,1.0,196
+Ling-mini-2.0,1.0,196
+Qwen3 VL 4B,1.0,196
+Command A,1.0,196
+Nova Lite,1.0,196
+Jamba Reasoning 3B,1.0,196
+Gemma 3 12B,1.0,196
+Nova Micro,1.0,196
+Llama 3.1 8B,1.0,196
+Granite 4.0 Micro,1.0,196
+Llama 3.2 11B (Vision),1.0,196
+Gemma 3 4B,1.0,196
+LFM2 2.6B,1.0,196
+Gemma 3n E2B,1.0,196
+Olmo 3.1 32B Think,0.0,219
+Llama 3.3 Nemotron Super 49B,0.0,219
+Exaone 4.0 1.2B,0.0,219
+Reka Flash 3,0.0,219
+Llama 3.3 Nemotron Super 49B,0.0,219
+NVIDIA Nemotron Nano 12B v2 VL,0.0,219
+Qwen3 VL 4B,0.0,219
+Hermes 4 70B,0.0,219
+Qwen3 1.7B,0.0,219
+OLMo 3 7B,0.0,219
+Ministral 3B (Dec '25),0.0,219
+Exaone 4.0 1.2B,0.0,219
+LFM2 8B A1B,0.0,219
+Phi-4 Mini,0.0,219
+Granite 3.3 8B,0.0,219
+Jamba 1.7 Mini,0.0,219
+Qwen3 1.7B,0.0,219
+OLMo 2 32B,0.0,219
+Qwen3 0.6B,0.0,219
+Granite 4.0 H 1B,0.0,219
+Granite 4.0 1B,0.0,219
+Phi-3 Mini,0.0,219
+Qwen3 0.6B,0.0,219
+LFM2 1.2B,0.0,219
+OLMo 2 7B,0.0,219
+Molmo 7B-D,0.0,219
+Llama 3.2 1B,0.0,219
+Granite 4.0 H 350M,0.0,219
+Granite 4.0 350M,0.0,219
+Gemma 3 1B,0.0,219
+Gemma 3 270M,0.0,219

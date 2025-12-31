@@ -1,521 +1,529 @@
 {
-  "GPT-5.2 Pro": {
-    "model_name": "GPT-5.2 Pro",
+  "GPT-5.2 ProOpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5.2-pro",
+    "subfamily": "gpt-pro",
     "version": "5.2",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "5.2",
+      "ProOpenAI"
+    ]
   },
-  "GPT-5.2": {
-    "model_name": "GPT-5.2",
+  "GPT-5.2OpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5.2",
+    "subfamily": null,
     "version": "5.2",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "5.2OpenAI"
+    ]
   },
-  "Gemini 3 Pro": {
-    "model_name": "Gemini 3 Pro",
+  "Gemini 3 ProGoogle": {
     "family": "gemini",
     "subfamily": "gemini-pro",
-    "version": "3",
+    "version": "3.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "ProGoogle"
+    ]
   },
-  "Gemini 3 Flash": {
-    "model_name": "Gemini 3 Flash",
+  "Gemini 3 FlashGoogle": {
     "family": "gemini",
     "subfamily": "gemini-flash",
-    "version": "3",
+    "version": "3.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "FlashGoogle"
+    ]
   },
-  "Grok-4 Heavy": {
-    "model_name": "Grok-4 Heavy",
+  "Grok-4 HeavyxAI": {
     "family": "grok",
-    "subfamily": "grok-4",
-    "version": "4",
+    "subfamily": "grok-heavy-h",
+    "version": "4.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Heavy"
+      "HeavyxAI"
     ]
   },
-  "GPT-5.1": {
-    "model_name": "GPT-5.1",
+  "GPT-5.1OpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5.1",
-    "version": "5.1",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "GPT-5.1 Instant": {
-    "model_name": "GPT-5.1 Instant",
-    "family": "gpt",
-    "subfamily": "gpt-5.1",
+    "subfamily": null,
     "version": "5.1",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Instant"
+      "5.1OpenAI"
     ]
   },
-  "GPT-5.1 Thinking": {
-    "model_name": "GPT-5.1 Thinking",
+  "GPT-5.1 InstantOpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5.1",
+    "subfamily": null,
     "version": "5.1",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Thinking"
+      "5.1",
+      "InstantOpenAI"
     ]
   },
-  "Grok-4": {
-    "model_name": "Grok-4",
+  "GPT-5.1 ThinkingOpenAI": {
+    "family": "gpt",
+    "subfamily": "gpt-thinking-think",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "5.1",
+      "ThinkingOpenAI"
+    ]
+  },
+  "Grok-4xAI": {
     "family": "grok",
-    "subfamily": "grok-4",
-    "version": "4",
+    "subfamily": null,
+    "version": "4.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "xAI"
+    ]
   },
-  "Claude Opus 4.5": {
-    "model_name": "Claude Opus 4.5",
+  "Claude Opus 4.5Anthropic": {
     "family": "claude",
     "subfamily": "claude-opus",
     "version": "4.5",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.5Anthropic"
+    ]
   },
-  "Gemini 2.5 Pro Preview 06-05": {
-    "model_name": "Gemini 2.5 Pro Preview 06-05",
+  "Gemini 2.5 Pro Preview 06-05Google": {
     "family": "gemini",
     "subfamily": "gemini-pro-preview",
     "version": "2.5",
     "date": null,
     "parameters": null,
     "other_info": [
-      "05",
-      "06"
+      "2.5",
+      "06",
+      "05Google"
     ]
   },
-  "GPT-5": {
-    "model_name": "GPT-5",
+  "GPT-5OpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5",
-    "version": "5",
+    "subfamily": null,
+    "version": "5.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "OpenAI"
+    ]
   },
-  "GLM-4.7New": {
-    "model_name": "GLM-4.7New",
+  "GLM-4.7NewZhipu AI": {
     "family": "glm",
-    "subfamily": "glm-4.7",
+    "subfamily": null,
     "version": "4.7",
     "date": null,
     "parameters": null,
     "other_info": [
-      "New"
+      "4.7NewZhipu",
+      "AI"
     ]
   },
-  "Grok 4 Fast": {
-    "model_name": "Grok 4 Fast",
+  "Grok 4 FastxAI": {
     "family": "grok",
-    "subfamily": "grok-4",
-    "version": "4",
+    "subfamily": "grok-fast",
+    "version": "4.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Fast"
+      "FastxAI"
     ]
   },
-  "Claude 3.7 Sonnet": {
-    "model_name": "Claude 3.7 Sonnet",
+  "Claude 3.7 SonnetAnthropic": {
     "family": "claude",
     "subfamily": "claude-sonnet",
     "version": "3.7",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "3.7",
+      "SonnetAnthropic"
+    ]
   },
-  "Grok-3": {
-    "model_name": "Grok-3",
+  "Grok-3xAI": {
     "family": "grok",
-    "subfamily": "grok-3",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "xAI"
+    ]
   },
-  "Kimi K2-Thinking-0905": {
-    "model_name": "Kimi K2-Thinking-0905",
+  "Kimi K2-Thinking-0905Moonshot AI": {
     "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "subfamily": "kimi-k-thinking-think",
+    "version": "2.0",
     "date": "0905",
     "parameters": null,
     "other_info": [
-      "Thinking"
+      "Moonshot",
+      "AI"
     ]
   },
-  "Grok-3 Mini": {
-    "model_name": "Grok-3 Mini",
+  "Grok-3 MinixAI": {
     "family": "grok",
-    "subfamily": "grok-3",
-    "version": "3",
+    "subfamily": "grok-mini",
+    "version": "3.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Mini"
+      "MinixAI"
     ]
   },
-  "MiMo-V2-Flash": {
-    "model_name": "MiMo-V2-Flash",
+  "MiMo-V2-FlashXiaomi": {
     "family": "mimo",
     "subfamily": "mimo-flash",
-    "version": "2",
+    "version": "2.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "FlashXiaomi"
+    ]
   },
-  "Claude Sonnet 4.5": {
-    "model_name": "Claude Sonnet 4.5",
+  "Claude Sonnet 4.5Anthropic": {
     "family": "claude",
     "subfamily": "claude-sonnet",
     "version": "4.5",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.5Anthropic"
+    ]
   },
-  "o3": {
-    "model_name": "o3",
+  "o3OpenAI": {
     "family": "gpt",
-    "subfamily": "o3",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "o3"
+      "oOpenAI"
     ]
   },
-  "Gemini 2.5 Pro": {
-    "model_name": "Gemini 2.5 Pro",
+  "Gemini 2.5 ProGoogle": {
     "family": "gemini",
     "subfamily": "gemini-pro",
     "version": "2.5",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "2.5",
+      "ProGoogle"
+    ]
   },
-  "Gemini 2.5 Flash": {
-    "model_name": "Gemini 2.5 Flash",
+  "Gemini 2.5 FlashGoogle": {
     "family": "gemini",
     "subfamily": "gemini-flash",
     "version": "2.5",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "2.5",
+      "FlashGoogle"
+    ]
   },
-  "-V3.2 (Thinking)": {
-    "model_name": "-V3.2 (Thinking)",
+  "DeepSeek-V3.2 (Thinking)DeepSeek": {
     "family": "deepseek",
-    "subfamily": "deepseek-v3.2",
+    "subfamily": null,
     "version": "3.2",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Thinking"
+      "V3.2",
+      "DeepSeek"
     ]
   },
-  "GPT-5 mini": {
-    "model_name": "GPT-5 mini",
+  "GPT-5 miniOpenAI": {
     "family": "gpt",
-    "subfamily": "gpt-5-mini",
-    "version": "5",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "o4-mini": {
-    "model_name": "o4-mini",
-    "family": "gpt",
-    "subfamily": "o4",
-    "version": "4",
+    "subfamily": "gpt-mini",
+    "version": "5.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "mini",
-      "o4"
+      "miniOpenAI"
     ]
   },
-  "Qwen3-235B-A22B-Thinking-2507": {
-    "model_name": "Qwen3-235B-A22B-Thinking-2507",
+  "o4-miniOpenAI": {
+    "family": "gpt",
+    "subfamily": "o4",
+    "version": "4.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "miniOpenAI"
+    ]
+  },
+  "Qwen3-235B-A22B-Thinking-2507Alibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": "2507",
     "parameters": "235B",
     "other_info": [
-      "25B",
-      "A22B",
-      "Thinking"
+      "Qwen",
+      "Team"
     ]
   },
-  "GLM-4.6": {
-    "model_name": "GLM-4.6",
+  "GLM-4.6Zhipu AI": {
     "family": "glm",
-    "subfamily": "glm-4.6",
+    "subfamily": null,
     "version": "4.6",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.6Zhipu",
+      "AI"
+    ]
   },
-  "-R1-0528": {
-    "model_name": "-R1-0528",
+  "DeepSeek-R1-0528DeepSeek": {
     "family": "deepseek",
-    "subfamily": null,
-    "version": "1",
+    "subfamily": "deepseek-r",
+    "version": "1.0",
     "date": "0528",
     "parameters": null,
     "other_info": [
-      "R1"
+      "DeepSeek"
     ]
   },
-  "M2.1New": {
-    "model_name": "M2.1New",
-    "family": null,
-    "subfamily": null,
+  "MiniMax M2.1NewMiniMax": {
+    "family": "minimax",
+    "subfamily": "minimax-m",
     "version": "2.1",
     "date": null,
     "parameters": null,
     "other_info": [
-      "1New",
-      "M2"
+      "2.1NewMiniMax"
     ]
   },
-  "Claude Opus 4.1": {
-    "model_name": "Claude Opus 4.1",
+  "Claude Opus 4.1Anthropic": {
     "family": "claude",
     "subfamily": "claude-opus",
     "version": "4.1",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.1Anthropic"
+    ]
   },
-  "GPT OSS 120B": {
-    "model_name": "GPT OSS 120B",
+  "GPT OSS 120BOpenAI": {
     "family": "gpt",
     "subfamily": "gpt-oss",
-    "version": null,
+    "version": "120.0",
     "date": null,
-    "parameters": "120B",
-    "other_info": null
+    "parameters": null,
+    "other_info": [
+      "BOpenAI"
+    ]
   },
-  "-V3.2-Exp": {
-    "model_name": "-V3.2-Exp",
+  "DeepSeek-V3.2-ExpDeepSeek": {
     "family": "deepseek",
-    "subfamily": "deepseek-v3.2",
+    "subfamily": "deepseek-exp",
     "version": "3.2",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Exp"
+      "V3.2",
+      "ExpDeepSeek"
     ]
   },
-  "Claude Opus 4": {
-    "model_name": "Claude Opus 4",
+  "Claude Opus 4Anthropic": {
     "family": "claude",
     "subfamily": "claude-opus",
-    "version": "4",
+    "version": "4.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "Anthropic"
+    ]
   },
-  "GLM-4.5": {
-    "model_name": "GLM-4.5",
+  "GLM-4.5Zhipu AI": {
     "family": "glm",
-    "subfamily": "glm-4.5",
+    "subfamily": null,
     "version": "4.5",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "4.5Zhipu",
+      "AI"
+    ]
   },
-  "o1-pro": {
-    "model_name": "o1-pro",
+  "o1-proOpenAI": {
     "family": "gpt",
     "subfamily": "o1",
-    "version": "1",
+    "version": "1.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "o1",
-      "pro"
+      "proOpenAI"
     ]
   },
-  "o1": {
-    "model_name": "o1",
+  "o1OpenAI": {
     "family": "gpt",
-    "subfamily": "o1",
-    "version": "1",
-    "date": null,
-    "parameters": null,
-    "other_info": [
-      "o1"
-    ]
-  },
-  "M2": {
-    "model_name": "M2",
-    "family": null,
     "subfamily": null,
-    "version": "2",
+    "version": "1.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "M2"
+      "oOpenAI"
     ]
   },
-  "Qwen3-235B-A22B-Instruct-2507": {
-    "model_name": "Qwen3-235B-A22B-Instruct-2507",
+  "MiniMax M2MiniMax": {
+    "family": "minimax",
+    "subfamily": "minimax-m",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "MiniMax"
+    ]
+  },
+  "Qwen3-235B-A22B-Instruct-2507Alibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": "2507",
     "parameters": "235B",
     "other_info": [
-      "25B",
-      "A22B",
-      "Instruct"
+      "Qwen",
+      "Team"
     ]
   },
-  "o3-mini": {
-    "model_name": "o3-mini",
+  "o3-miniOpenAI": {
     "family": "gpt",
     "subfamily": "o3",
-    "version": "3",
+    "version": "3.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "mini",
-      "o3"
+      "miniOpenAI"
     ]
   },
-  "Qwen3-Next-80B-A3B-Thinking": {
-    "model_name": "Qwen3-Next-80B-A3B-Thinking",
+  "Qwen3-Next-80B-A3B-ThinkingAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-next",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "80B",
     "other_info": [
-      "A3B",
-      "Thinking"
+      "Qwen",
+      "Team"
     ]
   },
-  "Llama 3.1 Nemotron Ultra 253B v1": {
-    "model_name": "Llama 3.1 Nemotron Ultra 253B v1",
+  "Llama 3.1 Nemotron Ultra 253B v1NVIDIA": {
     "family": "llama",
-    "subfamily": "llama-3.1",
+    "subfamily": "llama-nemotron-ultra",
     "version": "3.1",
     "date": null,
     "parameters": "253B",
     "other_info": [
-      "Nemotron",
-      "Ultra",
-      "v1"
+      "3.1",
+      "v1NVIDIA"
     ]
   },
-  "Kimi K2 0905": {
-    "model_name": "Kimi K2 0905",
+  "Kimi K2 0905Moonshot AI": {
     "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "subfamily": "kimi-k",
+    "version": "2.0",
     "date": "0905",
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "Moonshot",
+      "AI"
+    ]
   },
-  "Claude Sonnet 4": {
-    "model_name": "Claude Sonnet 4",
+  "Claude Sonnet 4Anthropic": {
     "family": "claude",
     "subfamily": "claude-sonnet",
-    "version": "4",
-    "date": null,
-    "parameters": null,
-    "other_info": null
-  },
-  "Kimi K2 Instruct": {
-    "model_name": "Kimi K2 Instruct",
-    "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "version": "4.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Instruct"
+      "Anthropic"
     ]
   },
-  "Kimi K2-Instruct-0905": {
-    "model_name": "Kimi K2-Instruct-0905",
+  "Kimi K2 InstructMoonshot AI": {
     "family": "kimi",
-    "subfamily": "kimi-k2",
-    "version": "2",
+    "subfamily": "kimi-k-instruct",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "InstructMoonshot",
+      "AI"
+    ]
+  },
+  "Kimi K2-Instruct-0905Moonshot AI": {
+    "family": "kimi",
+    "subfamily": "kimi-k-instruct",
+    "version": "2.0",
     "date": "0905",
     "parameters": null,
     "other_info": [
-      "Instruct"
+      "Moonshot",
+      "AI"
     ]
   },
-  "Nemotron 3 Nano (30B A3B)": {
-    "model_name": "Nemotron 3 Nano (30B A3B)",
-    "family": "nemotron",
-    "subfamily": "nemotron-nano",
-    "version": "3",
+  "Nemotron 3 Nano (30B A3B)NVIDIA": {
+    "family": "llama",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "30B",
     "other_info": [
-      "30B",
-      "A3B"
+      "Nemotron",
+      "Nano",
+      "AB",
+      "NVIDIA"
     ]
   },
-  "GLM-4.5-Air": {
-    "model_name": "GLM-4.5-Air",
+  "GLM-4.5-AirZhipu AI": {
     "family": "glm",
-    "subfamily": "glm-4.5",
+    "subfamily": "glm-air",
     "version": "4.5",
     "date": null,
     "parameters": null,
     "other_info": [
-      "Air"
+      "4.5",
+      "AirZhipu",
+      "AI"
     ]
   },
-  "-V3.1": {
-    "model_name": "-V3.1",
+  "DeepSeek-V3.1DeepSeek": {
     "family": "deepseek",
-    "subfamily": "deepseek-v3.1",
+    "subfamily": null,
     "version": "3.1",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "V3.1DeepSeek"
+    ]
   },
-  "Qwen3 VL 30B A3B Thinking": {
-    "model_name": "Qwen3 VL 30B A3B Thinking",
+  "Qwen3 VL 30B A3B ThinkingAlibaba Cloud / Qwen Team": {
     "family": "qwen",
-    "subfamily": "qwen3-vl",
-    "version": "3",
+    "subfamily": null,
+    "version": "3.0",
     "date": null,
     "parameters": "30B",
     "other_info": [
-      "A3B",
-      "Thinking",
-      "VL"
+      "Qwen",
+      "Team"
     ]
   }
 }

@@ -1,0 +1,14 @@
+model_name,score,rank
+MiMo-V2-FlashXiaomi,0.862,1
+Qwen3-Next-80B-A3B-InstructAlibaba Cloud / Qwen Team,0.827,2
+Qwen3-235B-A22B-Thinking-2507Alibaba Cloud / Qwen Team,0.797,3
+Qwen3-235B-A22B-Instruct-2507Alibaba Cloud / Qwen Team,0.792,4
+Qwen3 VL 235B A22B InstructAlibaba Cloud / Qwen Team,0.774,5
+Nemotron 3 Nano (30B A3B)NVIDIA,0.677,6
+Qwen3 VL 32B InstructAlibaba Cloud / Qwen Team,0.647,7
+Qwen3-Next-80B-A3B-ThinkingAlibaba Cloud / Qwen Team,0.623,8
+Qwen3 VL 32B ThinkingAlibaba Cloud / Qwen Team,0.605,9
+Qwen3 VL 30B A3B InstructAlibaba Cloud / Qwen Team,0.585,10
+Qwen3 VL 30B A3B ThinkingAlibaba Cloud / Qwen Team,0.567,11
+Qwen3 VL 8B ThinkingAlibaba Cloud / Qwen Team,0.511,12
+Qwen3 VL 4B ThinkingAlibaba Cloud / Qwen Team,0.368,13

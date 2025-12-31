@@ -1,0 +1,51 @@
+model_name,score,rank
+Claude Opus 4.5Anthropic,0.809,1
+GPT-5.2OpenAI,0.8,2
+Gemini 3 FlashGoogle,0.78,3
+GPT-5.1OpenAI,0.763,4
+GPT-5.1 InstantOpenAI,0.763,4
+GPT-5.1 ThinkingOpenAI,0.763,4
+Gemini 3 ProGoogle,0.762,7
+GPT-5OpenAI,0.749,8
+GPT-5 CodexOpenAI,0.745,9
+Claude Opus 4.1Anthropic,0.745,9
+GLM-4.7NewZhipu AI,0.738,11
+GPT-5.1 CodexOpenAI,0.737,12
+MiMo-V2-FlashXiaomi,0.734,13
+Claude Haiku 4.5Anthropic,0.733,14
+DeepSeek-V3.2-SpecialeDeepSeek,0.731,15
+DeepSeek-V3.2 (Thinking)DeepSeek,0.731,15
+Claude Sonnet 4Anthropic,0.727,17
+Claude Opus 4Anthropic,0.725,18
+Kimi K2-Thinking-0905Moonshot AI,0.713,19
+Grok Code Fast 1xAI,0.708,20
+Claude 3.7 SonnetAnthropic,0.703,21
+Qwen3-Coder 480B A35B InstructAlibaba Cloud / Qwen Team,0.696,22
+MiniMax M2MiniMax,0.694,23
+o3OpenAI,0.691,24
+o4-miniOpenAI,0.681,25
+GLM-4.6Zhipu AI,0.68,26
+DeepSeek-V3.2-ExpDeepSeek,0.678,27
+Gemini 2.5 Pro Preview 06-05Google,0.672,28
+MiniMax M2.1NewMiniMax,0.67,29
+DeepSeek-V3.1DeepSeek,0.66,30
+Kimi K2-Instruct-0905Moonshot AI,0.658,31
+GLM-4.5Zhipu AI,0.642,32
+Gemini 2.5 ProGoogle,0.632,33
+Devstral MediumMistral AI,0.616,34
+Gemini 2.5 FlashGoogle,0.604,35
+GLM-4.5-AirZhipu AI,0.576,36
+MiniMax M1 80KMiniMax,0.56,37
+MiniMax M1 40KMiniMax,0.556,38
+GPT-4.1OpenAI,0.546,39
+Devstral Small 1.1Mistral AI,0.536,40
+o3-miniOpenAI,0.493,41
+Claude 3.5 SonnetAnthropic,0.49,42
+DeepSeek-R1-0528DeepSeek,0.446,43
+DeepSeek-V3DeepSeek,0.42,44
+o1-previewOpenAI,0.413,45
+o1OpenAI,0.41,46
+Claude 3.5 HaikuAnthropic,0.406,47
+Nemotron 3 Nano (30B A3B)NVIDIA,0.388,48
+GPT-4.5OpenAI,0.38,49
+GPT-4oOpenAI,0.332,50
