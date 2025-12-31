@@ -2,11 +2,25 @@
 应用审核结果脚本（版本2 - JSON格式）
 
 读取JSON格式的审核文件，提取每个benchmark模型的最终映射，更新mapping.json。
+
+功能：
+- 自动检测未审核的模型并发出警告
+- 允许在有警告的情况下继续处理（未审核的模型会被丢弃）
 """
 
 import json
 from pathlib import Path
-from typing import Dict
+from typing import Dict, List, Tuple
+
+# 导入未审核模型检测功能
+try:
+    from .check_unreviewed_models import check_unreviewed_models, get_benchmark_id_from_path, get_review_file_path
+except ImportError:
+    # 如果相对导入失败，尝试绝对导入
+    import sys
+    from pathlib import Path as PathLib
+    sys.path.insert(0, str(PathLib(__file__).parent))
+    from check_unreviewed_models import check_unreviewed_models, get_benchmark_id_from_path, get_review_file_path
 
 
 def load_review_file_json(review_file: Path) -> Dict[str, str]:
@@ -47,11 +61,19 @@ def load_review_file_json(review_file: Path) -> Dict[str, str]:
 def apply_review_results(
     review_files_dir: Path,
     mapping_json_path: Path,
-    artificial_analysis_benchmarks: list
+    artificial_analysis_benchmarks: list,
+    check_unreviewed: bool = True,
+    data_dir: str = 'cleaned'
 ):
     """
     应用所有审核结果到映射表
+    
+    参数:
+    - check_unreviewed: 是否检测未审核的模型（默认True）
+    - data_dir: 数据目录（'raw' 或 'cleaned'，默认 'cleaned'）
     """
+    base_dir = review_files_dir.parent.parent.parent.parent
+    
     # 加载现有映射表
     if mapping_json_path.exists():
         with open(mapping_json_path, 'r', encoding='utf-8') as f:
@@ -60,6 +82,52 @@ def apply_review_results(
         existing_mappings = {}
     
     print(f"现有映射数量: {len(existing_mappings)}")
+    
+    # 检测未审核的模型（如果启用）
+    all_unreviewed = {}  # {benchmark_id: [unreviewed_models]}
+    
+    if check_unreviewed:
+        print("\n" + "="*60)
+        print("检测未审核的模型...")
+        print("="*60)
+        
+        data_base_dir = base_dir / 'data' / data_dir
+        
+        # 检查所有 benchmark
+        for data_csv_path in data_base_dir.rglob('data.csv'):
+            benchmark_id = get_benchmark_id_from_path(data_csv_path)
+            if benchmark_id is None:
+                continue
+            
+            has_unreviewed, unreviewed_models = check_unreviewed_models(
+                data_csv_path,
+                review_files_dir,
+                verbose=False  # 不打印详细信息，后面统一打印
+            )
+            
+            if has_unreviewed:
+                all_unreviewed[benchmark_id] = unreviewed_models
+        
+        # 打印警告摘要
+        if all_unreviewed:
+            total_unreviewed = sum(len(models) for models in all_unreviewed.values())
+            print(f"\n⚠️  警告: 发现 {len(all_unreviewed)} 个 benchmark 有未审核的模型（共 {total_unreviewed} 个）")
+            print("\n未审核的模型列表:")
+            for benchmark_id, unreviewed_models in all_unreviewed.items():
+                print(f"  - {benchmark_id}: {len(unreviewed_models)} 个未审核模型")
+                if len(unreviewed_models) <= 5:
+                    for model in unreviewed_models:
+                        print(f"      • {model}")
+                else:
+                    print(f"      (前5个: {', '.join(unreviewed_models[:5])}...)")
+            
+            print("\n提示: 未审核的模型在后续处理中会被丢弃。")
+            print("      如果需要保留这些模型，请先审核它们，然后重新运行此脚本。")
+            print("      您可以忽略此警告继续处理，未审核的模型将被自动丢弃。")
+            print("="*60 + "\n")
+        else:
+            print("✅ 所有模型都已审核！")
+            print("="*60 + "\n")
     
     # 处理所有审核文件
     new_mappings = {}
@@ -111,6 +179,9 @@ def apply_review_results(
     print(f"  新增映射: {len(new_mappings)} 个")
     print(f"  总映射数: {len(existing_mappings)} 个")
     print(f"  映射表位置: {mapping_json_path}")
+    if all_unreviewed:
+        total_unreviewed = sum(len(models) for models in all_unreviewed.values())
+        print(f"  ⚠️  注意: {total_unreviewed} 个未审核的模型已被丢弃")
     print("="*60)
 
 
