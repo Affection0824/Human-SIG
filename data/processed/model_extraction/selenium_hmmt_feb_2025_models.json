@@ -1,0 +1,171 @@
+{
+  "GPT-5.2 Pro": {
+    "model_name": "GPT-5.2 Pro",
+    "family": "gpt",
+    "subfamily": "gpt-5.2-pro",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-5.2": {
+    "model_name": "GPT-5.2",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-V3.2-Speciale": {
+    "model_name": "-V3.2-Speciale",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Speciale"
+    ]
+  },
+  "Kimi K2-Thinking-0905": {
+    "model_name": "Kimi K2-Thinking-0905",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": "0905",
+    "parameters": null,
+    "other_info": [
+      "Thinking"
+    ]
+  },
+  "Grok 4 Fast": {
+    "model_name": "Grok 4 Fast",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Fast"
+    ]
+  },
+  "GPT-5": {
+    "model_name": "GPT-5",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-V3.2 (Thinking)": {
+    "model_name": "-V3.2 (Thinking)",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Thinking"
+    ]
+  },
+  "GPT-5 mini": {
+    "model_name": "GPT-5 mini",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "MiMo-V2-Flash": {
+    "model_name": "MiMo-V2-Flash",
+    "family": "mimo",
+    "subfamily": "mimo-flash",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-V3.2-Exp": {
+    "model_name": "-V3.2-Exp",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Exp"
+    ]
+  },
+  "-R1-0528": {
+    "model_name": "-R1-0528",
+    "family": "deepseek",
+    "subfamily": null,
+    "version": "1",
+    "date": "0528",
+    "parameters": null,
+    "other_info": [
+      "R1"
+    ]
+  },
+  "GPT-5 nano": {
+    "model_name": "GPT-5 nano",
+    "family": "gpt",
+    "subfamily": "gpt-5-nano",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Kimi K2 Instruct": {
+    "model_name": "Kimi K2 Instruct",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Kimi K2-Instruct-0905": {
+    "model_name": "Kimi K2-Instruct-0905",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": "0905",
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "GPT-4.1 mini": {
+    "model_name": "GPT-4.1 mini",
+    "family": "gpt",
+    "subfamily": "gpt-4.1-mini",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-V3.1": {
+    "model_name": "-V3.1",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-4.1": {
+    "model_name": "GPT-4.1",
+    "family": "gpt",
+    "subfamily": "gpt-4.1",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  }
+}

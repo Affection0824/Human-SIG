@@ -1,0 +1,521 @@
+{
+  "GPT-5.2 Pro": {
+    "model_name": "GPT-5.2 Pro",
+    "family": "gpt",
+    "subfamily": "gpt-5.2-pro",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-5.2": {
+    "model_name": "GPT-5.2",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemini 3 Pro": {
+    "model_name": "Gemini 3 Pro",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemini 3 Flash": {
+    "model_name": "Gemini 3 Flash",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Grok-4 Heavy": {
+    "model_name": "Grok-4 Heavy",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Heavy"
+    ]
+  },
+  "GPT-5.1": {
+    "model_name": "GPT-5.1",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-5.1 Instant": {
+    "model_name": "GPT-5.1 Instant",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Instant"
+    ]
+  },
+  "GPT-5.1 Thinking": {
+    "model_name": "GPT-5.1 Thinking",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Thinking"
+    ]
+  },
+  "Grok-4": {
+    "model_name": "Grok-4",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude Opus 4.5": {
+    "model_name": "Claude Opus 4.5",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemini 2.5 Pro Preview 06-05": {
+    "model_name": "Gemini 2.5 Pro Preview 06-05",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "05",
+      "06"
+    ]
+  },
+  "GPT-5": {
+    "model_name": "GPT-5",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GLM-4.7New": {
+    "model_name": "GLM-4.7New",
+    "family": "glm",
+    "subfamily": "glm-4.7",
+    "version": "4.7",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "New"
+    ]
+  },
+  "Grok 4 Fast": {
+    "model_name": "Grok 4 Fast",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Fast"
+    ]
+  },
+  "Claude 3.7 Sonnet": {
+    "model_name": "Claude 3.7 Sonnet",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "3.7",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Grok-3": {
+    "model_name": "Grok-3",
+    "family": "grok",
+    "subfamily": "grok-3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Kimi K2-Thinking-0905": {
+    "model_name": "Kimi K2-Thinking-0905",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": "0905",
+    "parameters": null,
+    "other_info": [
+      "Thinking"
+    ]
+  },
+  "Grok-3 Mini": {
+    "model_name": "Grok-3 Mini",
+    "family": "grok",
+    "subfamily": "grok-3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Mini"
+    ]
+  },
+  "MiMo-V2-Flash": {
+    "model_name": "MiMo-V2-Flash",
+    "family": "mimo",
+    "subfamily": "mimo-flash",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude Sonnet 4.5": {
+    "model_name": "Claude Sonnet 4.5",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "o3": {
+    "model_name": "o3",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "o3"
+    ]
+  },
+  "Gemini 2.5 Pro": {
+    "model_name": "Gemini 2.5 Pro",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemini 2.5 Flash": {
+    "model_name": "Gemini 2.5 Flash",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-V3.2 (Thinking)": {
+    "model_name": "-V3.2 (Thinking)",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Thinking"
+    ]
+  },
+  "GPT-5 mini": {
+    "model_name": "GPT-5 mini",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "o4-mini": {
+    "model_name": "o4-mini",
+    "family": "gpt",
+    "subfamily": "o4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o4"
+    ]
+  },
+  "Qwen3-235B-A22B-Thinking-2507": {
+    "model_name": "Qwen3-235B-A22B-Thinking-2507",
+    "family": "qwen",
+    "subfamily": "qwen3",
+    "version": "3",
+    "date": "2507",
+    "parameters": "235B",
+    "other_info": [
+      "25B",
+      "A22B",
+      "Thinking"
+    ]
+  },
+  "GLM-4.6": {
+    "model_name": "GLM-4.6",
+    "family": "glm",
+    "subfamily": "glm-4.6",
+    "version": "4.6",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-R1-0528": {
+    "model_name": "-R1-0528",
+    "family": "deepseek",
+    "subfamily": null,
+    "version": "1",
+    "date": "0528",
+    "parameters": null,
+    "other_info": [
+      "R1"
+    ]
+  },
+  "M2.1New": {
+    "model_name": "M2.1New",
+    "family": null,
+    "subfamily": null,
+    "version": "2.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1New",
+      "M2"
+    ]
+  },
+  "Claude Opus 4.1": {
+    "model_name": "Claude Opus 4.1",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT OSS 120B": {
+    "model_name": "GPT OSS 120B",
+    "family": "gpt",
+    "subfamily": "gpt-oss",
+    "version": null,
+    "date": null,
+    "parameters": "120B",
+    "other_info": null
+  },
+  "-V3.2-Exp": {
+    "model_name": "-V3.2-Exp",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Exp"
+    ]
+  },
+  "Claude Opus 4": {
+    "model_name": "Claude Opus 4",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GLM-4.5": {
+    "model_name": "GLM-4.5",
+    "family": "glm",
+    "subfamily": "glm-4.5",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "o1-pro": {
+    "model_name": "o1-pro",
+    "family": "gpt",
+    "subfamily": "o1",
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "o1",
+      "pro"
+    ]
+  },
+  "o1": {
+    "model_name": "o1",
+    "family": "gpt",
+    "subfamily": "o1",
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "o1"
+    ]
+  },
+  "M2": {
+    "model_name": "M2",
+    "family": null,
+    "subfamily": null,
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "M2"
+    ]
+  },
+  "Qwen3-235B-A22B-Instruct-2507": {
+    "model_name": "Qwen3-235B-A22B-Instruct-2507",
+    "family": "qwen",
+    "subfamily": "qwen3",
+    "version": "3",
+    "date": "2507",
+    "parameters": "235B",
+    "other_info": [
+      "25B",
+      "A22B",
+      "Instruct"
+    ]
+  },
+  "o3-mini": {
+    "model_name": "o3-mini",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o3"
+    ]
+  },
+  "Qwen3-Next-80B-A3B-Thinking": {
+    "model_name": "Qwen3-Next-80B-A3B-Thinking",
+    "family": "qwen",
+    "subfamily": "qwen3-next",
+    "version": "3",
+    "date": null,
+    "parameters": "80B",
+    "other_info": [
+      "A3B",
+      "Thinking"
+    ]
+  },
+  "Llama 3.1 Nemotron Ultra 253B v1": {
+    "model_name": "Llama 3.1 Nemotron Ultra 253B v1",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "253B",
+    "other_info": [
+      "Nemotron",
+      "Ultra",
+      "v1"
+    ]
+  },
+  "Kimi K2 0905": {
+    "model_name": "Kimi K2 0905",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": "0905",
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude Sonnet 4": {
+    "model_name": "Claude Sonnet 4",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Kimi K2 Instruct": {
+    "model_name": "Kimi K2 Instruct",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Kimi K2-Instruct-0905": {
+    "model_name": "Kimi K2-Instruct-0905",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": "0905",
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Nemotron 3 Nano (30B A3B)": {
+    "model_name": "Nemotron 3 Nano (30B A3B)",
+    "family": "nemotron",
+    "subfamily": "nemotron-nano",
+    "version": "3",
+    "date": null,
+    "parameters": "30B",
+    "other_info": [
+      "30B",
+      "A3B"
+    ]
+  },
+  "GLM-4.5-Air": {
+    "model_name": "GLM-4.5-Air",
+    "family": "glm",
+    "subfamily": "glm-4.5",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Air"
+    ]
+  },
+  "-V3.1": {
+    "model_name": "-V3.1",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Qwen3 VL 30B A3B Thinking": {
+    "model_name": "Qwen3 VL 30B A3B Thinking",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "30B",
+    "other_info": [
+      "A3B",
+      "Thinking",
+      "VL"
+    ]
+  }
+}

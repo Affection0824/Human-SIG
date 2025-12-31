@@ -1,0 +1,649 @@
+{
+  "gemini-3-pro-preview": {
+    "model_name": "gemini-3-pro-preview",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-2.5-pro": {
+    "model_name": "gemini-2.5-pro",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-5-2025-08-07": {
+    "model_name": "gpt-5-2025-08-07",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": "2025-08-07",
+    "parameters": null,
+    "other_info": [
+      "07",
+      "08",
+      "202"
+    ]
+  },
+  "grok-4-0709": {
+    "model_name": "grok-4-0709",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": "0709",
+    "parameters": null,
+    "other_info": null
+  },
+  "o3-2025-04-16": {
+    "model_name": "o3-2025-04-16",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": "2025-04-16",
+    "parameters": null,
+    "other_info": [
+      "o3"
+    ]
+  },
+  "claude-opus-4-5-20251101": {
+    "model_name": "claude-opus-4-5-20251101",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": "2025-11-01",
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-4.1-2025-04-14": {
+    "model_name": "gpt-4.1-2025-04-14",
+    "family": "gpt",
+    "subfamily": "gpt-4.1",
+    "version": "4.1",
+    "date": "2025-04-14",
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-2.5-flash": {
+    "model_name": "gemini-2.5-flash",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-5.1-2025-11-13": {
+    "model_name": "gpt-5.1-2025-11-13",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": "2025-11-13",
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-sonnet-4-5-thinking-20250929": {
+    "model_name": "claude-sonnet-4-5-thinking-20250929",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": "2025-09-29",
+    "parameters": null,
+    "other_info": [
+      "thinking"
+    ]
+  },
+  "claude-opus-4-1-20250805": {
+    "model_name": "claude-opus-4-1-20250805",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": "2025-08-05",
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-5-mini-2025-08-07": {
+    "model_name": "gpt-5-mini-2025-08-07",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": "2025-08-07",
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-sonnet-4-20250514": {
+    "model_name": "claude-sonnet-4-20250514",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": "2025-05-14",
+    "parameters": null,
+    "other_info": null
+  },
+  "o4-mini-2025-04-16": {
+    "model_name": "o4-mini-2025-04-16",
+    "family": "gpt",
+    "subfamily": "o4",
+    "version": "4",
+    "date": "2025-04-16",
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o4"
+    ]
+  },
+  "grok-4-fast-reasoning": {
+    "model_name": "grok-4-fast-reasoning",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "fast",
+      "reasoning"
+    ]
+  },
+  "claude-3-5-sonnet-20241022": {
+    "model_name": "claude-3-5-sonnet-20241022",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "3",
+    "date": "2024-10-22",
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-1.5-pro-002": {
+    "model_name": "gemini-1.5-pro-002",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "1.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "002"
+    ]
+  },
+  "gemini-1.5-flash-002": {
+    "model_name": "gemini-1.5-flash-002",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "1.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "002"
+    ]
+  },
+  "gemini-1.5-flash-8b-001": {
+    "model_name": "gemini-1.5-flash-8b-001",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "1.5",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "001"
+    ]
+  },
+  "gemini-2.0-flash-001": {
+    "model_name": "gemini-2.0-flash-001",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "001"
+    ]
+  },
+  "gemini-2.5-pro-preview-05-06": {
+    "model_name": "gemini-2.5-pro-preview-05-06",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "05",
+      "06"
+    ]
+  },
+  "grok-2-1212": {
+    "model_name": "grok-2-1212",
+    "family": "grok",
+    "subfamily": "grok-2",
+    "version": "2",
+    "date": "1212",
+    "parameters": null,
+    "other_info": [
+      "11"
+    ]
+  },
+  "o3-mini-2025-01-31": {
+    "model_name": "o3-mini-2025-01-31",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": "2025-01-31",
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o3"
+    ]
+  },
+  "o1-mini-2024-09-12": {
+    "model_name": "o1-mini-2024-09-12",
+    "family": "gpt",
+    "subfamily": "o1",
+    "version": "1",
+    "date": "2024-09-12",
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o1"
+    ]
+  },
+  "o1-2024-12-17": {
+    "model_name": "o1-2024-12-17",
+    "family": "gpt",
+    "subfamily": "o1",
+    "version": "1",
+    "date": "2024-12-17",
+    "parameters": null,
+    "other_info": [
+      "o1"
+    ]
+  },
+  "gpt-4o-mini-2024-07-18": {
+    "model_name": "gpt-4o-mini-2024-07-18",
+    "family": "gpt",
+    "subfamily": "gpt-4o-mini",
+    "version": "4",
+    "date": "2024-07-18",
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-3-5-haiku-20241022": {
+    "model_name": "claude-3-5-haiku-20241022",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "3",
+    "date": "2024-10-22",
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-3-7-sonnet-20250219": {
+    "model_name": "claude-3-7-sonnet-20250219",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "3",
+    "date": "2025-02-19",
+    "parameters": null,
+    "other_info": null
+  },
+  "ministral-3b-2410": {
+    "model_name": "ministral-3b-2410",
+    "family": "ministral",
+    "subfamily": null,
+    "version": null,
+    "date": "2410",
+    "parameters": "3B",
+    "other_info": null
+  },
+  "ministral-8b-2410": {
+    "model_name": "ministral-8b-2410",
+    "family": "ministral",
+    "subfamily": null,
+    "version": null,
+    "date": "2410",
+    "parameters": "8B",
+    "other_info": null
+  },
+  "open-mixtral-8x22b-2404": {
+    "model_name": "open-mixtral-8x22b-2404",
+    "family": "open",
+    "subfamily": null,
+    "version": "8",
+    "date": "2404",
+    "parameters": "22B",
+    "other_info": [
+      "8x",
+      "mixtral"
+    ]
+  },
+  "gemini-2.5-flash-preview-05-20": {
+    "model_name": "gemini-2.5-flash-preview-05-20",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "05",
+      "20"
+    ]
+  },
+  "claude-opus-4-20250514": {
+    "model_name": "claude-opus-4-20250514",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": "2025-05-14",
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-sonnet-4-5-20250929": {
+    "model_name": "claude-sonnet-4-5-20250929",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": "2025-09-29",
+    "parameters": null,
+    "other_info": null
+  },
+  "-r1-0528": {
+    "model_name": "-r1-0528",
+    "family": "deepseek",
+    "subfamily": null,
+    "version": "1",
+    "date": "0528",
+    "parameters": null,
+    "other_info": [
+      "r1"
+    ]
+  },
+  "qwen3-235b-a22b-instruct-2507": {
+    "model_name": "qwen3-235b-a22b-instruct-2507",
+    "family": "qwen",
+    "subfamily": "qwen3",
+    "version": "3",
+    "date": "2507",
+    "parameters": "235B",
+    "other_info": [
+      "25b",
+      "a22b",
+      "instruct"
+    ]
+  },
+  "gpt-oss-120b": {
+    "model_name": "gpt-oss-120b",
+    "family": "gpt",
+    "subfamily": "gpt-oss",
+    "version": null,
+    "date": null,
+    "parameters": "120B",
+    "other_info": null
+  },
+  "gemma-3-27b-it": {
+    "model_name": "gemma-3-27b-it",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "27B",
+    "other_info": [
+      "it"
+    ]
+  },
+  "-small-2503": {
+    "model_name": "-small-2503",
+    "family": null,
+    "subfamily": null,
+    "version": null,
+    "date": "2503",
+    "parameters": null,
+    "other_info": [
+      "small"
+    ]
+  },
+  "gemma-3-12b-it": {
+    "model_name": "gemma-3-12b-it",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "12B",
+    "other_info": [
+      "it"
+    ]
+  },
+  "gpt-oss-20b": {
+    "model_name": "gpt-oss-20b",
+    "family": "gpt",
+    "subfamily": "gpt-oss",
+    "version": null,
+    "date": null,
+    "parameters": "20B",
+    "other_info": null
+  },
+  "gemma-3-4b-it": {
+    "model_name": "gemma-3-4b-it",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "4B",
+    "other_info": [
+      "it"
+    ]
+  },
+  "gemma-3-1b-it": {
+    "model_name": "gemma-3-1b-it",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "1B",
+    "other_info": [
+      "it"
+    ]
+  },
+  "grok-4.1-fast-reasoning": {
+    "model_name": "grok-4.1-fast-reasoning",
+    "family": "grok",
+    "subfamily": "grok-4.1",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "fast",
+      "reasoning"
+    ]
+  },
+  "gpt-4o-2024-08-06": {
+    "model_name": "gpt-4o-2024-08-06",
+    "family": "gpt",
+    "subfamily": "gpt-4o",
+    "version": "4",
+    "date": "2024-08-06",
+    "parameters": null,
+    "other_info": null
+  },
+  "llama-3-glm-v2": {
+    "model_name": "llama-3-glm-v2",
+    "family": "llama",
+    "subfamily": "llama-3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "glm",
+      "v2"
+    ]
+  },
+  "-v3.1": {
+    "model_name": "-v3.1",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-large-2411": {
+    "model_name": "-large-2411",
+    "family": "mistral",
+    "subfamily": "mistral-large",
+    "version": null,
+    "date": "2411",
+    "parameters": null,
+    "other_info": null
+  },
+  "qwen3-235b-a22b-thinking-2507": {
+    "model_name": "qwen3-235b-a22b-thinking-2507",
+    "family": "qwen",
+    "subfamily": "qwen3",
+    "version": "3",
+    "date": "2507",
+    "parameters": "235B",
+    "other_info": [
+      "25b",
+      "a22b",
+      "thinking"
+    ]
+  },
+  "grok-3-mini": {
+    "model_name": "grok-3-mini",
+    "family": "grok",
+    "subfamily": "grok-3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "mini"
+    ]
+  },
+  "-v3": {
+    "model_name": "-v3",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-4.5-preview-2025-02-27": {
+    "model_name": "gpt-4.5-preview-2025-02-27",
+    "family": "gpt",
+    "subfamily": "gpt-4.5-preview",
+    "version": "4.5",
+    "date": "2025-02-27",
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-3.5-turbo-1106": {
+    "model_name": "gpt-3.5-turbo-1106",
+    "family": "gpt",
+    "subfamily": "gpt-3.5-turbo",
+    "version": "3.5",
+    "date": "1106",
+    "parameters": null,
+    "other_info": null
+  },
+  "codestral-2501": {
+    "model_name": "codestral-2501",
+    "family": "codestral",
+    "subfamily": null,
+    "version": null,
+    "date": "2501",
+    "parameters": null,
+    "other_info": null
+  },
+  "llama-3.1-405b-instruct": {
+    "model_name": "llama-3.1-405b-instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "405B",
+    "other_info": [
+      "instruct"
+    ]
+  },
+  "llama-3.1-70b-instruct": {
+    "model_name": "llama-3.1-70b-instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "70B",
+    "other_info": [
+      "instruct"
+    ]
+  },
+  "llama-3.1-8b-instruct": {
+    "model_name": "llama-3.1-8b-instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "instruct"
+    ]
+  },
+  "-r1-0120": {
+    "model_name": "-r1-0120",
+    "family": "deepseek",
+    "subfamily": null,
+    "version": "1",
+    "date": "0120",
+    "parameters": null,
+    "other_info": [
+      "r1"
+    ]
+  },
+  "grok-3": {
+    "model_name": "grok-3",
+    "family": "grok",
+    "subfamily": "grok-3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-2.5-pro-preview-06-05": {
+    "model_name": "gemini-2.5-pro-preview-06-05",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "05",
+      "06"
+    ]
+  },
+  "gemini-2.0-pro": {
+    "model_name": "gemini-2.0-pro",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-medium-3": {
+    "model_name": "-medium-3",
+    "family": "mistral",
+    "subfamily": "mistral-medium",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-haiku-4-5-20251001": {
+    "model_name": "claude-haiku-4-5-20251001",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "4",
+    "date": "2025-10-01",
+    "parameters": null,
+    "other_info": null
+  }
+}

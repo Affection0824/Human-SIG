@@ -20,7 +20,7 @@ Rank,Model,Score,Size,Context,Cost,License
 19,Kimi K2-Thinking-0905,0.713,1.0T,262K,$0.47$2.00,
 20,Grok Code Fast 1,0.708,—,256K,$0.20$1.50,
 21,Claude 3.7 Sonnet,0.703,—,200K,$3.00$15.00,
-22,Qwen Team,0.696,480B,262K,$0.10$0.10,
+22,Qwen3-Coder 480B A35B Instruct,0.696,480B,262K,$0.10$0.10,
 23,M2,0.694,230B,1.0M,$0.30$1.20,
 24,o3,0.691,—,200K,$2.00$8.00,
 25,o4-mini,0.681,—,200K,$1.10$4.40,

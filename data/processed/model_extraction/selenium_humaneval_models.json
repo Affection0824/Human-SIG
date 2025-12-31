@@ -1,0 +1,503 @@
+{
+  "Kimi K2 0905": {
+    "model_name": "Kimi K2 0905",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": "0905",
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude 3.5 Sonnet": {
+    "model_name": "Claude 3.5 Sonnet",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "3.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-5": {
+    "model_name": "GPT-5",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Kimi K2 Instruct": {
+    "model_name": "Kimi K2 Instruct",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Qwen2.5-Coder 32B Instruct": {
+    "model_name": "Qwen2.5-Coder 32B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5-coder",
+    "version": "2.5",
+    "date": null,
+    "parameters": "32B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "o1-mini": {
+    "model_name": "o1-mini",
+    "family": "gpt",
+    "subfamily": "o1",
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o1"
+    ]
+  },
+  "Large 2Mistral AI": {
+    "model_name": "Large 2Mistral AI",
+    "family": "large",
+    "subfamily": null,
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "2Mistral"
+    ]
+  },
+  "Qwen2.5 VL 32B Instruct": {
+    "model_name": "Qwen2.5 VL 32B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5-vl",
+    "version": "2.5",
+    "date": null,
+    "parameters": "32B",
+    "other_info": [
+      "Instruct",
+      "VL"
+    ]
+  },
+  "GPT-4o": {
+    "model_name": "GPT-4o",
+    "family": "gpt",
+    "subfamily": "gpt-4o",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Granite 3.3 8B InstructIBM": {
+    "model_name": "Granite 3.3 8B InstructIBM",
+    "family": "granite",
+    "subfamily": null,
+    "version": "3.3",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "InstructIBM"
+    ]
+  },
+  "Granite 3.3 8B BaseIBM": {
+    "model_name": "Granite 3.3 8B BaseIBM",
+    "family": "granite",
+    "subfamily": null,
+    "version": "3.3",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "BaseIBM"
+    ]
+  },
+  "Gemini Diffusion": {
+    "model_name": "Gemini Diffusion",
+    "family": "gemini",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Diffusion"
+    ]
+  },
+  "Nova Pro": {
+    "model_name": "Nova Pro",
+    "family": "nova",
+    "subfamily": "nova-pro",
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Llama 3.1 405B Instruct": {
+    "model_name": "Llama 3.1 405B Instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "405B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "-V2.5": {
+    "model_name": "-V2.5",
+    "family": "deepseek",
+    "subfamily": "deepseek-v2.5",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Small 3.1 24B InstructMistral AI": {
+    "model_name": "Small 3.1 24B InstructMistral AI",
+    "family": "small",
+    "subfamily": null,
+    "version": "3.1",
+    "date": null,
+    "parameters": "24B",
+    "other_info": [
+      "InstructMistral"
+    ]
+  },
+  "Qwen2.5 32B Instruct": {
+    "model_name": "Qwen2.5 32B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5",
+    "version": "2.5",
+    "date": null,
+    "parameters": "32B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Llama 3.3 70B Instruct": {
+    "model_name": "Llama 3.3 70B Instruct",
+    "family": "llama",
+    "subfamily": "llama-3.3",
+    "version": "3.3",
+    "date": null,
+    "parameters": "70B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Qwen2.5-Coder 7B Instruct": {
+    "model_name": "Qwen2.5-Coder 7B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5-coder",
+    "version": "2.5",
+    "date": null,
+    "parameters": "7B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Grok-2": {
+    "model_name": "Grok-2",
+    "family": "grok",
+    "subfamily": "grok-2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude 3.5 Haiku": {
+    "model_name": "Claude 3.5 Haiku",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "3.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "o1": {
+    "model_name": "o1",
+    "family": "gpt",
+    "subfamily": "o1",
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "o1"
+    ]
+  },
+  "GPT-4.5": {
+    "model_name": "GPT-4.5",
+    "family": "gpt",
+    "subfamily": "gpt-4.5",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemma 3 27B": {
+    "model_name": "Gemma 3 27B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "27B",
+    "other_info": null
+  },
+  "GPT-4o mini": {
+    "model_name": "GPT-4o mini",
+    "family": "gpt",
+    "subfamily": "gpt-4o-mini",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-4 Turbo": {
+    "model_name": "GPT-4 Turbo",
+    "family": "gpt",
+    "subfamily": "gpt-4-turbo",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Qwen2.5 72B Instruct": {
+    "model_name": "Qwen2.5 72B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5",
+    "version": "2.5",
+    "date": null,
+    "parameters": "72B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Qwen2 72B Instruct": {
+    "model_name": "Qwen2 72B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2",
+    "version": "2",
+    "date": null,
+    "parameters": "72B",
+    "other_info": [
+      "7B",
+      "Instruct"
+    ]
+  },
+  "Grok-2 mini": {
+    "model_name": "Grok-2 mini",
+    "family": "grok",
+    "subfamily": "grok-2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "mini"
+    ]
+  },
+  "Nova Lite": {
+    "model_name": "Nova Lite",
+    "family": "nova",
+    "subfamily": "nova-lite",
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemma 3 12B": {
+    "model_name": "Gemma 3 12B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "12B",
+    "other_info": null
+  },
+  "Claude 3 Opus": {
+    "model_name": "Claude 3 Opus",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Small 3 24B InstructMistral AI": {
+    "model_name": "Small 3 24B InstructMistral AI",
+    "family": "small",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "24B",
+    "other_info": [
+      "InstructMistral"
+    ]
+  },
+  "Qwen2.5 7B Instruct": {
+    "model_name": "Qwen2.5 7B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5",
+    "version": "2.5",
+    "date": null,
+    "parameters": "7B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Gemini 1.5 Pro": {
+    "model_name": "Gemini 1.5 Pro",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "1.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Qwen2.5 14B Instruct": {
+    "model_name": "Qwen2.5 14B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5",
+    "version": "2.5",
+    "date": null,
+    "parameters": "14B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Phi 4": {
+    "model_name": "Phi 4",
+    "family": "phi",
+    "subfamily": null,
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "IBM Granite 4.0 Tiny PreviewIBM": {
+    "model_name": "IBM Granite 4.0 Tiny PreviewIBM",
+    "family": "granite",
+    "subfamily": null,
+    "version": "4.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "IBM",
+      "PreviewIBM",
+      "Tiny"
+    ]
+  },
+  "Nova Micro": {
+    "model_name": "Nova Micro",
+    "family": "nova",
+    "subfamily": "nova-micro",
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Codestral-22BMistral AI": {
+    "model_name": "Codestral-22BMistral AI",
+    "family": "codestral",
+    "subfamily": null,
+    "version": "22",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "22BMistral"
+    ]
+  },
+  "Llama 3.1 70B Instruct": {
+    "model_name": "Llama 3.1 70B Instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "70B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Qwen2 7B Instruct": {
+    "model_name": "Qwen2 7B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2",
+    "version": "2",
+    "date": null,
+    "parameters": "7B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Qwen2.5-Omni-7B": {
+    "model_name": "Qwen2.5-Omni-7B",
+    "family": "qwen",
+    "subfamily": "qwen2.5-omni",
+    "version": "2.5",
+    "date": null,
+    "parameters": "7B",
+    "other_info": null
+  },
+  "Claude 3 Haiku": {
+    "model_name": "Claude 3 Haiku",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemma 3n E4B Instructed": {
+    "model_name": "Gemma 3n E4B Instructed",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "4B",
+    "other_info": [
+      "3n",
+      "Instructed"
+    ]
+  },
+  "Gemma 3n E4B Instructed LiteRT Preview": {
+    "model_name": "Gemma 3n E4B Instructed LiteRT Preview",
+    "family": "gemma",
+    "subfamily": "gemma-preview",
+    "version": "3",
+    "date": null,
+    "parameters": "4B",
+    "other_info": [
+      "3n",
+      "Instructed",
+      "LiteRT"
+    ]
+  },
+  "Gemini 1.5 Flash": {
+    "model_name": "Gemini 1.5 Flash",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "1.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Grok-1.5": {
+    "model_name": "Grok-1.5",
+    "family": "grok",
+    "subfamily": "grok-1.5",
+    "version": "1.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude 3 Sonnet": {
+    "model_name": "Claude 3 Sonnet",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  }
+}

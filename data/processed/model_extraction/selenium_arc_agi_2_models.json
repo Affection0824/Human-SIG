@@ -1,0 +1,1282 @@
+{
+  "Human Panel": {
+    "model_name": "Human Panel",
+    "family": "human",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Panel"
+    ]
+  },
+  "GPT-5.2 Pro (High)": {
+    "model_name": "GPT-5.2 Pro (High)",
+    "family": "gpt",
+    "subfamily": "gpt-5.2-pro",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High"
+    ]
+  },
+  "Gemini 3 Pro (Refine.)": {
+    "model_name": "Gemini 3 Pro (Refine.)",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Refine."
+    ]
+  },
+  "GPT-5.2 (X-High)": {
+    "model_name": "GPT-5.2 (X-High)",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "X-High"
+    ]
+  },
+  "Gemini 3 Deep Think (Preview) ²": {
+    "model_name": "Gemini 3 Deep Think (Preview) ²",
+    "family": "gemini",
+    "subfamily": "gemini-preview",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Deep",
+      "Think"
+    ]
+  },
+  "GPT-5.2 (High)": {
+    "model_name": "GPT-5.2 (High)",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High"
+    ]
+  },
+  "GPT-5.2 Pro (Medium)": {
+    "model_name": "GPT-5.2 Pro (Medium)",
+    "family": "gpt",
+    "subfamily": "gpt-5.2-pro",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium"
+    ]
+  },
+  "Opus 4.5 (Thinking, 64K)": {
+    "model_name": "Opus 4.5 (Thinking, 64K)",
+    "family": "opus",
+    "subfamily": null,
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "64K",
+      "Thinking"
+    ]
+  },
+  "Gemini 3 Flash Preview (High)": {
+    "model_name": "Gemini 3 Flash Preview (High)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High"
+    ]
+  },
+  "Gemini 3 Pro": {
+    "model_name": "Gemini 3 Pro",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Opus 4.5 (Thinking, 32K)": {
+    "model_name": "Opus 4.5 (Thinking, 32K)",
+    "family": "opus",
+    "subfamily": null,
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "32K",
+      "Thinking"
+    ]
+  },
+  "Grok 4 (Refine.)": {
+    "model_name": "Grok 4 (Refine.)",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Refine."
+    ]
+  },
+  "NVARC": {
+    "model_name": "NVARC",
+    "family": "nvarc",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-5.2 (Medium)": {
+    "model_name": "GPT-5.2 (Medium)",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium"
+    ]
+  },
+  "Opus 4.5 (Thinking, 16K)": {
+    "model_name": "Opus 4.5 (Thinking, 16K)",
+    "family": "opus",
+    "subfamily": null,
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "16K",
+      "Thinking"
+    ]
+  },
+  "GPT-5 Pro": {
+    "model_name": "GPT-5 Pro",
+    "family": "gpt",
+    "subfamily": "gpt-5-pro",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-5.1 (Thinking, High)": {
+    "model_name": "GPT-5.1 (Thinking, High)",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High",
+      "Thinking"
+    ]
+  },
+  "Grok 4 (Thinking)": {
+    "model_name": "Grok 4 (Thinking)",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Thinking"
+    ]
+  },
+  "Opus 4.5 (Thinking, 8K)": {
+    "model_name": "Opus 4.5 (Thinking, 8K)",
+    "family": "opus",
+    "subfamily": null,
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "8K",
+      "Thinking"
+    ]
+  },
+  "Claude Sonnet 4.5 (Thinking 32K)": {
+    "model_name": "Claude Sonnet 4.5 (Thinking 32K)",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "32K",
+      "Thinking"
+    ]
+  },
+  "Gemini 3 Flash Preview (Medium)": {
+    "model_name": "Gemini 3 Flash Preview (Medium)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium"
+    ]
+  },
+  "GPT-5 (High)": {
+    "model_name": "GPT-5 (High)",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High"
+    ]
+  },
+  "GPT-5.2 (Low)": {
+    "model_name": "GPT-5.2 (Low)",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low"
+    ]
+  },
+  "Opus 4.5 (Thinking, 1K)": {
+    "model_name": "Opus 4.5 (Thinking, 1K)",
+    "family": "opus",
+    "subfamily": null,
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K",
+      "Thinking"
+    ]
+  },
+  "Claude Opus 4 (Thinking 16K)": {
+    "model_name": "Claude Opus 4 (Thinking 16K)",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "16K",
+      "Thinking"
+    ]
+  },
+  "Opus 4.5 (Thinking, None)": {
+    "model_name": "Opus 4.5 (Thinking, None)",
+    "family": "opus",
+    "subfamily": null,
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "None",
+      "Thinking"
+    ]
+  },
+  "GPT-5 (Medium)": {
+    "model_name": "GPT-5 (Medium)",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium"
+    ]
+  },
+  "Claude Sonnet 4.5 (Thinking 8K)": {
+    "model_name": "Claude Sonnet 4.5 (Thinking 8K)",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "8K",
+      "Thinking"
+    ]
+  },
+  "Claude Sonnet 4.5 (Thinking 16K)": {
+    "model_name": "Claude Sonnet 4.5 (Thinking 16K)",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "16K",
+      "Thinking"
+    ]
+  },
+  "o3 (High)": {
+    "model_name": "o3 (High)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High",
+      "o3"
+    ]
+  },
+  "GPT-5.1 (Thinking, Medium)": {
+    "model_name": "GPT-5.1 (Thinking, Medium)",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium",
+      "Thinking"
+    ]
+  },
+  "Tiny Recursion Model (TRM)": {
+    "model_name": "Tiny Recursion Model (TRM)",
+    "family": "tiny",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Recursion",
+      "TRM"
+    ]
+  },
+  "o4-mini (High)": {
+    "model_name": "o4-mini (High)",
+    "family": "gpt",
+    "subfamily": "o4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High",
+      "mini",
+      "o4"
+    ]
+  },
+  "Claude Sonnet 4 (Thinking 16K)": {
+    "model_name": "Claude Sonnet 4 (Thinking 16K)",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "16K",
+      "Thinking"
+    ]
+  },
+  "Claude Sonnet 4.5 (Thinking 1K)": {
+    "model_name": "Claude Sonnet 4.5 (Thinking 1K)",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K",
+      "Thinking"
+    ]
+  },
+  "Grok 4 (Fast Reasoning)": {
+    "model_name": "Grok 4 (Fast Reasoning)",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Fast",
+      "Reasoning"
+    ]
+  },
+  "o3-Pro (High)": {
+    "model_name": "o3-Pro (High)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High",
+      "Pro",
+      "o3"
+    ]
+  },
+  "Gemini 2.5 Pro (Thinking 32K)": {
+    "model_name": "Gemini 2.5 Pro (Thinking 32K)",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "32K",
+      "Thinking"
+    ]
+  },
+  "Claude Opus 4 (Thinking 8K)": {
+    "model_name": "Claude Opus 4 (Thinking 8K)",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "8K",
+      "Thinking"
+    ]
+  },
+  "GPT-5 Mini (High)": {
+    "model_name": "GPT-5 Mini (High)",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High"
+    ]
+  },
+  "Gemini 2.5 Pro (Thinking 16K)": {
+    "model_name": "Gemini 2.5 Pro (Thinking 16K)",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "16K",
+      "Thinking"
+    ]
+  },
+  "GPT-5 Mini (Medium)": {
+    "model_name": "GPT-5 Mini (Medium)",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium"
+    ]
+  },
+  "Claude Haiku 4.5 (Thinking 32K)": {
+    "model_name": "Claude Haiku 4.5 (Thinking 32K)",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "32K",
+      "Thinking"
+    ]
+  },
+  "o3 (Preview, Low) ¹": {
+    "model_name": "o3 (Preview, Low) ¹",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low",
+      "Preview",
+      "o3"
+    ]
+  },
+  "Gemini 2.5 Pro (Preview)": {
+    "model_name": "Gemini 2.5 Pro (Preview)",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude Sonnet 4.5": {
+    "model_name": "Claude Sonnet 4.5",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemini 2.5 Pro (Preview, Thinking 1K)": {
+    "model_name": "Gemini 2.5 Pro (Preview, Thinking 1K)",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K",
+      "Thinking"
+    ]
+  },
+  "Gemini 3 Flash Preview (Minimal)": {
+    "model_name": "Gemini 3 Flash Preview (Minimal)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Minimal"
+    ]
+  },
+  "o3-mini (High)": {
+    "model_name": "o3-mini (High)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High",
+      "mini",
+      "o3"
+    ]
+  },
+  "o3 (Medium)": {
+    "model_name": "o3 (Medium)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium",
+      "o3"
+    ]
+  },
+  "Gemini 2.5 Pro (Thinking 8K)": {
+    "model_name": "Gemini 2.5 Pro (Thinking 8K)",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "8K",
+      "Thinking"
+    ]
+  },
+  "Claude Haiku 4.5 (Thinking 16K)": {
+    "model_name": "Claude Haiku 4.5 (Thinking 16K)",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "16K",
+      "Thinking"
+    ]
+  },
+  "GPT-5 Nano (High)": {
+    "model_name": "GPT-5 Nano (High)",
+    "family": "gpt",
+    "subfamily": "gpt-5-nano",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "High"
+    ]
+  },
+  "Gemini 2.5 Flash (Preview) (Thinking 24K)": {
+    "model_name": "Gemini 2.5 Flash (Preview) (Thinking 24K)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "24K",
+      "Thinking"
+    ]
+  },
+  "ARChitects": {
+    "model_name": "ARChitects",
+    "family": "architects",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "o4-mini (Medium)": {
+    "model_name": "o4-mini (Medium)",
+    "family": "gpt",
+    "subfamily": "o4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium",
+      "mini",
+      "o4"
+    ]
+  },
+  "Gemini 2.5 Flash (Preview) (Thinking 1K)": {
+    "model_name": "Gemini 2.5 Flash (Preview) (Thinking 1K)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K",
+      "Thinking"
+    ]
+  },
+  "Gemini 2.5 Flash (Preview) (Thinking 8K)": {
+    "model_name": "Gemini 2.5 Flash (Preview) (Thinking 8K)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "8K",
+      "Thinking"
+    ]
+  },
+  "Claude Sonnet 4 (Thinking 8K)": {
+    "model_name": "Claude Sonnet 4 (Thinking 8K)",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "8K",
+      "Thinking"
+    ]
+  },
+  "o3-mini (Medium)": {
+    "model_name": "o3-mini (Medium)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium",
+      "mini",
+      "o3"
+    ]
+  },
+  "o3-Pro (Low)": {
+    "model_name": "o3-Pro (Low)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low",
+      "Pro",
+      "o3"
+    ]
+  },
+  "Hierarchical Reasoning Model (HRM)": {
+    "model_name": "Hierarchical Reasoning Model (HRM)",
+    "family": "hierarchical",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "HRM",
+      "Reasoning"
+    ]
+  },
+  "o3 (Low)": {
+    "model_name": "o3 (Low)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low",
+      "o3"
+    ]
+  },
+  "Gemini 2.5 Flash (Preview) (Thinking 16K)": {
+    "model_name": "Gemini 2.5 Flash (Preview) (Thinking 16K)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "16K",
+      "Thinking"
+    ]
+  },
+  "o3-Pro (Medium)": {
+    "model_name": "o3-Pro (Medium)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium",
+      "Pro",
+      "o3"
+    ]
+  },
+  "GPT-5 (Low)": {
+    "model_name": "GPT-5 (Low)",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low"
+    ]
+  },
+  "GPT-5.1 (Thinking, Low)": {
+    "model_name": "GPT-5.1 (Thinking, Low)",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low",
+      "Thinking"
+    ]
+  },
+  "Gemini 2.5 Flash (Preview)": {
+    "model_name": "Gemini 2.5 Flash (Preview)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "o4-mini (Low)": {
+    "model_name": "o4-mini (Low)",
+    "family": "gpt",
+    "subfamily": "o4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low",
+      "mini",
+      "o4"
+    ]
+  },
+  "GPT-5 Mini (Minimal)": {
+    "model_name": "GPT-5 Mini (Minimal)",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Minimal"
+    ]
+  },
+  "Claude Haiku 4.5 (Thinking 8K)": {
+    "model_name": "Claude Haiku 4.5 (Thinking 8K)",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "8K",
+      "Thinking"
+    ]
+  },
+  "Icecuber": {
+    "model_name": "Icecuber",
+    "family": "icecuber",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemini 2.0 Flash": {
+    "model_name": "Gemini 2.0 Flash",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "R1": {
+    "model_name": "R1",
+    "family": null,
+    "subfamily": null,
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "R1"
+    ]
+  },
+  "Codex Mini (Latest)": {
+    "model_name": "Codex Mini (Latest)",
+    "family": "codex",
+    "subfamily": "codex-mini",
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Latest"
+    ]
+  },
+  "Claude Sonnet 4": {
+    "model_name": "Claude Sonnet 4",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude Opus 4": {
+    "model_name": "Claude Opus 4",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "07)": {
+    "model_name": "07)",
+    "family": "07)",
+    "subfamily": null,
+    "version": "07",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude Haiku 4.5": {
+    "model_name": "Claude Haiku 4.5",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude Haiku 4.5 (Thinking 1K)": {
+    "model_name": "Claude Haiku 4.5 (Thinking 1K)",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K",
+      "Thinking"
+    ]
+  },
+  "Gemini 3 Flash Preview (Low)": {
+    "model_name": "Gemini 3 Flash Preview (Low)",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low"
+    ]
+  },
+  "28)": {
+    "model_name": "28)",
+    "family": "28)",
+    "subfamily": null,
+    "version": "28",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude 3.7 (8K)": {
+    "model_name": "Claude 3.7 (8K)",
+    "family": "claude",
+    "subfamily": null,
+    "version": "3.7",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "8K"
+    ]
+  },
+  "GPT-5 Nano (Medium)": {
+    "model_name": "GPT-5 Nano (Medium)",
+    "family": "gpt",
+    "subfamily": "gpt-5-nano",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium"
+    ]
+  },
+  "Claude Sonnet 4 (Thinking 1K)": {
+    "model_name": "Claude Sonnet 4 (Thinking 1K)",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K",
+      "Thinking"
+    ]
+  },
+  "o1-mini": {
+    "model_name": "o1-mini",
+    "family": "gpt",
+    "subfamily": "o1",
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o1"
+    ]
+  },
+  "GPT-5 Mini (Low)": {
+    "model_name": "GPT-5 Mini (Low)",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low"
+    ]
+  },
+  "GPT-5.2": {
+    "model_name": "GPT-5.2",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Gemini 1.5 Pro": {
+    "model_name": "Gemini 1.5 Pro",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "1.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-4.5": {
+    "model_name": "GPT-4.5",
+    "family": "gpt",
+    "subfamily": "gpt-4.5",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Claude 3.7 (16K)": {
+    "model_name": "Claude 3.7 (16K)",
+    "family": "claude",
+    "subfamily": null,
+    "version": "3.7",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "16K"
+    ]
+  },
+  "GPT-4.1": {
+    "model_name": "GPT-4.1",
+    "family": "gpt",
+    "subfamily": "gpt-4.1",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Grok 3 Mini (Low)": {
+    "model_name": "Grok 3 Mini (Low)",
+    "family": "grok",
+    "subfamily": "grok-3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low",
+      "Mini"
+    ]
+  },
+  "GPT-5.1 (Thinking, None)": {
+    "model_name": "GPT-5.1 (Thinking, None)",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "None",
+      "Thinking"
+    ]
+  },
+  "Claude 3.7 (1K)": {
+    "model_name": "Claude 3.7 (1K)",
+    "family": "claude",
+    "subfamily": null,
+    "version": "3.7",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K"
+    ]
+  },
+  "Claude 3.7": {
+    "model_name": "Claude 3.7",
+    "family": "claude",
+    "subfamily": null,
+    "version": "3.7",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-4o": {
+    "model_name": "GPT-4o",
+    "family": "gpt",
+    "subfamily": "gpt-4o",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-4o-mini": {
+    "model_name": "GPT-4o-mini",
+    "family": "gpt",
+    "subfamily": "gpt-4o-mini",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Avg. Mturker": {
+    "model_name": "Avg. Mturker",
+    "family": "avg",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Mturker"
+    ]
+  },
+  "Stem Grad": {
+    "model_name": "Stem Grad",
+    "family": "stem",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Grad"
+    ]
+  },
+  "Llama 4 Maverick": {
+    "model_name": "Llama 4 Maverick",
+    "family": "llama",
+    "subfamily": "llama-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Maverick"
+    ]
+  },
+  "Llama 4 Scout": {
+    "model_name": "Llama 4 Scout",
+    "family": "llama",
+    "subfamily": "llama-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Scout"
+    ]
+  },
+  "GPT-4.1-Nano": {
+    "model_name": "GPT-4.1-Nano",
+    "family": "gpt",
+    "subfamily": "gpt-4.1-nano",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "GPT-4.1-Mini": {
+    "model_name": "GPT-4.1-Mini",
+    "family": "gpt",
+    "subfamily": "gpt-4.1-mini",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "o3-mini (Low)": {
+    "model_name": "o3-mini (Low)",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low",
+      "mini",
+      "o3"
+    ]
+  },
+  "Claude Opus 4 (Thinking 1K)": {
+    "model_name": "Claude Opus 4 (Thinking 1K)",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K",
+      "Thinking"
+    ]
+  },
+  "Grok 3": {
+    "model_name": "Grok 3",
+    "family": "grok",
+    "subfamily": "grok-3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Magistral Small": {
+    "model_name": "Magistral Small",
+    "family": "magistral",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Small"
+    ]
+  },
+  "Magistral Medium": {
+    "model_name": "Magistral Medium",
+    "family": "magistral",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium"
+    ]
+  },
+  "Magistral Medium (Thinking)": {
+    "model_name": "Magistral Medium (Thinking)",
+    "family": "magistral",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Medium",
+      "Thinking"
+    ]
+  },
+  "Gemini 2.5 Pro (Thinking 1K)": {
+    "model_name": "Gemini 2.5 Pro (Thinking 1K)",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "1K",
+      "Thinking"
+    ]
+  },
+  "GPT-5 (Minimal)": {
+    "model_name": "GPT-5 (Minimal)",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Minimal"
+    ]
+  },
+  "GPT-5 Nano (Low)": {
+    "model_name": "GPT-5 Nano (Low)",
+    "family": "gpt",
+    "subfamily": "gpt-5-nano",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Low"
+    ]
+  },
+  "GPT-5 Nano (Minimal)": {
+    "model_name": "GPT-5 Nano (Minimal)",
+    "family": "gpt",
+    "subfamily": "gpt-5-nano",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Minimal"
+    ]
+  },
+  "GPT-5.2 Pro (X-High)": {
+    "model_name": "GPT-5.2 Pro (X-High)",
+    "family": "gpt",
+    "subfamily": "gpt-5.2-pro",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "X-High"
+    ]
+  }
+}

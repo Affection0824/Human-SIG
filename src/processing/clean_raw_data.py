@@ -8,7 +8,6 @@ It reads from 'data/raw/' and writes to 'data/cleaned/'.
 import os
 import pandas as pd
 import shutil
-import re
 
 # List of known organizations to strip.
 # Sorted by length (descending) to ensure greedy matching.
@@ -68,11 +67,7 @@ def clean_model_name(name: str) -> str:
     
     name = name.strip()
     
-    # 1. Handle Slash Prefixes (e.g., "anthropic/claude-3")
-    if '/' in name:
-        name = name.split('/')[-1].strip()
-
-    # 2. Iteratively check and remove prefixes/suffixes
+    # 1. Iteratively check and remove prefixes/suffixes
     matched = True
     while matched:
         matched = False
@@ -97,6 +92,10 @@ def clean_model_name(name: str) -> str:
                 name = name[len(org):].strip()
                 matched = True
                 break
+    
+    # 2. Handle Slash Prefixes (e.g., "anthropic/claude-3")
+    if '/' in name:
+        name = name.split('/')[-1].strip()
                 
     return name
 

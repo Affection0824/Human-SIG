@@ -1,0 +1,415 @@
+{
+  "gpt-5.2-2025-12-11": {
+    "model_name": "gpt-5.2-2025-12-11",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": "2025-12-11",
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-3-flash-preview": {
+    "model_name": "gemini-3-flash-preview",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-3-pro-preview": {
+    "model_name": "gemini-3-pro-preview",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "grok-4-0709": {
+    "model_name": "grok-4-0709",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": "0709",
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-opus-4-5-20251101": {
+    "model_name": "claude-opus-4-5-20251101",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": "2025-11-01",
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-5.1-2025-11-13": {
+    "model_name": "gpt-5.1-2025-11-13",
+    "family": "gpt",
+    "subfamily": "gpt-5.1",
+    "version": "5.1",
+    "date": "2025-11-13",
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-5.1-codex-max": {
+    "model_name": "gpt-5.1-codex-max",
+    "family": "gpt",
+    "subfamily": "gpt-5.1-codex",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "max"
+    ]
+  },
+  "claude-opus-4-5-20251101-thinking": {
+    "model_name": "claude-opus-4-5-20251101-thinking",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": "2025-11-01",
+    "parameters": null,
+    "other_info": [
+      "thinking"
+    ]
+  },
+  "gpt-5-2025-08-07": {
+    "model_name": "gpt-5-2025-08-07",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": "2025-08-07",
+    "parameters": null,
+    "other_info": [
+      "07",
+      "08",
+      "202"
+    ]
+  },
+  "claude-sonnet-4-5-20250929-thinking": {
+    "model_name": "claude-sonnet-4-5-20250929-thinking",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": "2025-09-29",
+    "parameters": null,
+    "other_info": [
+      "thinking"
+    ]
+  },
+  "gemini-2.5-pro": {
+    "model_name": "gemini-2.5-pro",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "qwen3-max": {
+    "model_name": "qwen3-max",
+    "family": "qwen",
+    "subfamily": "qwen3-max",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "deepseek-v3p2": {
+    "model_name": "deepseek-v3p2",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "p2"
+    ]
+  },
+  "claude-opus-4-1-20250805": {
+    "model_name": "claude-opus-4-1-20250805",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": "2025-08-05",
+    "parameters": null,
+    "other_info": null
+  },
+  "grok-4-fast-reasoning": {
+    "model_name": "grok-4-fast-reasoning",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "fast",
+      "reasoning"
+    ]
+  },
+  "deepseek-v3p2-thinking": {
+    "model_name": "deepseek-v3p2-thinking",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "p2",
+      "thinking"
+    ]
+  },
+  "gpt-5-codex": {
+    "model_name": "gpt-5-codex",
+    "family": "gpt",
+    "subfamily": "gpt-5-codex",
+    "version": "5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "qwen3-max-preview": {
+    "model_name": "qwen3-max-preview",
+    "family": "qwen",
+    "subfamily": "qwen3-max",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "preview"
+    ]
+  },
+  "grok-4-1-fast-non-reasoning": {
+    "model_name": "grok-4-1-fast-non-reasoning",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "fast",
+      "non",
+      "reasoning"
+    ]
+  },
+  "glm-4.7": {
+    "model_name": "glm-4.7",
+    "family": "glm",
+    "subfamily": "glm-4.7",
+    "version": "4.7",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-5-mini-2025-08-07": {
+    "model_name": "gpt-5-mini-2025-08-07",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": "2025-08-07",
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-sonnet-4-20250514": {
+    "model_name": "claude-sonnet-4-20250514",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": "2025-05-14",
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-haiku-4-5-20251001-thinking": {
+    "model_name": "claude-haiku-4-5-20251001-thinking",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "4",
+    "date": "2025-10-01",
+    "parameters": null,
+    "other_info": [
+      "thinking"
+    ]
+  },
+  "o4-mini-2025-04-16": {
+    "model_name": "o4-mini-2025-04-16",
+    "family": "gpt",
+    "subfamily": "o4",
+    "version": "4",
+    "date": "2025-04-16",
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o4"
+    ]
+  },
+  "claude-sonnet-4-20250514-thinking": {
+    "model_name": "claude-sonnet-4-20250514-thinking",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": "2025-05-14",
+    "parameters": null,
+    "other_info": [
+      "thinking"
+    ]
+  },
+  "glm-4.6": {
+    "model_name": "glm-4.6",
+    "family": "glm",
+    "subfamily": "glm-4.6",
+    "version": "4.6",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "grok-code-fast-1": {
+    "model_name": "grok-code-fast-1",
+    "family": "grok",
+    "subfamily": null,
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "code",
+      "fast"
+    ]
+  },
+  "mistral-large-2512": {
+    "model_name": "mistral-large-2512",
+    "family": "mistral",
+    "subfamily": "mistral-large",
+    "version": null,
+    "date": "2512",
+    "parameters": null,
+    "other_info": null
+  },
+  "grok-4-fast-non-reasoning": {
+    "model_name": "grok-4-fast-non-reasoning",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "fast",
+      "non",
+      "reasoning"
+    ]
+  },
+  "gpt-5.1-codex": {
+    "model_name": "gpt-5.1-codex",
+    "family": "gpt",
+    "subfamily": "gpt-5.1-codex",
+    "version": "5.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "grok-4-1-fast-reasoning": {
+    "model_name": "grok-4-1-fast-reasoning",
+    "family": "grok",
+    "subfamily": "grok-4",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "fast",
+      "reasoning"
+    ]
+  },
+  "glm-4.5": {
+    "model_name": "glm-4.5",
+    "family": "glm",
+    "subfamily": "glm-4.5",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-2.5-flash": {
+    "model_name": "gemini-2.5-flash",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "labs-devstral-small-2512": {
+    "model_name": "labs-devstral-small-2512",
+    "family": "labs",
+    "subfamily": null,
+    "version": null,
+    "date": "2512",
+    "parameters": null,
+    "other_info": [
+      "devstral",
+      "small"
+    ]
+  },
+  "MiniMax-M2.1": {
+    "model_name": "MiniMax-M2.1",
+    "family": "minimax",
+    "subfamily": null,
+    "version": "2.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "M2"
+    ]
+  },
+  "deepseek-v3-0324": {
+    "model_name": "deepseek-v3-0324",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3",
+    "version": "3",
+    "date": "0324",
+    "parameters": null,
+    "other_info": null
+  },
+  "Kimi-K2-Instruct": {
+    "model_name": "Kimi-K2-Instruct",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "devstral-2512": {
+    "model_name": "devstral-2512",
+    "family": "devstral",
+    "subfamily": null,
+    "version": null,
+    "date": "2512",
+    "parameters": null,
+    "other_info": null
+  },
+  "magistral-medium-2509": {
+    "model_name": "magistral-medium-2509",
+    "family": "magistral",
+    "subfamily": null,
+    "version": null,
+    "date": "2509",
+    "parameters": null,
+    "other_info": [
+      "medium"
+    ]
+  },
+  "qwen3-235b-a22b": {
+    "model_name": "qwen3-235b-a22b",
+    "family": "qwen",
+    "subfamily": "qwen3",
+    "version": "3",
+    "date": null,
+    "parameters": "235B",
+    "other_info": [
+      "25b",
+      "a22b"
+    ]
+  }
+}

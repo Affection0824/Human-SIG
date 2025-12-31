@@ -1,0 +1,544 @@
+{
+  "o3-mini": {
+    "model_name": "o3-mini",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "mini",
+      "o3"
+    ]
+  },
+  "Claude 3.7 Sonnet": {
+    "model_name": "Claude 3.7 Sonnet",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "3.7",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Nova Pro": {
+    "model_name": "Nova Pro",
+    "family": "nova",
+    "subfamily": "nova-pro",
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Llama 3.3 70B Instruct": {
+    "model_name": "Llama 3.3 70B Instruct",
+    "family": "llama",
+    "subfamily": "llama-3.3",
+    "version": "3.3",
+    "date": null,
+    "parameters": "70B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Gemma 3 27B": {
+    "model_name": "Gemma 3 27B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "27B",
+    "other_info": null
+  },
+  "Nemotron Nano 9B v2": {
+    "model_name": "Nemotron Nano 9B v2",
+    "family": "nemotron",
+    "subfamily": "nemotron-nano",
+    "version": "2",
+    "date": null,
+    "parameters": "9B",
+    "other_info": null
+  },
+  "Gemma 3 4B": {
+    "model_name": "Gemma 3 4B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "4B",
+    "other_info": null
+  },
+  "Kimi K2 Instruct": {
+    "model_name": "Kimi K2 Instruct",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Kimi K2-Instruct-0905": {
+    "model_name": "Kimi K2-Instruct-0905",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": "0905",
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Nova Lite": {
+    "model_name": "Nova Lite",
+    "family": "nova",
+    "subfamily": "nova-lite",
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Llama 3.1 Nemotron Ultra 253B v1": {
+    "model_name": "Llama 3.1 Nemotron Ultra 253B v1",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "253B",
+    "other_info": [
+      "Nemotron",
+      "Ultra",
+      "v1"
+    ]
+  },
+  "Gemma 3 12B": {
+    "model_name": "Gemma 3 12B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "12B",
+    "other_info": null
+  },
+  "Qwen3-Next-80B-A3B-Thinking": {
+    "model_name": "Qwen3-Next-80B-A3B-Thinking",
+    "family": "qwen",
+    "subfamily": "qwen3-next",
+    "version": "3",
+    "date": null,
+    "parameters": "80B",
+    "other_info": [
+      "A3B",
+      "Thinking"
+    ]
+  },
+  "Qwen3-235B-A22B-Instruct-2507": {
+    "model_name": "Qwen3-235B-A22B-Instruct-2507",
+    "family": "qwen",
+    "subfamily": "qwen3",
+    "version": "3",
+    "date": "2507",
+    "parameters": "235B",
+    "other_info": [
+      "25B",
+      "A22B",
+      "Instruct"
+    ]
+  },
+  "Llama 3.1 405B Instruct": {
+    "model_name": "Llama 3.1 405B Instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "405B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "GPT-4.5": {
+    "model_name": "GPT-4.5",
+    "family": "gpt",
+    "subfamily": "gpt-4.5",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Qwen3 VL 235B A22B Thinking": {
+    "model_name": "Qwen3 VL 235B A22B Thinking",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "235B",
+    "other_info": [
+      "A22B",
+      "Thinking",
+      "VL"
+    ]
+  },
+  "Qwen3 VL 235B A22B Instruct": {
+    "model_name": "Qwen3 VL 235B A22B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "235B",
+    "other_info": [
+      "A22B",
+      "Instruct",
+      "VL"
+    ]
+  },
+  "Qwen3-235B-A22B-Thinking-2507": {
+    "model_name": "Qwen3-235B-A22B-Thinking-2507",
+    "family": "qwen",
+    "subfamily": "qwen3",
+    "version": "3",
+    "date": "2507",
+    "parameters": "235B",
+    "other_info": [
+      "25B",
+      "A22B",
+      "Thinking"
+    ]
+  },
+  "Qwen3 VL 32B Thinking": {
+    "model_name": "Qwen3 VL 32B Thinking",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "32B",
+    "other_info": [
+      "Thinking",
+      "VL"
+    ]
+  },
+  "Qwen3-Next-80B-A3B-Instruct": {
+    "model_name": "Qwen3-Next-80B-A3B-Instruct",
+    "family": "qwen",
+    "subfamily": "qwen3-next",
+    "version": "3",
+    "date": null,
+    "parameters": "80B",
+    "other_info": [
+      "A3B",
+      "Instruct"
+    ]
+  },
+  "Llama 3.1 70B Instruct": {
+    "model_name": "Llama 3.1 70B Instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "70B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "GPT-4.1": {
+    "model_name": "GPT-4.1",
+    "family": "gpt",
+    "subfamily": "gpt-4.1",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Kimi-k1.5": {
+    "model_name": "Kimi-k1.5",
+    "family": "kimi",
+    "subfamily": "kimi-k1",
+    "version": "1.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Nova Micro": {
+    "model_name": "Nova Micro",
+    "family": "nova",
+    "subfamily": "nova-micro",
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-V3": {
+    "model_name": "-V3",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Qwen3 VL 30B A3B Instruct": {
+    "model_name": "Qwen3 VL 30B A3B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "30B",
+    "other_info": [
+      "A3B",
+      "Instruct",
+      "VL"
+    ]
+  },
+  "Phi 4 Reasoning Plus": {
+    "model_name": "Phi 4 Reasoning Plus",
+    "family": "phi",
+    "subfamily": null,
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Plus",
+      "Reasoning"
+    ]
+  },
+  "Qwen3 VL 32B Instruct": {
+    "model_name": "Qwen3 VL 32B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "32B",
+    "other_info": [
+      "Instruct",
+      "VL"
+    ]
+  },
+  "GPT-4.1 mini": {
+    "model_name": "GPT-4.1 mini",
+    "family": "gpt",
+    "subfamily": "gpt-4.1-mini",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Qwen2.5 72B Instruct": {
+    "model_name": "Qwen2.5 72B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5",
+    "version": "2.5",
+    "date": null,
+    "parameters": "72B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "QwQ-32B": {
+    "model_name": "QwQ-32B",
+    "family": "qwq",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": "32B",
+    "other_info": null
+  },
+  "Qwen3 VL 8B Instruct": {
+    "model_name": "Qwen3 VL 8B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "Instruct",
+      "VL"
+    ]
+  },
+  "Phi 4 Reasoning": {
+    "model_name": "Phi 4 Reasoning",
+    "family": "phi",
+    "subfamily": null,
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Reasoning"
+    ]
+  },
+  "Qwen3 VL 8B Thinking": {
+    "model_name": "Qwen3 VL 8B Thinking",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "Thinking",
+      "VL"
+    ]
+  },
+  "Small 3 24B InstructMistral AI": {
+    "model_name": "Small 3 24B InstructMistral AI",
+    "family": "small",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "24B",
+    "other_info": [
+      "InstructMistral"
+    ]
+  },
+  "Qwen3 VL 4B Thinking": {
+    "model_name": "Qwen3 VL 4B Thinking",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "4B",
+    "other_info": [
+      "Thinking",
+      "VL"
+    ]
+  },
+  "Qwen3 VL 4B Instruct": {
+    "model_name": "Qwen3 VL 4B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "4B",
+    "other_info": [
+      "Instruct",
+      "VL"
+    ]
+  },
+  "Qwen3 VL 30B A3B Thinking": {
+    "model_name": "Qwen3 VL 30B A3B Thinking",
+    "family": "qwen",
+    "subfamily": "qwen3-vl",
+    "version": "3",
+    "date": null,
+    "parameters": "30B",
+    "other_info": [
+      "A3B",
+      "Thinking",
+      "VL"
+    ]
+  },
+  "GPT-4o": {
+    "model_name": "GPT-4o",
+    "family": "gpt",
+    "subfamily": "gpt-4o",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Llama 3.1 8B Instruct": {
+    "model_name": "Llama 3.1 8B Instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Gemma 3 1B": {
+    "model_name": "Gemma 3 1B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "1B",
+    "other_info": null
+  },
+  "Llama 3.1 Nemotron Nano 8B V1": {
+    "model_name": "Llama 3.1 Nemotron Nano 8B V1",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "Nano",
+      "Nemotron",
+      "V1"
+    ]
+  },
+  "Llama 3.2 3B Instruct": {
+    "model_name": "Llama 3.2 3B Instruct",
+    "family": "llama",
+    "subfamily": "llama-3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": "3B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Granite 3.3 8B BaseIBM": {
+    "model_name": "Granite 3.3 8B BaseIBM",
+    "family": "granite",
+    "subfamily": null,
+    "version": "3.3",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "BaseIBM"
+    ]
+  },
+  "Granite 3.3 8B InstructIBM": {
+    "model_name": "Granite 3.3 8B InstructIBM",
+    "family": "granite",
+    "subfamily": null,
+    "version": "3.3",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "InstructIBM"
+    ]
+  },
+  "GPT-4.1 nano": {
+    "model_name": "GPT-4.1 nano",
+    "family": "gpt",
+    "subfamily": "gpt-4.1-nano",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Qwen2.5 7B Instruct": {
+    "model_name": "Qwen2.5 7B Instruct",
+    "family": "qwen",
+    "subfamily": "qwen2.5",
+    "version": "2.5",
+    "date": null,
+    "parameters": "7B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "Phi 4": {
+    "model_name": "Phi 4",
+    "family": "phi",
+    "subfamily": null,
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "IBM Granite 4.0 Tiny PreviewIBM": {
+    "model_name": "IBM Granite 4.0 Tiny PreviewIBM",
+    "family": "granite",
+    "subfamily": null,
+    "version": "4.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "IBM",
+      "PreviewIBM",
+      "Tiny"
+    ]
+  }
+}

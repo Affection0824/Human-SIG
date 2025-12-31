@@ -1,0 +1,1855 @@
+{
+  "GPT-5.2 Pro": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-5.2-pro",
+      "version": "5.2",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "GPT-5.2": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-5.2",
+      "version": "5.2",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.2",
+        "family": "gpt",
+        "subfamily": "gpt-5.2",
+        "version": "5.2",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "gpt-5.2-high",
+        "family": "gpt",
+        "subfamily": "gpt-5.2",
+        "version": "5.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      }
+    ]
+  },
+  "Gemini 3 Pro": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "3",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-3-pro",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "Gemini 3 Flash": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "3",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-3-flash",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "gemini-3-flash (thinking-minimal)",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "thinking-minimal"
+        ]
+      }
+    ]
+  },
+  "Grok-4 Heavy": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-4",
+      "version": "4",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Heavy"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-4-1-fast-reasoning",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "fast",
+          "reasoning"
+        ]
+      },
+      {
+        "lmarena_model": "grok-4-fast-chat",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "chat",
+          "fast"
+        ]
+      },
+      {
+        "lmarena_model": "grok-4-0709",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": "0709",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "grok-4-fast-reasoning",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "fast",
+          "reasoning"
+        ]
+      }
+    ]
+  },
+  "GPT-5.1": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-5.1",
+      "version": "5.1",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.1-high",
+        "family": "gpt",
+        "subfamily": "gpt-5.1",
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-5.1",
+        "family": "gpt",
+        "subfamily": "gpt-5.1",
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "GPT-5.1 Instant": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-5.1",
+      "version": "5.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Instant"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.1-high",
+        "family": "gpt",
+        "subfamily": "gpt-5.1",
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-5.1",
+        "family": "gpt",
+        "subfamily": "gpt-5.1",
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "GPT-5.1 Thinking": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-5.1",
+      "version": "5.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Thinking"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.1-high",
+        "family": "gpt",
+        "subfamily": "gpt-5.1",
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-5.1",
+        "family": "gpt",
+        "subfamily": "gpt-5.1",
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "Grok-4": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-4",
+      "version": "4",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-4-1-fast-reasoning",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "fast",
+          "reasoning"
+        ]
+      },
+      {
+        "lmarena_model": "grok-4-fast-chat",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "chat",
+          "fast"
+        ]
+      },
+      {
+        "lmarena_model": "grok-4-0709",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": "0709",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "grok-4-fast-reasoning",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "fast",
+          "reasoning"
+        ]
+      }
+    ]
+  },
+  "Claude Opus 4.5": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Gemini 2.5 Pro Preview 06-05": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro-preview",
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "05",
+        "06"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "GPT-5": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-5",
+      "version": "5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5-high",
+        "family": "gpt",
+        "subfamily": "gpt-5",
+        "version": "5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-5-chat",
+        "family": "gpt",
+        "subfamily": "gpt-5",
+        "version": "5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "chat"
+        ]
+      }
+    ]
+  },
+  "GLM-4.7New": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": "glm-4.7",
+      "version": "4.7",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "New"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Grok 4 Fast": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-4",
+      "version": "4",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Fast"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-4-1-fast-reasoning",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "fast",
+          "reasoning"
+        ]
+      },
+      {
+        "lmarena_model": "grok-4-fast-chat",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "chat",
+          "fast"
+        ]
+      },
+      {
+        "lmarena_model": "grok-4-0709",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": "0709",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "grok-4-fast-reasoning",
+        "family": "grok",
+        "subfamily": "grok-4",
+        "version": "4",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "fast",
+          "reasoning"
+        ]
+      }
+    ]
+  },
+  "Claude 3.7 Sonnet": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "3.7",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Grok-3": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-3",
+      "version": "3",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-3-preview-02-24",
+        "family": "grok",
+        "subfamily": "grok-3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "02",
+          "24",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "grok-3-mini-high",
+        "family": "grok",
+        "subfamily": "grok-3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high",
+          "mini"
+        ]
+      },
+      {
+        "lmarena_model": "grok-3-mini-beta",
+        "family": "grok",
+        "subfamily": "grok-3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "beta",
+          "mini"
+        ]
+      }
+    ]
+  },
+  "Kimi K2-Thinking-0905": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-k2",
+      "version": "2",
+      "date": "0905",
+      "parameters": null,
+      "other_info": [
+        "Thinking"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "kimi-k2-thinking-turbo",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "thinking",
+          "turbo"
+        ]
+      },
+      {
+        "lmarena_model": "kimi-k2-0905-preview",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "kimi-k2-0711-preview",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      }
+    ]
+  },
+  "Grok-3 Mini": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-3",
+      "version": "3",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Mini"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-3-preview-02-24",
+        "family": "grok",
+        "subfamily": "grok-3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "02",
+          "24",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "grok-3-mini-high",
+        "family": "grok",
+        "subfamily": "grok-3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high",
+          "mini"
+        ]
+      },
+      {
+        "lmarena_model": "grok-3-mini-beta",
+        "family": "grok",
+        "subfamily": "grok-3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "beta",
+          "mini"
+        ]
+      }
+    ]
+  },
+  "MiMo-V2-Flash": {
+    "benchmark_info": {
+      "family": "mimo",
+      "subfamily": "mimo-flash",
+      "version": "2",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "mimo-v2-flash (non-thinking)",
+        "family": "mimo",
+        "subfamily": "mimo-flash",
+        "version": "2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "non-thinking"
+        ]
+      }
+    ]
+  },
+  "Claude Sonnet 4.5": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "o3": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o3",
+      "version": "3",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "o3"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o3-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": [
+          "o3"
+        ]
+      },
+      {
+        "lmarena_model": "o3-mini-high",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high",
+          "mini",
+          "o3"
+        ]
+      },
+      {
+        "lmarena_model": "o3-mini",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "o3"
+        ]
+      }
+    ]
+  },
+  "Gemini 2.5 Pro": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-pro",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "Gemini 2.5 Flash": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-flash",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "-V3.2 (Thinking)": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-v3.2",
+      "version": "3.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Thinking"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "-v3.2-exp",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.2",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "exp"
+        ]
+      },
+      {
+        "lmarena_model": "-v3.2-exp-thinking",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.2",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "exp",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "-v3.2-thinking",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.2",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "-v3.2",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.2",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "GPT-5 mini": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-5-mini",
+      "version": "5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5-mini-high",
+        "family": "gpt",
+        "subfamily": "gpt-5-mini",
+        "version": "5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      }
+    ]
+  },
+  "o4-mini": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o4",
+      "version": "4",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "mini",
+        "o4"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o4-mini-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o4",
+        "version": "4",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "o4"
+        ]
+      }
+    ]
+  },
+  "Qwen3-235B-A22B-Thinking-2507": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": "qwen3",
+      "version": "3",
+      "date": "2507",
+      "parameters": "235B",
+      "other_info": [
+        "25B",
+        "A22B",
+        "Thinking"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-235b-a22b-instruct-2507",
+        "family": "qwen",
+        "subfamily": "qwen3",
+        "version": "3",
+        "date": "2507",
+        "parameters": "235B",
+        "other_info": [
+          "25b",
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-no-thinking",
+        "family": "qwen",
+        "subfamily": "qwen3",
+        "version": "3",
+        "date": null,
+        "parameters": "235B",
+        "other_info": [
+          "25b",
+          "a22b",
+          "no",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-thinking-2507",
+        "family": "qwen",
+        "subfamily": "qwen3",
+        "version": "3",
+        "date": "2507",
+        "parameters": "235B",
+        "other_info": [
+          "25b",
+          "a22b",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b",
+        "family": "qwen",
+        "subfamily": "qwen3",
+        "version": "3",
+        "date": null,
+        "parameters": "235B",
+        "other_info": [
+          "25b",
+          "a22b"
+        ]
+      }
+    ]
+  },
+  "GLM-4.6": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": "glm-4.6",
+      "version": "4.6",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "glm-4.6",
+        "family": "glm",
+        "subfamily": "glm-4.6",
+        "version": "4.6",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "-R1-0528": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": null,
+      "version": "1",
+      "date": "0528",
+      "parameters": null,
+      "other_info": [
+        "R1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "-r1-0528",
+        "family": "deepseek",
+        "subfamily": null,
+        "version": "1",
+        "date": "0528",
+        "parameters": null,
+        "other_info": [
+          "r1"
+        ]
+      },
+      {
+        "lmarena_model": "-r1",
+        "family": "deepseek",
+        "subfamily": null,
+        "version": "1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "r1"
+        ]
+      }
+    ]
+  },
+  "M2.1New": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "1New",
+        "M2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "Claude Opus 4.1": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "4.1",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "GPT OSS 120B": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-oss",
+      "version": null,
+      "date": null,
+      "parameters": "120B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-oss-120b",
+        "family": "gpt",
+        "subfamily": "gpt-oss",
+        "version": null,
+        "date": null,
+        "parameters": "120B",
+        "other_info": null
+      }
+    ]
+  },
+  "-V3.2-Exp": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-v3.2",
+      "version": "3.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Exp"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "-v3.2-exp",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.2",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "exp"
+        ]
+      },
+      {
+        "lmarena_model": "-v3.2-exp-thinking",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.2",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "exp",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "-v3.2-thinking",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.2",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "-v3.2",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.2",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "Claude Opus 4": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "4",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "claude-opus-4-5-20251101-thinking-32k",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4",
+        "date": "2025-11-01",
+        "parameters": null,
+        "other_info": [
+          "32k",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "claude-opus-4-5-20251101",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4",
+        "date": "2025-11-01",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "claude-opus-4-1-20250805-thinking-16k",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4",
+        "date": "2025-08-05",
+        "parameters": null,
+        "other_info": [
+          "16k",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "claude-opus-4-1-20250805",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4",
+        "date": "2025-08-05",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "claude-opus-4-20250514-thinking-16k",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4",
+        "date": "2025-05-14",
+        "parameters": null,
+        "other_info": [
+          "16k",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "claude-opus-4-20250514",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4",
+        "date": "2025-05-14",
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "GLM-4.5": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": "glm-4.5",
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "glm-4.5",
+        "family": "glm",
+        "subfamily": "glm-4.5",
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "glm-4.5-air",
+        "family": "glm",
+        "subfamily": "glm-4.5",
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "air"
+        ]
+      },
+      {
+        "lmarena_model": "glm-4.5v",
+        "family": "glm",
+        "subfamily": "glm-4.5",
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "o1-pro": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o1",
+      "version": "1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "o1",
+        "pro"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o1-2024-12-17",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1",
+        "date": "2024-12-17",
+        "parameters": null,
+        "other_info": [
+          "o1"
+        ]
+      },
+      {
+        "lmarena_model": "o1-preview",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "o1",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "o1-mini",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "o1"
+        ]
+      }
+    ]
+  },
+  "o1": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o1",
+      "version": "1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "o1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o1-2024-12-17",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1",
+        "date": "2024-12-17",
+        "parameters": null,
+        "other_info": [
+          "o1"
+        ]
+      },
+      {
+        "lmarena_model": "o1-preview",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "o1",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "o1-mini",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "o1"
+        ]
+      }
+    ]
+  },
+  "M2": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "M2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "-m2",
+        "family": null,
+        "subfamily": null,
+        "version": "2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "m2"
+        ]
+      }
+    ]
+  },
+  "Qwen3-235B-A22B-Instruct-2507": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": "qwen3",
+      "version": "3",
+      "date": "2507",
+      "parameters": "235B",
+      "other_info": [
+        "25B",
+        "A22B",
+        "Instruct"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-235b-a22b-instruct-2507",
+        "family": "qwen",
+        "subfamily": "qwen3",
+        "version": "3",
+        "date": "2507",
+        "parameters": "235B",
+        "other_info": [
+          "25b",
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-no-thinking",
+        "family": "qwen",
+        "subfamily": "qwen3",
+        "version": "3",
+        "date": null,
+        "parameters": "235B",
+        "other_info": [
+          "25b",
+          "a22b",
+          "no",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-thinking-2507",
+        "family": "qwen",
+        "subfamily": "qwen3",
+        "version": "3",
+        "date": "2507",
+        "parameters": "235B",
+        "other_info": [
+          "25b",
+          "a22b",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b",
+        "family": "qwen",
+        "subfamily": "qwen3",
+        "version": "3",
+        "date": null,
+        "parameters": "235B",
+        "other_info": [
+          "25b",
+          "a22b"
+        ]
+      }
+    ]
+  },
+  "o3-mini": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o3",
+      "version": "3",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "mini",
+        "o3"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o3-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": [
+          "o3"
+        ]
+      },
+      {
+        "lmarena_model": "o3-mini-high",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high",
+          "mini",
+          "o3"
+        ]
+      },
+      {
+        "lmarena_model": "o3-mini",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "o3"
+        ]
+      }
+    ]
+  },
+  "Qwen3-Next-80B-A3B-Thinking": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": "qwen3-next",
+      "version": "3",
+      "date": null,
+      "parameters": "80B",
+      "other_info": [
+        "A3B",
+        "Thinking"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-next-80b-a3b-instruct",
+        "family": "qwen",
+        "subfamily": "qwen3-next",
+        "version": "3",
+        "date": null,
+        "parameters": "80B",
+        "other_info": [
+          "a3b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-next-80b-a3b-thinking",
+        "family": "qwen",
+        "subfamily": "qwen3-next",
+        "version": "3",
+        "date": null,
+        "parameters": "80B",
+        "other_info": [
+          "a3b",
+          "thinking"
+        ]
+      }
+    ]
+  },
+  "Llama 3.1 Nemotron Ultra 253B v1": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-3.1",
+      "version": "3.1",
+      "date": null,
+      "parameters": "253B",
+      "other_info": [
+        "Nemotron",
+        "Ultra",
+        "v1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "llama-3.1-nemotron-ultra-253b-v1",
+        "family": "llama",
+        "subfamily": "llama-3.1",
+        "version": "3.1",
+        "date": null,
+        "parameters": "253B",
+        "other_info": [
+          "nemotron",
+          "ultra",
+          "v1"
+        ]
+      }
+    ]
+  },
+  "Kimi K2 0905": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-k2",
+      "version": "2",
+      "date": "0905",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "kimi-k2-thinking-turbo",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "thinking",
+          "turbo"
+        ]
+      },
+      {
+        "lmarena_model": "kimi-k2-0905-preview",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "kimi-k2-0711-preview",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      }
+    ]
+  },
+  "Claude Sonnet 4": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "4",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "claude-sonnet-4-5-20250929-thinking-32k",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4",
+        "date": "2025-09-29",
+        "parameters": null,
+        "other_info": [
+          "32k",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "claude-sonnet-4-5-20250929",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4",
+        "date": "2025-09-29",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "claude-sonnet-4-20250514-thinking-32k",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4",
+        "date": "2025-05-14",
+        "parameters": null,
+        "other_info": [
+          "32k",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "claude-sonnet-4-20250514",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4",
+        "date": "2025-05-14",
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "Kimi K2 Instruct": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-k2",
+      "version": "2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Instruct"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "kimi-k2-thinking-turbo",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "thinking",
+          "turbo"
+        ]
+      },
+      {
+        "lmarena_model": "kimi-k2-0905-preview",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "kimi-k2-0711-preview",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      }
+    ]
+  },
+  "Kimi K2-Instruct-0905": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-k2",
+      "version": "2",
+      "date": "0905",
+      "parameters": null,
+      "other_info": [
+        "Instruct"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "kimi-k2-thinking-turbo",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "thinking",
+          "turbo"
+        ]
+      },
+      {
+        "lmarena_model": "kimi-k2-0905-preview",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "kimi-k2-0711-preview",
+        "family": "kimi",
+        "subfamily": "kimi-k2",
+        "version": "2",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      }
+    ]
+  },
+  "Nemotron 3 Nano (30B A3B)": {
+    "benchmark_info": {
+      "family": "nemotron",
+      "subfamily": "nemotron-nano",
+      "version": "3",
+      "date": null,
+      "parameters": "30B",
+      "other_info": [
+        "30B",
+        "A3B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  },
+  "GLM-4.5-Air": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": "glm-4.5",
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Air"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "glm-4.5",
+        "family": "glm",
+        "subfamily": "glm-4.5",
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "glm-4.5-air",
+        "family": "glm",
+        "subfamily": "glm-4.5",
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "air"
+        ]
+      },
+      {
+        "lmarena_model": "glm-4.5v",
+        "family": "glm",
+        "subfamily": "glm-4.5",
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ]
+  },
+  "-V3.1": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-v3.1",
+      "version": "3.1",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "-v3.1",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.1",
+        "version": "3.1",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "-v3.1-thinking",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.1",
+        "version": "3.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "-v3.1-terminus",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.1",
+        "version": "3.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "terminus"
+        ]
+      },
+      {
+        "lmarena_model": "-v3.1-terminus-thinking",
+        "family": "deepseek",
+        "subfamily": "deepseek-v3.1",
+        "version": "3.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "terminus",
+          "thinking"
+        ]
+      }
+    ]
+  },
+  "Qwen3 VL 30B A3B Thinking": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": "qwen3-vl",
+      "version": "3",
+      "date": null,
+      "parameters": "30B",
+      "other_info": [
+        "A3B",
+        "Thinking",
+        "VL"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ]
+  }
+}

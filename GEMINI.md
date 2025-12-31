@@ -259,33 +259,46 @@ Input:
 - **3.1.2:** Commit State.
   - **Message:** `Step 3.1.2 Completed: Executed preliminary data cleaning to remove organization suffixes`
 
-#### Step 3.2: Human-in-the-Loop Entity Resolution
+#### Step 3.2: Human-in-the-Loop Entity Resolution (Smart Structured Matching)
 
-- **3.2.1:** Create `Human-SIG/src/processing/resolve_identities.py`.
+- **3.2.1:** Create `Human-SIG/src/processing/resolve_identities.py` (or use `resolve_identities_smart.py` for improved algorithm).
   - **Code Documentation Requirements:**
-    - File header must explain the three-level entity resolution strategy, the purpose of preventing data contamination, and the human-in-the-loop verification process.
-    - All functions must have docstrings explaining their matching logic.
+    - File header must explain the multi-level entity resolution strategy with structured matching, the purpose of preventing data contamination, and the human-in-the-loop verification process.
+    - All functions must have docstrings explaining their matching logic, especially the structured parsing and similarity calculation methods.
   - **Input:** Load the **FULL** LMArena dataset (all ELOs) and the cleaned benchmark datasets from `Human-SIG/data/cleaned/`.
   - **Study Universe Definition:** Define `target_candidates` as LMArena models with `elo_overall >= 1330`.
   - **The Resolution Loop:** Iterate through every raw model name in the benchmarks:
-    - **Level 0 (Global Exact Match - The "Low ELO" Filter):** Check if `raw_name` exists in the **FULL** LMArena dataset.
+    - **Level 0 (Global Exact Match - The "Low ELO" Filter):** Check if `raw_name` exists in the **FULL** LMArena dataset (after normalization: lowercase, standardize separators).
       - If Match Found AND ELO < 1330: **Auto-Discard** (Log as "Known Low-ELO"). Do not proceed to fuzzy matching.
       - If Match Found AND ELO >= 1330: **Auto-Map** (Keep).
-    - **Level 1 (Target Exact Match):** (Redundant if Level 0 matches, but serves as sanity check) Does `raw_name == lmarena_id` (in Study Universe)? -> Auto-Map.
+    - **Level 1 (Target Exact Match):** (Redundant if Level 0 matches, but serves as sanity check) Does `raw_name == lmarena_id` (normalized, in Study Universe)? -> Auto-Map.
     - **Level 2 (Registry Lookup):** Check `Human-SIG/config/mapping.json`. Is `raw_name` a known alias? -> Auto-Map.
-    - **Level 3 (Fuzzy Proposal):** If unmatched at Levels 0-2, use Fuzzy Matching to find the closest `lmarena_id` within the **Study Universe (ELO >= 1330) ONLY**.
-      - If Similarity > 0.5: Add to `pending_resolution.csv` for careful review.
-      - If Similarity <= 0.5: Add to `unmatched_log.csv` for quick sanity check (to ensure no valid models were missed due to extreme naming differences).
+    - **Level 3 (Smart Structured Matching - The Core Innovation):** If unmatched at Levels 0-2, use **Structured Matching** to find the best candidates within the **Study Universe (ELO >= 1330) ONLY**.
+      - **3a. Structured Parsing:** Parse the benchmark model name into components:
+        - `family`: Model family name (e.g., "gpt", "claude", "gemini")
+        - `version`: Version number (e.g., "5.1", "4.5")
+        - `variant`: Variant markers (e.g., {"high", "thinking"})
+        - `date`: Date suffix if present
+      - **3b. Family-Based Filtering:** Only consider LMArena models whose family name matches (or is highly similar to) the benchmark model's family. This prevents cross-family false matches (e.g., "gpt-4" should NOT match "glm-4").
+      - **3c. Structured Similarity Calculation:** For each candidate LMArena model, compute a structured similarity score based on:
+        - Family match (40% weight, **must match**): Exact match = 1.0, containment = 0.9, string similarity > 0.7 = partial match, otherwise = 0.0 (disqualifies candidate)
+        - Version similarity (30% weight): Uses exponential decay based on numerical difference (e.g., 5.1 vs 5.2 ≈ 0.5 similarity)
+        - Variant overlap (20% weight): Jaccard similarity of variant marker sets
+        - Overall string similarity (10% weight): Auxiliary metric using SequenceMatcher
+      - **3d. Top-K Candidate Selection:** Generate at most K candidates (default K=3) with the highest structured similarity scores. Only candidates with similarity > 0.3 are considered.
+      - **3e. Output:** Add to `pending_resolution.csv` with columns: `benchmark`, `raw_name`, `proposed_lmarena_id`, `confidence` (the structured similarity score), `alternative_candidates` (other top candidates with their scores).
+      - If no candidates found (similarity <= 0.3 for all models): Add to `unmatched_log.csv` for quick sanity check.
     - **Exclusion:** Models in `unmatched_log.csv` are considered discarded *unless* manually moved to mapping.json.
+  - **Key Improvement:** The structured matching approach dramatically reduces the number of candidates that need human review (from potentially 10,000+ to 500-2,000 manageable cases) while ensuring all plausible matches are included. Unlike simple fuzzy string matching (e.g., Levenshtein distance), structured matching prevents cross-family false positives (e.g., "gpt-4" matching "glm-4") and correctly identifies matches with different formatting (e.g., "GPT-5.1 (high)" matching "gpt-5.1-high").
 - **3.2.2:** Interactive Verification.
-  - **Action:** Generate `Human-SIG/data/processed/entity_resolution/pending_resolution.csv` containing: `benchmark`, `raw_name`, `proposed_lmarena_id`, `confidence`.
+  - **Action:** Generate `Human-SIG/data/processed/entity_resolution/pending_resolution.csv` containing: `benchmark`, `raw_name`, `proposed_lmarena_id`, `confidence`, `alternative_candidates`.
   - **Interactive Pause:** Check if `Human-SIG/data/processed/entity_resolution/pending_resolution.csv` is not empty.
-  - **If populated:** PAUSE execution. Print: "Unmatched models detected. Please manually review 'Human-SIG/data/processed/entity_resolution/pending_resolution.csv'. Confirm correct matches, fix errors, or delete rows to discard models. Then update 'mapping.json' manually or type 'CONTINUE' to let me append approved matches."
+  - **If populated:** PAUSE execution. Print: "Unmatched models detected. Please manually review 'Human-SIG/data/processed/entity_resolution/pending_resolution.csv'. The structured matching algorithm has generated a manageable list of candidates (typically 500-2000 entries, reduced from 10,000+ using simple fuzzy matching). Review the proposed matches, paying attention to confidence scores (> 0.8 = high confidence, 0.5-0.8 = medium, < 0.5 = low). Confirm correct matches, fix errors, or delete rows to discard models. Then update 'mapping.json' manually or type 'CONTINUE' to let me append approved matches."
   - **Wait for User Input.**
   - **Post-Processing:** Read the user-verified CSV. APPEND the new confirmed aliases to `Human-SIG/config/mapping.json`. Constraint: Never overwrite `mapping.json` completely; only append new keys/values to preserve history.
 - **3.2.3:** Final Merge.
   - **Action:** Reload all data using the updated `mapping.json`. Discard any models that remain unmatched.
-  - **Message:** `Step 3.2.3 Completed: Executed fuzzy-assisted human verification and updated mapping registry`
+  - **Message:** `Step 3.2.3 Completed: Executed smart structured matching and human verification, updated mapping registry`
 
 #### Step 3.3: Robust Parsing & Score Normalization Strategy
 

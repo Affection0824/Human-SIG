@@ -1,0 +1,838 @@
+{
+  "🆕 claude-opus-4-5-20251101": {
+    "model_name": "🆕 claude-opus-4-5-20251101",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": "2025-11-01",
+    "parameters": null,
+    "other_info": null
+  },
+  "Kimi-K2-Instruct": {
+    "model_name": "Kimi-K2-Instruct",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "🆕 gpt-5.2": {
+    "model_name": "🆕 gpt-5.2",
+    "family": "gpt",
+    "subfamily": "gpt-5.2",
+    "version": "5.2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "o3": {
+    "model_name": "o3",
+    "family": "gpt",
+    "subfamily": "o3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "o3"
+    ]
+  },
+  "claude-sonnet-4.5": {
+    "model_name": "claude-sonnet-4.5",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "Kimi-K2-Thinking": {
+    "model_name": "Kimi-K2-Thinking",
+    "family": "kimi",
+    "subfamily": "kimi-k2",
+    "version": "2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Thinking"
+    ]
+  },
+  "horizon-alpha": {
+    "model_name": "horizon-alpha",
+    "family": "horizon",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "alpha"
+    ]
+  },
+  "horizon-beta": {
+    "model_name": "horizon-beta",
+    "family": "horizon",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "beta"
+    ]
+  },
+  "claude-opus-4": {
+    "model_name": "claude-opus-4",
+    "family": "claude",
+    "subfamily": "claude-opus",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-5-2025-08-07": {
+    "model_name": "gpt-5-2025-08-07",
+    "family": "gpt",
+    "subfamily": "gpt-5",
+    "version": "5",
+    "date": "2025-08-07",
+    "parameters": null,
+    "other_info": [
+      "07",
+      "08",
+      "202"
+    ]
+  },
+  "-R1": {
+    "model_name": "-R1",
+    "family": "deepseek",
+    "subfamily": null,
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "R1"
+    ]
+  },
+  "🆕 DeepSeek-V3.2": {
+    "model_name": "🆕 DeepSeek-V3.2",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "chatgpt-4o-latest-2025-03-27": {
+    "model_name": "chatgpt-4o-latest-2025-03-27",
+    "family": "chatgpt",
+    "subfamily": null,
+    "version": "4",
+    "date": "2025-03-27",
+    "parameters": null,
+    "other_info": [
+      "4o",
+      "latest"
+    ]
+  },
+  "claude-sonnet-4": {
+    "model_name": "claude-sonnet-4",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-3-pro-preview": {
+    "model_name": "gemini-3-pro-preview",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-3-5-sonnet-20241022": {
+    "model_name": "claude-3-5-sonnet-20241022",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "3",
+    "date": "2024-10-22",
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-4.1": {
+    "model_name": "gpt-4.1",
+    "family": "gpt",
+    "subfamily": "gpt-4.1",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-V3-0324": {
+    "model_name": "-V3-0324",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3",
+    "version": "3",
+    "date": "0324",
+    "parameters": null,
+    "other_info": null
+  },
+  "optimus-alpha": {
+    "model_name": "optimus-alpha",
+    "family": "optimus",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "alpha"
+    ]
+  },
+  "gemini-2.5-pro-preview-06-05": {
+    "model_name": "gemini-2.5-pro-preview-06-05",
+    "family": "gemini",
+    "subfamily": "gemini-pro-preview",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "05",
+      "06"
+    ]
+  },
+  "-medium-3.1": {
+    "model_name": "-medium-3.1",
+    "family": "mistral",
+    "subfamily": "mistral-medium",
+    "version": "3.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-V3.1": {
+    "model_name": "-V3.1",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "claude-3-7-sonnet-20250219": {
+    "model_name": "claude-3-7-sonnet-20250219",
+    "family": "claude",
+    "subfamily": "claude-sonnet",
+    "version": "3",
+    "date": "2025-02-19",
+    "parameters": null,
+    "other_info": null
+  },
+  "-R1-0528": {
+    "model_name": "-R1-0528",
+    "family": "deepseek",
+    "subfamily": null,
+    "version": "1",
+    "date": "0528",
+    "parameters": null,
+    "other_info": [
+      "R1"
+    ]
+  },
+  "gemini-2.5-pro-exp-03-25": {
+    "model_name": "gemini-2.5-pro-exp-03-25",
+    "family": "gemini",
+    "subfamily": "gemini-pro",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "03",
+      "25",
+      "exp"
+    ]
+  },
+  "Hermes-4-405B": {
+    "model_name": "Hermes-4-405B",
+    "family": "hermes",
+    "subfamily": null,
+    "version": "4",
+    "date": null,
+    "parameters": "405B",
+    "other_info": null
+  },
+  "🆕 Mistral-Large-3-675B-Instruct-2512": {
+    "model_name": "🆕 Mistral-Large-3-675B-Instruct-2512",
+    "family": "mistral",
+    "subfamily": "mistral-large",
+    "version": "3",
+    "date": "2512",
+    "parameters": "675B",
+    "other_info": [
+      "Instruct"
+    ]
+  },
+  "GLM-4.6": {
+    "model_name": "GLM-4.6",
+    "family": "glm",
+    "subfamily": "glm-4.6",
+    "version": "4.6",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "chatgpt-4o-latest-2025-01-29": {
+    "model_name": "chatgpt-4o-latest-2025-01-29",
+    "family": "chatgpt",
+    "subfamily": null,
+    "version": "4",
+    "date": "2025-01-29",
+    "parameters": null,
+    "other_info": [
+      "4o",
+      "latest"
+    ]
+  },
+  "quasar-alpha": {
+    "model_name": "quasar-alpha",
+    "family": "quasar",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "alpha"
+    ]
+  },
+  "🆕 mistral-small-creative": {
+    "model_name": "🆕 mistral-small-creative",
+    "family": "mistral",
+    "subfamily": "mistral-small",
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "creative"
+    ]
+  },
+  "grok-4.1-fast": {
+    "model_name": "grok-4.1-fast",
+    "family": "grok",
+    "subfamily": "grok-4.1",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "fast"
+    ]
+  },
+  "sherlock-dash-alpha": {
+    "model_name": "sherlock-dash-alpha",
+    "family": "sherlock",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "alpha",
+      "dash"
+    ]
+  },
+  "qwen3-235b-a22b:thinking": {
+    "model_name": "qwen3-235b-a22b:thinking",
+    "family": "qwen",
+    "subfamily": "qwen3",
+    "version": "3",
+    "date": null,
+    "parameters": "235B",
+    "other_info": [
+      "25b",
+      "a22b:thinking"
+    ]
+  },
+  "GLM-4.5": {
+    "model_name": "GLM-4.5",
+    "family": "glm",
+    "subfamily": "glm-4.5",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gpt-5-mini-2025-08-07": {
+    "model_name": "gpt-5-mini-2025-08-07",
+    "family": "gpt",
+    "subfamily": "gpt-5-mini",
+    "version": "5",
+    "date": "2025-08-07",
+    "parameters": null,
+    "other_info": null
+  },
+  "🆕 DeepSeek-V3.2-Speciale": {
+    "model_name": "🆕 DeepSeek-V3.2-Speciale",
+    "family": "deepseek",
+    "subfamily": "deepseek-v3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "Speciale"
+    ]
+  },
+  "gemma-3-27b-it": {
+    "model_name": "gemma-3-27b-it",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "27B",
+    "other_info": [
+      "it"
+    ]
+  },
+  "-Small-3.2-24B-Instruct-2506": {
+    "model_name": "-Small-3.2-24B-Instruct-2506",
+    "family": null,
+    "subfamily": null,
+    "version": "3.2",
+    "date": "2506",
+    "parameters": "24B",
+    "other_info": [
+      "Instruct",
+      "Small"
+    ]
+  },
+  "grok-3-beta": {
+    "model_name": "grok-3-beta",
+    "family": "grok",
+    "subfamily": "grok-3",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "beta"
+    ]
+  },
+  "gpt-4.5-preview": {
+    "model_name": "gpt-4.5-preview",
+    "family": "gpt",
+    "subfamily": "gpt-4.5-preview",
+    "version": "4.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "reka-flash-3": {
+    "model_name": "reka-flash-3",
+    "family": "reka",
+    "subfamily": "reka-flash",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "qwq-32b": {
+    "model_name": "qwq-32b",
+    "family": "qwq",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": "32B",
+    "other_info": null
+  },
+  "claude-3.5-haiku-20241022": {
+    "model_name": "claude-3.5-haiku-20241022",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "3.5",
+    "date": "2024-10-22",
+    "parameters": null,
+    "other_info": null
+  },
+  "gemini-2.5-flash-preview": {
+    "model_name": "gemini-2.5-flash-preview",
+    "family": "gemini",
+    "subfamily": "gemini-preview-flash",
+    "version": "2.5",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "gemma-3-4b-it": {
+    "model_name": "gemma-3-4b-it",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "4B",
+    "other_info": [
+      "it"
+    ]
+  },
+  "gpt-4.1-mini": {
+    "model_name": "gpt-4.1-mini",
+    "family": "gpt",
+    "subfamily": "gpt-4.1-mini",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "c4ai-command-a-03-2025": {
+    "model_name": "c4ai-command-a-03-2025",
+    "family": "c4ai",
+    "subfamily": null,
+    "version": "4",
+    "date": "2025",
+    "parameters": null,
+    "other_info": [
+      "03",
+      "command"
+    ]
+  },
+  "gemma-3-12b-it": {
+    "model_name": "gemma-3-12b-it",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "12B",
+    "other_info": [
+      "it"
+    ]
+  },
+  "gemini-2.0-flash-001": {
+    "model_name": "gemini-2.0-flash-001",
+    "family": "gemini",
+    "subfamily": "gemini-flash",
+    "version": "2.0",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "001"
+    ]
+  },
+  "Gemma-3-Glitter-12B": {
+    "model_name": "Gemma-3-Glitter-12B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "12B",
+    "other_info": [
+      "Glitter"
+    ]
+  },
+  "GLM-4-32B-0414": {
+    "model_name": "GLM-4-32B-0414",
+    "family": "glm",
+    "subfamily": "glm-4",
+    "version": "4",
+    "date": "0414",
+    "parameters": "32B",
+    "other_info": [
+      "01"
+    ]
+  },
+  "-large-2411": {
+    "model_name": "-large-2411",
+    "family": "mistral",
+    "subfamily": "mistral-large",
+    "version": null,
+    "date": "2411",
+    "parameters": null,
+    "other_info": null
+  },
+  "Darkest-muse-v1": {
+    "model_name": "Darkest-muse-v1",
+    "family": "darkest",
+    "subfamily": null,
+    "version": "1",
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "muse"
+    ]
+  },
+  "Pixtral-Large-Instruct-2411": {
+    "model_name": "Pixtral-Large-Instruct-2411",
+    "family": "pixtral",
+    "subfamily": null,
+    "version": null,
+    "date": "2411",
+    "parameters": null,
+    "other_info": [
+      "Instruct",
+      "Large"
+    ]
+  },
+  "gpt-oss-120b": {
+    "model_name": "gpt-oss-120b",
+    "family": "gpt",
+    "subfamily": "gpt-oss",
+    "version": null,
+    "date": null,
+    "parameters": "120B",
+    "other_info": null
+  },
+  "llama-3.1-405b-instruct": {
+    "model_name": "llama-3.1-405b-instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "405B",
+    "other_info": [
+      "instruct"
+    ]
+  },
+  "gpt-4.1-nano": {
+    "model_name": "gpt-4.1-nano",
+    "family": "gpt",
+    "subfamily": "gpt-4.1-nano",
+    "version": "4.1",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "🆕 Nanbeige4-3B-Thinking-2511": {
+    "model_name": "🆕 Nanbeige4-3B-Thinking-2511",
+    "family": null,
+    "subfamily": null,
+    "version": "4",
+    "date": "2511",
+    "parameters": "3B",
+    "other_info": [
+      "Nanbeige4",
+      "Thinking"
+    ]
+  },
+  "Gemma-3-Starshine-12B": {
+    "model_name": "Gemma-3-Starshine-12B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "3",
+    "date": null,
+    "parameters": "12B",
+    "other_info": [
+      "Starshine"
+    ]
+  },
+  "Llama-4-Maverick-17B-128E-Instruct": {
+    "model_name": "Llama-4-Maverick-17B-128E-Instruct",
+    "family": "llama",
+    "subfamily": "llama-4",
+    "version": "4",
+    "date": null,
+    "parameters": "17B",
+    "other_info": [
+      "128E",
+      "Instruct",
+      "Maverick"
+    ]
+  },
+  "gemma-2-Ifable-9B": {
+    "model_name": "gemma-2-Ifable-9B",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "2",
+    "date": null,
+    "parameters": "9B",
+    "other_info": [
+      "Ifable"
+    ]
+  },
+  "gpt-4o-mini": {
+    "model_name": "gpt-4o-mini",
+    "family": "gpt",
+    "subfamily": "gpt-4o-mini",
+    "version": "4",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "-Nemo-Instruct-2407": {
+    "model_name": "-Nemo-Instruct-2407",
+    "family": null,
+    "subfamily": null,
+    "version": null,
+    "date": "2407",
+    "parameters": null,
+    "other_info": [
+      "Instruct",
+      "Nemo"
+    ]
+  },
+  "model_name": {
+    "model_name": "model_name",
+    "family": "model",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "name"
+    ]
+  },
+  "gemma-2-9b-it": {
+    "model_name": "gemma-2-9b-it",
+    "family": "gemma",
+    "subfamily": null,
+    "version": "2",
+    "date": null,
+    "parameters": "9B",
+    "other_info": [
+      "it"
+    ]
+  },
+  "llama-3.1-70b-instruct": {
+    "model_name": "llama-3.1-70b-instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "70B",
+    "other_info": [
+      "instruct"
+    ]
+  },
+  "claude-3-haiku": {
+    "model_name": "claude-3-haiku",
+    "family": "claude",
+    "subfamily": "claude-haiku",
+    "version": "3",
+    "date": null,
+    "parameters": null,
+    "other_info": null
+  },
+  "cypher-alpha": {
+    "model_name": "cypher-alpha",
+    "family": "cypher",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": null,
+    "other_info": [
+      "alpha"
+    ]
+  },
+  "-small-3.1-24b-instruct-2503": {
+    "model_name": "-small-3.1-24b-instruct-2503",
+    "family": null,
+    "subfamily": null,
+    "version": "3.1",
+    "date": "2503",
+    "parameters": "24B",
+    "other_info": [
+      "instruct",
+      "small"
+    ]
+  },
+  "Llama-4-Scout-17B-16E-Instruct": {
+    "model_name": "Llama-4-Scout-17B-16E-Instruct",
+    "family": "llama",
+    "subfamily": "llama-4",
+    "version": "4",
+    "date": null,
+    "parameters": "17B",
+    "other_info": [
+      "16E",
+      "Instruct",
+      "Scout"
+    ]
+  },
+  "gpt-4-0314": {
+    "model_name": "gpt-4-0314",
+    "family": "gpt",
+    "subfamily": "gpt-4",
+    "version": "4",
+    "date": "0314",
+    "parameters": null,
+    "other_info": [
+      "031"
+    ]
+  },
+  "-Small-24B-Instruct-2501": {
+    "model_name": "-Small-24B-Instruct-2501",
+    "family": null,
+    "subfamily": null,
+    "version": null,
+    "date": "2501",
+    "parameters": "24B",
+    "other_info": [
+      "Instruct",
+      "Small"
+    ]
+  },
+  "gpt-5-nano-2025-08-07": {
+    "model_name": "gpt-5-nano-2025-08-07",
+    "family": "gpt",
+    "subfamily": "gpt-5-nano",
+    "version": "5",
+    "date": "2025-08-07",
+    "parameters": null,
+    "other_info": null
+  },
+  "llama-3.1-8b-instruct": {
+    "model_name": "llama-3.1-8b-instruct",
+    "family": "llama",
+    "subfamily": "llama-3.1",
+    "version": "3.1",
+    "date": null,
+    "parameters": "8B",
+    "other_info": [
+      "instruct"
+    ]
+  },
+  "lfm-7b": {
+    "model_name": "lfm-7b",
+    "family": "lfm",
+    "subfamily": null,
+    "version": null,
+    "date": null,
+    "parameters": "7B",
+    "other_info": null
+  },
+  "gpt-oss-20b": {
+    "model_name": "gpt-oss-20b",
+    "family": "gpt",
+    "subfamily": "gpt-oss",
+    "version": null,
+    "date": null,
+    "parameters": "20B",
+    "other_info": null
+  },
+  "llama-3.2-3b-instruct": {
+    "model_name": "llama-3.2-3b-instruct",
+    "family": "llama",
+    "subfamily": "llama-3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": "3B",
+    "other_info": [
+      "instruct"
+    ]
+  },
+  "gpt-3.5-turbo-0613": {
+    "model_name": "gpt-3.5-turbo-0613",
+    "family": "gpt",
+    "subfamily": "gpt-3.5-turbo",
+    "version": "3.5",
+    "date": "0613",
+    "parameters": null,
+    "other_info": null
+  },
+  "llama-3.2-1b-instruct": {
+    "model_name": "llama-3.2-1b-instruct",
+    "family": "llama",
+    "subfamily": "llama-3.2",
+    "version": "3.2",
+    "date": null,
+    "parameters": "1B",
+    "other_info": [
+      "instruct"
+    ]
+  }
+}
