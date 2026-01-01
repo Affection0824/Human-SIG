@@ -4,14 +4,11 @@
   "GPT-5.2 (High)": "gpt-5.2",
   "Grok 4 (Refine.)": "grok-4-0709",
   "GPT-5.1 (Thinking, High)": "gpt-5.1-high",
-  "Claude Opus 4 (Thinking 16K)": "Anthropicclaude-opus-4-5-20251101",
   "o4-mini (High)": "o4-mini-2025-04-16",
-  "Claude Sonnet 4 (Thinking 16K)": "Anthropicclaude-sonnet-4-5-20250929",
-  "o3-Pro (High)": "o3-mini-high",
   "Gemini 2.5 Pro (Thinking 32K)": "gemini-2.5-pro",
+  "o3-mini (High)": "o3-mini-high",
   "Gemini 2.5 Flash (Preview) (Thinking 24K)": "gemini-2.5-flash",
   "o3-mini (Medium)": "o3-mini",
-  "o3-Pro (Low)": "o3-2025-04-16",
   "GPT-5.1 (Thinking, Low)": "gpt-5.1",
   "Gemini 2.0 Flash": "gemini-2.0-flash-001",
   "Deepseek R1": "deepseek-r1-0528",
@@ -19,6 +16,5 @@
   "o1-mini": "o1-mini",
   "Gemini 1.5 Pro": "gemini-1.5-pro-002",
   "GPT-4.1": "gpt-4.1-2025-04-14",
-  "GPT-4o": "gpt-4o-2024-05-13",
   "GPT-4.1-Mini": "gpt-4.1-mini-2025-04-14"
 }

@@ -1,0 +1,143 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$comment": "Schema for metadata.json file containing benchmark metadata and LMArena category information. The file is an array containing one meta_info entry and multiple benchmark/LMArena entries.",
+  "type": "array",
+  "description": "Array of metadata entries: first entry is meta_info, followed by benchmark entries and LMArena entries",
+  "items": {
+    "oneOf": [
+      {
+        "$comment": "Meta info entry: contains definitions for prompt_length_standards, category_definitions, and scraping_method_definitions. This is always the first entry in the array.",
+        "type": "object",
+        "properties": {
+          "meta_info": {
+            "type": "object",
+            "$comment": "Metadata definitions used throughout the file",
+            "properties": {
+              "prompt_length_standards": {
+                "type": "object",
+                "$comment": "Token range definitions for prompt length categories used in H3 hypothesis testing",
+                "patternProperties": {
+                  "^Short|Medium|Long|Extreme$": {
+                    "type": "string",
+                    "$comment": "Token range description (e.g., '< 500 tokens', '500 - 2,000 tokens')"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "category_definitions": {
+                "type": "object",
+                "$comment": "Definitions for benchmark categories that map to LMArena ELO columns",
+                "patternProperties": {
+                  "^Coding|Math|Instruction Following|Creative Writing|Hard Prompts|Expert$": {
+                    "type": "string",
+                    "$comment": "Category description explaining what types of tasks belong to this category"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "scraping_method_definitions": {
+                "type": "object",
+                "$comment": "Definitions for different data acquisition methods",
+                "patternProperties": {
+                  "^pandas_read_html|selenium|artificial_analysis|vals_ai_manual_json|manual|manual_source_code|lmarena$": {
+                    "type": "string",
+                    "$comment": "Method description explaining how to acquire data using this method"
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "required": ["prompt_length_standards", "category_definitions", "scraping_method_definitions"]
+          }
+        },
+        "required": ["meta_info"],
+        "additionalProperties": false
+      },
+      {
+        "$comment": "Benchmark entry: contains metadata for benchmarks that will be analyzed. These entries do NOT have an 'elo_column' field.",
+        "type": "object",
+        "properties": {
+          "benchmark_name": {
+            "type": "string",
+            "$comment": "The name of the benchmark"
+          },
+          "leaderboard_url": {
+            "type": "string",
+            "format": "uri",
+            "$comment": "The endpoint URL where the benchmark leaderboard can be accessed"
+          },
+          "release_date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "$comment": "Release date in YYYY-MM-DD format (e.g., '2024-10-30')"
+          },
+          "question_count": {
+            "type": "integer",
+            "minimum": 1,
+            "$comment": "Integer number of questions in the benchmark"
+          },
+          "question_type": {
+            "type": "string",
+            "$comment": "Description of the question type (supplementary information only, not used in analysis)"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["Coding", "Math", "Instruction Following", "Creative Writing", "Hard Prompts", "Expert"],
+            "$comment": "Category that determines the target LMArena ELO column for correlation analysis. Mapping: 'Coding' -> elo_coding, 'Math' -> elo_math, 'Instruction Following' -> elo_instruction_following, 'Creative Writing' -> elo_creative_writing, 'Hard Prompts' -> elo_hard_prompts, 'Expert' -> elo_expert"
+          },
+          "task_type": {
+            "type": "string",
+            "enum": ["MCQ", "Generation", "Agentic", "Mixed"],
+            "$comment": "Task type classification: MCQ (Multiple Choice Questions), Generation (free-form text/code generation), Agentic (interactive environments, multi-step actions), Mixed (combines multiple task types)"
+          },
+          "prompt_length": {
+            "type": "string",
+            "enum": ["Short", "Medium", "Long", "Extreme"],
+            "$comment": "Prompt length category used for H3 hypothesis testing. Token ranges are defined in meta_info.prompt_length_standards. Treated as categories (not numeric ranks) for Kruskal-Wallis test."
+          },
+          "scraping_method": {
+            "type": "string",
+            "enum": ["pandas_read_html", "selenium", "artificial_analysis", "vals_ai_manual_json", "manual", "manual_source_code", "lmarena"],
+            "$comment": "Data acquisition method. All output data files are named 'data.csv' and stored in the respective method directory under data/raw/. See meta_info.scraping_method_definitions for detailed descriptions."
+          }
+        },
+        "required": ["benchmark_name", "leaderboard_url", "release_date", "question_count", "question_type", "category", "task_type", "prompt_length", "scraping_method"],
+        "additionalProperties": false
+      },
+      {
+        "$comment": "LMArena entry: contains metadata for LMArena leaderboard categories (Overall, Coding, Math, etc.). These entries have an 'elo_column' field and are processed using the 'lmarena' method. They should NOT be processed as benchmarks.",
+        "type": "object",
+        "properties": {
+          "benchmark_name": {
+            "type": "string",
+            "$comment": "The name of the LMArena category (e.g., 'LMArena (Chatbot Arena) - Overall')"
+          },
+          "leaderboard_url": {
+            "type": "string",
+            "format": "uri",
+            "$comment": "The endpoint URL where the LMArena leaderboard can be accessed"
+          },
+          "release_date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "$comment": "Release date in YYYY-MM-DD format"
+          },
+          "category": {
+            "type": "string",
+            "enum": ["Overall", "Coding", "Math", "Instruction Following", "Creative Writing", "Hard Prompts", "Expert"],
+            "$comment": "LMArena category name. Note: LMArena entries may have 'category: Overall', but they should NOT be processed as benchmarks."
+          },
+          "elo_column": {
+            "type": "string",
+            "enum": ["elo_overall", "elo_coding", "elo_math", "elo_instruction_following", "elo_creative_writing", "elo_hard_prompts", "elo_expert"],
+            "$comment": "The ELO column name in the master table that corresponds to this LMArena category. This field distinguishes LMArena entries from benchmark entries."
+          }
+        },
+        "required": ["benchmark_name", "leaderboard_url", "release_date", "category", "elo_column"],
+        "additionalProperties": false
+      }
+    ]
+  },
+  "minItems": 1
+}
+
