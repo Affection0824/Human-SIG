@@ -330,7 +330,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": "2507",
-    "parameters": "235B",
+    "parameters": "235b",
     "other_info": [
       "a22b",
       "instruct"
@@ -429,7 +429,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "235B",
+    "parameters": "235b",
     "other_info": [
       "vl",
       "a22b",
@@ -557,7 +557,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "80B",
+    "parameters": "80b",
     "other_info": [
       "next",
       "ab",
@@ -579,7 +579,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "235B",
+    "parameters": "235b",
     "other_info": [
       "a22b",
       "no"
@@ -601,7 +601,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": "2507",
-    "parameters": "235B",
+    "parameters": "235b",
     "other_info": [
       "a22b"
     ]
@@ -619,7 +619,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "235B",
+    "parameters": "235b",
     "other_info": [
       "vl",
       "a22b"
@@ -720,7 +720,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "480B",
+    "parameters": "480b",
     "other_info": [
       "coder",
       "a35b",
@@ -751,7 +751,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": "2507",
-    "parameters": "30B",
+    "parameters": "30b",
     "other_info": [
       "ab",
       "instruct"
@@ -806,7 +806,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "235B",
+    "parameters": "235b",
     "other_info": [
       "a22b"
     ]
@@ -859,7 +859,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "80B",
+    "parameters": "80b",
     "other_info": [
       "next",
       "ab"
@@ -890,7 +890,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "27B",
+    "parameters": "27b",
     "other_info": [
       "it"
     ]
@@ -964,7 +964,7 @@
     "subfamily": "gpt-oss",
     "version": "120.0",
     "date": null,
-    "parameters": "120B",
+    "parameters": "120b",
     "other_info": [
       "b"
     ]
@@ -1088,7 +1088,7 @@
     "subfamily": "llama-nemotron-ultra",
     "version": "3.1",
     "date": null,
-    "parameters": "253B",
+    "parameters": "253b",
     "other_info": [
       "Nvidiallama",
       "3.1",
@@ -1113,7 +1113,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "32B",
+    "parameters": "32b",
     "other_info": null
   },
   "qwen-plus-0125": {
@@ -1150,7 +1150,7 @@
     "subfamily": null,
     "version": "3.0",
     "date": null,
-    "parameters": "12B",
+    "parameters": "12b",
     "other_info": [
       "it"
     ]
@@ -1160,7 +1160,7 @@
     "subfamily": "llama-nemotron-super",
     "version": "3.3",
     "date": null,
-    "parameters": "49B",
+    "parameters": "49b",
     "other_info": [
       "Nvidianvidia",
       "llama",
@@ -1204,7 +1204,7 @@
     "subfamily": "llama-instruct",
     "version": "3.1",
     "date": null,
-    "parameters": "405B",
+    "parameters": "405b",
     "other_info": [
       "Metallama",
       "3.1",
@@ -1237,7 +1237,7 @@
     "subfamily": null,
     "version": "32.0",
     "date": null,
-    "parameters": "32B",
+    "parameters": "32b",
     "other_info": [
       "qwq",
       "b"
@@ -1266,7 +1266,7 @@
     "subfamily": "llama-instruct",
     "version": "3.1",
     "date": null,
-    "parameters": "405B",
+    "parameters": "405b",
     "other_info": [
       "Metallama",
       "3.1",

@@ -1,0 +1,7339 @@
+{
+  "Gemini 3 Pro Preview (high)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro-preview",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5.2 (xhigh)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "5.2",
+        "xhigh"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.2",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "5.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "5.2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-5.2"
+  },
+  "Gemini 3 Flash": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-3-flash",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-3-flash"
+  },
+  "Claude Opus 4.5": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 3 Pro Preview (low)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro-preview",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "low"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "o4-mini (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o4",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "mini",
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o4-mini-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o4",
+        "version": "4.0",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "2025",
+          "0",
+          "16"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "o4-mini-2025-04-16"
+  },
+  "Grok 4": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-4-0709",
+        "family": "grok",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "0709",
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "grok-4-0709"
+  },
+  "GLM-4.7": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": null,
+      "version": "4.7",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.7"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 4.5 Sonnet": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Grok 4.1 Fast": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-fast",
+      "version": "4.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Grok 4 Fast": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-fast",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek V3.2 Speciale": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-special-speciale",
+      "version": "3.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "V3.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5.1 (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "5.1",
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.1",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "5.1"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-5.1"
+  },
+  "GPT-5 (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova 2.0 Pro Preview (medium)": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-pro-preview",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5.1 Codex mini (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-mini-codex",
+      "version": "5.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "5.1",
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.5 Pro": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "2.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-pro",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.5-pro"
+  },
+  "Claude 4.5 Haiku": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-haiku-h",
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Kimi K2 Thinking": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-k-thinking-think",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 235B A22B 2507": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": "2507",
+      "parameters": "235B",
+      "other_info": [
+        "A22B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.5 Pro (May)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "2.5",
+      "date": "may",
+      "parameters": null,
+      "other_info": [
+        "2.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-pro",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.5-pro"
+  },
+  "GPT-5 Codex (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-codex",
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5 (medium)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "o3": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o3",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o3-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "o3-mini-high",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "o3-mini",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "o3-2025-04-16"
+  },
+  "MiniMax-M2.1": {
+    "benchmark_info": {
+      "family": "minimax",
+      "subfamily": "minimax-m",
+      "version": "2.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "2.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5 mini (medium)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-mini",
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 4.1 Opus": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "4.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek V3.1 Terminus": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-terminus",
+      "version": "3.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "V3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-v3.1-terminus",
+        "family": "deepseek",
+        "subfamily": "deepseek-terminus",
+        "version": "3.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "v3.1"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-v3.1-terminus"
+  },
+  "Doubao Seed Code": {
+    "benchmark_info": {
+      "family": "doubao",
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Seed",
+        "Code"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Grok 3 mini Reasoning (high)": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-mini-reasoning",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.5 Flash (Sep)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "2.5",
+      "date": "sep",
+      "parameters": null,
+      "other_info": [
+        "2.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-flash",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.5-flash"
+  },
+  "Claude 4 Opus": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Anthropicclaude-opus-4-5-20251101",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4.0",
+        "date": "20251101",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "5"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-opus-4-1-20250805",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4.0",
+        "date": "20250805",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "1"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-opus-4-20250514",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4.0",
+        "date": "20250514",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "2025051"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Cogito v2.1": {
+    "benchmark_info": {
+      "family": "cogito",
+      "subfamily": null,
+      "version": "2.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "v2.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5.1 Codex (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-codex",
+      "version": "5.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "5.1",
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 4 Sonnet": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Anthropicclaude-sonnet-4-5-20250929",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4.0",
+        "date": "20250929",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "5"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-sonnet-4-20250514",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4.0",
+        "date": "20250514",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "2025051"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 VL 235B A22B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "235B",
+      "other_info": [
+        "VL",
+        "A22B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.5 Pro (Mar)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "2.5",
+      "date": "mar",
+      "parameters": null,
+      "other_info": [
+        "2.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-pro",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.5-pro"
+  },
+  "DeepSeek R1 0528": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-r",
+      "version": "1.0",
+      "date": "0528",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-r1-0528",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": "0528",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-r1",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-r1-0528"
+  },
+  "o3-mini (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o3",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "mini",
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o3-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "o3-mini-high",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "o3-mini",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "o3-mini-high"
+  },
+  "Claude 3.7 Sonnet": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "3.7",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "3.7"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "o3-mini": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o3",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "mini"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o3-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "o3-mini-high",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "o3-mini",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "o3-mini"
+  },
+  "GPT-5.2": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "5.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.2",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "5.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "5.2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-5.2"
+  },
+  "DeepSeek V3.2 Exp": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-exp",
+      "version": "3.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "V3.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-v3.2-exp",
+        "family": "deepseek",
+        "subfamily": "deepseek-exp",
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "v3.2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-v3.2-exp"
+  },
+  "GPT-4.1 mini": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-mini",
+      "version": "4.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-4.1-mini-2025-04-14",
+        "family": "gpt",
+        "subfamily": "gpt-mini",
+        "version": "4.1",
+        "date": "2025-04-14",
+        "parameters": null,
+        "other_info": [
+          "4.1"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-4.1-mini-2025-04-14"
+  },
+  "Qwen3 235B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "235B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "MiMo-V2-Flash": {
+    "benchmark_info": {
+      "family": "mimo",
+      "subfamily": "mimo-flash",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek V3.2": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": null,
+      "version": "3.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "V3.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-v3.2",
+        "family": "deepseek",
+        "subfamily": null,
+        "version": "3.2",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "v3.2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-v3.2"
+  },
+  "GPT-5 mini (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-mini",
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5 (low)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "low"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "gpt-oss-120B (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-oss",
+      "version": "120.0",
+      "date": null,
+      "parameters": "120B",
+      "other_info": [
+        "B",
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova 2.0 Pro Preview (low)": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-pro-preview",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "low"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 Max Thinking": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Max"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-instruct-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "235b",
+        "other_info": [
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-vl-235b-a22b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "vl",
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-next-80b-a3b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "80b",
+        "other_info": [
+          "next",
+          "ab",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-no-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "a22b",
+          "no"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-thinking-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "235b",
+        "other_info": [
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-vl-235b-a22b-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "vl",
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-coder-480b-a35b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "480b",
+        "other_info": [
+          "coder",
+          "a35b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-30b-a3b-instruct-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "30b",
+        "other_info": [
+          "ab",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-next-80b-a3b-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "80b",
+        "other_info": [
+          "next",
+          "ab"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-32b",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "32b",
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 Next 80B A3B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "80B",
+      "other_info": [
+        "Next",
+        "AB"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek V3.1": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": null,
+      "version": "3.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "V3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-v3.1",
+        "family": "deepseek",
+        "subfamily": null,
+        "version": "3.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "v3.1"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-v3.1"
+  },
+  "Magistral Medium 1.2": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "1.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Magistral",
+        "Medium",
+        "1.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.5 Flash": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "2.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-flash",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.5-flash"
+  },
+  "GPT-5 (minimal)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "minimal"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GLM-4.6": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": null,
+      "version": "4.6",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.6"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "glm-4.6",
+        "family": "glm",
+        "subfamily": null,
+        "version": "4.6",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "4.6"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "glm-4.6"
+  },
+  "Qwen3 Max": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Max"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-instruct-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "235b",
+        "other_info": [
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-vl-235b-a22b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "vl",
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-next-80b-a3b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "80b",
+        "other_info": [
+          "next",
+          "ab",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-no-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "a22b",
+          "no"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-thinking-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "235b",
+        "other_info": [
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-vl-235b-a22b-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "vl",
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-coder-480b-a35b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "480b",
+        "other_info": [
+          "coder",
+          "a35b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-30b-a3b-instruct-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "30b",
+        "other_info": [
+          "ab",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-next-80b-a3b-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "80b",
+        "other_info": [
+          "next",
+          "ab"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-32b",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "32b",
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "ERNIE 5.0 Thinking Preview": {
+    "benchmark_info": {
+      "family": "ernie",
+      "subfamily": "ernie-preview-thinking-think",
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-4.1": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "4.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-4.1-2025-04-14",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.1",
+        "date": "2025-04-14",
+        "parameters": null,
+        "other_info": [
+          "4.1"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-4.1-2025-04-14"
+  },
+  "GPT-5 (ChatGPT)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "ChatGPT"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "MiniMax M1 40k": {
+    "benchmark_info": {
+      "family": "minimax",
+      "subfamily": "minimax-m",
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "40k"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Minimaxminimax-m1",
+        "family": "minimax",
+        "subfamily": "minimax-m",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "Minimaxminimax"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "Minimaxminimax-m1"
+  },
+  "DeepSeek R1 Distill Qwen 32B": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-r",
+      "version": "1.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "Distill",
+        "Qwen"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-r1-0528",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": "0528",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-r1",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "KAT-Coder-Pro V1": {
+    "benchmark_info": {
+      "family": "kat",
+      "subfamily": "kat-coder-pro-pro",
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova 2.0 Lite (medium)": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-lite",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "nova-2-lite",
+        "family": "nova",
+        "subfamily": "nova-lite",
+        "version": "2.0",
+        "date": "nov",
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "nova-2-lite"
+  },
+  "Apriel-v1.6-15B-Thinker": {
+    "benchmark_info": {
+      "family": "apriel",
+      "subfamily": "apriel-think",
+      "version": "1.6",
+      "date": "apr",
+      "parameters": "15B",
+      "other_info": [
+        "v1.6",
+        "Thinker"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Seed-OSS-36B-Instruct": {
+    "benchmark_info": {
+      "family": "oss",
+      "subfamily": "oss-instruct",
+      "version": "36.0",
+      "date": null,
+      "parameters": "36B",
+      "other_info": [
+        "Seed",
+        "OSS",
+        "B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5 nano (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-nano",
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 Max (Preview)": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Max",
+        "Preview"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-instruct-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "235b",
+        "other_info": [
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-vl-235b-a22b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "vl",
+          "a22b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-next-80b-a3b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "80b",
+        "other_info": [
+          "next",
+          "ab",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-no-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "a22b",
+          "no"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b-thinking-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "235b",
+        "other_info": [
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-vl-235b-a22b-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "vl",
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-coder-480b-a35b-instruct",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "480b",
+        "other_info": [
+          "coder",
+          "a35b",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-30b-a3b-instruct-2507",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2507",
+        "parameters": "30b",
+        "other_info": [
+          "ab",
+          "instruct"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-235b-a22b",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "235b",
+        "other_info": [
+          "a22b"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-next-80b-a3b-thinking",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "80b",
+        "other_info": [
+          "next",
+          "ab"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-32b",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "32b",
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "qwen3-max-preview"
+  },
+  "MiniMax M1 80k": {
+    "benchmark_info": {
+      "family": "minimax",
+      "subfamily": "minimax-m",
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "80k"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Minimaxminimax-m1",
+        "family": "minimax",
+        "subfamily": "minimax-m",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "Minimaxminimax"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "Minimaxminimax-m1"
+  },
+  "Grok 3": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5.1": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "5.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.1",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "5.1"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-5.1"
+  },
+  "Ring-1T": {
+    "benchmark_info": {
+      "family": "ring",
+      "subfamily": null,
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "T"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5 mini (minimal)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-mini",
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "minimal"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-4o (Mar)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "4.0",
+      "date": "mar",
+      "parameters": null,
+      "other_info": [
+        "o"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-4o-2024-05-13",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "2024-05-13",
+        "parameters": null,
+        "other_info": [
+          "o",
+          "202",
+          "05",
+          "13"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-4o-2024-08-06",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "2024-08-06",
+        "parameters": null,
+        "other_info": [
+          "o",
+          "202",
+          "08",
+          "06"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 3.5 Sonnet (Oct)": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "3.5",
+      "date": "oct",
+      "parameters": null,
+      "other_info": [
+        "3.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "MiniMax-M2": {
+    "benchmark_info": {
+      "family": "minimax",
+      "subfamily": "minimax-m",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Minimaxminimax-m2",
+        "family": "minimax",
+        "subfamily": "minimax-m",
+        "version": "2.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "Minimaxminimax"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "Minimaxminimax-m2"
+  },
+  "Nova 2.0 Omni (medium)": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-omni",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Grok Code Fast 1": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-code fast-fast",
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "gpt-oss-120B (low)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-oss",
+      "version": "120.0",
+      "date": null,
+      "parameters": "120B",
+      "other_info": [
+        "B",
+        "low"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "o1": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o1",
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o1-2024-12-17",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1.0",
+        "date": "2024-12-17",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "o1-preview",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "o1-mini",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "o1-2024-12-17"
+  },
+  "Qwen3 235B 2507": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": "2507",
+      "parameters": "235B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek R1 (Jan)": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-r",
+      "version": "1.0",
+      "date": "jan",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-r1-0528",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": "0528",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-r1",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-r1"
+  },
+  "Qwen3 Coder 480B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "480B",
+      "other_info": [
+        "Coder"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek V3 0324": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": null,
+      "version": "3.0",
+      "date": "0324",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-v3-0324",
+        "family": "deepseek",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "0324",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-v3",
+        "family": "deepseek",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-v3-0324"
+  },
+  "Mistral Large 3": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-large",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "mistral-large-3",
+        "family": "mistral",
+        "subfamily": "mistral-large",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "mistral-large-3"
+  },
+  "QwQ-32B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "32.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "QwQ",
+        "B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Apriel-v1.5-15B-Thinker": {
+    "benchmark_info": {
+      "family": "apriel",
+      "subfamily": "apriel-think",
+      "version": "1.5",
+      "date": "apr",
+      "parameters": "15B",
+      "other_info": [
+        "v1.5",
+        "Thinker"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GLM-4.5": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": null,
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "glm-4.5",
+        "family": "glm",
+        "subfamily": null,
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "4.5"
+        ]
+      },
+      {
+        "lmarena_model": "glm-4.5v",
+        "family": "glm",
+        "subfamily": null,
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "4.5v"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "glm-4.5"
+  },
+  "Kimi K2": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-k",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama Nemotron Super 49B v1.5": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-nemotron super-super",
+      "version": "1.5",
+      "date": null,
+      "parameters": "49B",
+      "other_info": [
+        "v1.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Ling-1T": {
+    "benchmark_info": {
+      "family": "ling",
+      "subfamily": null,
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "T"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Magistral Small 1.2": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "1.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Magistral",
+        "Small",
+        "1.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 32B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama Nemotron Ultra": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-ultra",
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Nemotron"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Hermes 4 405B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": "405B",
+      "other_info": [
+        "Hermes"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek V3 (Dec)": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": null,
+      "version": "3.0",
+      "date": "dec",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-v3-0324",
+        "family": "deepseek",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "0324",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-v3",
+        "family": "deepseek",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-v3"
+  },
+  "gpt-oss-20B (high)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-oss",
+      "version": "20.0",
+      "date": null,
+      "parameters": "20B",
+      "other_info": [
+        "B",
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5 nano (medium)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-nano",
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova 2.0 Omni (low)": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-omni",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "low"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "gpt-oss-20B (low)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-oss",
+      "version": "20.0",
+      "date": null,
+      "parameters": "20B",
+      "other_info": [
+        "B",
+        "low"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "EXAONE 4.0 32B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "EXAONE",
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Hermes 4 70B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": "70B",
+      "other_info": [
+        "Hermes"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Medium 3.1": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-medium",
+      "version": "3.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.0 Flash (exp)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "exp"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.0-flash-001",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "2.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          ".0",
+          "001"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.0-flash-001"
+  },
+  "Qwen2.5 Max": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "2.5",
+        "Max"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "qwen2.5-max"
+  },
+  "Nova 2.0 Lite (low)": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-lite",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "low"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "nova-2-lite",
+        "family": "nova",
+        "subfamily": "nova-lite",
+        "version": "2.0",
+        "date": "nov",
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "nova-2-lite"
+  },
+  "Qwen3 30B A3B 2507": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": "2507",
+      "parameters": "30B",
+      "other_info": [
+        "AB"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.0 Flash Thinking exp. (Jan)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash-exp-thinking-think",
+      "version": "2.0",
+      "date": "jan",
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "."
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Devstral 2": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Devstral"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 4 Maverick": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-maverick",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Medium 3": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-medium",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.0 Flash": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.0-flash-001",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "2.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          ".0",
+          "001"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.0-flash-001"
+  },
+  "GPT-4o (Nov)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "4.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        "o"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-4o-2024-05-13",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "2024-05-13",
+        "parameters": null,
+        "other_info": [
+          "o",
+          "202",
+          "05",
+          "13"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-4o-2024-08-06",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "2024-08-06",
+        "parameters": null,
+        "other_info": [
+          "o",
+          "202",
+          "08",
+          "06"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-4o (ChatGPT)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "o",
+        "ChatGPT"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-4o-2024-05-13",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "2024-05-13",
+        "parameters": null,
+        "other_info": [
+          "o",
+          "202",
+          "05",
+          "13"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-4o-2024-08-06",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "2024-08-06",
+        "parameters": null,
+        "other_info": [
+          "o",
+          "202",
+          "08",
+          "06"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "o1-mini": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o1",
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "mini"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o1-2024-12-17",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1.0",
+        "date": "2024-12-17",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "o1-preview",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "o1-mini",
+        "family": "gpt",
+        "subfamily": "o1",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "o1-mini"
+  },
+  "Qwen3 14B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "14B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "ERNIE 4.5 300B A47B": {
+    "benchmark_info": {
+      "family": "ernie",
+      "subfamily": null,
+      "version": "4.5",
+      "date": null,
+      "parameters": "300B",
+      "other_info": [
+        "4.5",
+        "A47B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 3.5 Sonnet (June)": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "3.5",
+      "date": "jun",
+      "parameters": null,
+      "other_info": [
+        "3.5",
+        "e"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-4 Turbo": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-turbo",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Kimi K2 0905": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-k",
+      "version": "2.0",
+      "date": "0905",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GLM-4.5-Air": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": "glm-air",
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "glm-4.5-air",
+        "family": "glm",
+        "subfamily": "glm-air",
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "4.5"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "glm-4.5-air"
+  },
+  "Qwen3 Omni 30B A3B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "30B",
+      "other_info": [
+        "Omni",
+        "AB"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 VL 30B A3B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "30B",
+      "other_info": [
+        "VL",
+        "AB"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.0 Pro Experimental": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro-exp-experimental",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek R1 Distill Llama 70B": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-r",
+      "version": "1.0",
+      "date": null,
+      "parameters": "70B",
+      "other_info": [
+        "Distill",
+        "Llama"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-r1-0528",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": "0528",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-r1",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-4o (May)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "4.0",
+      "date": "may",
+      "parameters": null,
+      "other_info": [
+        "o"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-4o-2024-05-13",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "2024-05-13",
+        "parameters": null,
+        "other_info": [
+          "o",
+          "202",
+          "05",
+          "13"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-4o-2024-08-06",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "2024-08-06",
+        "parameters": null,
+        "other_info": [
+          "o",
+          "202",
+          "08",
+          "06"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "NVIDIA Nemotron 3 Nano": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "NVIDIA",
+        "Nemotron",
+        "Nano"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mi:dm K 2.5 Pro Preview": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Mi:dm",
+        "K",
+        "2.5",
+        "Pro",
+        "Preview"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 VL 32B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "VL"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GLM-4.6V": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": null,
+      "version": "4.6",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.6V"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "glm-4.6",
+        "family": "glm",
+        "subfamily": null,
+        "version": "4.6",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "4.6"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "glm-4.6"
+  },
+  "Solar Pro 2": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Solar",
+        "Pro"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0905-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0711-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Magistral Medium 1": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Magistral",
+        "Medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 1.5 Pro (Sep)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "1.5",
+      "date": "sep",
+      "parameters": null,
+      "other_info": [
+        "1.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-1.5-pro-002",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "1.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "1.5",
+          "002"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-1.5-pro-002"
+  },
+  "Llama 3.1 405B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.1",
+      "date": null,
+      "parameters": "405B",
+      "other_info": [
+        "3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Tulu3 405B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "405B",
+      "other_info": [
+        "Tulu"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Grok Beta": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Beta"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.5 Flash-Lite (Sep)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash-lite",
+      "version": "2.5",
+      "date": "sep",
+      "parameters": null,
+      "other_info": [
+        "2.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "K2-V2 (high)": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "K",
+        "high"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0905-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0711-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Olmo 3.1 32B Think": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "3.1",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "Olmo",
+        "3.1",
+        "Think"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Ling-flash-2.0": {
+    "benchmark_info": {
+      "family": "ling",
+      "subfamily": "ling-flash",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "ling-flash-2.0",
+        "family": "ling",
+        "subfamily": "ling-flash",
+        "version": "2.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          ".0"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "ling-flash-2.0"
+  },
+  "OLMo 3 32B Think": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "OLMo",
+        "Think"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Devstral Small 2": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Devstral",
+        "Small"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-5 nano (minimal)": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-nano",
+      "version": "5.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "minimal"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Devstral Medium": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Devstral",
+        "Medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Large 2 (Nov)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-large",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Pixtral Large": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Pixtral",
+        "Large"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Motif-2-12.7B": {
+    "benchmark_info": {
+      "family": "motif",
+      "subfamily": null,
+      "version": "12.7",
+      "date": null,
+      "parameters": "12.7B",
+      "other_info": [
+        "2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "HyperCLOVA X SEED Think (32B)": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "32.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "HyperCLOVA",
+        "X",
+        "SEED",
+        "Think",
+        "B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova 2.0 Pro Preview": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-pro-preview",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 30B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "30B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.3 Nemotron Super 49B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-nemotron-super",
+      "version": "3.3",
+      "date": null,
+      "parameters": "49B",
+      "other_info": [
+        "3.3"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova 2.0 Omni": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-omni",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 Coder 30B A3B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "30B",
+      "other_info": [
+        "Coder",
+        "AB"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova Premier": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": null,
+      "version": null,
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        "Premier"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Command A": {
+    "benchmark_info": {
+      "family": "command",
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "A"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Grok 2": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-2-2024-08-13",
+        "family": "grok",
+        "subfamily": null,
+        "version": "2.0",
+        "date": "2024-08-13",
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "grok-2-2024-08-13"
+  },
+  "Qwen2.5 72B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "2.5",
+      "date": null,
+      "parameters": "72B",
+      "other_info": [
+        "2.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "qwen2.5-max"
+  },
+  "Reka Flash 3": {
+    "benchmark_info": {
+      "family": "reka",
+      "subfamily": "reka-flash",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Small 3.1": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-small",
+      "version": "3.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 1.5 Flash (Sep)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "1.5",
+      "date": "sep",
+      "parameters": null,
+      "other_info": [
+        "1.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.1 70B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.1",
+      "date": null,
+      "parameters": "70B",
+      "other_info": [
+        "3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Large 2 (Jul)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-large",
+      "version": "2.0",
+      "date": "jul",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen2.5 Coder 32B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "2.5",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "2.5",
+        "Coder"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "qwen2.5-max"
+  },
+  "Claude 3.5 Haiku": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-haiku-h",
+      "version": "3.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "3.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 1.5 Pro (May)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "1.5",
+      "date": "may",
+      "parameters": null,
+      "other_info": [
+        "1.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-1.5-pro-002",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "1.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "1.5",
+          "002"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-1.5-pro-002"
+  },
+  "Qwen3 4B 2507": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": "2507",
+      "parameters": "4B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "NVIDIA Nemotron Nano 12B v2 VL": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "12.0",
+      "date": null,
+      "parameters": "12B",
+      "other_info": [
+        "NVIDIA",
+        "Nemotron",
+        "Nano",
+        "B",
+        "v2",
+        "VL"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Small 3.2": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-small",
+      "version": "3.2",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "3.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.3 70B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.3",
+      "date": null,
+      "parameters": "70B",
+      "other_info": [
+        "3.3"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GPT-4.1 nano": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-nano",
+      "version": "4.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Phi-4": {
+    "benchmark_info": {
+      "family": "phi",
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "K2-V2 (medium)": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "K",
+        "medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0905-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0711-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.0 Flash-Lite (Feb)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash-lite",
+      "version": "2.0",
+      "date": "feb",
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.0 Flash-Lite (Preview)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash-lite",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "Preview"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Devstral Small (May)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": null,
+      "date": "may",
+      "parameters": null,
+      "other_info": [
+        "Devstral",
+        "Small"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova 2.0 Lite": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": "nova-lite",
+      "version": "2.0",
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "nova-2-lite",
+        "family": "nova",
+        "subfamily": "nova-lite",
+        "version": "2.0",
+        "date": "nov",
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "nova-2-lite"
+  },
+  "Magistral Small 1": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Magistral",
+        "Small"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Ministral 14B (Dec '25)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "14.0",
+      "date": "dec",
+      "parameters": "14B",
+      "other_info": [
+        "Ministral",
+        "B",
+        "'25"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek R1 Distill Qwen 14B": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-r",
+      "version": "1.0",
+      "date": null,
+      "parameters": "14B",
+      "other_info": [
+        "Distill",
+        "Qwen"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-r1-0528",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": "0528",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-r1",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Devstral Small": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Devstral",
+        "Small"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Small 3": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": "mistral-small",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Saba": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Saba"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.2 90B (Vision)": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.2",
+      "date": null,
+      "parameters": "90B",
+      "other_info": [
+        "3.2",
+        "Vision"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Sonar": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Sonar"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 8B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "8B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Sonar Pro": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Sonar",
+        "Pro"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.1 Nemotron 70B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-nemotron",
+      "version": "3.1",
+      "date": null,
+      "parameters": "70B",
+      "other_info": [
+        "3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen2.5 Instruct 32B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "2.5",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "2.5",
+        "Instruct"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "qwen2.5-max"
+  },
+  "GPT-4o mini": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-mini",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "o"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 3 Opus": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen2 72B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": "72B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 1.5 Flash-8B": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "1.5",
+      "date": null,
+      "parameters": "8B",
+      "other_info": [
+        "1.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepHermes 3 - Mistral 24B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "24B",
+      "other_info": [
+        "DeepHermes",
+        "Mistral"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Hermes 3 - Llama-3.1 70B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.1",
+      "date": null,
+      "parameters": "70B",
+      "other_info": [
+        "Hermes",
+        "3",
+        "Llama",
+        "3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 3 Sonnet": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Anthropicclaude-3-5-sonnet-20241022",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "3.0",
+        "date": "20241022",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "5"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-3-7-sonnet-20250219",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "3.0",
+        "date": "20250219",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "7"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-3-5-sonnet-20240620",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "3.0",
+        "date": "20240620",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "5"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "NVIDIA Nemotron Nano 9B V2": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "9.0",
+      "date": null,
+      "parameters": "9B",
+      "other_info": [
+        "NVIDIA",
+        "Nemotron",
+        "Nano",
+        "B",
+        "V2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "GLM-4.5V": {
+    "benchmark_info": {
+      "family": "glm",
+      "subfamily": null,
+      "version": "4.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "4.5V"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "glm-4.5",
+        "family": "glm",
+        "subfamily": null,
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "4.5"
+        ]
+      },
+      {
+        "lmarena_model": "glm-4.5v",
+        "family": "glm",
+        "subfamily": null,
+        "version": "4.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "4.5v"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "glm-4.5v"
+  },
+  "Qwen3 VL 8B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "8B",
+      "other_info": [
+        "VL"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "K2-V2 (low)": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "K",
+        "low"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0905-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0711-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "OLMo 3 7B Think": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "7B",
+      "other_info": [
+        "OLMo",
+        "Think"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Ministral 8B (Dec '25)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "8.0",
+      "date": "dec",
+      "parameters": "8B",
+      "other_info": [
+        "Ministral",
+        "B",
+        "'25"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova Pro": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": null,
+      "version": null,
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        "Pro"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Granite 4.0 H Small": {
+    "benchmark_info": {
+      "family": "granite",
+      "subfamily": "granite-small-h",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemma 3 27B": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "27B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Large (Feb)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": null,
+      "date": "feb",
+      "parameters": null,
+      "other_info": [
+        "Large"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek R1 0528 Qwen3 8B": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-r",
+      "version": "1.0",
+      "date": "0528",
+      "parameters": "8B",
+      "other_info": [
+        "Qwen3"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-r1-0528",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": "0528",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-r1",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "deepseek-r1-0528"
+  },
+  "Kimi Linear 48B A3B Instruct": {
+    "benchmark_info": {
+      "family": "kimi",
+      "subfamily": "kimi-linear-instruct",
+      "version": "48.0",
+      "date": null,
+      "parameters": "48B",
+      "other_info": [
+        "B",
+        "A3B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 2.5 Flash-Lite": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash-lite",
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "2.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Jamba 1.7 Large": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "1.7",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Jamba",
+        "1.7",
+        "Large"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3 70B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "70B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mixtral 8x22B": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "8.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Mixtral",
+        "x22B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 3 Haiku": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-haiku-h",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 2.0": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Jamba 1.6 Large": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "1.6",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Jamba",
+        "1.6",
+        "Large"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 1.5 Flash (May)": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "1.5",
+      "date": "may",
+      "parameters": null,
+      "other_info": [
+        "1.5"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Claude 2.1": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": null,
+      "version": "2.1",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "2.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Ring-flash-2.0": {
+    "benchmark_info": {
+      "family": "ring",
+      "subfamily": "ring-flash",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 4 Scout": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-scout",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 VL 4B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "4B",
+      "other_info": [
+        "VL"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 4B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "4B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen3-max-preview",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "max",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "qwen3-max-2025-09-23",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "3.0",
+        "date": "2025-09-23",
+        "parameters": null,
+        "other_info": [
+          "max",
+          "2025",
+          "09",
+          "2"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemma 3 12B": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "12B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Jamba 1.5 Large": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "1.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Jamba",
+        "1.5",
+        "Large"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Small (Sep)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": null,
+      "date": "sep",
+      "parameters": null,
+      "other_info": [
+        "Small"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen2.5 Turbo": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "2.5",
+        "Turbo"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "qwen2.5-max"
+  },
+  "Qwen2.5 Coder 7B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "2.5",
+      "date": null,
+      "parameters": "7B",
+      "other_info": [
+        "2.5",
+        "Coder"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "qwen2.5-max",
+        "family": "qwen",
+        "subfamily": null,
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "2.5",
+          "max"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "qwen2.5-max"
+  },
+  "Ling-mini-2.0": {
+    "benchmark_info": {
+      "family": "ling",
+      "subfamily": "ling-mini",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Ministral 3B (Dec '25)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "3.0",
+      "date": "dec",
+      "parameters": "3B",
+      "other_info": [
+        "Ministral",
+        "B",
+        "'25"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova Lite": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": null,
+      "version": null,
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        "Lite"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek Coder V2 Lite": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-coder-lite",
+      "version": "2.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.1 8B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.1",
+      "date": null,
+      "parameters": "8B",
+      "other_info": [
+        "3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Small (Feb)": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": null,
+      "date": "feb",
+      "parameters": null,
+      "other_info": [
+        "Small"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek R1 Distill Llama 8B": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-r",
+      "version": "1.0",
+      "date": null,
+      "parameters": "8B",
+      "other_info": [
+        "Distill",
+        "Llama"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "deepseek-r1-0528",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": "0528",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "deepseek-r1",
+        "family": "deepseek",
+        "subfamily": "deepseek-r",
+        "version": "1.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Granite 4.0 Micro": {
+    "benchmark_info": {
+      "family": "granite",
+      "subfamily": "granite-micro",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral Medium": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Medium"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3 8B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "8B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemini 1.0 Pro": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "1.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 2 Chat 13B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-chat",
+      "version": "2.0",
+      "date": null,
+      "parameters": "13B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Command-R+ (Apr)": {
+    "benchmark_info": {
+      "family": "command",
+      "subfamily": null,
+      "version": null,
+      "date": "apr",
+      "parameters": null,
+      "other_info": [
+        "R+"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DBRX": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": null,
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "DBRX"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Phi-4 Mini": {
+    "benchmark_info": {
+      "family": "phi",
+      "subfamily": "phi-mini",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.2 11B (Vision)": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.2",
+      "date": null,
+      "parameters": "11B",
+      "other_info": [
+        "3.2",
+        "Vision"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Phi-4 Multimodal": {
+    "benchmark_info": {
+      "family": "phi",
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Multimodal"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.1 Nemotron Nano 4B v1.1": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-nano-nemotron",
+      "version": "3.1",
+      "date": null,
+      "parameters": "4B",
+      "other_info": [
+        "3.1",
+        "v1.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "OLMo 3 7B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "7B",
+      "other_info": [
+        "OLMo"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Granite 3.3 8B": {
+    "benchmark_info": {
+      "family": "granite",
+      "subfamily": null,
+      "version": "3.3",
+      "date": null,
+      "parameters": "8B",
+      "other_info": [
+        "3.3"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Jamba 1.6 Mini": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "1.6",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Jamba",
+        "1.6",
+        "Mini"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Exaone 4.0 1.2B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": "1.2B",
+      "other_info": [
+        "Exaone",
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Nova Micro": {
+    "benchmark_info": {
+      "family": "nova",
+      "subfamily": null,
+      "version": null,
+      "date": "nov",
+      "parameters": null,
+      "other_info": [
+        "Micro"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Jamba 1.7 Mini": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "1.7",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Jamba",
+        "1.7",
+        "Mini"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Granite 4.0 1B": {
+    "benchmark_info": {
+      "family": "granite",
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": "1B",
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Phi-3 Mini": {
+    "benchmark_info": {
+      "family": "phi",
+      "subfamily": "phi-mini",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemma 3n E4B (May)": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": "may",
+      "parameters": null,
+      "other_info": [
+        "n",
+        "E4B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemma-3-27b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "27b",
+        "other_info": [
+          "it"
+        ]
+      },
+      {
+        "lmarena_model": "gemma-3-12b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "12b",
+        "other_info": [
+          "it"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepHermes 3 - Llama-3.1 8B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.1",
+      "date": null,
+      "parameters": "8B",
+      "other_info": [
+        "DeepHermes",
+        "3",
+        "Llama",
+        "3.1"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemma 3n E4B": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "n",
+        "E4B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemma-3-27b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "27b",
+        "other_info": [
+          "it"
+        ]
+      },
+      {
+        "lmarena_model": "gemma-3-12b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "12b",
+        "other_info": [
+          "it"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "OLMo 2 32B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "OLMo"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0905-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0711-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Granite 4.0 H 1B": {
+    "benchmark_info": {
+      "family": "granite",
+      "subfamily": "granite-h",
+      "version": "4.0",
+      "date": null,
+      "parameters": "1B",
+      "other_info": [
+        ".0"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Jamba 1.5 Mini": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "1.5",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Jamba",
+        "1.5",
+        "Mini"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "LFM2 8B A1B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": "8B",
+      "other_info": [
+        "LFM",
+        "A1B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0905-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0711-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemma 3 4B": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "4B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 1.7B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "1.7",
+      "date": null,
+      "parameters": "1.7B",
+      "other_info": [
+        "3"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "DeepSeek R1 Distill Qwen 1.5B": {
+    "benchmark_info": {
+      "family": "deepseek",
+      "subfamily": "deepseek-r",
+      "version": "1.5",
+      "date": null,
+      "parameters": "1.5B",
+      "other_info": [
+        "1",
+        "Distill",
+        "Qwen"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "LFM 40B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "40.0",
+      "date": null,
+      "parameters": "40B",
+      "other_info": [
+        "LFM",
+        "B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Jamba Reasoning 3B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "3B",
+      "other_info": [
+        "Jamba",
+        "Reasoning",
+        "B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Command-R (Mar)": {
+    "benchmark_info": {
+      "family": "command",
+      "subfamily": null,
+      "version": null,
+      "date": "mar",
+      "parameters": null,
+      "other_info": [
+        "R"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemma 3n E2B": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "n",
+        "E2B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemma-3-27b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "27b",
+        "other_info": [
+          "it"
+        ]
+      },
+      {
+        "lmarena_model": "gemma-3-12b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "12b",
+        "other_info": [
+          "it"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.2 3B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.2",
+      "date": null,
+      "parameters": "3B",
+      "other_info": [
+        "3.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "QwQ 32B-Preview": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "32.0",
+      "date": null,
+      "parameters": "32B",
+      "other_info": [
+        "QwQ",
+        "B",
+        "Preview"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Qwen3 0.6B": {
+    "benchmark_info": {
+      "family": "qwen",
+      "subfamily": null,
+      "version": "0.6",
+      "date": null,
+      "parameters": "0.6B",
+      "other_info": [
+        "3"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "OLMo 2 7B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.0",
+      "date": null,
+      "parameters": "7B",
+      "other_info": [
+        "OLMo"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0905-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0905",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      },
+      {
+        "lmarena_model": "MoonshotAIkimi-k2-0711-preview",
+        "family": null,
+        "subfamily": null,
+        "version": "2.0",
+        "date": "0711",
+        "parameters": null,
+        "other_info": [
+          "MoonshotAIkimi",
+          "k",
+          "preview"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Molmo 7B-D": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "7.0",
+      "date": null,
+      "parameters": "7B",
+      "other_info": [
+        "Molmo",
+        "B",
+        "D"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "LFM2 2.6B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "2.6",
+      "date": null,
+      "parameters": "2.6B",
+      "other_info": [
+        "LFM2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "LFM2 1.2B": {
+    "benchmark_info": {
+      "family": null,
+      "subfamily": null,
+      "version": "1.2",
+      "date": null,
+      "parameters": "1.2B",
+      "other_info": [
+        "LFM2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mixtral 8x7B": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "8.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "Mixtral",
+        "x7B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 3.2 1B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": null,
+      "version": "3.2",
+      "date": null,
+      "parameters": "1B",
+      "other_info": [
+        "3.2"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Granite 4.0 H 350M": {
+    "benchmark_info": {
+      "family": "granite",
+      "subfamily": "granite-h",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "350M"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Mistral 7B": {
+    "benchmark_info": {
+      "family": "mistral",
+      "subfamily": null,
+      "version": "7.0",
+      "date": null,
+      "parameters": "7B",
+      "other_info": [
+        "B"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Granite 4.0 350M": {
+    "benchmark_info": {
+      "family": "granite",
+      "subfamily": null,
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        ".0",
+        "350M"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemma 3 1B": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": "1B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Llama 2 Chat 7B": {
+    "benchmark_info": {
+      "family": "llama",
+      "subfamily": "llama-chat",
+      "version": "2.0",
+      "date": null,
+      "parameters": "7B",
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "NO_MATCH_FOUND"
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "Gemma 3 270M": {
+    "benchmark_info": {
+      "family": "gemma",
+      "subfamily": null,
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "270M"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemma-3-27b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "27b",
+        "other_info": [
+          "it"
+        ]
+      },
+      {
+        "lmarena_model": "gemma-3-12b-it",
+        "family": "gemma",
+        "subfamily": null,
+        "version": "3.0",
+        "date": null,
+        "parameters": "12b",
+        "other_info": [
+          "it"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  }
+}
