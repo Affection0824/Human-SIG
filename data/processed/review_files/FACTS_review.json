@@ -1,0 +1,486 @@
+{
+  "gemini-3-pro-preview": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "3.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "preview"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-3-pro",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-3-pro"
+  },
+  "gemini-2.5-pro": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-pro",
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-pro",
+        "family": "gemini",
+        "subfamily": "gemini-pro",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.5-pro"
+  },
+  "gpt-5-2025-08-07": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.0",
+      "date": "2025-08-07",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5-high",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "5.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-5-chat",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "5.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "chat"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": 0
+  },
+  "grok-4-0709": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": null,
+      "version": "4.0",
+      "date": "0709",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-4-0709",
+        "family": "grok",
+        "subfamily": null,
+        "version": "4.0",
+        "date": "0709",
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "grok-4-0709"
+  },
+  "o3-2025-04-16": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o3",
+      "version": "3.0",
+      "date": "2025-04-16",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o3-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "o3-mini-high",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini",
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "o3-mini",
+        "family": "gpt",
+        "subfamily": "o3",
+        "version": "3.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "mini"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "o3-2025-04-16"
+  },
+  "claude-opus-4-5-20251101": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "4.5",
+      "date": "20251101",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Anthropicclaude-opus-4-5-20251101-thinking-32k",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4.5",
+        "date": "20251101",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-opus-4-5-20251101",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4.5",
+        "date": "20251101",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101-thinking-32k"
+  },
+  "gpt-4.1-2025-04-14": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "4.1",
+      "date": "2025-04-14",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-4.1-2025-04-14",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "4.1",
+        "date": "2025-04-14",
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-4.1-2025-04-14"
+  },
+  "gemini-2.5-flash": {
+    "benchmark_info": {
+      "family": "gemini",
+      "subfamily": "gemini-flash",
+      "version": "2.5",
+      "date": null,
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gemini-2.5-flash",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "2.5",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      },
+      {
+        "lmarena_model": "gemini-2.5-flash-preview-09-2025",
+        "family": "gemini",
+        "subfamily": "gemini-flash",
+        "version": "2.5",
+        "date": "09-2025",
+        "parameters": null,
+        "other_info": [
+          "preview"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gemini-2.5-flash"
+  },
+  "gpt-5.1-2025-11-13": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": null,
+      "version": "5.1",
+      "date": "2025-11-13",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5.1-high",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      },
+      {
+        "lmarena_model": "gpt-5.1",
+        "family": "gpt",
+        "subfamily": null,
+        "version": "5.1",
+        "date": null,
+        "parameters": null,
+        "other_info": null
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-5.1"
+  },
+  "claude-sonnet-4-5-thinking-20250929": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "4.5",
+      "date": "20250929",
+      "parameters": null,
+      "other_info": [
+        "thinking"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4.5",
+        "date": "20250929",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-sonnet-4-5-20250929",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4.5",
+        "date": "20250929",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k"
+  },
+  "claude-opus-4-1-20250805": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-opus",
+      "version": "4.1",
+      "date": "20250805",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Anthropicclaude-opus-4-1-20250805-thinking-16k",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4.1",
+        "date": "20250805",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-opus-4-1-20250805",
+        "family": "claude",
+        "subfamily": "claude-opus",
+        "version": "4.1",
+        "date": "20250805",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-1-20250805-thinking-16k"
+  },
+  "gpt-5-mini-2025-08-07": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "gpt-mini",
+      "version": "5.0",
+      "date": "2025-08-07",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "gpt-5-mini-high",
+        "family": "gpt",
+        "subfamily": "gpt-mini",
+        "version": "5.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "high"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "gpt-5-mini-high"
+  },
+  "claude-sonnet-4-20250514": {
+    "benchmark_info": {
+      "family": "claude",
+      "subfamily": "claude-sonnet",
+      "version": "4.0",
+      "date": "20250514",
+      "parameters": null,
+      "other_info": null
+    },
+    "candidates": [
+      {
+        "lmarena_model": "Anthropicclaude-sonnet-4-20250514-thinking-32k",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4.0",
+        "date": "20250514",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude",
+          "thinking"
+        ]
+      },
+      {
+        "lmarena_model": "Anthropicclaude-sonnet-4-20250514",
+        "family": "claude",
+        "subfamily": "claude-sonnet",
+        "version": "4.0",
+        "date": "20250514",
+        "parameters": null,
+        "other_info": [
+          "Anthropicclaude"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514-thinking-32k"
+  },
+  "o4-mini-2025-04-16": {
+    "benchmark_info": {
+      "family": "gpt",
+      "subfamily": "o4",
+      "version": "4.0",
+      "date": "2025-04-16",
+      "parameters": null,
+      "other_info": [
+        "mini"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "o4-mini-2025-04-16",
+        "family": "gpt",
+        "subfamily": "o4",
+        "version": "4.0",
+        "date": "2025-04-16",
+        "parameters": null,
+        "other_info": [
+          "mini"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "o4-mini-2025-04-16"
+  },
+  "grok-4-fast-reasoning": {
+    "benchmark_info": {
+      "family": "grok",
+      "subfamily": "grok-fast",
+      "version": "4.0",
+      "date": null,
+      "parameters": null,
+      "other_info": [
+        "reasoning"
+      ]
+    },
+    "candidates": [
+      {
+        "lmarena_model": "grok-4-fast-chat",
+        "family": "grok",
+        "subfamily": "grok-fast",
+        "version": "4.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "chat"
+        ]
+      },
+      {
+        "lmarena_model": "grok-4-fast-reasoning",
+        "family": "grok",
+        "subfamily": "grok-fast",
+        "version": "4.0",
+        "date": null,
+        "parameters": null,
+        "other_info": [
+          "reasoning"
+        ]
+      }
+    ],
+    "untrusted": 1,
+    "selected_lmarena_model": "grok-4-fast-reasoning"
+  }
+}

@@ -1,0 +1,372 @@
+Model,Features Creator,Intelligence AA-LCR (Long Context Reasoning)
+Apriel-v1.5-15B-Thinker,ServiceNow,20%
+Apriel-v1.6-15B-Thinker,ServiceNow,50%
+Arctic,Snowflake,--
+Claude 2.0,Anthropic,--
+Claude 2.1,Anthropic,--
+Claude 3 Haiku,Anthropic,--
+Claude 3 Opus,Anthropic,--
+Claude 3 Sonnet,Anthropic,--
+Claude 3.5 Haiku,Anthropic,--
+Claude 3.5 Sonnet (June),Anthropic,--
+Claude 3.5 Sonnet (Oct),Anthropic,--
+Claude 3.7 Sonnet Thinking,Anthropic,61%
+Claude 3.7 Sonnet Non-Thinking,Anthropic,48%
+Claude 4 Opus Non-Thinking,Anthropic,36%
+Claude 4 Opus Thinking,Anthropic,34%
+Claude 4 Sonnet Non-Thinking,Anthropic,44%
+Claude 4 Sonnet Thinking,Anthropic,65%
+Claude 4.1 Opus Non-Thinking,Anthropic,--
+Claude 4.1 Opus Thinking,Anthropic,66%
+Claude 4.5 Haiku Thinking,Anthropic,70%
+Claude 4.5 Haiku Non-Thinking,Anthropic,44%
+Claude 4.5 Sonnet Thinking,Anthropic,66%
+Claude 4.5 Sonnet Non-Thinking,Anthropic,51%
+Claude Instant,Anthropic,--
+Claude Opus 4.5 Non-Thinking,Anthropic,65%
+Claude Opus 4.5 Thinking,Anthropic,74%
+Cogito v2.1,Deep Cogito,22%
+Command A,Cohere,18%
+Command-R (Mar),Cohere,--
+Command-R+ (Apr),Cohere,--
+DBRX,Databricks,--
+DeepHermes 3 - Llama-3.1 8B,Nous Research,--
+DeepHermes 3 - Mistral 24B,Nous Research,--
+DeepSeek Coder V2 Lite,DeepSeek,--
+DeepSeek LLM 67B (V1),DeepSeek,--
+DeepSeek R1 (Jan),DeepSeek,52%
+DeepSeek R1 0528,DeepSeek,55%
+DeepSeek R1 0528 Qwen3 8B,DeepSeek,13%
+DeepSeek R1 Distill Llama 70B,DeepSeek,11%
+DeepSeek R1 Distill Llama 8B,DeepSeek,0%
+DeepSeek R1 Distill Qwen 1.5B,DeepSeek,0%
+DeepSeek R1 Distill Qwen 14B,DeepSeek,7%
+DeepSeek R1 Distill Qwen 32B,DeepSeek,10%
+DeepSeek V3 (Dec),DeepSeek,29%
+DeepSeek V3 0324,DeepSeek,41%
+DeepSeek V3.1 Non-Thinking,DeepSeek,45%
+DeepSeek V3.1 Thinking,DeepSeek,53%
+DeepSeek V3.1 Terminus Thinking,DeepSeek,65%
+DeepSeek V3.1 Terminus Non-Thinking,DeepSeek,43%
+DeepSeek V3.2 Non-Thinking,DeepSeek,39%
+DeepSeek V3.2 Thinking,DeepSeek,65%
+DeepSeek V3.2 Exp Thinking,DeepSeek,69%
+DeepSeek V3.2 Exp Non-Thinking,DeepSeek,43%
+DeepSeek V3.2 Speciale,DeepSeek,59%
+DeepSeek-Coder-V2,DeepSeek,--
+DeepSeek-OCR,DeepSeek,--
+DeepSeek-V2,DeepSeek,--
+DeepSeek-V2.5,DeepSeek,--
+DeepSeek-V2.5 (Dec),DeepSeek,--
+Devstral 2,Mistral,30%
+Devstral Medium,Mistral,29%
+Devstral Small,Mistral,17%
+Devstral Small (May),Mistral,--
+Devstral Small 2,Mistral,24%
+Doubao Seed Code,ByteDance Seed,65%
+ERNIE 4.5 300B A47B,Baidu,2%
+ERNIE 5.0 Thinking Preview,Baidu,7%
+EXAONE 4.0 32B Non-Thinking,LG AI Research,8%
+EXAONE 4.0 32B Thinking,LG AI Research,14%
+Exaone 4.0 1.2B Non-Thinking,LG AI Research,0%
+Exaone 4.0 1.2B Thinking,LG AI Research,0%
+GLM-4.5,Z AI,48%
+GLM-4.5-Air,Z AI,44%
+GLM-4.5V Thinking,Z AI,0%
+GLM-4.5V Non-Thinking,Z AI,0%
+GLM-4.6 Non-Thinking,Z AI,26%
+GLM-4.6 Thinking,Z AI,54%
+GLM-4.6V Thinking,Z AI,40%
+GLM-4.6V Non-Thinking,Z AI,12%
+GLM-4.7 Non-Thinking,Z AI,36%
+GLM-4.7 Thinking,Z AI,64%
+GPT-3.5 Turbo,OpenAI,--
+GPT-3.5 Turbo (0613),OpenAI,--
+GPT-4,OpenAI,--
+GPT-4 Turbo,OpenAI,--
+GPT-4.1,OpenAI,61%
+GPT-4.1 mini,OpenAI,42%
+GPT-4.1 nano,OpenAI,17%
+GPT-4.5 (Preview),OpenAI,--
+GPT-4o (Aug),OpenAI,--
+GPT-4o (ChatGPT),OpenAI,53%
+GPT-4o (Mar),OpenAI,--
+GPT-4o (May),OpenAI,--
+GPT-4o (Nov),OpenAI,0%
+GPT-4o Realtime (Dec),OpenAI,--
+GPT-4o mini,OpenAI,--
+GPT-4o mini Realtime (Dec),OpenAI,--
+GPT-5 (ChatGPT),OpenAI,64%
+GPT-5 (high),OpenAI,76%
+GPT-5 (low),OpenAI,59%
+GPT-5 (medium),OpenAI,73%
+GPT-5 (minimal),OpenAI,25%
+GPT-5 Codex (high),OpenAI,69%
+GPT-5 mini (high),OpenAI,68%
+GPT-5 mini (medium),OpenAI,66%
+GPT-5 mini (minimal),OpenAI,36%
+GPT-5 nano (high),OpenAI,42%
+GPT-5 nano (medium),OpenAI,40%
+GPT-5 nano (minimal),OpenAI,20%
+GPT-5.1,OpenAI,44%
+GPT-5.1 (high),OpenAI,75%
+GPT-5.1 Codex (high),OpenAI,67%
+GPT-5.1 Codex mini (high),OpenAI,63%
+GPT-5.2,OpenAI,38%
+GPT-5.2 (xhigh),OpenAI,73%
+Gemini 1.0 Pro,Google,--
+Gemini 1.0 Ultra,Google,--
+Gemini 1.5 Flash (May),Google,--
+Gemini 1.5 Flash (Sep),Google,--
+Gemini 1.5 Flash-8B,Google,--
+Gemini 1.5 Pro (May),Google,--
+Gemini 1.5 Pro (Sep),Google,--
+Gemini 2.0 Flash,Google,28%
+Gemini 2.0 Flash (exp),Google,--
+Gemini 2.0 Flash Thinking exp. (Dec),Google,--
+Gemini 2.0 Flash Thinking exp. (Jan),Google,--
+Gemini 2.0 Flash-Lite (Feb),Google,--
+Gemini 2.0 Flash-Lite (Preview),Google,--
+Gemini 2.0 Pro Experimental,Google,--
+Gemini 2.5 Flash Thinking 2504,Google,--
+Gemini 2.5 Flash Non-Thinking 2504,Google,--
+Gemini 2.5 Flash Non-Thinking 2505,Google,46%
+Gemini 2.5 Flash Thinking 2505,Google,62%
+Gemini 2.5 Flash (Sep) Non-Thinking,Google,57%
+Gemini 2.5 Flash (Sep) Thinking,Google,64%
+Gemini 2.5 Flash-Lite Thinking,Google,51%
+Gemini 2.5 Flash-Lite Non-Thinking,Google,31%
+Gemini 2.5 Flash-Lite (Sep) Thinking,Google,59%
+Gemini 2.5 Flash-Lite (Sep) Non-Thinking,Google,48%
+Gemini 2.5 Pro,Google,66%
+Gemini 2.5 Pro (Mar),Google,--
+Gemini 2.5 Pro (May),Google,--
+Gemini 3 Flash Thinking,Google,66%
+Gemini 3 Flash Non-Thinking,Google,48%
+Gemini 3 Pro Preview (high),Google,71%
+Gemini 3 Pro Preview (low),Google,67%
+Gemma 3 12B,Google,7%
+Gemma 3 1B,Google,0%
+Gemma 3 270M,Google,0%
+Gemma 3 27B,Google,6%
+Gemma 3 4B,Google,6%
+Gemma 3n E2B,Google,0%
+Gemma 3n E4B,Google,0%
+Gemma 3n E4B (May),Google,--
+Granite 3.3 8B,IBM,4%
+Granite 4.0 1B,IBM,4%
+Granite 4.0 350M,IBM,0%
+Granite 4.0 H 1B,IBM,6%
+Granite 4.0 H 350M,IBM,0%
+Granite 4.0 H Small,IBM,9%
+Granite 4.0 Micro,IBM,4%
+Grok 2,xAI,--
+Grok 3,xAI,55%
+Grok 3 Reasoning Beta,xAI,--
+Grok 3 mini Reasoning (high),xAI,50%
+Grok 4,xAI,68%
+Grok 4 Fast Thinking,xAI,65%
+Grok 4 Fast Non-Thinking,xAI,20%
+Grok 4.1 Fast Non-Thinking,xAI,22%
+Grok 4.1 Fast Thinking,xAI,68%
+Grok Beta,xAI,--
+Grok Code Fast 1,xAI,48%
+Grok Voice Agent,xAI,--
+Grok-1,xAI,--
+Hermes 3 - Llama-3.1 70B,Nous Research,--
+Hermes 4 405B Non-Thinking,Nous Research,20%
+Hermes 4 405B Thinking,Nous Research,21%
+Hermes 4 70B Thinking,Nous Research,7%
+Hermes 4 70B Non-Thinking,Nous Research,2%
+HyperCLOVA X SEED Think (32B),Naver,12%
+Jamba 1.5 Large,AI21 Labs,--
+Jamba 1.5 Mini,AI21 Labs,--
+Jamba 1.6 Large,AI21 Labs,--
+Jamba 1.6 Mini,AI21 Labs,--
+Jamba 1.7 Large,AI21 Labs,17%
+Jamba 1.7 Mini,AI21 Labs,13%
+Jamba Reasoning 3B,AI21 Labs,7%
+K2-V2 (high),MBZUAI Institute of Foundation Models,33%
+K2-V2 (low),MBZUAI Institute of Foundation Models,19%
+K2-V2 (medium),MBZUAI Institute of Foundation Models,28%
+KAT-Coder-Pro V1,KwaiKAT,74%
+Kimi K2,Kimi,51%
+Kimi K2 0905,Kimi,52%
+Kimi K2 Thinking,Kimi,66%
+Kimi Linear 48B A3B Instruct,Kimi,26%
+LFM 40B,Liquid AI,--
+LFM2 1.2B,Liquid AI,0%
+LFM2 2.6B,Liquid AI,0%
+LFM2 8B A1B,Liquid AI,0%
+Ling-1T,InclusionAI,35%
+Ling-flash-2.0,InclusionAI,15%
+Ling-mini-2.0,InclusionAI,7%
+Llama 2 Chat 13B,Meta,--
+Llama 2 Chat 70B,Meta,--
+Llama 2 Chat 7B,Meta,--
+Llama 3 70B,Meta,--
+Llama 3 8B,Meta,--
+Llama 3.1 405B,Meta,24%
+Llama 3.1 70B,Meta,6%
+Llama 3.1 8B,Meta,16%
+Llama 3.1 Nemotron 70B,NVIDIA,7%
+Llama 3.1 Nemotron Nano 4B v1.1,NVIDIA,0%
+Llama 3.2 11B (Vision),Meta,12%
+Llama 3.2 1B,Meta,5%
+Llama 3.2 3B,Meta,2%
+Llama 3.2 90B (Vision),Meta,--
+Llama 3.3 70B,Meta,15%
+Llama 3.3 Nemotron Super 49B Non-Thinking,NVIDIA,11%
+Llama 3.3 Nemotron Super 49B Thinking,NVIDIA,17%
+Llama 4 Maverick,Meta,46%
+Llama 4 Scout,Meta,26%
+Llama 65B,Meta,--
+Llama Nemotron Super 49B v1.5 Thinking,NVIDIA,34%
+Llama Nemotron Super 49B v1.5 Non-Thinking,NVIDIA,22%
+Llama Nemotron Ultra,NVIDIA,7%
+Magistral Medium 1,Mistral,0%
+Magistral Medium 1.2,Mistral,51%
+Magistral Small 1,Mistral,0%
+Magistral Small 1.2,Mistral,16%
+Mi:dm K 2.5 Pro Preview,Korea Telecom,11%
+MiMo-V2-Flash Thinking,Xiaomi,63%
+MiMo-V2-Flash Non-Thinking,Xiaomi,31%
+MiniMax M1 40k,MiniMax,52%
+MiniMax M1 80k,MiniMax,54%
+MiniMax-M2,MiniMax,61%
+MiniMax-M2.1,MiniMax,59%
+Ministral 14B (Dec '25),Mistral,22%
+Ministral 3B (Dec '25),Mistral,12%
+Ministral 8B (Dec '25),Mistral,24%
+Mistral 7B,Mistral,--
+Mistral Large (Feb),Mistral,--
+Mistral Large 2 (Jul),Mistral,2%
+Mistral Large 2 (Nov),Mistral,5%
+Mistral Large 3,Mistral,35%
+Mistral Medium,Mistral,--
+Mistral Medium 3,Mistral,28%
+Mistral Medium 3.1,Mistral,20%
+Mistral Saba,Mistral,--
+Mistral Small (Feb),Mistral,--
+Mistral Small (Sep),Mistral,--
+Mistral Small 3,Mistral,0%
+Mistral Small 3.1,Mistral,20%
+Mistral Small 3.2,Mistral,17%
+Mixtral 8x22B,Mistral,--
+Mixtral 8x7B,Mistral,--
+Molmo 7B-D,Allen Institute for AI,0%
+Motif-2-12.7B,Motif Technologies,13%
+NVIDIA Nemotron 3 Nano Non-Thinking,NVIDIA,7%
+NVIDIA Nemotron 3 Nano Thinking,NVIDIA,34%
+NVIDIA Nemotron Nano 12B v2 VL Non-Thinking,NVIDIA,17%
+NVIDIA Nemotron Nano 12B v2 VL Thinking,NVIDIA,40%
+NVIDIA Nemotron Nano 9B V2 Non-Thinking,NVIDIA,23%
+NVIDIA Nemotron Nano 9B V2 Thinking,NVIDIA,21%
+Nova 2.0 Lite,Amazon,18%
+Nova 2.0 Lite (low),Amazon,52%
+Nova 2.0 Lite (medium),Amazon,58%
+Nova 2.0 Omni,Amazon,22%
+Nova 2.0 Omni (low),Amazon,51%
+Nova 2.0 Omni (medium),Amazon,54%
+Nova 2.0 Pro Preview,Amazon,28%
+Nova 2.0 Pro Preview (low),Amazon,62%
+Nova 2.0 Pro Preview (medium),Amazon,54%
+Nova Lite,Amazon,18%
+Nova Micro,Amazon,10%
+Nova Premier,Amazon,30%
+Nova Pro,Amazon,19%
+OLMo 2 32B,Allen Institute for AI,0%
+OLMo 2 7B,Allen Institute for AI,0%
+OLMo 3 32B Think,Allen Institute for AI,0%
+OLMo 3 7B,Allen Institute for AI,0%
+OLMo 3 7B Think,Allen Institute for AI,0%
+Olmo 3.1 32B Think,Allen Institute for AI,0%
+OpenChat 3.5,OpenChat,--
+PALM-2,Google,--
+Phi-3 Mini,Microsoft Azure,2%
+Phi-4,Microsoft Azure,0%
+Phi-4 Mini,Microsoft Azure,14%
+Phi-4 Multimodal,Microsoft Azure,--
+Pixtral Large,Mistral,10%
+QwQ 32B-Preview,Alibaba,--
+QwQ-32B,Alibaba,25%
+Qwen Chat 14B,Alibaba,--
+Qwen Chat 72B,Alibaba,--
+Qwen1.5 Chat 110B,Alibaba,--
+Qwen2 72B,Alibaba,--
+Qwen2.5 72B,Alibaba,20%
+Qwen2.5 Coder 32B,Alibaba,--
+Qwen2.5 Coder 7B,Alibaba,--
+Qwen2.5 Instruct 32B,Alibaba,--
+Qwen2.5 Max,Alibaba,--
+Qwen2.5 Turbo,Alibaba,--
+Qwen3 0.6B Non-Thinking,Alibaba,0%
+Qwen3 0.6B Thinking,Alibaba,0%
+Qwen3 1.7B Thinking,Alibaba,0%
+Qwen3 1.7B Non-Thinking,Alibaba,0%
+Qwen3 14B Non-Thinking,Alibaba,0%
+Qwen3 14B Thinking,Alibaba,0%
+Qwen3 235B Thinking,Alibaba,0%
+Qwen3 235B Non-Thinking,Alibaba,0%
+Qwen3 235B 2507,Alibaba,31%
+Qwen3 235B A22B 2507,Alibaba,67%
+Qwen3 30B Thinking,Alibaba,0%
+Qwen3 30B Non-Thinking,Alibaba,0%
+Qwen3 30B A3B 2507 Thinking,Alibaba,59%
+Qwen3 30B A3B 2507 Non-Thinking,Alibaba,23%
+Qwen3 32B Non-Thinking,Alibaba,0%
+Qwen3 32B Thinking,Alibaba,0%
+Qwen3 4B Thinking,Alibaba,0%
+Qwen3 4B Non-Thinking,Alibaba,--
+Qwen3 4B 2507 Non-Thinking,Alibaba,7%
+Qwen3 4B 2507 Thinking,Alibaba,38%
+Qwen3 8B Thinking,Alibaba,0%
+Qwen3 8B Non-Thinking,Alibaba,0%
+Qwen3 Coder 30B A3B,Alibaba,29%
+Qwen3 Coder 480B,Alibaba,42%
+Qwen3 Max,Alibaba,47%
+Qwen3 Max (Preview),Alibaba,40%
+Qwen3 Max Thinking,Alibaba,58%
+Qwen3 Next 80B A3B Non-Thinking,Alibaba,51%
+Qwen3 Next 80B A3B Thinking,Alibaba,60%
+Qwen3 Omni 30B A3B Non-Thinking,Alibaba,0%
+Qwen3 Omni 30B A3B Thinking,Alibaba,0%
+Qwen3 VL 235B A22B Non-Thinking,Alibaba,32%
+Qwen3 VL 235B A22B Thinking,Alibaba,59%
+Qwen3 VL 30B A3B Non-Thinking,Alibaba,24%
+Qwen3 VL 30B A3B Thinking,Alibaba,41%
+Qwen3 VL 32B Non-Thinking,Alibaba,31%
+Qwen3 VL 32B Thinking,Alibaba,55%
+Qwen3 VL 4B Thinking,Alibaba,21%
+Qwen3 VL 4B Non-Thinking,Alibaba,13%
+Qwen3 VL 8B Non-Thinking,Alibaba,15%
+Qwen3 VL 8B Thinking,Alibaba,31%
+R1 1776,Perplexity,--
+Reka Flash,Reka AI,--
+Reka Flash 3,Reka AI,0%
+Ring-1T,InclusionAI,0%
+Ring-flash-2.0,InclusionAI,21%
+Seed-OSS-36B-Instruct,ByteDance Seed,58%
+Solar Mini,Upstage,--
+Solar Pro 2 Non-Thinking,Upstage,0%
+Solar Pro 2 Preview Non-Thinking,Upstage,--
+Solar Pro 2 Preview Thinking,Upstage,--
+Solar Pro 2 Thinking,Upstage,0%
+Sonar,Perplexity,--
+Sonar Pro,Perplexity,--
+Sonar Reasoning,Perplexity,--
+Sonar Reasoning Pro,Perplexity,--
+Tulu3 405B,Allen Institute for AI,--
+gpt-oss-120B (high),OpenAI,51%
+gpt-oss-120B (low),OpenAI,44%
+gpt-oss-20B (high),OpenAI,31%
+gpt-oss-20B (low),OpenAI,31%
+o1,OpenAI,--
+o1-mini,OpenAI,--
+o1-preview,OpenAI,--
+o1-pro,OpenAI,--
+o3,OpenAI,69%
+o3-mini,OpenAI,--
+o3-mini (high),OpenAI,--
+o3-pro,OpenAI,--
+o4-mini (high),OpenAI,55%

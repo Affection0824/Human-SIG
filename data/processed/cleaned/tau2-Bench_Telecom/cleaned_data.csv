@@ -1,0 +1,254 @@
+model_name,score,rank
+GLM-4.7 Thinking,96.0,1
+MiMo-V2-Flash Thinking,95.0,2
+GLM-4.7 Non-Thinking,94.0,3
+Grok 4.1 Fast Thinking,93.0,4
+Kimi K2 Thinking,93.0,4
+Nova 2.0 Pro Preview (medium),93.0,4
+DeepSeek V3.2 Thinking,91.0,7
+Nova 2.0 Pro Preview (low),91.0,7
+Claude Opus 4.5 Thinking,90.0,9
+Grok 3 mini Reasoning (high),90.0,9
+KAT-Coder-Pro V1,89.0,11
+GPT-5 (medium),87.0,12
+GPT-5 Codex (high),87.0,12
+Gemini 3 Pro Preview (high),87.0,12
+HyperCLOVA X SEED Think (32B),87.0,12
+MiniMax-M2,87.0,12
+Claude Opus 4.5 Non-Thinking,86.0,17
+GPT-5 (high),85.0,18
+GPT-5.2 (xhigh),85.0,18
+MiniMax-M2.1,85.0,18
+ERNIE 5.0 Thinking Preview,84.0,21
+GPT-5 (low),84.0,21
+MiMo-V2-Flash Non-Thinking,84.0,21
+Qwen3 Max Thinking,84.0,21
+GPT-5.1 Codex (high),83.0,25
+GPT-5.1 (high),82.0,26
+o3,81.0,27
+Gemini 3 Flash Thinking,80.0,28
+Nova 2.0 Omni (medium),80.0,28
+DeepSeek V3.2 Non-Thinking,79.0,30
+Claude 4.5 Sonnet Thinking,78.0,31
+GLM-4.6 Non-Thinking,77.0,32
+Grok Code Fast 1,76.0,33
+Nova 2.0 Lite (medium),76.0,33
+Grok 4,75.0,35
+Qwen3 Max,74.0,36
+Kimi K2 0905,73.0,37
+Nova 2.0 Lite (low),72.0,38
+Nova 2.0 Pro Preview,72.0,38
+Claude 4 Opus Thinking,71.0,40
+Claude 4.1 Opus Thinking,71.0,40
+Claude 4.5 Sonnet Non-Thinking,71.0,40
+GLM-4.6 Thinking,71.0,40
+GPT-5 mini (medium),71.0,40
+Apriel-v1.6-15B-Thinker,69.0,45
+Apriel-v1.5-15B-Thinker,68.0,46
+GPT-5 mini (high),68.0,46
+Gemini 3 Pro Preview (low),68.0,46
+Nova 2.0 Omni (low),68.0,46
+GPT-5 (minimal),67.0,50
+Grok 4 Fast Thinking,66.0,51
+gpt-oss-120B (high),66.0,51
+Claude 4 Sonnet Thinking,65.0,53
+Grok 4 Fast Non-Thinking,64.0,54
+Grok 4.1 Fast Non-Thinking,64.0,54
+GPT-5.1 Codex mini (high),63.0,56
+o1,63.0,56
+Nova 2.0 Lite,62.0,58
+Kimi K2,61.0,59
+gpt-oss-20B (high),60.0,60
+Doubao Seed Code,58.0,61
+o4-mini (high),56.0,62
+Claude 3.7 Sonnet Thinking,55.0,63
+Claude 4.5 Haiku Thinking,55.0,63
+Gemini 2.5 Pro,54.0,65
+Qwen3 VL 235B A22B Thinking,54.0,65
+GPT-4.1 mini,53.0,67
+Qwen3 235B A22B 2507,53.0,67
+Claude 4 Sonnet Non-Thinking,52.0,69
+Magistral Medium 1.2,52.0,69
+Claude 3.7 Sonnet Non-Thinking,50.0,71
+gpt-oss-20B (low),50.0,71
+Grok 3,49.0,73
+Mi:dm K 2.5 Pro Preview,49.0,73
+Seed-OSS-36B-Instruct,49.0,73
+DeepSeek V3 0324,47.0,76
+GLM-4.5-Air,47.0,76
+GPT-4.1,47.0,76
+GPT-5.1,47.0,76
+GPT-5.2,47.0,76
+Motif-2-12.7B,47.0,76
+Gemini 2.5 Flash (Sep) Thinking,46.0,82
+Qwen3 VL 32B Thinking,46.0,82
+Nova 2.0 Omni,45.0,84
+gpt-oss-120B (low),45.0,84
+Qwen3 Coder 480B,44.0,86
+GLM-4.5,43.0,87
+Gemini 3 Flash Non-Thinking,43.0,87
+Qwen3 Next 80B A3B Thinking,42.0,89
+Mistral Medium 3.1,41.0,90
+NVIDIA Nemotron 3 Nano Thinking,41.0,90
+Nova Premier,38.0,92
+DeepSeek R1 0528,37.0,93
+DeepSeek V3.1 Thinking,37.0,93
+DeepSeek V3.1 Terminus Thinking,37.0,93
+DeepSeek V3.1 Terminus Non-Thinking,37.0,93
+GPT-5 nano (high),37.0,93
+Pixtral Large,37.0,93
+DeepSeek V3.1 Non-Thinking,35.0,99
+Qwen2.5 72B,35.0,99
+Qwen3 14B Thinking,35.0,99
+Qwen3 Coder 30B A3B,35.0,99
+Qwen3 VL 235B A22B Non-Thinking,35.0,99
+DeepSeek V3.2 Exp Thinking,34.0,104
+DeepSeek V3.2 Exp Non-Thinking,34.0,104
+MiniMax M1 80k,34.0,104
+Claude 4.5 Haiku Non-Thinking,33.0,107
+Ling-1T,33.0,107
+Mistral Large 2 (Jul),33.0,107
+Qwen3 235B 2507,33.0,107
+Qwen3 Max (Preview),33.0,107
+GLM-4.6V Thinking,32.0,112
+GPT-5 mini (minimal),32.0,112
+Gemini 2.5 Flash Thinking 2505,32.0,112
+MiniMax M1 40k,32.0,112
+Qwen3 14B Non-Thinking,32.0,112
+Solar Pro 2 Non-Thinking,32.0,112
+GLM-4.6V Non-Thinking,31.0,118
+Gemini 2.5 Flash-Lite (Sep) Thinking,31.0,118
+Mistral Large 2 (Nov),31.0,118
+o3-mini (high),31.0,118
+GPT-5 nano (medium),30.0,122
+Gemini 2.0 Flash,30.0,122
+Gemini 2.5 Flash-Lite (Sep) Non-Thinking,30.0,122
+Mistral Small 3.2,30.0,122
+Qwen3 32B Thinking,30.0,122
+Qwen3 VL 32B Non-Thinking,29.0,127
+Qwen3 VL 8B Non-Thinking,29.0,127
+o3-mini,29.0,127
+Devstral Small,28.0,130
+Gemini 2.5 Flash (Sep) Non-Thinking,28.0,130
+K2-V2 (high),28.0,130
+Llama Nemotron Super 49B v1.5 Thinking,28.0,130
+Magistral Small 1.2,28.0,130
+Qwen3 30B A3B 2507 Thinking,28.0,130
+Qwen3 8B Thinking,28.0,130
+Solar Pro 2 Thinking,28.0,130
+Hermes 4 405B Non-Thinking,27.0,138
+Llama 3.3 70B,27.0,138
+Magistral Small 1,27.0,138
+Ministral 14B (Dec '25),27.0,138
+Ministral 8B (Dec '25),27.0,138
+Qwen3 235B Non-Thinking,27.0,138
+Qwen3 4B 2507 Non-Thinking,27.0,138
+GPT-5 nano (minimal),26.0,145
+Qwen3 1.7B Thinking,26.0,145
+Qwen3 30B Thinking,26.0,145
+Ring-1T,26.0,145
+Devstral 2,25.0,149
+GPT-4o (Nov),25.0,149
+K2-V2 (medium),25.0,149
+Llama Nemotron Super 49B v1.5 Non-Thinking,25.0,149
+Ministral 3B (Dec '25),25.0,149
+Mistral Large 3,25.0,149
+Mistral Small 3.1,25.0,149
+NVIDIA Nemotron 3 Nano Non-Thinking,25.0,149
+Qwen3 4B 2507 Thinking,25.0,149
+Qwen3 8B Non-Thinking,25.0,149
+Mistral Medium 3,24.0,159
+Qwen3 235B Thinking,24.0,159
+DeepSeek V3 (Dec),23.0,161
+Devstral Small 2,23.0,161
+GLM-4.5V Thinking,23.0,161
+Granite 4.0 1B,23.0,161
+Hermes 4 70B Thinking,23.0,161
+Llama 3.1 Nemotron 70B,23.0,161
+Magistral Medium 1,23.0,161
+NVIDIA Nemotron Nano 9B V2 Non-Thinking,23.0,161
+Qwen3 VL 4B Non-Thinking,23.0,161
+Qwen3 VL 8B Thinking,23.0,161
+DeepSeek R1 Distill Llama 70B,22.0,171
+Hermes 4 405B Thinking,22.0,171
+Hermes 4 70B Non-Thinking,22.0,171
+NVIDIA Nemotron Nano 9B V2 Thinking,22.0,171
+Qwen3 1.7B Non-Thinking,22.0,171
+Qwen3 Next 80B A3B Non-Thinking,22.0,171
+Exaone 4.0 1.2B Non-Thinking,21.0,177
+K2-V2 (low),21.0,177
+Ling-flash-2.0,21.0,177
+Llama 3.2 3B,21.0,177
+NVIDIA Nemotron Nano 12B v2 VL Thinking,21.0,177
+Qwen3 0.6B Thinking,21.0,177
+Qwen3 Omni 30B A3B Thinking,21.0,177
+Devstral Medium,20.0,184
+GLM-4.5V Non-Thinking,20.0,184
+Granite 4.0 H 1B,20.0,184
+Mistral Small 3,20.0,184
+Qwen3 VL 30B A3B Thinking,20.0,184
+Solar Mini,20.0,184
+Gemini 2.5 Flash-Lite Non-Thinking,19.0,190
+Llama 3.1 405B,19.0,190
+NVIDIA Nemotron Nano 12B v2 VL Non-Thinking,19.0,190
+Qwen3 4B Thinking,19.0,190
+Qwen3 VL 30B A3B Non-Thinking,19.0,190
+Gemini 2.5 Flash-Lite Thinking,18.0,195
+Llama 4 Maverick,18.0,195
+Nova Lite,18.0,195
+EXAONE 4.0 32B Thinking,17.0,198
+GPT-4.1 nano,17.0,198
+Granite 4.0 H Small,17.0,198
+Exaone 4.0 1.2B Thinking,16.0,201
+Jamba Reasoning 3B,16.0,201
+Llama 3.1 8B,16.0,201
+Llama 4 Scout,16.0,201
+Qwen3 Omni 30B A3B Non-Thinking,16.0,201
+Qwen3 VL 4B Thinking,16.0,201
+Command A,15.0,207
+Gemini 2.5 Flash Non-Thinking 2505,15.0,207
+Granite 4.0 H 350M,15.0,207
+Llama 3.1 70B,15.0,207
+Llama 3.2 11B (Vision),15.0,207
+Qwen3 0.6B Non-Thinking,15.0,207
+Jamba 1.7 Large,14.0,213
+LFM2 2.6B,14.0,213
+Nova Micro,14.0,213
+Nova Pro,14.0,213
+Granite 4.0 350M,13.0,217
+Granite 4.0 Micro,13.0,217
+Jamba 1.7 Mini,13.0,217
+LFM2 1.2B,13.0,217
+Ling-mini-2.0,13.0,217
+OLMo 3 7B,13.0,217
+Llama 3.1 Nemotron Nano 4B v1.1,12.0,223
+Llama 3.2 1B,12.0,223
+DeepSeek R1 (Jan),11.0,225
+Gemma 3 12B,11.0,225
+Gemma 3 27B,11.0,225
+Granite 3.3 8B,11.0,225
+LFM2 8B A1B,11.0,225
+Llama Nemotron Ultra,11.0,225
+Qwen3 30B A3B 2507 Non-Thinking,10.0,231
+Gemma 3 270M,9.0,232
+Phi-4 Mini,8.0,233
+Gemma 3 4B,5.0,234
+Gemma 3n E4B,5.0,234
+EXAONE 4.0 32B Non-Thinking,4.0,236
+DeepSeek R1 0528 Qwen3 8B,0.0,237
+DeepSeek V3.2 Speciale,0.0,237
+ERNIE 4.5 300B A47B,0.0,237
+GPT-5 (ChatGPT),0.0,237
+Gemma 3 1B,0.0,237
+Gemma 3n E2B,0.0,237
+Kimi Linear 48B A3B Instruct,0.0,237
+Molmo 7B-D,0.0,237
+OLMo 2 32B,0.0,237
+OLMo 2 7B,0.0,237
+OLMo 3 32B Think,0.0,237
+OLMo 3 7B Think,0.0,237
+Olmo 3.1 32B Think,0.0,237
+Phi-3 Mini,0.0,237
+Phi-4,0.0,237
+Reka Flash 3,0.0,237
+Ring-flash-2.0,0.0,237

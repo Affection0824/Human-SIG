@@ -1,0 +1,23 @@
+{
+  "Gemini 3 Pro Preview": "gemini-3-pro",
+  "GPT-5.2 (high)": "gpt-5.2-high",
+  "GPT-5.1 (high)": "gpt-5.1-high",
+  "GPT-5 (high)": "gpt-5-high",
+  "GPT-5 mini (high)": "gpt-5-mini-high",
+  "o4-mini (high)": "o4-mini-2025-04-16",
+  "Gemini 3 Flash": "gemini-3-flash",
+  "Claude Opus 4.5 (no thinking)": "Anthropicclaude-opus-4-5-20251101-thinking-32k",
+  "Claude Sonnet 4.5 (32k thinking)": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
+  "Claude Opus 4.1 (27K thinking)": "Anthropicclaude-opus-4-1-20250805-thinking-16k",
+  "Gemini 2.5 Pro (Jun 2025)": "gemini-2.5-pro",
+  "o3-mini (high)": "o3-mini-high",
+  "Claude Opus 4 (27K thinking)": "Anthropicclaude-opus-4-20250514-thinking-16k",
+  "GLM 4.6": "glm-4.6",
+  "DeepSeek-V3.2": "deepseek-v3.2",
+  "Claude Haiku 4.5 (32K thinking)": "Anthropicclaude-haiku-4-5-20251001",
+  "Grok 4": "grok-4-0709",
+  "GPT-5 nano (medium)": "gpt-5-nano-high",
+  "Qwen3-235B-A22B-Thinking-2507": "qwen3-235b-a22b-thinking-2507",
+  "GPT-4.1": "gpt-4.1-2025-04-14",
+  "Grok 3": "grok-3-preview-02-24"
+}
