@@ -17,34 +17,33 @@
   },
   "grok-4.1-thinking": {
     "family": "grok",
-    "subfamily": "grok-thinking-think",
+    "subfamily": null,
     "version": "4.1",
     "date": null,
     "parameters": null,
     "other_info": [
-      "4.1"
+      "thinking"
     ]
   },
   "Anthropicclaude-opus-4-5-20251101-thinking-32k": {
     "family": "claude",
-    "subfamily": "claude-opus-thinking-think",
-    "version": "4.0",
+    "subfamily": "claude-opus",
+    "version": "4.5",
     "date": "20251101",
     "parameters": null,
     "other_info": [
       "Anthropicclaude",
-      "5"
+      "thinking"
     ]
   },
   "Anthropicclaude-opus-4-5-20251101": {
     "family": "claude",
     "subfamily": "claude-opus",
-    "version": "4.0",
+    "version": "4.5",
     "date": "20251101",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "5"
+      "Anthropicclaude"
     ]
   },
   "grok-4.1": {
@@ -53,29 +52,27 @@
     "version": "4.1",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "4.1"
-    ]
+    "other_info": null
   },
   "gemini-3-flash (thinking-minimal)": {
     "family": "gemini",
-    "subfamily": "gemini-flash-mini",
+    "subfamily": "gemini-flash",
     "version": "3.0",
     "date": null,
     "parameters": null,
     "other_info": [
+      "thinking",
       "minimal"
     ]
   },
   "gpt-5.1-high": {
     "family": "gpt",
-    "subfamily": "gpt-h",
+    "subfamily": null,
     "version": "5.1",
     "date": null,
     "parameters": null,
     "other_info": [
-      "5.1",
-      "hig"
+      "high"
     ]
   },
   "gemini-2.5-pro": {
@@ -84,51 +81,48 @@
     "version": "2.5",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "2.5"
-    ]
+    "other_info": null
   },
   "Anthropicclaude-sonnet-4-5-20250929-thinking-32k": {
     "family": "claude",
-    "subfamily": "claude-sonnet-thinking-think",
-    "version": "4.0",
+    "subfamily": "claude-sonnet",
+    "version": "4.5",
     "date": "20250929",
     "parameters": null,
     "other_info": [
       "Anthropicclaude",
-      "5"
+      "thinking"
     ]
   },
   "Anthropicclaude-opus-4-1-20250805-thinking-16k": {
     "family": "claude",
-    "subfamily": "claude-opus-thinking-think",
-    "version": "4.0",
+    "subfamily": "claude-opus",
+    "version": "4.1",
     "date": "20250805",
     "parameters": null,
     "other_info": [
       "Anthropicclaude",
-      "1"
+      "thinking"
     ]
   },
   "Anthropicclaude-sonnet-4-5-20250929": {
     "family": "claude",
     "subfamily": "claude-sonnet",
-    "version": "4.0",
+    "version": "4.5",
     "date": "20250929",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "5"
+      "Anthropicclaude"
     ]
   },
   "ernie-5.0-preview-1203": {
     "family": "ernie",
-    "subfamily": "ernie-preview",
+    "subfamily": null,
     "version": "5.0",
     "date": "1203",
     "parameters": null,
     "other_info": [
-      ".0"
+      "preview"
     ]
   },
   "gpt-5.2": {
@@ -137,29 +131,26 @@
     "version": "5.2",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "5.2"
-    ]
+    "other_info": null
   },
   "gpt-4.5-preview-2025-02-27": {
     "family": "gpt",
-    "subfamily": "gpt-preview",
+    "subfamily": null,
     "version": "4.5",
     "date": "2025-02-27",
     "parameters": null,
     "other_info": [
-      "4.5"
+      "preview"
     ]
   },
   "Anthropicclaude-opus-4-1-20250805": {
     "family": "claude",
     "subfamily": "claude-opus",
-    "version": "4.0",
+    "version": "4.1",
     "date": "20250805",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "1"
+      "Anthropicclaude"
     ]
   },
   "chatgpt-4o-latest-20250326": {
@@ -169,19 +160,18 @@
     "date": "20250326",
     "parameters": null,
     "other_info": [
-      "o",
+      "4o",
       "latest"
     ]
   },
   "gpt-5.2-high": {
     "family": "gpt",
-    "subfamily": "gpt-h",
+    "subfamily": null,
     "version": "5.2",
     "date": null,
     "parameters": null,
     "other_info": [
-      "5.2",
-      "hig"
+      "high"
     ]
   },
   "gpt-5.1": {
@@ -190,18 +180,16 @@
     "version": "5.1",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "5.1"
-    ]
+    "other_info": null
   },
   "gpt-5-high": {
     "family": "gpt",
-    "subfamily": "gpt-h",
+    "subfamily": null,
     "version": "5.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "hig"
+      "high"
     ]
   },
   "o3-2025-04-16": {
@@ -214,52 +202,55 @@
   },
   "qwen3-max-preview": {
     "family": "qwen",
-    "subfamily": null,
+    "subfamily": "qwen-max",
     "version": "3.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "max",
       "preview"
     ]
   },
   "grok-4-1-fast-reasoning": {
     "family": "grok",
-    "subfamily": "grok-fast-reasoning",
-    "version": "4.0",
+    "subfamily": "grok-fast",
+    "version": "4.1",
     "date": null,
     "parameters": null,
     "other_info": [
-      "1"
+      "reasoning"
     ]
   },
   "ernie-5.0-preview-1103": {
     "family": "ernie",
-    "subfamily": "ernie-preview",
+    "subfamily": null,
     "version": "5.0",
     "date": "1103",
     "parameters": null,
     "other_info": [
-      ".0"
+      "preview"
     ]
   },
   "MoonshotAIkimi-k2-thinking-turbo": {
     "family": "kimi",
-    "subfamily": "kimi-k-turbo-thinking-think",
+    "subfamily": "kimi-k-turbo",
     "version": "2.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "MoonshotAIkimi"
+      "MoonshotAIkimi",
+      "k2",
+      "thinking"
     ]
   },
   "gpt-5-chat": {
     "family": "gpt",
-    "subfamily": "gpt-chat",
+    "subfamily": null,
     "version": "5.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "chat"
+    ]
   },
   "glm-4.6": {
     "family": "glm",
@@ -267,22 +258,15 @@
     "version": "4.6",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "4.6"
-    ]
+    "other_info": null
   },
   "qwen3-max-2025-09-23": {
     "family": "qwen",
-    "subfamily": null,
+    "subfamily": "qwen-max",
     "version": "3.0",
     "date": "2025-09-23",
     "parameters": null,
-    "other_info": [
-      "max",
-      "2025",
-      "09",
-      "2"
-    ]
+    "other_info": null
   },
   "deepseek-v3.2-exp": {
     "family": "deepseek",
@@ -290,59 +274,60 @@
     "version": "3.2",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "v3.2"
-    ]
+    "other_info": null
   },
   "Anthropicclaude-opus-4-20250514-thinking-16k": {
     "family": "claude",
-    "subfamily": "claude-opus-thinking-think",
+    "subfamily": "claude-opus",
     "version": "4.0",
     "date": "20250514",
     "parameters": null,
     "other_info": [
       "Anthropicclaude",
-      "2025051"
+      "thinking"
     ]
   },
   "deepseek-v3.2-exp-thinking": {
     "family": "deepseek",
-    "subfamily": "deepseek-exp-thinking-think",
+    "subfamily": "deepseek-exp",
     "version": "3.2",
     "date": null,
     "parameters": null,
     "other_info": [
-      "v3.2"
+      "thinking"
     ]
   },
   "deepseek-v3.2-thinking": {
     "family": "deepseek",
-    "subfamily": "deepseek-thinking-think",
+    "subfamily": null,
     "version": "3.2",
     "date": null,
     "parameters": null,
     "other_info": [
-      "v3.2"
+      "thinking"
     ]
   },
   "qwen3-235b-a22b-instruct-2507": {
     "family": "qwen",
     "subfamily": null,
-    "version": "3.0",
+    "version": null,
     "date": "2507",
     "parameters": "235b",
     "other_info": [
+      "3",
       "a22b",
       "instruct"
     ]
   },
   "grok-4-fast-chat": {
     "family": "grok",
-    "subfamily": "grok-chat-fast",
+    "subfamily": "grok-fast",
     "version": "4.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "chat"
+    ]
   },
   "deepseek-v3.2": {
     "family": "deepseek",
@@ -350,19 +335,17 @@
     "version": "3.2",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "v3.2"
-    ]
+    "other_info": null
   },
   "MoonshotAIkimi-k2-0905-preview": {
-    "family": null,
-    "subfamily": null,
+    "family": "kimi",
+    "subfamily": "kimi-k",
     "version": "2.0",
     "date": "0905",
     "parameters": null,
     "other_info": [
       "MoonshotAIkimi",
-      "k",
+      "k2",
       "preview"
     ]
   },
@@ -372,7 +355,9 @@
     "version": "1.0",
     "date": "0528",
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "r1"
+    ]
   },
   "mistral-large-3": {
     "family": "mistral",
@@ -388,30 +373,28 @@
     "version": "3.1",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "v3.1"
-    ]
+    "other_info": null
   },
   "MoonshotAIkimi-k2-0711-preview": {
-    "family": null,
-    "subfamily": null,
+    "family": "kimi",
+    "subfamily": "kimi-k",
     "version": "2.0",
     "date": "0711",
     "parameters": null,
     "other_info": [
       "MoonshotAIkimi",
-      "k",
+      "k2",
       "preview"
     ]
   },
   "deepseek-v3.1-thinking": {
     "family": "deepseek",
-    "subfamily": "deepseek-thinking-think",
+    "subfamily": null,
     "version": "3.1",
     "date": null,
     "parameters": null,
     "other_info": [
-      "v3.1"
+      "thinking"
     ]
   },
   "deepseek-v3.1-terminus": {
@@ -420,30 +403,28 @@
     "version": "3.1",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "v3.1"
-    ]
+    "other_info": null
   },
   "qwen3-vl-235b-a22b-instruct": {
     "family": "qwen",
-    "subfamily": null,
-    "version": "3.0",
+    "subfamily": "qwen-vl",
+    "version": null,
     "date": null,
     "parameters": "235b",
     "other_info": [
-      "vl",
+      "3",
       "a22b",
       "instruct"
     ]
   },
   "deepseek-v3.1-terminus-thinking": {
     "family": "deepseek",
-    "subfamily": "deepseek-terminus-thinking-think",
+    "subfamily": "deepseek-terminus",
     "version": "3.1",
     "date": null,
     "parameters": null,
     "other_info": [
-      "v3.1"
+      "thinking"
     ]
   },
   "gpt-4.1-2025-04-14": {
@@ -452,9 +433,7 @@
     "version": "4.1",
     "date": "2025-04-14",
     "parameters": null,
-    "other_info": [
-      "4.1"
-    ]
+    "other_info": null
   },
   "Anthropicclaude-opus-4-20250514": {
     "family": "claude",
@@ -463,27 +442,25 @@
     "date": "20250514",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "2025051"
+      "Anthropicclaude"
     ]
   },
   "mistral-medium-2508": {
     "family": "mistral",
     "subfamily": "mistral-medium",
-    "version": "2508.0",
+    "version": null,
     "date": "2508",
     "parameters": null,
     "other_info": null
   },
   "grok-3-preview-02-24": {
     "family": "grok",
-    "subfamily": "grok-preview",
+    "subfamily": null,
     "version": "3.0",
-    "date": null,
+    "date": "02-24",
     "parameters": null,
     "other_info": [
-      "02",
-      "24"
+      "preview"
     ]
   },
   "grok-4-0709": {
@@ -500,9 +477,7 @@
     "version": "4.5",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "4.5"
-    ]
+    "other_info": null
   },
   "gemini-2.5-flash": {
     "family": "gemini",
@@ -510,39 +485,37 @@
     "version": "2.5",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "2.5"
-    ]
+    "other_info": null
   },
   "gemini-2.5-flash-preview-09-2025": {
     "family": "gemini",
-    "subfamily": "gemini-preview-flash",
+    "subfamily": "gemini-flash",
     "version": "2.5",
-    "date": "2025",
+    "date": "09-2025",
     "parameters": null,
     "other_info": [
-      "2.5",
-      "09"
+      "preview"
     ]
   },
   "Anthropicclaude-haiku-4-5-20251001": {
     "family": "claude",
     "subfamily": "claude-haiku",
-    "version": "4.0",
+    "version": "4.5",
     "date": "20251001",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "5"
+      "Anthropicclaude"
     ]
   },
   "grok-4-fast-reasoning": {
     "family": "grok",
-    "subfamily": "grok-fast-reasoning",
+    "subfamily": "grok-fast",
     "version": "4.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "reasoning"
+    ]
   },
   "o1-2024-12-17": {
     "family": "gpt",
@@ -554,56 +527,59 @@
   },
   "qwen3-next-80b-a3b-instruct": {
     "family": "qwen",
-    "subfamily": null,
+    "subfamily": "qwen-next",
     "version": "3.0",
     "date": null,
     "parameters": "80b",
     "other_info": [
-      "next",
-      "ab",
+      "a3b",
       "instruct"
     ]
   },
   "longcat-flash-chat": {
     "family": "longcat",
-    "subfamily": "longcat-chat",
+    "subfamily": "longcat-flash",
     "version": null,
     "date": null,
     "parameters": null,
     "other_info": [
-      "flash"
+      "chat"
     ]
   },
   "qwen3-235b-a22b-no-thinking": {
     "family": "qwen",
     "subfamily": null,
-    "version": "3.0",
+    "version": null,
     "date": null,
     "parameters": "235b",
     "other_info": [
+      "3",
       "a22b",
-      "no"
+      "no",
+      "thinking"
     ]
   },
   "Anthropicclaude-sonnet-4-20250514-thinking-32k": {
     "family": "claude",
-    "subfamily": "claude-sonnet-thinking-think",
+    "subfamily": "claude-sonnet",
     "version": "4.0",
     "date": "20250514",
     "parameters": null,
     "other_info": [
       "Anthropicclaude",
-      "2025051"
+      "thinking"
     ]
   },
   "qwen3-235b-a22b-thinking-2507": {
     "family": "qwen",
     "subfamily": null,
-    "version": "3.0",
+    "version": null,
     "date": "2507",
     "parameters": "235b",
     "other_info": [
-      "a22b"
+      "3",
+      "a22b",
+      "thinking"
     ]
   },
   "deepseek-r1": {
@@ -612,17 +588,20 @@
     "version": "1.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "r1"
+    ]
   },
   "qwen3-vl-235b-a22b-thinking": {
     "family": "qwen",
-    "subfamily": null,
-    "version": "3.0",
+    "subfamily": "qwen-vl",
+    "version": null,
     "date": null,
     "parameters": "235b",
     "other_info": [
-      "vl",
-      "a22b"
+      "3",
+      "a22b",
+      "thinking"
     ]
   },
   "deepseek-v3-0324": {
@@ -635,23 +614,23 @@
   },
   "gpt-5-mini-high": {
     "family": "gpt",
-    "subfamily": "gpt-mini-h",
+    "subfamily": "gpt-mini",
     "version": "5.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "hig"
+      "high"
     ]
   },
   "Tencenthunyuan-vision-1.5-thinking": {
     "family": "hunyuan",
-    "subfamily": "hunyuan-vision-thinking-think",
+    "subfamily": "hunyuan-vision",
     "version": "1.5",
     "date": null,
     "parameters": null,
     "other_info": [
       "Tencenthunyuan",
-      "1.5"
+      "thinking"
     ]
   },
   "o4-mini-2025-04-16": {
@@ -661,19 +640,18 @@
     "date": "2025-04-16",
     "parameters": null,
     "other_info": [
-      "mini",
-      "2025",
-      "0",
-      "16"
+      "mini"
     ]
   },
   "mai-1-preview": {
     "family": "mai",
-    "subfamily": "mai-preview",
+    "subfamily": null,
     "version": "1.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "preview"
+    ]
   },
   "Anthropicclaude-sonnet-4-20250514": {
     "family": "claude",
@@ -682,17 +660,18 @@
     "date": "20250514",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "2025051"
+      "Anthropicclaude"
     ]
   },
   "mimo-v2-flash (non-thinking)": {
     "family": "mimo",
-    "subfamily": "mimo-flash-thinking-think",
+    "subfamily": "mimo-flash",
     "version": "2.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "non-thinking"
+    ]
   },
   "o1-preview": {
     "family": "gpt",
@@ -706,23 +685,22 @@
   },
   "Anthropicclaude-3-7-sonnet-20250219-thinking-32k": {
     "family": "claude",
-    "subfamily": "claude-sonnet-thinking-think",
-    "version": "3.0",
+    "subfamily": "claude-sonnet",
+    "version": "3.7",
     "date": "20250219",
     "parameters": null,
     "other_info": [
       "Anthropicclaude",
-      "7"
+      "thinking"
     ]
   },
   "qwen3-coder-480b-a35b-instruct": {
     "family": "qwen",
-    "subfamily": null,
+    "subfamily": "qwen-coder",
     "version": "3.0",
     "date": null,
     "parameters": "480b",
     "other_info": [
-      "coder",
       "a35b",
       "instruct"
     ]
@@ -735,13 +713,13 @@
     "parameters": null,
     "other_info": [
       "Tencenthunyuan",
-      "2025071"
+      "t1"
     ]
   },
   "mistral-medium-2505": {
     "family": "mistral",
     "subfamily": "mistral-medium",
-    "version": "2505.0",
+    "version": null,
     "date": "2505",
     "parameters": null,
     "other_info": null
@@ -749,11 +727,12 @@
   "qwen3-30b-a3b-instruct-2507": {
     "family": "qwen",
     "subfamily": null,
-    "version": "3.0",
+    "version": null,
     "date": "2507",
     "parameters": "30b",
     "other_info": [
-      "ab",
+      "3",
+      "a3b",
       "instruct"
     ]
   },
@@ -763,14 +742,12 @@
     "version": "4.1",
     "date": "2025-04-14",
     "parameters": null,
-    "other_info": [
-      "4.1"
-    ]
+    "other_info": null
   },
   "Tencenthunyuan-turbos-20250416": {
     "family": "hunyuan",
     "subfamily": "hunyuan-turbos",
-    "version": "20250416.0",
+    "version": null,
     "date": "20250416",
     "parameters": null,
     "other_info": [
@@ -779,69 +756,64 @@
   },
   "gemini-2.5-flash-lite-preview-09-2025-no-thinking": {
     "family": "gemini",
-    "subfamily": "gemini-preview-flash-lite-thinking-think",
+    "subfamily": "gemini-flash-lite",
     "version": "2.5",
-    "date": "2025",
+    "date": "09-2025",
     "parameters": null,
     "other_info": [
-      "2.5",
-      "09",
-      "no"
+      "preview",
+      "no",
+      "thinking"
     ]
   },
   "gemini-2.5-flash-lite-preview-06-17-thinking": {
     "family": "gemini",
-    "subfamily": "gemini-preview-flash-lite-thinking-think",
+    "subfamily": "gemini-flash-lite",
     "version": "2.5",
-    "date": null,
+    "date": "06-17",
     "parameters": null,
     "other_info": [
-      "2.5",
-      "06",
-      "17"
+      "preview",
+      "thinking"
     ]
   },
   "qwen3-235b-a22b": {
     "family": "qwen",
     "subfamily": null,
-    "version": "3.0",
+    "version": null,
     "date": null,
     "parameters": "235b",
     "other_info": [
+      "3",
       "a22b"
     ]
   },
   "qwen2.5-max": {
     "family": "qwen",
-    "subfamily": null,
+    "subfamily": "qwen-max",
     "version": "2.5",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "2.5",
-      "max"
-    ]
+    "other_info": null
   },
   "Anthropicclaude-3-5-sonnet-20241022": {
     "family": "claude",
     "subfamily": "claude-sonnet",
-    "version": "3.0",
+    "version": "3.5",
     "date": "20241022",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "5"
+      "Anthropicclaude"
     ]
   },
   "Anthropicclaude-3-7-sonnet-20250219": {
     "family": "claude",
     "subfamily": "claude-sonnet",
-    "version": "3.0",
+    "version": "3.7",
     "date": "20250219",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "7"
+      "Anthropicclaude"
     ]
   },
   "glm-4.5-air": {
@@ -850,19 +822,17 @@
     "version": "4.5",
     "date": null,
     "parameters": null,
-    "other_info": [
-      "4.5"
-    ]
+    "other_info": null
   },
   "qwen3-next-80b-a3b-thinking": {
     "family": "qwen",
-    "subfamily": null,
+    "subfamily": "qwen-next",
     "version": "3.0",
     "date": null,
     "parameters": "80b",
     "other_info": [
-      "next",
-      "ab"
+      "a3b",
+      "thinking"
     ]
   },
   "Minimaxminimax-m1": {
@@ -872,18 +842,17 @@
     "date": null,
     "parameters": null,
     "other_info": [
-      "Minimaxminimax"
+      "Minimaxminimax",
+      "m1"
     ]
   },
   "amazon-nova-experimental-chat-11-10": {
     "family": "amazon",
-    "subfamily": "amazon-nova-experimental-chat-chat-exp-experimental",
-    "version": "11.0",
-    "date": "nov",
+    "subfamily": "amazon-nova-experimental-chat",
+    "version": null,
+    "date": "11-10",
     "parameters": null,
-    "other_info": [
-      "10"
-    ]
+    "other_info": null
   },
   "gemma-3-27b-it": {
     "family": "gemma",
@@ -908,12 +877,12 @@
   },
   "grok-3-mini-high": {
     "family": "grok",
-    "subfamily": "grok-mini-h",
+    "subfamily": "grok-mini",
     "version": "3.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "hig"
+      "high"
     ]
   },
   "gemini-2.0-flash-001": {
@@ -923,7 +892,6 @@
     "date": null,
     "parameters": null,
     "other_info": [
-      ".0",
       "001"
     ]
   },
@@ -937,11 +905,13 @@
   },
   "grok-3-mini-beta": {
     "family": "grok",
-    "subfamily": "grok-mini-beta",
+    "subfamily": "grok-mini",
     "version": "3.0",
     "date": null,
     "parameters": null,
-    "other_info": null
+    "other_info": [
+      "beta"
+    ]
   },
   "intellect-3": {
     "family": "intellect",
@@ -954,7 +924,7 @@
   "mistral-small-2506": {
     "family": "mistral",
     "subfamily": "mistral-small",
-    "version": "2506.0",
+    "version": null,
     "date": "2506",
     "parameters": null,
     "other_info": null
@@ -962,23 +932,19 @@
   "gpt-oss-120b": {
     "family": "gpt",
     "subfamily": "gpt-oss",
-    "version": "120.0",
+    "version": null,
     "date": null,
     "parameters": "120b",
-    "other_info": [
-      "b"
-    ]
+    "other_info": null
   },
   "gemini-2.0-flash-lite-preview-02-05": {
     "family": "gemini",
-    "subfamily": "gemini-preview-flash-lite",
+    "subfamily": "gemini-flash-lite",
     "version": "2.0",
-    "date": null,
+    "date": "02-05",
     "parameters": null,
     "other_info": [
-      ".0",
-      "0",
-      "05"
+      "preview"
     ]
   },
   "glm-4.5v": {
@@ -994,12 +960,11 @@
   "Coherecommand-a-03-2025": {
     "family": "command",
     "subfamily": "command-a",
-    "version": "3.0",
-    "date": "2025",
+    "version": null,
+    "date": "03-2025",
     "parameters": null,
     "other_info": [
-      "Coherecommand",
-      "0"
+      "Coherecommand"
     ]
   },
   "gemini-1.5-pro-002": {
@@ -1009,7 +974,6 @@
     "date": null,
     "parameters": null,
     "other_info": [
-      "1.5",
       "002"
     ]
   },
@@ -1025,18 +989,16 @@
   },
   "amazon-nova-experimental-chat-10-20": {
     "family": "amazon",
-    "subfamily": "amazon-nova-experimental-chat-chat-exp-experimental",
-    "version": "10.0",
-    "date": "nov",
+    "subfamily": "amazon-nova-experimental-chat",
+    "version": null,
+    "date": "10-20",
     "parameters": null,
-    "other_info": [
-      "20"
-    ]
+    "other_info": null
   },
   "Tencenthunyuan-turbos-20250226": {
     "family": "hunyuan",
     "subfamily": "hunyuan-turbos",
-    "version": "20250226.0",
+    "version": null,
     "date": "20250226",
     "parameters": null,
     "other_info": [
@@ -1059,19 +1021,15 @@
     "version": "2.0",
     "date": null,
     "parameters": null,
-    "other_info": [
-      ".0"
-    ]
+    "other_info": null
   },
   "amazon-nova-experimental-chat-10-09": {
     "family": "amazon",
-    "subfamily": "amazon-nova-experimental-chat-chat-exp-experimental",
-    "version": "10.0",
-    "date": "nov",
+    "subfamily": "amazon-nova-experimental-chat",
+    "version": null,
+    "date": "10-09",
     "parameters": null,
-    "other_info": [
-      "09"
-    ]
+    "other_info": null
   },
   "Minimaxminimax-m2": {
     "family": "minimax",
@@ -1080,7 +1038,8 @@
     "date": null,
     "parameters": null,
     "other_info": [
-      "Minimaxminimax"
+      "Minimaxminimax",
+      "m2"
     ]
   },
   "Nvidiallama-3.1-nemotron-ultra-253b-v1": {
@@ -1091,7 +1050,6 @@
     "parameters": "253b",
     "other_info": [
       "Nvidiallama",
-      "3.1",
       "v1"
     ]
   },
@@ -1102,29 +1060,26 @@
     "date": "2024-05-13",
     "parameters": null,
     "other_info": [
-      "o",
-      "202",
-      "05",
-      "13"
+      "4o"
     ]
   },
   "qwen3-32b": {
     "family": "qwen",
     "subfamily": null,
-    "version": "3.0",
+    "version": null,
     "date": null,
     "parameters": "32b",
-    "other_info": null
+    "other_info": [
+      "3"
+    ]
   },
   "qwen-plus-0125": {
     "family": "qwen",
     "subfamily": "qwen-plus",
-    "version": "125.0",
+    "version": null,
     "date": "0125",
     "parameters": null,
-    "other_info": [
-      "0"
-    ]
+    "other_info": null
   },
   "glm-4-plus-0111": {
     "family": "glm",
@@ -1137,12 +1092,11 @@
   "Anthropicclaude-3-5-sonnet-20240620": {
     "family": "claude",
     "subfamily": "claude-sonnet",
-    "version": "3.0",
+    "version": "3.5",
     "date": "20240620",
     "parameters": null,
     "other_info": [
-      "Anthropicclaude",
-      "5"
+      "Anthropicclaude"
     ]
   },
   "gemma-3-12b-it": {
@@ -1164,29 +1118,27 @@
     "other_info": [
       "Nvidianvidia",
       "llama",
-      "3.3",
       "v1.5"
     ]
   },
   "Tencenthunyuan-turbo-0110": {
     "family": "hunyuan",
     "subfamily": "hunyuan-turbo",
-    "version": "110.0",
+    "version": null,
     "date": "0110",
     "parameters": null,
     "other_info": [
-      "Tencenthunyuan",
-      "0"
+      "Tencenthunyuan"
     ]
   },
   "gpt-5-nano-high": {
     "family": "gpt",
-    "subfamily": "gpt-nano-h",
+    "subfamily": "gpt-nano",
     "version": "5.0",
     "date": null,
     "parameters": null,
     "other_info": [
-      "hig"
+      "high"
     ]
   },
   "o1-mini": {
@@ -1201,13 +1153,13 @@
   },
   "Metallama-3.1-405b-instruct-bf16": {
     "family": "llama",
-    "subfamily": "llama-instruct",
+    "subfamily": null,
     "version": "3.1",
     "date": null,
     "parameters": "405b",
     "other_info": [
       "Metallama",
-      "3.1",
+      "instruct",
       "bf16"
     ]
   },
@@ -1218,10 +1170,7 @@
     "date": "2024-08-06",
     "parameters": null,
     "other_info": [
-      "o",
-      "202",
-      "08",
-      "06"
+      "4o"
     ]
   },
   "grok-2-2024-08-13": {
@@ -1234,24 +1183,19 @@
   },
   "qwq-32b": {
     "family": "qwen",
-    "subfamily": null,
-    "version": "32.0",
+    "subfamily": "qwen-qwq",
+    "version": null,
     "date": null,
     "parameters": "32b",
-    "other_info": [
-      "qwq",
-      "b"
-    ]
+    "other_info": null
   },
   "gemini-advanced-0514": {
     "family": "gemini",
     "subfamily": "gemini-advanced",
-    "version": "514.0",
+    "version": null,
     "date": "0514",
     "parameters": null,
-    "other_info": [
-      "0"
-    ]
+    "other_info": null
   },
   "nova-2-lite": {
     "family": "nova",
@@ -1263,13 +1207,13 @@
   },
   "Metallama-3.1-405b-instruct-fp8": {
     "family": "llama",
-    "subfamily": "llama-instruct",
+    "subfamily": null,
     "version": "3.1",
     "date": null,
     "parameters": "405b",
     "other_info": [
       "Metallama",
-      "3.1",
+      "instruct",
       "fp8"
     ]
   },
@@ -1277,12 +1221,11 @@
     "family": "stepfun",
     "subfamily": null,
     "version": "2.0",
-    "date": "2024",
+    "date": "202412",
     "parameters": null,
     "other_info": [
       "Stepfunstep",
-      "exp",
-      "1"
+      "exp"
     ]
   }
 }

@@ -1,0 +1,8 @@
+{
+  "MiMo-V2-Flash": "mimo-v2-flash (non-thinking)",
+  "Qwen3-Next-80B-A3B-Instruct": "qwen3-next-80b-a3b-instruct",
+  "Qwen3-235B-A22B-Thinking-2507": "qwen3-235b-a22b-thinking-2507",
+  "Qwen3-235B-A22B-Instruct-2507": "qwen3-235b-a22b-instruct-2507",
+  "Qwen3 VL 235B A22B Instruct": "qwen3-vl-235b-a22b-instruct",
+  "Qwen3-Next-80B-A3B-Thinking": "qwen3-next-80b-a3b-thinking"
+}

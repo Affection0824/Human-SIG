@@ -1,6 +1,5 @@
 import pandas as pd
 from pathlib import Path
-import os
 
 BENCHMARK_MAPPING = {
     'mmlu_pro': 'Intelligence MMLU-Pro (Reasoning & Knowledge)',
@@ -15,37 +14,27 @@ BENCHMARK_MAPPING = {
     'ifbench': 'Intelligence IFBench (Instruction Following)',
 }
 
-def parse_html_table(input_path):
-    with open(input_path, 'r', encoding='utf-8') as f:
-        content = f.read()
-    
-    dfs = pd.read_html(content)
-    if not dfs:
-        raise ValueError("No tables found in HTML")
-    
-    df = dfs[0]
-    if isinstance(df.columns, pd.MultiIndex):
-        new_columns = []
-        for col in df.columns:
-            new_columns.append(" ".join([str(c) for c in col if "Unnamed" not in str(c)]).strip())
-        df.columns = new_columns
-    return df
-
 def run(data_dir):
+    """
+    Extract data for each benchmark from combined_all_benchmarks.csv to corresponding folders
+    
+    Args:
+        data_dir: Data directory path (contains combined_all_benchmarks.csv)
+    """
     data_path = Path(data_dir)
     if not data_path.exists():
         print(f"Error: Directory {data_path} does not exist.")
         return
 
-    input_file = data_path / 'input.txt'
+    input_file = data_path / 'combined_all_benchmarks.csv'
     if not input_file.exists():
         print(f"Error: {input_file} not found.")
         return
 
-    print(f"Parsing {input_file}...")
+    print(f"Reading {input_file}...")
     try:
-        df = parse_html_table(input_file)
-        print(f"  Extracted table with {len(df)} rows and {len(df.columns)} columns.")
+        df = pd.read_csv(input_file)
+        print(f"  Loaded table with {len(df)} rows and {len(df.columns)} columns.")
         
         for subdir_name, target_col in BENCHMARK_MAPPING.items():
             print(f"Processing {subdir_name}...")
@@ -57,11 +46,18 @@ def run(data_dir):
                 cols_to_keep.append(target_col)
             
             valid_cols = [c for c in cols_to_keep if c in df.columns]
-            df_subset = df[valid_cols]
+            df_subset = df[valid_cols].copy()
             
             output_file = output_dir / 'data.csv'
             df_subset.to_csv(output_file, index=False)
             print(f"  Saved filtered data to {output_file} (Rows: {len(df_subset)})")
             
     except Exception as e:
-        print(f"Error processing input.txt: {e}")
+        print(f"Error processing combined_all_benchmarks.csv: {e}")
+        import traceback
+        traceback.print_exc()
+
+if __name__ == '__main__':
+    # Default to use artificial_analysis data directory
+    data_directory = Path(__file__).parent.parent.parent / 'data' / 'raw' / 'artificial_analysis'
+    run(data_directory)

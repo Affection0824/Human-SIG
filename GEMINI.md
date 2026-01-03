@@ -1,5 +1,6 @@
 # Scientific Writing Master Instruction Manual
 
+
 ## Part 1: General Behavioral Guidelines
 
 ### 1. Identity and Mission
@@ -7,12 +8,12 @@
 - **Identity:** You are the Lead Research Architect and Executor. You operate within a Gemini CLI/Cursor environment.
 - **Mission:** Automate a rigorous research project for submission to ACL 2026. You will ingest data from 29 benchmarks and the LMArena Leaderboard to validate six core hypotheses regarding Perceived Utility (Perceived Utility of a particular LLM) correlations. 
 - **Hypotheses to Validate:**
-  - **H1 (The Difficulty Hypothesis):** Higher difficulty benchmarks (lower avg scores) exhibit higher construct validity with Perceived Utility when variance is controlled (i.e., after accounting for the confounding effect of variance).
-  - **H2 (The Recency Hypothesis):** Recently released benchmarks exhibit higher construct validity with Perceived Utility.
-  - **H3 (The Prompt Complexity Hypothesis):** Benchmarks with complex/long prompts exhibit higher construct validity with Perceived Utility.
-  - **H4 (The Generative Hypothesis):** Generative tasks exhibit higher construct validity with Perceived Utility than MCQ tasks.
-  - **H5 (The Variance Hypothesis):** Benchmarks with higher score variance exhibit higher construct validity with Perceived Utility.
-  - **H6 (The Scale Hypothesis):** Benchmarks with larger test volumes exhibit higher construct validity with Perceived Utility.
+  - **H1 (The Generative Hypothesis):** Benchmarks employing generative evaluation formats contribute more to the CV of Perceived Utility than those using multiple-choice formats.
+  - **H2 (The Scale Hypothesis):** Benchmarks comprising a larger number of test items contribute positively to the CV of Perceived Utility.
+  - **H3 (The Prompt Complexity Hypothesis):** Benchmarks incorporating longer and structurally more complex prompts contribute positively to the CV of Perceived Utility.
+  - **H4 (The Recency Hypothesis):** Benchmarks released more recently contribute positively to the CV of Perceived Utility.
+  - **H5 (The Variance Hypothesis):** Benchmarks exhibiting higher score variance across LLMs contribute positively to the CV of Perceived Utility.
+  - **H6 (The Difficulty Hypothesis):** Benchmarks characterized by higher difficulty (lower average LLM scores) contribute negatively to the CV of Perceived Utility, particularly when controlling for score variance.
 
 ### 2. Repository Architecture
 
@@ -27,7 +28,7 @@ You will manage two distinct Git repositories. Handle them atomically.
 
 - **Execution First:** Do not plan; Execute. The planning is complete. Always translate instructions into Python code, shell commands, and file operations, instead of using your tools to calculate/scrap data yourself.
 - **Scraping Protocol:**
-  - **Data Acquisition Strategy:** The scraping method for each benchmark is defined in the `scraping_method` field in `Human-SIG/config/metadata.json`. See Step 1.1 for the complete directory structure and Step 2.2 for detailed method descriptions.
+  - **Data Acquisition Strategy:** The scraping method for each benchmark is defined in the `scraping_method` field in `Human-SIG/data/metadata.json`. See Step 1.1 for the complete directory structure and Step 2.2 for detailed method descriptions.
   - **Method Determination:** Read the `scraping_method` field from the entry in `metadata.json` to determine which method to use.
 - **Methodological Rigor:**
   - **Metrics:** You must implement logic for Spearman's Rank, Kendall's $\tau$, and RBO (Rank-Biased Overlap), not just Pearson.
@@ -75,6 +76,82 @@ You will manage two distinct Git repositories. Handle them atomically.
   - Input/output description
   - Main workflow steps
   - Key assumptions or constraints
+  - 
+#### 3.6 Order of Benchmarks, Categories and Hypothesis
+
+
+
+**MANDATORY ORDERING CONSTRAINTS:** All agent-generated content that involves listing multiple benchmarks, categories, or hypotheses MUST follow the standardized orders specified below. This is a hard requirement for consistency across all outputs.
+
+### Standardized Benchmark and Category Order
+
+The following is the canonical ordering for all benchmarks and LMArena categories. When generating any content that lists benchmarks or categories (tables, figures, text descriptions, code outputs, etc.), you MUST use this exact order:
+
+**Benchmarks (ordered by category, then alphabetically within category):**
+1. GPQA
+2. GPQA Diamond
+3. Humanity's Last Exam
+4. SuperGPQA
+5. AIME
+6. FrontierMath Tier 1-3
+7. FrontierMath Tier 4
+8. HMMT (Feb 2025)
+9. MATH-500
+10. MGSM
+11. IFBench
+12. IFEval
+13. Creative Writing v3
+14. WritingBench
+15. Aider Polyglot
+16. HumanEval
+17. IOI
+18. LiveCodeBench
+19. SciCode
+20. SWE-Bench Bash Only
+21. SWE-bench (Verified)
+22. tau2-Bench Telecom
+23. Terminal-Bench Hard
+24. Terminal-Bench v2.0
+25. AA-LCR
+26. ARC-AGI-2
+27. Arena-Hard (Auto v2.0)
+28. FACTS
+29. MMLU-Pro
+
+
+**Category Order (for any listing of categories):**
+1. Overall
+2. Expert
+3. Math
+4. Instruction Following
+5. Creative Writing
+6. Coding
+7. Hard Prompts
+
+### Standardized Hypothesis Order
+
+When listing or referencing the six hypotheses, they MUST appear in this exact order:
+1. **H1 (The Generative Hypothesis):** Benchmarks employing generative evaluation formats contribute more to the CV of Perceived Utility than those using multiple-choice formats.
+2. **H2 (The Scale Hypothesis):** Benchmarks comprising a larger number of test items contribute positively to the CV of Perceived Utility.
+3. **H3 (The Prompt Complexity Hypothesis):** Benchmarks incorporating longer and structurally more complex prompts contribute positively to the CV of Perceived Utility.
+4. **H4 (The Recency Hypothesis):** Benchmarks released more recently contribute positively to the CV of Perceived Utility.
+5. **H5 (The Variance Hypothesis):** Benchmarks exhibiting higher score variance across LLMs contribute positively to the CV of Perceived Utility.
+6. **H6 (The Difficulty Hypothesis):** Benchmarks characterized by higher difficulty (lower average LLM scores) contribute negatively to the CV of Perceived Utility, particularly when controlling for score variance.
+
+**CRITICAL RULE:** If you are generating any content (tables, figures, code, text) that involves:
+- Listing multiple benchmarks → Use the benchmark order above
+- Listing multiple categories → Use the category order above
+- Listing multiple hypotheses → Use H1-H6 order above
+- Listing a subset of benchmarks/categories → Maintain the relative order from the full list above
+
+**Examples of where this applies:**
+- Table column/row ordering
+- Figure axis labels or legends
+- Code variable names or data structures
+- Text descriptions listing benchmarks
+- Any visualization that displays multiple benchmarks or categories
+- Statistical analysis outputs that reference multiple benchmarks
+
 
 ## Part 2: Execution Tasks
 
@@ -89,23 +166,26 @@ You will manage two distinct Git repositories. Handle them atomically.
 - **Already Exists:** 
   - All `input.txt` and `input.html` files in benchmark/category folders
   - All folders and files in `data/raw/` directories
-  - `config/metadata.json`
+  - `data/metadata.json`
   - Basic folder structure for `src/`, `results/`, `logs/`
 
 - **Need to Create (if not exist):**
   - `data/processed/` subdirectories (`normalized_scores/`, `entity_resolution/`, `master_table/`)
   - Missing scripts in `src/processing/`, `src/analysis/`
-  - `config/mapping.json` (if it doesn't exist)
+  - `schemas/` directory containing schema files
 
 **Directory Structure:** The following structure organizes benchmarks and LMArena categories by data acquisition method. All data files are named `data.csv` (no longer using `{name}_data.csv`). Common code logic is extracted to `src/scrapers/`.
 
 ```
 Human-SIG/
-├── config/                    # Stores metadata.json, mapping.json, and manual_overrides.csv
+├── schemas/                   # JSON schema files for data validation
+│   ├── metadata_schema.json  # Schema for data/metadata.json
+│   └── review_file_schema.json  # Schema for review files
 ├── data/                      # Data directory (Data only)
+│   ├── metadata.json         # Benchmark and LMArena category metadata
 │  ├── raw/                   # Raw data
 │  │  ├── lmarena/            # LMArena data (lmarena method)
-│  │  │   ├── {category_name}/        # category name, for example, Overall, Coding, etc.
+│  │  │   ├── {category_name}/        # category name, for example, LMArena-Overall, LMArena-Coding, etc.
 │  │  │   │   ├── input.txt   # User-manually copied <table> element HTML (HTML format text)
 │  │  │   │   └── data.csv    # Extracted data file
 │  │  ├── artificial_analysis/  # Artificial Analysis unified table extraction
@@ -114,10 +194,10 @@ Human-SIG/
 │  │  │       ├── input.txt     # Benchmark description or reference (optional)
 │  │  │       └── data.csv      # Extracted data file
 │  │  ├── frontiermath/        # FrontierMath (manual_source_code method)
-│  │  │   ├── frontiermath_tier_1_3/
+│  │  │   ├── FrontierMath_Tier_1-3/
 │  │  │   │   ├── input.txt     # User-manually copied <table> element HTML (HTML format text)
 │  │  │   │   └── data.csv      # Extracted data file
-│  │  │   └── frontiermath_tier4/
+│  │  │   └── FrontierMath_Tier_4/
 │  │  │       ├── input.txt     # User-manually copied <table> element HTML (HTML format text)
 │  │  │       └── data.csv      # Extracted data file
 │  │  ├── manual_direct/        # Directly provided data files
@@ -155,8 +235,9 @@ Human-SIG/
 │  ├── processing/     # Data processing scripts (self-contained, no utils folders)
 │  └── analysis/      # Scripts for correlations and visualization (to be created)
 │    └── multivariate/  # Specific folder for regression models (to be created)
-├── results/         # Final output JSONs, CSVs, and Logs
-│  └── plots/        # Generated PDF figures for the manuscript
+├── results/         # Final output JSONs and CSVs (for data processing only, NOT for manuscript inclusion)
+│                    # Note: Tables for manuscript are generated directly to overleaf/tables/ using DataFrame.to_latex()
+│                    # Note: Figures for manuscript are generated directly to overleaf/images/
 └── logs/           # Error logs and execution traces
 ```
 
@@ -173,21 +254,22 @@ Plaintext
 
 ```
 overleaf/
-├── figures/         # Destination for .pdf plots
-├── tables/         # Destination for .tex tables
+├── images/          # Destination for .pdf plots (generated by code)
+├── reference_image/ # Reference images (if any, renamed from existing images/)
+├── tables/          # Destination for .tex tables (generated by DataFrame.to_latex())
 ├── sections/        # LaTeX chapters (results.tex, methods.tex)
 └── main.tex         # The driver file (do not edit directly after init)
 ```
 
 #### Step 1.3: Configuration Verification (Pre-Flight Check)
 
-- **1.3.1: Verify existence of `Human-SIG/config/metadata.json`.**
+- **1.3.1: Verify existence of `Human-SIG/data/metadata.json`.**
   - **Action:** Check that this file exists and contains entries for all benchmarks and LMArena categories.
-  - **Schema Reference:** The file structure is defined in `Human-SIG/metadata_schema.json`. Refer to this schema file for complete field definitions, types, constraints, and descriptions.
+  - **Schema Reference:** The file structure is defined in `Human-SIG/schemas/metadata_schema.json`. Refer to this schema file for complete field definitions, types, constraints, and descriptions.
   - **Critical Structure Note:** The `metadata.json` file contains multiple types of entries:
     - **meta_info entry:** The first entry contains metadata definitions (prompt_length_standards, category_definitions, scraping_method_definitions) and should not be counted as a benchmark.
     - **Benchmark entries:** These are the benchmarks that will be analyzed. They do NOT have an `elo_column` field.
-    - **LMArena entries:** These are metadata entries for LMArena leaderboard categories (Overall, Coding, Math, etc.). They have an `elo_column` field and are processed using the `lmarena` method. They should NOT be processed as benchmarks (see Step 2.2.2 for filtering logic).
+    - **LMArena entries:** These are metadata entries for LMArena leaderboard categories (LMArena-Overall, LMArena-Coding, LMArena-Math, LMArena-Hard Prompts, LMArena-Creative Writing, LMArena-Instruction Following, LMArena-Expert). They have an `elo_column` field and are processed using the `lmarena` method. They should NOT be processed as benchmarks (see Step 2.2.2 for filtering logic).
 
 
 
@@ -214,8 +296,8 @@ Proceed to **Phase III: Data Processing**.
 
 - **3.1.1:** Verify directory structure and file existence.
   - **Action:** Check that `Human-SIG/data/processed/cleaned/` contains:
-    - One folder for each benchmark listed in `config/metadata.json` (entries without `elo_column` field).
-    - One folder for each LMArena category listed in `config/metadata.json` (entries with `elo_column` field).
+    - One folder for each benchmark listed in `data/metadata.json` (entries without `elo_column` field).
+    - One folder for each LMArena category listed in `data/metadata.json` (entries with `elo_column` field).
     - Each folder must contain a `cleaned_data.csv` file.
     - Each benchmark folder (but NOT LMArena category folders) must contain a `mapping.json` file.
   - **Validation:** 
@@ -309,8 +391,8 @@ Proceed to **Phase III: Data Processing**.
     - File header must explain the master table structure, the merge strategy (left join to preserve Study Universe), and why both score and rank columns are needed.
     - All functions must have docstrings explaining data transformation steps.
   - **Initialization:** Create the `df_master` DataFrame using LMArena models as the index.
-    - **Columns:** `elo_overall`, `elo_math`, `elo_coding`, `elo_hard_prompts`, `elo_creative_writing`, `elo_instruction_following`, `elo_expert`.
-  - **Merge Loop:** For each benchmark (e.g., humaneval):
+    - **Columns:** `elo_overall`, `elo_expert`, `elo_math`, `elo_instruction_following`, `elo_creative_writing`, `elo_coding`, `elo_hard_prompts` (ordered by standardized category order: Overall, Expert, Math, Instruction Following, Creative Writing, Coding, Hard Prompts).
+  - **Merge Loop:** For each benchmark (e.g., HumanEval):
     1. Load parsed data (Score + Rank) from the parser output (created in Step 3.3.1). The parser reads cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`, which already contains standardized model names, scores, and ranks.
     2. Map model names using the per-benchmark mapping table from `Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json` (verified in Step 3.2). This per-benchmark mapping contains benchmark-specific mappings with duplicate handling already applied.
     3. Left Join onto `df_master` (Keep only models present in LMArena Study Universe). Models that appear in the benchmark but cannot be mapped to the Study Universe will be excluded.
@@ -353,7 +435,7 @@ Proceed to **Phase III: Data Processing**.
 - **3.4.3:** Persistence
   - **Output:** Save the master table to `Human-SIG/data/processed/master_table/master_correlation_matrix.csv`. This CSV should contain:
     - One row per model (from the Study Universe)
-    - Columns: `model_name`, `elo_overall`, `elo_math`, `elo_coding`, `elo_hard_prompts`, `elo_creative_writing`, `elo_instruction_following`, `elo_expert`, and for each benchmark: `{benchmark_id}_score` and `{benchmark_id}_rank`
+    - Columns: `model_name`, `elo_overall`, `elo_expert`, `elo_math`, `elo_instruction_following`, `elo_creative_writing`, `elo_coding`, `elo_hard_prompts`, and for each benchmark: `{benchmark_id}_score` and `{benchmark_id}_rank` (benchmarks ordered by standardized category order, then alphabetically within category)
     - Missing values should be represented as `NaN` or empty cells (not zeros)
   - **Note:** The overlap statistics JSON file was already saved in Step 3.4.2.
 - **3.4.4:** Commit State
@@ -367,16 +449,20 @@ Input:
 
 - `Human-SIG/data/processed/master_table/master_correlation_matrix.csv` (Model Scores & Ranks).
 
-- `Human-SIG/config/metadata.json` (Contains all benchmark metadata including `metric_direction`, `release_date`, `task_type`, `question_count`, and other metadata fields for all benchmarks).
+- `Human-SIG/data/metadata.json` (Contains all benchmark metadata including `metric_direction`, `release_date`, `task_type`, `question_count`, and other metadata fields for all benchmarks).
 
 
   Output:
 
-- `Human-SIG/results/statistical_significance_report.json` (Final P-values with Holm-Bonferroni corrections).
+- `Human-SIG/results/statistical_significance_report.json` (Final P-values with Holm-Bonferroni corrections, JSON format for data processing).
 
-- `Human-SIG/results/analysis_ready_data.csv` (The clean dataset used for plotting).
+- `Human-SIG/results/analysis_ready_data.csv` (The clean dataset used for analysis and plotting, CSV format for data processing).
 
-- `Human-SIG/results/plots/` (Folder containing generated PDFs for the manuscript).
+- `overleaf/images/` (Folder containing all generated PDF figures for the manuscript, saved directly by plotting code).
+
+- `overleaf/tables/` (Folder containing all LaTeX table files generated using `DataFrame.to_latex()`, saved directly by table generation code).
+
+**Important:** The `results/` folder contains only JSON and CSV files for data processing and analysis. All tables and figures that appear in the manuscript are generated directly to `overleaf/tables/` and `overleaf/images/` respectively, ensuring all numerical values are exactly as computed by the code.
 
 #### Step 4.1: Advanced Statistical Utility Implementation
 
@@ -397,18 +483,18 @@ Input:
 
 - **4.2.1:** Create `Human-SIG/src/analysis/compute_features_robust.py`.
   - **Code Documentation Requirements:**
-    - File header must explain the complete workflow: loading benchmark data from CSV files, reading metric_direction from config/metadata.json (for verification purposes), reading category from metadata.json to determine correlation target, verifying metric directionality (scores should already represent "higher is better" after Step 2.2.1), computing difficulty and variance features, and calculating correlations.
+    - File header must explain the complete workflow: loading benchmark data from CSV files, reading metric_direction from data/metadata.json (for verification purposes), reading category from metadata.json to determine correlation target, verifying metric directionality (scores should already represent "higher is better" after Step 2.2.1), computing difficulty and variance features, and calculating correlations.
     - All functions must have docstrings explaining their mathematical operations.
-  - **Task A: Metric Directionality Verification (Critical for H1).**
-    - **Action:** Load benchmark data from CSV files in the appropriate benchmark folders. For each benchmark, read the `metric_direction` field from `Human-SIG/config/metadata.json` (the centralized metadata file containing all benchmark information).
+  - **Task A: Metric Directionality Verification (Critical for H6).**
+    - **Action:** Load benchmark data from CSV files in the appropriate benchmark folders. For each benchmark, read the `metric_direction` field from `Human-SIG/data/metadata.json` (the centralized metadata file containing all benchmark information).
     - **Prerequisite:** All scores must already be normalized to the 0-100 range and inverted if necessary (as required in Step 2.2.1) so that higher scores represent better performance. If any benchmark's scores are not in the 0-100 range, HALT and report an error.
-    - **Logic:** Check the `metric_direction` field from `Human-SIG/config/metadata.json`.
+    - **Logic:** Check the `metric_direction` field from `Human-SIG/data/metadata.json`.
     - **Verification Step:** If `metric_direction == "lower_is_better"` (e.g., Perplexity, Bits-per-byte, Error Rate):
       - **Expected Behavior:** The scores in the CSV file should ALREADY represent "higher is better" performance (i.e., they should have been inverted during Step 2.2.1 normalization). Verify that this is the case by checking that higher scores correspond to better model performance.
       - **If Verification Fails:** If you find that scores with `metric_direction == "lower_is_better"` still represent "lower is better" (i.e., they were not inverted in Step 2.2.1), HALT and report an error: "CRITICAL: Found benchmark {benchmark_name} with metric_direction='lower_is_better' but scores were not inverted in Step 2.2.1. Scores must represent 'higher is better' after Step 2.2.1 normalization."
       - **No Additional Transformation:** Since Step 2.2.1 already handles inversion, NO ADDITIONAL TRANSFORMATION is needed in this step. The `metric_direction` field is preserved for verification and documentation purposes only.
     - **Reasoning:** This verification step ensures that for all 26 benchmarks, a "higher" number mathematically implies better performance, preventing "False Negative" correlations in later steps. The goal is to have a consistent directionality where higher scores always mean better performance, which should already be achieved by Step 2.2.1.
-  - **Task B: H1 (Difficulty) Feature Calculation.**
+  - **Task B: H6 (Difficulty) Feature Calculation.**
     - **Action:** Calculate `subset_avg_score` using the Common Subset (Models with LMArena `elo_overall` Score between 1400 and 1430, inclusive). This subset was identified in Step 2.1.1 (Filter 2).
     - **Calculation:** For each benchmark, compute the mean score across all models in the Common Subset that have scores for that benchmark. This mean score represents the benchmark's difficulty (lower mean = harder benchmark).
     - **Safety Check:** If the number of overlapping models in this specific ELO range is $N < 5$ for any benchmark:
@@ -421,20 +507,20 @@ Input:
     - **Formula:** $CV = \frac{\sigma}{\mu}$.
     - **Reasoning:** Raw variance penalizes high-accuracy benchmarks (where scores are compressed near 100%). $CV$ normalizes variance relative to the score scale, making "Accuracy" benchmarks comparable to "Perplexity" benchmarks.
 - **4.2.2:** Construct Validity Calculation Loop & Sanity Check.
-  - **Action:** For each benchmark, calculate Spearman $\rho$, Kendall $\tau$, and RBO between Benchmark_Score (which should already represent "higher is better" performance after Step 2.2.1 normalization, as verified in Task A) and the corresponding LMArena ELO score (representing Perceived Utility). The correlation category for each benchmark is determined by the `category` field in metadata.json, which maps to the corresponding ELO column:
-    - "Coding" -> `elo_coding`
+  - **Action:** For each benchmark, calculate Spearman $\rho$, Kendall $\tau$, and RBO between Benchmark_Score (which should already represent "higher is better" performance after Step 2.2.1 normalization, as verified in Task A) and the corresponding LMArena ELO score (representing Perceived Utility). The correlation category for each benchmark is determined by the `category` field in metadata.json, which maps to the corresponding ELO column (listed in standardized category order):
+    - "Expert" -> `elo_expert`
     - "Math" -> `elo_math`
     - "Instruction Following" -> `elo_instruction_following`
     - "Creative Writing" -> `elo_creative_writing`
+    - "Coding" -> `elo_coding`
     - "Hard Prompts" -> `elo_hard_prompts`
-    - "Expert" -> `elo_expert`
   - **Data Source:** Load benchmark scores from `Human-SIG/data/processed/master_table/master_correlation_matrix.csv` (which contains the scores after entity resolution and merging).
   - **Missing Data Handling:** Only include models that have both benchmark scores and the corresponding LMArena ELO scores (exclude rows with NaN in either column).
   - **Store Results:** Save the construct validity measures (correlation coefficients) for each benchmark in the analysis_ready_data.csv file, along with the difficulty, variance, and other features computed in Tasks A, B, and C.
   - **Halt Protocol:** Identify a known high-quality benchmark (e.g., MMLU-Pro or HumanEval) that should have strong construct validity with Perceived Utility (high correlation with LMArena scores).
     - Calculate Spearman correlation between the benchmark scores (which should already represent "higher is better" performance after Step 2.2.1 normalization) and the corresponding LMArena ELO scores (determined by the benchmark's `category` field in metadata.json, representing Perceived Utility).
     - If Spearman Correlation $< 0.5$: HALT EXECUTION IMMEDIATELY.
-    - **Print:** "CRITICAL: Detected low construct validity with Perceived Utility (correlation < 0.5) for high-quality benchmark {benchmark_name}. This suggests a data quality issue. Please check: (1) metric directionality in the metadata file (Human-SIG/config/metadata.json), (2) that scores in CSV files are correctly normalized to 0-100 range, (3) that metric inversion was applied correctly in Step 2.2.1 if metric_direction == 'lower_is_better' (scores should represent 'higher is better' after normalization), and (4) that the correct LMArena ELO column is being used based on the benchmark's category."
+    - **Print:** "CRITICAL: Detected low construct validity with Perceived Utility (correlation < 0.5) for high-quality benchmark {benchmark_name}. This suggests a data quality issue. Please check: (1) metric directionality in the metadata file (Human-SIG/data/metadata.json), (2) that scores in CSV files are correctly normalized to 0-100 range, (3) that metric inversion was applied correctly in Step 2.2.1 if metric_direction == 'lower_is_better' (scores should represent 'higher is better' after normalization), and (4) that the correct LMArena ELO column is being used based on the benchmark's category."
     - **Wait for User:** Do not proceed until resolved. The user must verify and fix the data issue before continuing.
 - **4.2.3:** Persistence.
   - **Output:** Save the fully engineered table to `Human-SIG/results/analysis_ready_data.csv`.
@@ -448,6 +534,7 @@ Input:
     - `rbo`: Rank-Biased Overlap (p=0.9)
     - Additional metadata columns from metadata.json (e.g., `release_date`, `task_type`, `prompt_length`, `question_count`, `category`)
   - **Data Format:** All numerical values should be stored as floats. Boolean values can be stored as True/False or 1/0. Missing values should be represented as empty cells or NaN.
+  - **Important Note:** This CSV file is for data processing and analysis purposes only. Any tables that will be directly included in the manuscript must be generated using `DataFrame.to_latex()` and saved directly to `overleaf/tables/` as `.tex` files (see Step 4.4.2b and Step 5.4.2 for table generation). Do NOT create CSV files in `results/` that contain the same data as LaTeX tables.
   - **Message:** `Step 4.2.3 Completed: Computed robust features (CV, Inverted Scores) and verified directionality`
 
 #### Step 4.3: Hypothesis Testing Strategy (The Small-N Protocol)
@@ -458,15 +545,15 @@ Input:
     - Each test function must have docstrings explaining the statistical test, its assumptions, and interpretation.
   - **Context:** Since $N=29$ is too small for a 6-variable regression (Rule of thumb: 10 samples per variable), you must execute Targeted Tests for each hypothesis.
   - **Global Settings:** `n_bootstraps = 5000`, `alpha = 0.05`.
-- **4.3.2:** Test Execution: H1 (Difficulty) & H5 (Variance) - The "Trade-off" Test.
-  - **Hypothesis:** Harder benchmarks (lower average scores) exhibit higher construct validity with Perceived Utility (H1), but variance (CV) also drives construct validity (H5). These factors are often collinear (floor effects reduce variance in high-accuracy benchmarks).
+- **4.3.2:** Test Execution: H6 (Difficulty) & H5 (Variance) - The "Trade-off" Test.
+  - **Hypothesis:** Harder benchmarks (lower average scores) contribute negatively to the CV of Perceived Utility (H6), but variance (CV) also drives construct validity (H5). These factors are often collinear (floor effects reduce variance in high-accuracy benchmarks).
   - **Model:** Run a Bivariate Robust Regression using `statsmodels.RLM` with Huber's t-criterion for robust estimation.
   - **Equation:** $Construct\_Validity \sim \beta_1 \cdot Difficulty + \beta_2 \cdot CV + \epsilon$, where:
     - $Difficulty$ is the subset_avg_score (lower values = harder benchmarks). For regression, you may want to use $Difficulty = 100 - subset\_avg\_score$ so that higher values represent harder benchmarks, or use the raw subset_avg_score and interpret the sign accordingly.
     - $CV$ is the Coefficient of Variation computed in Task C.
     - $\epsilon$ is the error term.
   - **Action:** Store the p-values and coefficients for both $\beta_1$ and $\beta_2$, along with their 95% bootstrap confidence intervals.
-  - **Criteria:** H1 is supported only if $\beta_1$ is significant (p < 0.05 before correction) while controlling for CV. H5 is supported if $\beta_2$ is significant while controlling for Difficulty.
+  - **Criteria:** H6 is supported only if $\beta_1$ is significant (p < 0.05 before correction) while controlling for CV. H5 is supported if $\beta_2$ is significant while controlling for Difficulty.
 - **4.3.2b:** Test Execution: H5 (Variance) - The "Task Type Interaction" Test.
   - **Hypothesis:** The relationship between variance (CV) and construct validity with Perceived Utility may differ across different task types. This tests whether variance affects construct validity differently for MCQ, Generation, and Agentic tasks.
   - **Method:** Stratified analysis by task type. For each of the three main task types (MCQ, Generation, Agentic), separately examine the relationship between CV and construct validity with Perceived Utility.
@@ -483,13 +570,13 @@ Input:
     - **Implementation Note:** The Fisher z-transformation approach is statistically rigorous and accounts for the different sample sizes across groups. The test statistic follows a chi-square distribution under the null hypothesis that all three correlations are equal.
   - **Output:** Store the correlation coefficient, p-value (if applicable), and 95% CI for each task type group. Also store a comparison statistic (if computed) indicating whether the three groups differ significantly.
   - **Interpretation:** H5 is supported if variance shows a positive relationship with construct validity with Perceived Utility in at least one task type group, or if the relationship differs significantly across task types (suggesting task type moderates the variance-construct validity relationship).
-- **4.3.3:** Test Execution: H2 (Recency) - The "Trend" Test.
+- **4.3.3:** Test Execution: H4 (Recency) - The "Trend" Test.
   - **Model:** Univariate Spearman Correlation between Release_Date_Ordinal and Benchmark_Alignment_Correlation.
   - **Variable Construction:** 
     - `Release_Date_Ordinal`: Convert `release_date` from metadata.json (YYYY-MM-DD format) to ordinal days since a reference date (e.g., days since 2020-01-01, or simply use the date as a numeric value).
     - `Benchmark_Alignment_Correlation`: This is the Spearman correlation between the benchmark scores and the corresponding LMArena ELO scores (computed in Step 4.2.2), representing construct validity with Perceived Utility.
   - **Bootstrap:** Resample the 26 benchmarks 5000 times (with replacement) to derive a 95% Confidence Interval for the Spearman correlation coefficient. Store both the point estimate and the confidence interval.
-- **4.3.4:** Test Execution: H3 (Complexity) & H6 (Scale) - The "Categorical/Continuous" Test.
+- **4.3.4:** Test Execution: H3 (Complexity) & H2 (Scale) - The "Categorical/Continuous" Test.
   - **H3 (Complexity):** Test whether prompt complexity (as a categorical variable) affects construct validity with Perceived Utility.
     - **Rationale:** Treating `prompt_length` as an ordinal variable with equal spacing (1, 2, 3, 4) assumes that the difference between "Short" and "Medium" is the same as between "Long" and "Extreme", which may not be valid. Instead, use a categorical approach.
     - **Method:** Use Kruskal-Wallis H-test (non-parametric one-way ANOVA) to test whether the distribution of construct validity with Perceived Utility differs across the four `prompt_length` categories: "Short", "Medium", "Long", "Extreme".
@@ -499,10 +586,10 @@ Input:
       - Use `scipy.stats.kruskal` to test the null hypothesis that all groups have the same distribution of construct validity with Perceived Utility.
       - If the test is significant (p < 0.05), perform post-hoc pairwise comparisons using Mann-Whitney U tests (with Bonferroni correction for multiple comparisons) to identify which categories differ.
     - **Output:** Store the Kruskal-Wallis test statistic, p-value, and post-hoc comparison results (if applicable).
-  - **H6 (Scale):** Pearson Correlation between $\log(N_{samples})$ and construct validity with Perceived Utility.
+  - **H2 (Scale):** Pearson Correlation between $\log(N_{samples})$ and construct validity with Perceived Utility.
     - **Variable Definition:** $N_{samples}$ is the `question_count` field from metadata.json. Apply natural logarithm transformation: $\log(N_{samples}) = \ln(question\_count)$.
-- **4.3.5:** Test Execution: H4 (Generative vs. MCQ) - The "Group" Test.
-  - **Model:** Categorical comparison using the `task_type` field from `Human-SIG/config/metadata.json`.
+- **4.3.5:** Test Execution: H1 (Generative vs. MCQ) - The "Group" Test.
+  - **Model:** Categorical comparison using the `task_type` field from `Human-SIG/data/metadata.json`.
     - **Group A:** Benchmarks with `task_type == "Generation"` or `task_type == "Agentic"` (generative tasks).
     - **Group B:** Benchmarks with `task_type == "MCQ"` (multiple choice tasks).
     - **Exclusion Rule:** Benchmarks with `task_type == "Mixed"` must be **excluded** from this analysis. Do not include them in either group. Log the number of excluded Mixed benchmarks for transparency, but do not ask for user guidance.
@@ -535,7 +622,7 @@ Input:
 
   - **Output:** Generate `Human-SIG/results/statistical_significance_report.json` (this file will be referenced in Phase V for results reporting).
 
-  - **Structure:** The JSON file must contain entries for all six hypotheses (H1-H6). For H1 and H5, include separate entries for each coefficient (H1_Difficulty_Beta1, H5_Variance_Beta2). For H5, also include entries for each task type group (H5_Variance_MCQ, H5_Variance_Generation, H5_Variance_Agentic). The schema is:
+  - **Structure:** The JSON file must contain entries for all six hypotheses (H1-H6). For H6 and H5, include separate entries for each coefficient (H6_Difficulty_Beta1, H5_Variance_Beta2). For H5, also include entries for each task type group (H5_Variance_MCQ, H5_Variance_Generation, H5_Variance_Agentic). The schema is:
     ```json
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -601,19 +688,68 @@ Input:
 - **4.4.2:** Visualization Generation (`Human-SIG/src/analysis/generate_plots.py`).
 
   - **Action:** Use `seaborn` and `matplotlib` to generate the following figures for the manuscript.
-  - **Figure 1 (H1/H5):** `regplot` overlaying Difficulty vs. Construct Validity with Perceived Utility, with point size representing Variance (CV). Save as `overleaf/figures/Figure_1_Difficulty_Variance.pdf`.
-  - **Figure 2 (H4):** `boxplot` with overlaid `stripplot` showing Construct Validity with Perceived Utility distributions for "MCQ" vs "Generative/Agentic" (Group A). Exclude "Mixed" benchmarks from the plot. Save as `overleaf/figures/Figure_2_Task_Type.pdf`.
-  - **Figure 3a (H3):** `boxplot` with overlaid `stripplot` showing Construct Validity with Perceived Utility distributions across the four `prompt_length` categories ("Short", "Medium", "Long", "Extreme"). This visualizes the Kruskal-Wallis test results. Save as `overleaf/figures/Figure_3a_Complexity_Categories.pdf`.
-  - **Figure 3b (H5 Task Type Interaction):** `scatterplot` or `regplot` showing the relationship between CV and Construct Validity with Perceived Utility, with different colors/markers for each task type (MCQ, Generation, Agentic). This visualizes the stratified H5 analysis. Save as `overleaf/figures/Figure_3b_Variance_TaskType.pdf`.
-  - **Figure 4 (Confounders):** `heatmap` of the correlation matrix between the Independent Variables themselves (e.g., Are all Hard benchmarks also Recent? Do harder benchmarks have lower variance?). Include the following variables: Difficulty (subset_avg_score), Variance (CV), Recency (Release_Date_Ordinal), Complexity (prompt_length as categorical), Scale (log(question_count)), and Task_Type (encoded as binary or ordinal). This helps explain the Regression results and identify multicollinearity. Save as `overleaf/figures/Figure_4_Confounder_Heatmap.pdf`.
+  - **Important:** All figures must be saved directly to `overleaf/images/` directory (not `overleaf/figures/`). If an `overleaf/images/` directory does not exist, create it. If an existing `overleaf/images/` folder contains reference images, rename it to `overleaf/reference_image/` first.
+  - **Figure 1 (H6/H5):** `regplot` overlaying Difficulty vs. Construct Validity with Perceived Utility, with point size representing Variance (CV). Save as `overleaf/images/Figure_1_Difficulty_Variance.pdf`.
+  - **Figure 2 (H1):** `boxplot` with overlaid `stripplot` showing Construct Validity with Perceived Utility distributions for "MCQ" vs "Generative/Agentic" (Group A). Exclude "Mixed" benchmarks from the plot. Save as `overleaf/images/Figure_2_Task_Type.pdf`.
+  - **Figure 3a (H3):** `boxplot` with overlaid `stripplot` showing Construct Validity with Perceived Utility distributions across the four `prompt_length` categories ("Short", "Medium", "Long", "Extreme"). This visualizes the Kruskal-Wallis test results. Save as `overleaf/images/Figure_3a_Complexity_Categories.pdf`.
+  - **Figure 3b (H5 Task Type Interaction):** `scatterplot` or `regplot` showing the relationship between CV and Construct Validity with Perceived Utility, with different colors/markers for each task type (MCQ, Generation, Agentic). This visualizes the stratified H5 analysis. Save as `overleaf/images/Figure_3b_Variance_TaskType.pdf`.
+  - **Figure 4 (Confounders):** `heatmap` of the correlation matrix between the Independent Variables themselves (e.g., Are all Hard benchmarks also Recent? Do harder benchmarks have lower variance?). Include the following variables: Difficulty (subset_avg_score), Variance (CV), Recency (Release_Date_Ordinal), Complexity (prompt_length as categorical), Scale (log(question_count)), and Task_Type (encoded as binary or ordinal). This helps explain the Regression results and identify multicollinearity. Save as `overleaf/images/Figure_4_Confounder_Heatmap.pdf`.
+
+- **4.4.2b:** Table Generation for Manuscript (`Human-SIG/src/analysis/generate_tables.py`).
+
+  - **Action:** Identify all tables that will be directly included in the manuscript and generate them using `pandas.DataFrame.to_latex()` method. **Critical:** Use `DataFrame.to_latex()` to output tables directly as `.tex` files to `overleaf/tables/` directory. Do NOT create intermediate CSV files in `results/` that contain the same data as these LaTeX tables.
+  
+  - **`DataFrame.to_latex()` Method Usage:**
+    - **Function Signature:** `DataFrame.to_latex(buf=None, *, columns=None, header=True, index=True, na_rep='NaN', formatters=None, float_format=None, sparsify=None, index_names=True, bold_rows=False, column_format=None, longtable=None, escape=None, encoding=None, decimal='.', multicolumn=None, multicolumn_format=None, multirow=None, caption=None, label=None, position=None)`
+    - **Key Parameter - `buf`:** This is the first parameter and controls where the output goes. It accepts:
+      - **File path (string or `pathlib.Path` object):** When you pass a file path, the method writes the LaTeX table directly to that file. This is the recommended approach for generating `.tex` files.
+      - **File object or StringIO-like object:** Can also accept a file-like object for writing.
+      - **`None` (default):** If `buf=None`, the method returns the LaTeX string instead of writing to a file.
+    - **Input:** A pandas DataFrame containing the data to be converted to LaTeX format.
+    - **Output:** 
+      - When `buf` is a file path, the method writes a `.tex` file containing the LaTeX table code. The file can be directly included in the LaTeX document using `\input{tables/filename}`.
+      - When `buf=None`, the method returns a string containing the LaTeX table code.
+    - **Usage Steps:**
+      1. Create or load a pandas DataFrame with your table data.
+      2. Ensure the output directory exists (e.g., `overleaf/tables/`). Use `pathlib.Path` to create directories if needed.
+      3. Call `df.to_latex()` with the file path as the `buf` parameter (can be passed as first positional argument or as keyword argument `buf='path/to/file.tex'`).
+      4. Specify formatting parameters as needed (see Common Parameters below).
+    - **Common Parameters:**
+      - `buf`: File path (string or Path), file object, or None. **Pass the file path as the first positional argument or use `buf='path/to/file.tex'` to write directly to a file.**
+      - `index=False`: Exclude row index from the table (usually desired for manuscript tables).
+      - `header=True`: Include column headers (default True).
+      - `float_format='%.3f'` or `float_format=lambda x: f'{x:.3f}'`: Format floating point numbers (e.g., 0.1234 → 0.123).
+      - `caption='Table Caption'`: Add a table caption.
+      - `label='tab:label'`: Add a LaTeX label for cross-referencing with `\ref{tab:label}`.
+      - `column_format='lrr'`: Specify column alignment ('l'=left, 'r'=right, 'c'=center). For example, 'lrr' means left-aligned first column, right-aligned remaining columns.
+      - `na_rep='--'`: Representation for missing values (default 'NaN').
+      - `escape=False`: Set to False to prevent escaping LaTeX special characters (useful if your data contains LaTeX commands). Note: Default is `None` (reads from pandas config), but `False` is commonly used.
+    - **Important:** The method requires the `booktabs` package in LaTeX. Ensure `\usepackage{booktabs}` is included in your LaTeX preamble. The output uses `\toprule`, `\midrule`, and `\bottomrule` commands from the booktabs package.
+  
+  - **Required Tables:**
+    - **Results Summary Table:** Create a DataFrame summarizing hypothesis test results (p-values, effect sizes, significance) from `statistical_significance_report.json`. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/results_table.tex`. Include columns: Hypothesis, Effect Size, Effect Size Type, p_raw, p_corrected, significant_strict, ci_lower, ci_upper (if applicable).
+    - **Benchmark Summary Table (Optional):** If needed for the manuscript, create a table summarizing key benchmark characteristics (benchmark name, category, task_type, prompt_length, question_count, etc.) from `analysis_ready_data.csv`. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/benchmark_summary_table.tex`.
+  
+  - **Table Formatting Guidelines:**
+    - Use appropriate LaTeX formatting options in `to_latex()`: `index=False` if row names are not needed, `float_format` for numerical precision, `caption` and `label` for table captions and cross-references.
+    - Ensure tables are properly formatted for ACL 2026 style (refer to ACL template requirements).
+    - Use `column_format` parameter to specify column alignment (e.g., 'lrr' for left-aligned first column and right-aligned numeric columns).
+    - For tables with confidence intervals, format them as strings in the DataFrame (e.g., "[0.12, 0.78]") before calling `to_latex()`.
+  
+  - **Output Location:** All table `.tex` files must be saved to `overleaf/tables/` directory. Ensure the directory exists before writing files (use `Path('overleaf/tables').mkdir(parents=True, exist_ok=True)`).
 
 - **4.4.3:** Commit State
 
-  - **Message:** `Step 4.4.3 Completed: Applied Holm-Bonferroni correction and generated manuscript figures`
+  - **Message:** `Step 4.4.3 Completed: Applied Holm-Bonferroni correction, generated manuscript figures and tables`
 
 ### Phase V: Manuscript Generation (The ACL 2026 Submission)
 
 Objective: Synthesize the findings from Human-SIG/results/ into a scientifically rigorous, compliant ACL LaTeX submission in the overleaf/ repository.
+
+**Critical Output Requirements:**
+- **Tables:** All tables that will be directly included in the manuscript must be generated using `pandas.DataFrame.to_latex()` and saved directly to `overleaf/tables/` as `.tex` files. Do NOT create CSV files in `results/` that contain the same data as LaTeX tables. The `DataFrame.to_latex()` method accepts a file path as its first parameter (`buf`), allowing direct output to `.tex` files. This ensures all numerical values in LaTeX tables are exactly as computed by the code, preventing transcription errors.
+- **Figures:** All figures must be saved directly to `overleaf/images/` directory (not `overleaf/figures/`). If an existing `overleaf/images/` folder contains reference images, rename it to `overleaf/reference_image/` first.
+- **Results Folder:** The `Human-SIG/results/` folder should only contain CSV or JSON format files used for data processing and analysis. These files are NOT meant to be directly included in the manuscript. Any data that needs to appear in the manuscript as a table must be generated using `DataFrame.to_latex()` and saved to `overleaf/tables/`.
 
 Critical Constraint: You must NOT edit main.tex directly after initialization. You will generate discrete section files in overleaf/sections/ and input them. This prevents context-window truncation from corrupting the entire document structure.
 
@@ -663,13 +799,13 @@ Critical Constraint: You must NOT edit main.tex directly after initialization. Y
 
 - **5.2.1:** Create `overleaf/sections/abstract.tex`.
   - **Source:** Read `Human-SIG/results/statistical_significance_report.json` (created in Step 4.4.1) to identify the top-level conclusion (e.g., "H1 and H5 supported"). Also read `Human-SIG/results/analysis_ready_data.csv` to get summary statistics.
-  - **Content:** Write a 200-word abstract summarizing the analysis of 29 benchmarks against LMArena. Explicitly mention the shift from "Static Accuracy" to "Dynamic Perceived Utility." Report the key findings: which hypotheses were supported, the effect sizes, and the statistical significance (after correction). Mention the use of robust statistical methods (bootstrap, robust regression) to handle the small sample size.
+  - **Content:** Write a 200-word abstract summarizing the analysis of 29 benchmarks (GPQA, GPQA Diamond, Humanity's Last Exam, SuperGPQA, AIME, FrontierMath Tier 1-3, FrontierMath Tier 4, HMMT (Feb 2025), MATH-500, MGSM, IFBench, IFEval, Creative Writing v3, WritingBench, Aider Polyglot, HumanEval, IOI, LiveCodeBench, SciCode, SWE-Bench Bash Only, SWE-bench (Verified), tau2-Bench Telecom, Terminal-Bench Hard, Terminal-Bench v2.0, AA-LCR, ARC-AGI-2, Arena-Hard (Auto v2.0), FACTS, MMLU-Pro) against LMArena. Explicitly mention the shift from "Static Accuracy" to "Dynamic Perceived Utility." Report the key findings: which hypotheses were supported, the effect sizes, and the statistical significance (after correction). Mention the use of robust statistical methods (bootstrap, robust regression) to handle the small sample size. **CRITICAL:** The benchmark list above follows the standardized ordering (by category: Expert, Math, Instruction Following, Creative Writing, Coding, Hard Prompts; then alphabetically within each category).
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
 - **5.2.2:** Create `overleaf/sections/introduction.tex`.
   - **Content:**
     1. Define the problem: The "Saturation" of MMLU and the "Identity Crisis" of models (from Master Data Source).
     2. Define the Ground Truth: LMArena as the proxy for Perceived Utility (Perceived Utility of a particular LLM).
-    3. State the Research Questions: List the six hypotheses (Difficulty, Recency, Complexity, etc.).
+    3. State the Research Questions: List the six hypotheses in the following order: H1 (The Generative Hypothesis), H2 (The Scale Hypothesis), H3 (The Prompt Complexity Hypothesis), H4 (The Recency Hypothesis), H5 (The Variance Hypothesis), H6 (The Difficulty Hypothesis).
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
 - **5.2.3:** Commit State.
   - **Message:** `Step 5.2.3 Completed: Drafted Abstract and Introduction sections`
@@ -679,15 +815,15 @@ Critical Constraint: You must NOT edit main.tex directly after initialization. Y
 - **5.3.1:** Create `overleaf/sections/methodology.tex`.
   - **Source:** Read `Human-SIG/results/data_overlap_stats.json` (from Phase III) and your internal logic from Phase IV.
   - **Content:**
-    1. **Data Collection:** Describe the ingestion of 29 benchmarks and the "Strict Entity Resolution" protocol used to map models. Mention the final $N$ (sample size) from the overlap stats.
+    1. **Data Collection:** Describe the ingestion of 29 benchmarks (GPQA, GPQA Diamond, Humanity's Last Exam, SuperGPQA, AIME, FrontierMath Tier 1-3, FrontierMath Tier 4, HMMT (Feb 2025), MATH-500, MGSM, IFBench, IFEval, Creative Writing v3, WritingBench, Aider Polyglot, HumanEval, IOI, LiveCodeBench, SciCode, SWE-Bench Bash Only, SWE-bench (Verified), tau2-Bench Telecom, Terminal-Bench Hard, Terminal-Bench v2.0, AA-LCR, ARC-AGI-2, Arena-Hard (Auto v2.0), FACTS, MMLU-Pro) and the "Strict Entity Resolution" protocol used to map models. Mention the final $N$ (sample size) from the overlap stats. **CRITICAL:** The benchmark list above follows the standardized ordering (by category: Expert, Math, Instruction Following, Creative Writing, Coding, Hard Prompts; then alphabetically within each category).
     2. **Statistical Framework:** Explicitly state the use of Rank-Biased Overlap (RBO) ($p=0.9$) to account for top-tier sensitivity, Spearman's rank correlation ($\rho$) and Kendall's $\tau$ for non-parametric correlation analysis, and Fisher z-transformation for correlation aggregation when needed. Explain why multiple correlation metrics are used (RBO for ranking, Spearman/Kendall for robustness to outliers).
     3. **Hypothesis Testing:** Describe the statistical tests used for each hypothesis:
-       - **H1 & H5 (Main):** Multiple Robust Regression model (Construct Validity with Perceived Utility ~ Difficulty + CV) using `statsmodels.RLM` with Huber's t-criterion.
-       - **H5 (Stratified):** Separate Spearman correlation analyses between CV and construct validity with Perceived Utility for each task type (MCQ, Generation, Agentic) to examine task type moderation effects.
-       - **H2:** Univariate Spearman correlation between release date and construct validity with Perceived Utility.
-       - **H3:** Kruskal-Wallis H-test (non-parametric one-way ANOVA) to test whether construct validity with Perceived Utility distributions differ across prompt_length categories, with post-hoc pairwise comparisons if significant.
-       - **H4:** Mann-Whitney U test to compare construct validity with Perceived Utility distributions between MCQ and Generative/Agentic groups.
-       - **H6:** Pearson correlation between log(question_count) and construct validity with Perceived Utility.
+       - **H1 (Generative):** Mann-Whitney U test to compare construct validity with Perceived Utility distributions between MCQ and Generative/Agentic groups.
+       - **H2 (Scale):** Pearson correlation between log(question_count) and construct validity with Perceived Utility.
+       - **H3 (Complexity):** Kruskal-Wallis H-test (non-parametric one-way ANOVA) to test whether construct validity with Perceived Utility distributions differ across prompt_length categories, with post-hoc pairwise comparisons if significant.
+       - **H4 (Recency):** Univariate Spearman correlation between release date and construct validity with Perceived Utility.
+       - **H5 (Variance):** Multiple Robust Regression model (Construct Validity with Perceived Utility ~ Difficulty + CV) using `statsmodels.RLM` with Huber's t-criterion, with stratified analysis by task type (MCQ, Generation, Agentic) to examine task type moderation effects.
+       - **H6 (Difficulty):** Multiple Robust Regression model (Construct Validity with Perceived Utility ~ Difficulty + CV) using `statsmodels.RLM` with Huber's t-criterion, controlling for variance.
     4. **Small-N Considerations:** Explain why multivariate regression with all 6 variables was avoided due to small sample size ($N=29$), which would violate the rule of thumb requiring at least 10 samples per variable. Describe the bootstrap resampling procedure (5000 iterations) used to compute confidence intervals for all effect sizes. Explain why categorical tests (Kruskal-Wallis) are preferred over assuming ordinal spacing for prompt_length.
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
 - **5.3.2:** Commit State.
@@ -699,13 +835,13 @@ Critical Constraint: You must NOT edit main.tex directly after initialization. Y
   - **Action:** BEFORE generating any LaTeX code, you must strictly read `Human-SIG/results/statistical_significance_report.json` and `Human-SIG/results/analysis_ready_data.csv` (created in Steps 4.4.1 and 4.2.3) into a local memory variable.
   - **Constraint:** When calling the LLM to write the text, explicitly inject the raw JSON/CSV data snippets into the context window. DO NOT rely on the Agent's "memory" of previous steps.
 - **5.4.2:** Create `overleaf/sections/results.tex`.
-  - **Content Block 1:** Create a results summary table. Generate `overleaf/tables/results_table.tex` containing a LaTeX table that summarizes the hypothesis test results (p-values, effect sizes, significance) from `statistical_significance_report.json`. Reference it with: `\input{tables/results_table}`.
+  - **Content Block 1:** Reference the results summary table. The table should already exist at `overleaf/tables/results_table.tex` (generated in Step 4.4.2b using `DataFrame.to_latex()`). Reference it with: `\input{tables/results_table}`. **Important:** Do NOT generate this table manually or by reading from CSV. The table must be generated programmatically using `DataFrame.to_latex()` to ensure all numerical values are exactly as computed by the code.
   - **Content Block 2:** For H1-H6, report the Bootstrap 95% Confidence Intervals (e.g., "Coefficient: 0.45 [95% CI: 0.12, 0.78]"). Include both raw and corrected p-values (after Holm-Bonferroni correction) for each hypothesis. Clearly indicate which hypotheses are statistically significant after correction.
   - **Specifics:**
     - Discuss the specific impact of variance (CV - Coefficient of Variation) on construct validity with Perceived Utility, and how it interacts with difficulty (The Clustering Effect: high-accuracy benchmarks compress variance near 100%, making it harder to distinguish between top-performing models). Explain the trade-off between difficulty and variance: harder benchmarks may have lower variance due to floor effects, while easier benchmarks may have compressed variance near the ceiling.
     - **H5 Task Type Analysis:** Report the stratified analysis results showing how the relationship between variance and construct validity with Perceived Utility differs across task types (MCQ, Generation, Agentic). Discuss whether variance affects construct validity differently for different task types, and what this implies for benchmark design.
     - Explicitly mention that all benchmark scores were normalized to a 0-100 scale (as specified in Step 2.2.1) to ensure comparability across different metric types, and that metric directionality was handled through inversion for "lower_is_better" metrics during the normalization process in Step 2.2.1 (verified in Step 4.2.1).
-  - **Reference:** Include `\includegraphics{figures/Figure_1_Difficulty_Variance.pdf}`, `\includegraphics{figures/Figure_2_Task_Type.pdf}`, `\includegraphics{figures/Figure_3a_Complexity_Categories.pdf}`, `\includegraphics{figures/Figure_3b_Variance_TaskType.pdf}`, and `\includegraphics{figures/Figure_4_Confounder_Heatmap.pdf}`.
+  - **Reference:** Include `\includegraphics{images/Figure_1_Difficulty_Variance.pdf}`, `\includegraphics{images/Figure_2_Task_Type.pdf}`, `\includegraphics{images/Figure_3a_Complexity_Categories.pdf}`, `\includegraphics{images/Figure_3b_Variance_TaskType.pdf}`, and `\includegraphics{images/Figure_4_Confounder_Heatmap.pdf}`.
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
 - **5.4.3:** Commit State.
   - **Message:** `Step 5.4.3 Completed: Synthesized Results section using verified Bootstrap statistics`
@@ -714,10 +850,13 @@ Critical Constraint: You must NOT edit main.tex directly after initialization. Y
 
 - **5.5.1:** Create `overleaf/sections/discussion.tex`.
   - **Content:** Interpret the results based on the statistical significance report. Read `Human-SIG/results/statistical_significance_report.json` to determine which hypotheses are supported.
-    - If H1/H5 supported: Discuss "The Alignment Tax" (harder benchmarks exhibit higher construct validity with Perceived Utility, but variance also plays a crucial role). Explain the interaction between difficulty and variance.
-    - If H2 supported: Discuss "Contamination vs. Generalization" (recent benchmarks may have higher construct validity with Perceived Utility due to training data contamination or genuine generalization improvements).
-    - If H4 supported: Discuss why "Generative/Agentic" tasks exhibit higher construct validity with Perceived Utility than MCQs (open-ended tasks may better capture real-world Perceived Utility).
-    - **Statistical Power and Sample Size Considerations:** Address the concern about the relatively small sample size ($N=29$) by explaining that while the sample size is limited, the statistical analyses were designed to maximize power given this constraint. Specifically, all hypothesis tests involve at most two independent variables simultaneously (e.g., the bivariate robust regression for H1/H5 uses only Difficulty and CV). Following the rule of thumb requiring approximately 10 samples per variable, the effective sample size requirement for bivariate models is approximately 20 samples, which is met by the current sample of 29 benchmarks. This targeted approach, combined with non-parametric tests (Spearman, Kendall, Mann-Whitney, Kruskal-Wallis) that are robust to small sample sizes, and bootstrap resampling (5000 iterations) for confidence interval estimation, ensures reasonable statistical validity despite the limited sample size. Discuss the trade-offs: while multivariate regression with all six factors simultaneously would require a larger sample, the current approach allows for rigorous testing of individual hypotheses while maintaining statistical power.
+    - If H1 supported: Discuss why "Generative/Agentic" tasks exhibit higher construct validity with Perceived Utility than MCQs (open-ended tasks may better capture real-world Perceived Utility).
+    - If H2 supported: Discuss how larger test volumes contribute to construct validity with Perceived Utility.
+    - If H3 supported: Discuss how prompt complexity affects construct validity with Perceived Utility.
+    - If H4 supported: Discuss "Contamination vs. Generalization" (recent benchmarks may have higher construct validity with Perceived Utility due to training data contamination or genuine generalization improvements).
+    - If H5 supported: Discuss how variance affects construct validity with Perceived Utility, and how it interacts with task type.
+    - If H6 supported: Discuss "The Alignment Tax" (harder benchmarks contribute negatively to the CV of Perceived Utility, particularly when controlling for variance). Explain the interaction between difficulty and variance.
+    - **Statistical Power and Sample Size Considerations:** Address the concern about the relatively small sample size ($N=29$) by explaining that while the sample size is limited, the statistical analyses were designed to maximize power given this constraint. Specifically, all hypothesis tests involve at most two independent variables simultaneously (e.g., the bivariate robust regression for H6/H5 uses only Difficulty and CV). Following the rule of thumb requiring approximately 10 samples per variable, the effective sample size requirement for bivariate models is approximately 20 samples, which is met by the current sample of 29 benchmarks. This targeted approach, combined with non-parametric tests (Spearman, Kendall, Mann-Whitney, Kruskal-Wallis) that are robust to small sample sizes, and bootstrap resampling (5000 iterations) for confidence interval estimation, ensures reasonable statistical validity despite the limited sample size. Discuss the trade-offs: while multivariate regression with all six factors simultaneously would require a larger sample, the current approach allows for rigorous testing of individual hypotheses while maintaining statistical power.
     - **Methodological Consideration: Difficulty Calculation and Potential Circularity:** Address the methodological choice of calculating the Difficulty feature (subset_avg_score) using the Common Subset of models with LMArena Overall ELO scores between 1400 and 1430, which is derived from the same LMArena data used as the dependent variable in correlation analyses. Acknowledge that this approach could theoretically introduce circularity concerns, as the same data source (LMArena) is used to both define the difficulty metric (via model subset selection) and as the target for correlation. However, explain the methodological necessity of this approach: (1) The benchmark leaderboards contain a highly heterogeneous set of models with vastly different capabilities, making direct calculation of benchmark difficulty across all models problematic due to floor and ceiling effects; (2) Using a single model as the reference would introduce excessive individual model bias, making the difficulty measure unreliable; (3) The Common Subset approach provides a principled way to select a homogeneous group of models with similar overall capability levels, ensuring sufficient sample size while minimizing individual model bias; (4) The choice of LMArena Overall ELO as the selection criterion is justified by its status as a comprehensive measure of model capabilities across diverse domains, making it the most appropriate proxy for general model capability. Conclude by noting that while this approach acknowledges a potential methodological limitation, it represents the most principled solution given the constraints of the data structure, and that sensitivity analyses (e.g., varying the ELO range thresholds) could be explored in future work.
     - Discuss other limitations: dependency on LMArena as ground truth, potential confounding factors, and generalizability concerns.
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
@@ -784,6 +923,6 @@ Critical Constraint: You must NOT edit main.tex directly after initialization. Y
 
 - **5.7.1:** Push Artifacts.
   - **Command:** `cd overleaf/ && git push origin master`
-  - **Verification:** Ensure all `.tex` files, the `figures/` folder, the `tables/` folder, and the compiled `main.pdf` are present in the remote repository.
+  - **Verification:** Ensure all `.tex` files, the `images/` folder (containing all PDF figures), the `tables/` folder (containing all `.tex` table files), and the compiled `main.pdf` are present in the remote repository.
 - **5.7.2:** Final Log.
   - **Message:** `Step 5.7.2 Completed: FINAL SUBMISSION ARTIFACTS PUSHED. PIPELINE COMPLETE.`
