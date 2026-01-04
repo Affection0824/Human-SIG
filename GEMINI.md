@@ -1,6 +1,5 @@
 # Scientific Writing Master Instruction Manual
 
-
 ## Part 1: General Behavioral Guidelines
 
 ### 1. Identity and Mission
@@ -836,11 +835,9 @@ Objective: Synthesize the findings from Human-SIG/results/ into a scientifically
 
 - **5.2.1:** Write the abstract section in `overleaf/acl_latex.tex`.
   - **Source:** Read `Human-SIG/results/statistical_significance_report.json` (created in Step 4.4.1) to identify the top-level conclusion (e.g., "H1 and H5 supported"). Also read `Human-SIG/results/analysis_ready_data.csv` to get summary statistics.
-  - **Action:** Replace the placeholder comment `% Abstract content will be added in Step 5.2.1` in `overleaf/acl_latex.tex` with the actual abstract content.
-  - **Content:** Write a 200-word abstract summarizing the analysis of 29 benchmarks (AIME, FrontierMath Tier 1-3, FrontierMath Tier 4, HMMT (Feb 2025), MATH-500, MGSM, Aider Polyglot, HumanEval, IOI, LiveCodeBench, SciCode, SWE-bench (Verified), SWE-Bench Bash Only, tau2-Bench Telecom, Terminal-Bench Hard, Terminal-Bench v2.0, IFBench, IFEval, Creative Writing v3, WritingBench, AA-LCR, ARC-AGI-2, Arena-Hard (Auto v2.0), FACTS, MMLU-Pro, GPQA, GPQA Diamond, Humanity's Last Exam, SuperGPQA) against LMArena. Explicitly mention the shift from "Static Accuracy" to "Dynamic Perceived Utility." Report the key findings: which hypotheses were supported, the effect sizes, and the statistical significance (after correction). Mention the use of robust statistical methods (bootstrap, robust regression) to handle the small sample size. **CRITICAL:** The benchmark list above follows the standardized ordering (by category: Math, Coding, Instruction Following, Creative Writing, Hard Prompts, Expert; then alphabetically within each category).
+  - **Content:** Write a 200-word abstract summarizing the analysis of 29 benchmarks (AIME, FrontierMath Tier 1-3, FrontierMath Tier 4, HMMT (Feb 2025), MATH-500, MGSM, Aider Polyglot, HumanEval, IOI, LiveCodeBench, SciCode, SWE-bench (Verified), SWE-Bench Bash Only, tau2-Bench Telecom, Terminal-Bench Hard, Terminal-Bench v2.0, IFBench, IFEval, Creative Writing v3, WritingBench, AA-LCR, ARC-AGI-2, Arena-Hard (Auto v2.0), FACTS, MMLU-Pro, GPQA, GPQA Diamond, Humanity's Last Exam, SuperGPQA) against LMArena. Report the key findings: which hypotheses were supported, the effect sizes, and the statistical significance (after correction). Mention the use of robust statistical methods (bootstrap, robust regression) to handle the small sample size. **CRITICAL:** The benchmark list above follows the standardized ordering (by category: Math, Coding, Instruction Following, Creative Writing, Hard Prompts, Expert; then alphabetically within each category).
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
 - **5.2.2:** Write the introduction section in `overleaf/acl_latex.tex`.
-  - **Action:** Replace the placeholder comment `% Introduction content will be added in Step 5.2.2` in `overleaf/acl_latex.tex` with the actual introduction content.
   - **Content:**
     1. Define the problem: The "Saturation" of MMLU and the "Identity Crisis" of models (from Master Data Source).
     2. Define the Ground Truth: LMArena as the proxy for Perceived Utility (Perceived Utility of a particular LLM).
