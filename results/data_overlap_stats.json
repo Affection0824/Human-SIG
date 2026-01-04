@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "description": "Overlap statistics for each benchmark, indicating how many models from the Study Universe have scores in that benchmark",
+  "aime": {
+    "overlap_count": 60,
+    "study_universe_size": 126,
+    "overlap_percentage": 47.62
+  },
+  "frontiermath_tier_1_3": {
+    "overlap_count": 30,
+    "study_universe_size": 126,
+    "overlap_percentage": 23.81
+  },
+  "frontiermath_tier_4": {
+    "overlap_count": 21,
+    "study_universe_size": 126,
+    "overlap_percentage": 16.67
+  },
+  "hmmt_feb_2025": {
+    "overlap_count": 11,
+    "study_universe_size": 126,
+    "overlap_percentage": 8.73
+  },
+  "math_500": {
+    "overlap_count": 31,
+    "study_universe_size": 126,
+    "overlap_percentage": 24.6
+  },
+  "mgsm": {
+    "overlap_count": 41,
+    "study_universe_size": 126,
+    "overlap_percentage": 32.54
+  },
+  "aider_polyglot": {
+    "overlap_count": 31,
+    "study_universe_size": 126,
+    "overlap_percentage": 24.6
+  },
+  "humaneval": {
+    "overlap_count": 10,
+    "study_universe_size": 126,
+    "overlap_percentage": 7.94
+  },
+  "ioi": {
+    "overlap_count": 21,
+    "study_universe_size": 126,
+    "overlap_percentage": 16.67
+  },
+  "livecodebench": {
+    "overlap_count": 68,
+    "study_universe_size": 126,
+    "overlap_percentage": 53.97
+  },
+  "scicode": {
+    "overlap_count": 68,
+    "study_universe_size": 126,
+    "overlap_percentage": 53.97
+  },
+  "swe_bench_verified": {
+    "overlap_count": 28,
+    "study_universe_size": 126,
+    "overlap_percentage": 22.22
+  },
+  "swe_bench_bash_only": {
+    "overlap_count": 17,
+    "study_universe_size": 126,
+    "overlap_percentage": 13.49
+  },
+  "tau2_bench_telecom": {
+    "overlap_count": 61,
+    "study_universe_size": 126,
+    "overlap_percentage": 48.41
+  },
+  "terminal_bench_hard": {
+    "overlap_count": 61,
+    "study_universe_size": 126,
+    "overlap_percentage": 48.41
+  },
+  "terminal_bench_v2_0": {
+    "overlap_count": 13,
+    "study_universe_size": 126,
+    "overlap_percentage": 10.32
+  },
+  "ifbench": {
+    "overlap_count": 60,
+    "study_universe_size": 126,
+    "overlap_percentage": 47.62
+  },
+  "ifeval": {
+    "overlap_count": 18,
+    "study_universe_size": 126,
+    "overlap_percentage": 14.29
+  },
+  "creative_writing_v3": {
+    "overlap_count": 29,
+    "study_universe_size": 126,
+    "overlap_percentage": 23.02
+  },
+  "writingbench": {
+    "overlap_count": 28,
+    "study_universe_size": 126,
+    "overlap_percentage": 22.22
+  },
+  "aa_lcr": {
+    "overlap_count": 60,
+    "study_universe_size": 126,
+    "overlap_percentage": 47.62
+  },
+  "arc_agi_2": {
+    "overlap_count": 26,
+    "study_universe_size": 126,
+    "overlap_percentage": 20.63
+  },
+  "arena_hard_auto_v2_0": {
+    "overlap_count": 6,
+    "study_universe_size": 126,
+    "overlap_percentage": 4.76
+  },
+  "facts": {
+    "overlap_count": 2,
+    "study_universe_size": 126,
+    "overlap_percentage": 1.59
+  },
+  "mmlu_pro": {
+    "overlap_count": 68,
+    "study_universe_size": 126,
+    "overlap_percentage": 53.97
+  },
+  "gpqa": {
+    "overlap_count": 28,
+    "study_universe_size": 126,
+    "overlap_percentage": 22.22
+  },
+  "gpqa_diamond": {
+    "overlap_count": 68,
+    "study_universe_size": 126,
+    "overlap_percentage": 53.97
+  },
+  "humanity_s_last_exam": {
+    "overlap_count": 68,
+    "study_universe_size": 126,
+    "overlap_percentage": 53.97
+  },
+  "supergpqa": {
+    "overlap_count": 28,
+    "study_universe_size": 126,
+    "overlap_percentage": 22.22
+  }
+}
