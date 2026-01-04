@@ -10,8 +10,10 @@ GPT-5.2 Pro (Medium),38.5,7
 Gemini 3 Flash Preview (High),33.6,9
 Gemini 3 Pro,31.1,10
 "Opus 4.5 (Thinking, 32K)",30.6,11
+Grok 4 (Refine.),29.4,12
 NVARC,27.6,13
 GPT-5.2 (Medium),26.7,14
+Grok 4 (Refine.)(2),26.0,15
 "Opus 4.5 (Thinking, 16K)",22.8,16
 GPT-5 Pro,18.3,17
 "GPT-5.1 (Thinking, High)",17.6,18
@@ -41,7 +43,7 @@ GPT-5 Mini (High),4.4,41
 Gemini 2.5 Pro (Thinking 16K),4.0,42
 GPT-5 Mini (Medium),4.0,42
 Claude Haiku 4.5 (Thinking 32K),4.0,42
-"o3 (Preview, Low) ",4.0,42
+"o3 (Preview, Low) ¹",4.0,42
 Gemini 2.5 Pro (Preview),3.8,46
 Claude Sonnet 4.5,3.8,46
 "Gemini 2.5 Pro (Preview, Thinking 1K)",3.4,48

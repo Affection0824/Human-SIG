@@ -1,36 +1,36 @@
-GPQA
-GPQA Diamond
-Humanity's Last Exam
-SuperGPQA
 AIME
 FrontierMath Tier 1-3
 FrontierMath Tier 4
 HMMT (Feb 2025)
 MATH-500
 MGSM
-IFBench
-IFEval
-Creative Writing v3
-WritingBench
 Aider Polyglot
 HumanEval
 IOI
 LiveCodeBench
 SciCode
+SWE-bench (Verified)
 SWE-Bench Bash Only
-SWE-bench（Verified）
 tau2-Bench Telecom
 Terminal-Bench Hard
 Terminal-Bench v2.0
+IFBench
+IFEval
+Creative Writing v3
+WritingBench
 AA-LCR
 ARC-AGI-2
 Arena-Hard (Auto v2.0)
 FACTS
 MMLU-Pro
+GPQA
+GPQA Diamond
+Humanity's Last Exam
+SuperGPQA
 LMArena-Overall
-LMArena-Expert
 LMArena-Math
+LMArena-Coding
 LMArena-Instruction Following
 LMArena-Creative Writing
-LMArena-Coding
 LMArena-Hard Prompts
+LMArena-Expert

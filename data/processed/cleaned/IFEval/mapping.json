@@ -6,6 +6,7 @@
   "Gemma 3 12B": "gemma-3-12b-it",
   "Qwen3-Next-80B-A3B-Thinking": "qwen3-next-80b-a3b-thinking",
   "Qwen3-235B-A22B-Instruct-2507": "qwen3-235b-a22b-instruct-2507",
+  "Llama 3.1 405B Instruct": "Metallama-3.1-405b-instruct-bf16",
   "GPT-4.5": "gpt-4.5-preview-2025-02-27",
   "Qwen3 VL 235B A22B Thinking": "qwen3-vl-235b-a22b-thinking",
   "Qwen3 VL 235B A22B Instruct": "qwen3-vl-235b-a22b-instruct",

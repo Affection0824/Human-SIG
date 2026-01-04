@@ -1,11 +1,11 @@
 model_name,score,rank
 Kimi K2 0905,0.945,1
-Claude 3.5 Sonnet 2410,0.937,2
+Claude 3.5 Sonnet,0.937,2
 GPT-5,0.934,3
 Kimi K2 Instruct,0.933,4
 Qwen2.5-Coder 32B Instruct,0.927,5
 o1-mini,0.924,6
-Claude 3.5 Sonnet 2406,0.92,7
+Claude 3.5 Sonnet(2),0.92,7
 Mistral Large 2,0.92,7
 Qwen2.5 VL 32B Instruct,0.915,9
 GPT-4o,0.902,10
