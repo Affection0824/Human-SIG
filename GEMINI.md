@@ -184,7 +184,7 @@ Human-SIG/
 │  │  │   │   └── data.csv    # Extracted data file
 │  │  ├── artificial_analysis/  # Artificial Analysis unified table extraction
 │  │  │   ├── input.txt          # User-manually copied <table> element HTML (unified table, shared by all benchmarks, HTML format text)
-│  │  │   └── {benchmark_name}/ # Each benchmark has its own folder
+│  │  │   └── {benchmark_id}/ # Each benchmark has its own folder
 │  │  │       ├── input.txt     # Benchmark description or reference (optional)
 │  │  │       └── data.csv      # Extracted data file
 │  │  ├── frontiermath/        # FrontierMath (manual_source_code method)
@@ -195,18 +195,18 @@ Human-SIG/
 │  │  │       ├── input.txt     # User-manually copied <table> element HTML (HTML format text)
 │  │  │       └── data.csv      # Extracted data file
 │  │  ├── manual_direct/        # Directly provided data files
-│  │  │   └── {benchmark_name}/
+│  │  │   └── {benchmark_id}/
 │  │  │       └── data.csv      # or data.xlsx (user directly provides, rename if needed)
 │  │  ├── pandas_read_html/     # pandas.read_html method
-│  │  │   └── {benchmark_name}/
+│  │  │   └── {benchmark_id}/
 │  │  │       ├── input.txt     # URL file (one line with URL)
 │  │  │       └── data.csv      # Scraped data file
 │  │  ├── selenium/             # Selenium method
-│  │  │   └── {benchmark_name}/
+│  │  │   └── {benchmark_id}/
 │  │  │       ├── input.txt     # URL file (one line with URL)
 │  │  │       └── data.csv      # Scraped data file
 │  │  └── vals_ai/              # VALS.ai platform data
-│  │      └── {benchmark_name}/
+│  │      └── {benchmark_id}/
 │  │          ├── input.txt     # User-manually copied JSON element (from webpage source code, JSON format text)
 │  │          └── data.csv      # Converted data file
 │  └── processed/              # Processed data
@@ -394,7 +394,7 @@ Proceed to **Phase III: Data Processing**.
     1. Load parsed data (Score + Rank) from the parser output (created in Step 3.3.1). The parser reads cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`, which already contains standardized model names, scores, and ranks.
     2. Map model names using the per-benchmark mapping table from `Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json` (verified in Step 3.2). This per-benchmark mapping contains benchmark-specific mappings with duplicate handling already applied.
     3. Left Join onto `df_master` (Keep only models present in LMArena Study Universe). Models that appear in the benchmark but cannot be mapped to the Study Universe will be excluded.
-    4. Add columns: `{benchmark_id}_score` AND `{benchmark_id}_rank`. (Both are needed: Score for Pearson/Spearman correlation, Rank for RBO calculation). Use the sanitized benchmark_id (e.g., "humaneval", "mmlu_pro") as the column name prefix.
+    4. Add columns: `{benchmark_id}_score` AND `{benchmark_id}_rank`. (Both are needed: Score for Pearson/Spearman correlation, Rank for RBO calculation).
     5. Handle missing values: If a model in the Study Universe does not have a score for a particular benchmark, leave the score and rank as `NaN` (do not fill with zeros or default values).
   - **Data Type Enforcement:** Ensure all Score columns are `float64` and Rank columns are `int` (or nullable int).
 - **3.4.2:** Data Integrity Check
@@ -409,7 +409,7 @@ Proceed to **Phase III: Data Processing**.
       "patternProperties": {
         "^[a-zA-Z0-9_]+$": {
           "type": "object",
-          "description": "Statistics for a single benchmark, keyed by benchmark_id (sanitized benchmark name)",
+          "description": "Statistics for a single benchmark, keyed by benchmark_id",
           "properties": {
             "overlap_count": {
               "type": "integer",
@@ -491,7 +491,7 @@ Input:
     - **Logic:** Check the `metric_direction` field from `Human-SIG/data/metadata.json`.
     - **Verification Step:** If `metric_direction == "lower_is_better"` (e.g., Perplexity, Bits-per-byte, Error Rate):
       - **Expected Behavior:** The scores in the CSV file should ALREADY represent "higher is better" performance (i.e., they should have been inverted during Step 2.2.1 normalization). Verify that this is the case by checking that higher scores correspond to better model performance.
-      - **If Verification Fails:** If you find that scores with `metric_direction == "lower_is_better"` still represent "lower is better" (i.e., they were not inverted in Step 2.2.1), HALT and report an error: "CRITICAL: Found benchmark {benchmark_name} with metric_direction='lower_is_better' but scores were not inverted in Step 2.2.1. Scores must represent 'higher is better' after Step 2.2.1 normalization."
+      - **If Verification Fails:** If you find that scores with `metric_direction == "lower_is_better"` still represent "lower is better" (i.e., they were not inverted in Step 2.2.1), HALT and report an error: "CRITICAL: Found benchmark {benchmark_id} with metric_direction='lower_is_better' but scores were not inverted in Step 2.2.1. Scores must represent 'higher is better' after Step 2.2.1 normalization."
       - **No Additional Transformation:** Since Step 2.2.1 already handles inversion, NO ADDITIONAL TRANSFORMATION is needed in this step. The `metric_direction` field is preserved for verification and documentation purposes only.
     - **Reasoning:** This verification step ensures that for all 29 benchmarks, a "higher" number mathematically implies better performance, preventing "False Negative" correlations in later steps. The goal is to have a consistent directionality where higher scores always mean better performance, which should already be achieved by Step 2.2.1.
   - **Task B: H6 (Difficulty) Feature Calculation.**
@@ -532,12 +532,12 @@ Input:
   - **Halt Protocol:** Identify a known high-quality benchmark (e.g., MMLU-Pro or HumanEval) that should have strong construct validity with Perceived Utility (high correlation with LMArena scores).
     - Calculate Spearman correlation (with p-value) between the benchmark scores (which should already represent "higher is better" performance after Step 2.2.1 normalization) and the corresponding LMArena ELO scores (determined by the benchmark's `category` field in metadata.json, representing Perceived Utility).
     - If Spearman Correlation $< 0.5$: HALT EXECUTION IMMEDIATELY.
-    - **Print:** "CRITICAL: Detected low construct validity with Perceived Utility (correlation < 0.5) for high-quality benchmark {benchmark_name}. This suggests a data quality issue. Please check: (1) metric directionality in the metadata file (Human-SIG/data/metadata.json), (2) that scores in CSV files are correctly normalized to 0-100 range, (3) that metric inversion was applied correctly in Step 2.2.1 if metric_direction == 'lower_is_better' (scores should represent 'higher is better' after normalization), and (4) that the correct LMArena ELO column is being used based on the benchmark's category."
+    - **Print:** "CRITICAL: Detected low construct validity with Perceived Utility (correlation < 0.5) for high-quality benchmark {benchmark_id}. This suggests a data quality issue. Please check: (1) metric directionality in the metadata file (Human-SIG/data/metadata.json), (2) that scores in CSV files are correctly normalized to 0-100 range, (3) that metric inversion was applied correctly in Step 2.2.1 if metric_direction == 'lower_is_better' (scores should represent 'higher is better' after normalization), and (4) that the correct LMArena ELO column is being used based on the benchmark's category."
     - **Wait for User:** Do not proceed until resolved. The user must verify and fix the data issue before continuing.
 - **4.2.3:** Persistence.
   - **Output:** Save the fully engineered table to `Human-SIG/results/analysis_ready_data.csv`.
   - **CSV Column Structure:** The output CSV file must contain the following columns for each benchmark:
-    - `benchmark_name` or `benchmark_id`: Benchmark identifier
+    - `benchmark_id`: Benchmark identifier
     - `subset_avg_score`: Difficulty feature (mean score across Common Subset models, as computed in Task B). Lower values indicate harder benchmarks.
     - `is_estimated_difficulty`: Boolean flag (True if fallback method was used due to insufficient Common Subset overlap, False otherwise)
     - `cv` or `coefficient_of_variation`: Variance feature (Coefficient of Variation, as computed in Task C). Formula: CV = $\sigma$/$\mu$, where $\sigma$ is standard deviation and $\mu$ is mean score.
