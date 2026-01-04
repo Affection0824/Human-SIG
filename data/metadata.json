@@ -8,8 +8,8 @@
         "Extreme": "> 32,000 tokens"
       },
       "category_definitions": {
-        "Coding": "Programming, debugging, and software engineering tasks.",
         "Math": "Arithmetic, algebra, geometry, and formal proofs.",
+        "Coding": "Programming, debugging, and software engineering tasks.",
         "Instruction Following": "Adherence to formatting constraints and specific system instructions.",
         "Creative Writing": "Storytelling, roleplay, and stylistic prose generation.",
         "Hard Prompts": "Complex reasoning, multi-step logic, and adversarial tasks.",
@@ -24,50 +24,6 @@
         "manual_source_code": "Load data from a manually extracted CSV file. The user must manually extract data from the webpage source code (e.g., by inspecting the HTML/JavaScript source code or using browser developer tools) and save it as {name}_data.csv. The file location is Human-SIG/data/raw/benchmarks_without_data/manual_source_code/{benchmark_name}/{name}_data.csv. This method is used for benchmarks where automated scraping is difficult or not feasible."
       }
     }
-  },
-  {
-    "benchmark_name": "GPQA",
-    "leaderboard_url": "https://llm-stats.com/benchmarks/gpqa",
-    "prompt_length": "Short",
-    "question_count": 448,
-    "question_type": "Graduate-level science Q&A",
-    "category": "Expert",
-    "release_date": "2023-11-20",
-    "task_type": "MCQ",
-    "scraping_method": "selenium"
-  },
-  {
-    "benchmark_name": "GPQA Diamond",
-    "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
-    "prompt_length": "Short",
-    "question_count": 198,
-    "question_type": "Scientific Reasoning",
-    "category": "Expert",
-    "release_date": "2023-11-20",
-    "task_type": "MCQ",
-    "scraping_method": "artificial_analysis"
-  },
-  {
-    "benchmark_name": "Humanity's Last Exam",
-    "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
-    "prompt_length": "Long",
-    "question_count": 2500,
-    "question_type": "Multimodal expert Q&A",
-    "category": "Expert",
-    "release_date": "2025-01-24",
-    "task_type": "Mixed",
-    "scraping_method": "artificial_analysis"
-  },
-  {
-    "benchmark_name": "SuperGPQA",
-    "leaderboard_url": "https://supergpqa.github.io/",
-    "prompt_length": "Short",
-    "question_count": 26529,
-    "question_type": "Multi-disciplinary expert Q&A",
-    "category": "Expert",
-    "release_date": "2025-02-20",
-    "task_type": "MCQ",
-    "scraping_method": "selenium"
   },
   {
     "benchmark_name": "AIME",
@@ -136,50 +92,6 @@
     "scraping_method": "vals_ai_manual_json"
   },
   {
-    "benchmark_name": "IFBench",
-    "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
-    "prompt_length": "Medium",
-    "question_count": 300,
-    "question_type": "Complex constraint following",
-    "category": "Instruction Following",
-    "release_date": "2025-07-03",
-    "task_type": "Generation",
-    "scraping_method": "artificial_analysis"
-  },
-  {
-    "benchmark_name": "IFEval",
-    "leaderboard_url": "https://llm-stats.com/benchmarks/ifeval",
-    "prompt_length": "Medium",
-    "question_count": 541,
-    "question_type": "Verifiable constraint following",
-    "category": "Instruction Following",
-    "release_date": "2023-11-14",
-    "task_type": "Generation",
-    "scraping_method": "selenium"
-  },
-  {
-    "benchmark_name": "Creative Writing v3",
-    "leaderboard_url": "https://eqbench.com/creative_writing.html",
-    "prompt_length": "Medium",
-    "question_count": 96,
-    "question_type": "Creative storytelling",
-    "category": "Creative Writing",
-    "release_date": "2025-11-01",
-    "task_type": "Generation",
-    "scraping_method": "selenium"
-  },
-  {
-    "benchmark_name": "WritingBench",
-    "leaderboard_url": "https://huggingface.co/spaces/WritingBench/WritingBench",
-    "prompt_length": "Medium",
-    "question_count": 1239,
-    "question_type": "Generative writing & style",
-    "category": "Creative Writing",
-    "release_date": "2025-03-07",
-    "task_type": "Generation",
-    "scraping_method": "manual"
-  },
-  {
     "benchmark_name": "Aider Polyglot",
     "leaderboard_url": "https://aider.chat/docs/leaderboards/",
     "prompt_length": "Extreme",
@@ -235,17 +147,6 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "SWE-Bench Bash Only",
-    "leaderboard_url": "https://www.swebench.com/bash-only.html",
-    "prompt_length": "Extreme",
-    "question_count": 500,
-    "question_type": "Bash scripting & issue resolution",
-    "category": "Coding",
-    "release_date": "2025-08-19",
-    "task_type": "Agentic",
-    "scraping_method": "selenium"
-  },
-  {
     "benchmark_name": "SWE-bench (Verified)",
     "leaderboard_url": "https://llm-stats.com/benchmarks/swe-bench-verified",
     "prompt_length": "Extreme",
@@ -253,6 +154,17 @@
     "question_type": "GitHub issue resolution",
     "category": "Coding",
     "release_date": "2024-08-13",
+    "task_type": "Agentic",
+    "scraping_method": "selenium"
+  },
+  {
+    "benchmark_name": "SWE-Bench Bash Only",
+    "leaderboard_url": "https://www.swebench.com/bash-only.html",
+    "prompt_length": "Extreme",
+    "question_count": 500,
+    "question_type": "Bash scripting & issue resolution",
+    "category": "Coding",
+    "release_date": "2025-08-19",
     "task_type": "Agentic",
     "scraping_method": "selenium"
   },
@@ -288,6 +200,50 @@
     "release_date": "2025-11-07",
     "task_type": "Agentic",
     "scraping_method": "pandas_read_html"
+  },
+  {
+    "benchmark_name": "IFBench",
+    "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
+    "prompt_length": "Medium",
+    "question_count": 300,
+    "question_type": "Complex constraint following",
+    "category": "Instruction Following",
+    "release_date": "2025-07-03",
+    "task_type": "Generation",
+    "scraping_method": "artificial_analysis"
+  },
+  {
+    "benchmark_name": "IFEval",
+    "leaderboard_url": "https://llm-stats.com/benchmarks/ifeval",
+    "prompt_length": "Medium",
+    "question_count": 541,
+    "question_type": "Verifiable constraint following",
+    "category": "Instruction Following",
+    "release_date": "2023-11-14",
+    "task_type": "Generation",
+    "scraping_method": "selenium"
+  },
+  {
+    "benchmark_name": "Creative Writing v3",
+    "leaderboard_url": "https://eqbench.com/creative_writing.html",
+    "prompt_length": "Medium",
+    "question_count": 96,
+    "question_type": "Creative storytelling",
+    "category": "Creative Writing",
+    "release_date": "2025-11-01",
+    "task_type": "Generation",
+    "scraping_method": "selenium"
+  },
+  {
+    "benchmark_name": "WritingBench",
+    "leaderboard_url": "https://huggingface.co/spaces/WritingBench/WritingBench",
+    "prompt_length": "Medium",
+    "question_count": 1239,
+    "question_type": "Generative writing & style",
+    "category": "Creative Writing",
+    "release_date": "2025-03-07",
+    "task_type": "Generation",
+    "scraping_method": "manual"
   },
   {
     "benchmark_name": "AA-LCR",
@@ -345,52 +301,96 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "LMArena (Chatbot Arena) - Overall",
+    "benchmark_name": "GPQA",
+    "leaderboard_url": "https://llm-stats.com/benchmarks/gpqa",
+    "prompt_length": "Short",
+    "question_count": 448,
+    "question_type": "Graduate-level science Q&A",
+    "category": "Expert",
+    "release_date": "2023-11-20",
+    "task_type": "MCQ",
+    "scraping_method": "selenium"
+  },
+  {
+    "benchmark_name": "GPQA Diamond",
+    "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
+    "prompt_length": "Short",
+    "question_count": 198,
+    "question_type": "Scientific Reasoning",
+    "category": "Expert",
+    "release_date": "2023-11-20",
+    "task_type": "MCQ",
+    "scraping_method": "artificial_analysis"
+  },
+  {
+    "benchmark_name": "Humanity's Last Exam",
+    "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
+    "prompt_length": "Long",
+    "question_count": 2500,
+    "question_type": "Multimodal expert Q&A",
+    "category": "Expert",
+    "release_date": "2025-01-24",
+    "task_type": "Mixed",
+    "scraping_method": "artificial_analysis"
+  },
+  {
+    "benchmark_name": "SuperGPQA",
+    "leaderboard_url": "https://supergpqa.github.io/",
+    "prompt_length": "Short",
+    "question_count": 26529,
+    "question_type": "Multi-disciplinary expert Q&A",
+    "category": "Expert",
+    "release_date": "2025-02-20",
+    "task_type": "MCQ",
+    "scraping_method": "selenium"
+  },
+  {
+    "benchmark_name": "LMArena-Overall",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text",
     "release_date": "2023-05-03",
     "category": "Overall",
     "elo_column": "elo_overall"
   },
   {
-    "benchmark_name": "LMArena (Chatbot Arena) - Expert",
-    "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/expert",
-    "release_date": "2023-05-03",
-    "category": "Expert",
-    "elo_column": "elo_expert"
-  },
-  {
-    "benchmark_name": "LMArena (Chatbot Arena) - Math",
+    "benchmark_name": "LMArena-Math",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/math",
     "release_date": "2023-05-03",
     "category": "Math",
     "elo_column": "elo_math"
   },
   {
-    "benchmark_name": "LMArena (Chatbot Arena) - Instruction Following",
-    "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/instruction-following",
-    "release_date": "2023-05-03",
-    "category": "Instruction Following",
-    "elo_column": "elo_instruction_following"
-  },
-  {
-    "benchmark_name": "LMArena (Chatbot Arena) - Creative Writing",
-    "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/creative-writing",
-    "release_date": "2023-05-03",
-    "category": "Creative Writing",
-    "elo_column": "elo_creative_writing"
-  },
-  {
-    "benchmark_name": "LMArena (Chatbot Arena) - Coding",
+    "benchmark_name": "LMArena-Coding",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/coding",
     "release_date": "2023-05-03",
     "category": "Coding",
     "elo_column": "elo_coding"
   },
   {
-    "benchmark_name": "LMArena (Chatbot Arena) - Hard Prompts",
+    "benchmark_name": "LMArena-Instruction Following",
+    "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/instruction-following",
+    "release_date": "2023-05-03",
+    "category": "Instruction Following",
+    "elo_column": "elo_instruction_following"
+  },
+  {
+    "benchmark_name": "LMArena-Creative Writing",
+    "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/creative-writing",
+    "release_date": "2023-05-03",
+    "category": "Creative Writing",
+    "elo_column": "elo_creative_writing"
+  },
+  {
+    "benchmark_name": "LMArena-Hard Prompts",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/hard-prompts",
     "release_date": "2023-05-03",
     "category": "Hard Prompts",
     "elo_column": "elo_hard_prompts"
+  },
+  {
+    "benchmark_name": "LMArena-Expert",
+    "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/expert",
+    "release_date": "2023-05-03",
+    "category": "Expert",
+    "elo_column": "elo_expert"
   }
 ]

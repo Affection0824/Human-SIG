@@ -60,11 +60,14 @@ Human-SIG/
 │       ├── model_extraction/   # LMArena model information (auto-generated)
 │       │   └── lmarena_models.json
 │       ├── cleaned/           # Step 1 output: cleaned data
-│       │   └── {benchmark_id}/
-│       │       ├── cleaned_data.csv
-│       │       └── mapping.json  # Step 3 output
+│       │   ├── {benchmark_id}/
+│       │   │   ├── cleaned_data.csv
+│       │   │   └── mapping.json  # Step 3 output
+│       │   └── artificial_analysis/  # Step 1 output: unified model list
+│       │       └── cleaned_data.csv  # Unified list for all 10 benchmarks
 │       └── review_files/       # Step 2 output: review files
-│           └── {benchmark_id}_review.json
+│           ├── {benchmark_id}.json
+│           └── artificial_analysis.json  # Unified review file for all 10 benchmarks
 ├── src/
 │   ├── scrapers/              # Scraping logic
 │   │   ├── selenium_scraper.py
@@ -170,11 +173,15 @@ Raw Data (data/raw/*/data.csv)
 [Step 1] step1_generate_cleaned_data.py (deterministic)
     ├─ Extract model names and scores
     ├─ Detect duplicate model names
-    └─ Add (2), (3) suffixes to duplicates
+    ├─ Add (2), (3) suffixes to duplicates
+    └─ [Special] For artificial_analysis: Generate unified model list
     ↓
 cleaned_data.csv (data/processed/cleaned/{benchmark_id}/cleaned_data.csv)
     ├─ May contain suffixed model names (e.g., "Model Name(2)")
     └─ Requires human review to confirm duplicates
+    ↓
+[Special] artificial_analysis unified list (data/processed/cleaned/artificial_analysis/cleaned_data.csv)
+    └─ Contains all models with at least one non-empty score across 10 benchmarks
     ↓
 [Manual Review 1] Review and handle duplicate model names in cleaned_data.csv
     ├─ Confirm if duplicates are real different model instances
@@ -183,13 +190,19 @@ cleaned_data.csv (data/processed/cleaned/{benchmark_id}/cleaned_data.csv)
     ↓
 [Step 2] step2_generate_review_files.py (non-deterministic)
     ├─ Auto-generate model_extraction/lmarena_models.json (regenerated every run)
-    └─ Parse model information from cleaned_data.csv and match
+    ├─ Parse model information from cleaned_data.csv and match
+    └─ [Special] For artificial_analysis: Generate unified review file
     ↓
 review_files (data/processed/review_files/{benchmark_id}_review.json)
+    ├─ [Special] artificial_analysis_review.json (unified for all 10 benchmarks)
+    └─ Other benchmarks: individual review files
     ↓
 [Manual Review 2] Manually edit review_files (modify untrusted and selected_lmarena_model)
     ↓
 [Step 3] step3_generate_mapping.py (deterministic)
+    ├─ [Special] For artificial_analysis: Generate mapping.json for each benchmark
+    │   └─ Filter by each benchmark's cleaned_data.csv
+    └─ Other benchmarks: Generate mapping.json from individual review files
     ↓
 mapping.json (data/processed/cleaned/{benchmark_id}/mapping.json)
 ```
@@ -207,6 +220,12 @@ All output file paths use this `benchmark_id`:
 *   `data/processed/review_files/{benchmark_id}_review.json`
 *   `data/processed/cleaned/{benchmark_id}/mapping.json`
 
+**Special handling for artificial_analysis**:
+*   The 10 artificial_analysis benchmarks (AA-LCR, AIME, GPQA_Diamond, etc.) share a unified model list and review file:
+    *   Unified model list: `data/processed/cleaned/artificial_analysis/cleaned_data.csv`
+    *   Unified review file: `data/processed/review_files/artificial_analysis_review.json`
+    *   Individual mapping files: `data/processed/cleaned/{benchmark_id}/mapping.json` (filtered by each benchmark's cleaned_data.csv)
+
 ---
 
 ## Step 1: Generate Cleaned Data (Deterministic)
@@ -217,7 +236,9 @@ Extract model names and scores from raw CSV files, calculate rankings, and gener
 
 **Input**: `data/raw/*/data.csv` (all raw data files)
 
-**Output**: `data/processed/cleaned/{benchmark_id}/cleaned_data.csv`
+**Output**: 
+*   `data/processed/cleaned/{benchmark_id}/cleaned_data.csv` (for each benchmark)
+*   `data/processed/cleaned/artificial_analysis/cleaned_data.csv` (unified model list for artificial_analysis benchmarks)
 
 ### Script Location
 
@@ -257,6 +278,11 @@ The script is self-contained with all necessary utility functions and requires n
     *   Sort by score in descending order
     *   Tied scores: Models with same score get same rank
     *   Next rank skips tied count (e.g., scores [99, 98, 98, 97] → ranks [1, 2, 2, 4])
+7.  **Special handling for artificial_analysis**:
+    *   After processing all benchmarks, generate a unified model list for artificial_analysis
+    *   Collect all models that have at least one non-empty score (not "--") across the 10 artificial_analysis benchmarks
+    *   Generate `data/processed/cleaned/artificial_analysis/cleaned_data.csv` containing only model names (no scores/ranks)
+    *   This unified list is used in step 2 to generate a single review file instead of 10 separate files
 
 ### Output File
 
@@ -463,7 +489,9 @@ Read model names from `cleaned_data.csv`, parse model information, match LMArena
 *   `data/processed/cleaned/{benchmark_id}/cleaned_data.csv`
 *   `data/raw/lmarena/LMArena-Overall/data.csv` (LMArena raw data, used to generate unified `lmarena_models.json` file)
 
-**Output**: `data/processed/review_files/{benchmark_id}_review.json`
+**Output**: 
+*   `data/processed/review_files/{benchmark_id}.json` (for each benchmark)
+*   `data/processed/review_files/artificial_analysis.json` (unified review file for all 10 artificial_analysis benchmarks)
 
 **Notes**:
 *   LMArena benchmarks are skipped (because LMArena models can match internally)
@@ -513,7 +541,7 @@ The script is self-contained with all necessary utility functions (model parsing
 
 **Output directory**: `data/processed/review_files/`
 
-**File format**: `{benchmark_id}_review.json`
+**File format**: `{benchmark_id}.json`
 
 **File structure**:
 ```json
@@ -601,9 +629,11 @@ The script is self-contained with all necessary utility functions (model parsing
 *   All `LMArena-*` benchmarks are automatically skipped (e.g., `LMArena-Overall`, `LMArena-Coding`, etc.)
 *   Because LMArena models can match internally, no need to generate review_file
 
-**Artificial Analysis**:
-*   10 benchmarks each have independent review_file
-*   Each benchmark's model list comes from its own `cleaned_data.csv`
+**Artificial Analysis (Special Handling)**:
+*   The 10 artificial_analysis benchmarks (AA-LCR, AIME, GPQA_Diamond, etc.) are processed as a unified list
+*   Use the unified model list from `data/processed/cleaned/artificial_analysis/cleaned_data.csv` (generated in step 1)
+*   Generate a single review file: `artificial_analysis_review.json` instead of 10 separate files
+*   This avoids duplicate review work since many models appear in multiple artificial_analysis benchmarks
 
 ---
 
@@ -719,13 +749,13 @@ For each model, check:
 
 ### Special Handling: artificial_analysis
 
-**Important**: The 10 `artificial_analysis` benchmarks each have independent review_file, for example:
-*   `AA-LCR_review.json` (corresponds to benchmark: AA-LCR)
-*   `AIME_review.json` (corresponds to benchmark: AIME)
-*   `MMLU-Pro_review.json` (corresponds to benchmark: MMLU-Pro)
-*   ... (review_files for other benchmarks)
+**Important**: The 10 `artificial_analysis` benchmarks share a unified review file:
+*   `artificial_analysis.json` (contains all models from the unified list)
 
-**Need to review each file separately**.
+**Review process**:
+*   Review the unified `artificial_analysis.json` file
+*   This file contains all models that appear in at least one of the 10 artificial_analysis benchmarks
+*   After review, step 3 will automatically generate individual `mapping.json` files for each benchmark, filtered by each benchmark's `cleaned_data.csv`
 
 ---
 
@@ -735,7 +765,9 @@ For each model, check:
 
 Read review results from `review_files`, extract `selected_lmarena_model` field, and generate `mapping.json` file for each benchmark.
 
-**Input**: `data/processed/review_files/{benchmark_id}_review.json`
+**Input**: 
+*   `data/processed/review_files/{benchmark_id}.json` (for each benchmark)
+*   `data/processed/review_files/artificial_analysis.json` (unified review file for artificial_analysis)
 
 **Output**: `data/processed/cleaned/{benchmark_id}/mapping.json`
 
@@ -755,13 +787,19 @@ python src/processing/step3_generate_mapping.py
 
 The script is self-contained with all necessary utility functions and requires no external module imports.
 
-1.  **Read all review_files**: Read all `*_review.json` files from `data/processed/review_files/`
-2.  **Extract final mappings**:
+1.  **Read all review_files**: Read all `*.json` files from `data/processed/review_files/` (excluding `artificial_analysis.json` which is handled separately)
+2.  **Special handling for artificial_analysis**:
+    *   If `artificial_analysis.json` exists, process it separately
+    *   For each of the 10 artificial_analysis benchmarks:
+        *   Load the benchmark's `cleaned_data.csv` to get the list of models in that benchmark
+        *   Filter the unified review file to only include models present in that benchmark
+        *   Extract mappings and generate `mapping.json` for that benchmark
+3.  **Extract final mappings** (for other benchmarks):
     *   For each model, read `selected_lmarena_model` field
     *   If value is model name (string), create mapping
     *   If value is `0` or `-1`, skip (don't create mapping)
-3.  **Deduplication**: If multiple benchmark models map to same LMArena model, only keep first mapping (subsequent duplicates automatically skipped)
-4.  **Generate mapping.json**: Write mappings to `cleaned/{benchmark_id}/mapping.json`
+4.  **Deduplication**: If multiple benchmark models map to same LMArena model, only keep first mapping (subsequent duplicates automatically skipped)
+5.  **Generate mapping.json**: Write mappings to `cleaned/{benchmark_id}/mapping.json`
 
 ### Output File
 

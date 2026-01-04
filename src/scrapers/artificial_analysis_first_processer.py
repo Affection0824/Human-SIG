@@ -3,17 +3,18 @@ from pathlib import Path
 from io import StringIO
 
 BENCHMARK_MAPPING = {
-    # Mapping keys correspond to new folder names (for documentation reference), values correspond to CSV column names
-    'MMLU-Pro': 'Intelligence MMLU-Pro (Reasoning & Knowledge)',
-    'SciCode': 'Intelligence SciCode (Coding)',
+    # Mapping keys correspond to folder names (benchmark_id), values correspond to CSV column names
+    # Folder names now match benchmark_name in metadata.json (with spaces and special characters)
     'AIME': 'Intelligence AIME 2025 (Competition Math)',
     'AA-LCR': 'Intelligence AA-LCR (Long Context Reasoning)',
-    'tau2-Bench_Telecom': 'Intelligence 𝜏²-Bench Telecom (Agentic Tool Use)',
-    'GPQA_Diamond': 'Intelligence GPQA Diamond (Scientific Reasoning)',
-    'LiveCodeBench': 'Intelligence LiveCodeBench (Coding)',
-    'Humanitys_Last_Exam': "Intelligence Humanity's Last Exam (Reasoning & Knowledge)",
-    'Terminal-Bench_Hard': 'Intelligence Terminal-Bench Hard (Agentic Coding & Terminal Use)',
     'IFBench': 'Intelligence IFBench (Instruction Following)',
+    'LiveCodeBench': 'Intelligence LiveCodeBench (Coding)',
+    'MMLU-Pro': 'Intelligence MMLU-Pro (Reasoning & Knowledge)',
+    'SciCode': 'Intelligence SciCode (Coding)',
+    'tau2-Bench Telecom': 'Intelligence 𝜏²-Bench Telecom (Agentic Tool Use)',
+    'Terminal-Bench Hard': 'Intelligence Terminal-Bench Hard (Agentic Coding & Terminal Use)',
+    'GPQA Diamond': 'Intelligence GPQA Diamond (Scientific Reasoning)',
+    "Humanity's Last Exam": "Intelligence Humanity's Last Exam (Reasoning & Knowledge)",
 }
 
 def parse_html_table(input_path):

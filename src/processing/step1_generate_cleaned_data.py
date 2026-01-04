@@ -47,19 +47,53 @@ SELENIUM_COMPANY_SUFFIXES = [
 ]
 
 
-def clean_model_name(model_name: str, benchmark_id: str) -> str:
+def clean_model_name(model_name: str, raw_csv_path: Path, base_dir: Path) -> str:
     """
     Clean model name by removing company name suffixes and other irrelevant information
     
-    For selenium benchmarks, remove company name suffixes from the end of model names
+    1. For selenium benchmarks, remove company name suffixes from the end of model names
+    2. For vals_ai benchmarks, remove organization prefix (e.g., openai/, google/) from the beginning
     """
     cleaned = model_name.strip()
     
-    # Only process selenium benchmarks
-    if benchmark_id.startswith('selenium_'):
+    # Check if this is a selenium benchmark by path (not by benchmark_id)
+    raw_dir = base_dir / 'data' / 'raw'
+    selenium_dir = raw_dir / 'selenium'
+    is_selenium = False
+    try:
+        relative_path = raw_csv_path.relative_to(raw_dir)
+        if 'selenium' in str(relative_path).lower():
+            is_selenium = True
+    except ValueError:
+        pass
+    
+    # Check if this is a vals_ai benchmark by path
+    vals_ai_dir = raw_dir / 'vals_ai'
+    is_vals_ai = False
+    try:
+        relative_path = raw_csv_path.relative_to(raw_dir)
+        if 'vals_ai' in str(relative_path).lower():
+            is_vals_ai = True
+    except ValueError:
+        pass
+    
+    # 1. For vals_ai benchmarks, remove organization prefix (e.g., openai/, google/)
+    if is_vals_ai:
+        # Known organization prefix list for vals.ai
+        known_prefixes = ['openai', 'google', 'anthropic', 'alibaba', 'fireworks', 'grok', 
+                         'kimi', 'minimax', 'mistralai', 'cohere', 'ai21labs', 'together', 'zai']
+        
+        # If model name contains slash and part before slash is a known prefix, remove prefix
+        if '/' in cleaned:
+            parts = cleaned.split('/', 1)
+            if parts[0].lower() in known_prefixes:
+                cleaned = parts[1]
+    
+    # 2. For selenium benchmarks, remove company name suffixes from the end
+    if is_selenium:
         # Remove company name suffixes (may be directly connected or have a space before)
         for company in SELENIUM_COMPANY_SUFFIXES:
-            # Try directly connected format (e.g., "GPT-5.2 ProOpenAI")
+            # Try directly connected format (e.g., "GPT-5.2 ProOpenAI" or "MiMo-V2-FlashXiaomi")
             if cleaned.endswith(company):
                 cleaned = cleaned[:-len(company)]
             # Try space-separated format
@@ -213,10 +247,10 @@ def find_score_column(df, benchmark_path: Path) -> Optional[Tuple[str, str]]:
     
     # Pandas Read HTML: Special handling
     if 'pandas_read_html' in benchmark_str:
-        if 'aider_polyglot' in benchmark_str:
+        if 'aider polyglot' in benchmark_str.lower() or 'aider_polyglot' in benchmark_str:
             if 'Percent correct' in columns:
                 return ('Percent correct', 'percentage')
-        elif 'terminal_bench_v20' in benchmark_str:
+        elif 'terminal-bench v2.0' in benchmark_str.lower() or 'terminal_bench_v20' in benchmark_str:
             if 'Accuracy' in columns:
                 return ('Accuracy', 'percentage')
     
@@ -225,10 +259,10 @@ def find_score_column(df, benchmark_path: Path) -> Optional[Tuple[str, str]]:
         if 'arc-agi-2' in benchmark_str.lower() or 'arc_agi_2' in benchmark_str.lower():
             if 'ARC-AGI-2' in columns:
                 return ('ARC-AGI-2', 'direct')
-        elif 'creative_writing_v3' in benchmark_str.lower():
+        elif 'creative writing v3' in benchmark_str.lower() or 'creative_writing_v3' in benchmark_str.lower():
             if 'Elo Score' in columns:
                 return ('Elo Score', 'direct')
-        elif 'swe-bench_bash_only' in benchmark_str.lower() or 'swe_bench_bash_only' in benchmark_str.lower():
+        elif 'swe-bench bash only' in benchmark_str.lower() or 'swe-bench_bash_only' in benchmark_str.lower() or 'swe_bench_bash_only' in benchmark_str.lower():
             if '% Resolved' in columns:
                 return ('% Resolved', 'percentage')
         elif 'Score' in columns:
@@ -416,8 +450,8 @@ def process_benchmark(
     for _, row in df.iterrows():
         model_name_raw = str(row[model_col]).strip()
         
-        # Clean model name (remove company name suffixes, etc.)
-        model_name_cleaned = clean_model_name(model_name_raw, benchmark_id)
+        # Clean model name (remove company name suffixes, organization prefixes, etc.)
+        model_name_cleaned = clean_model_name(model_name_raw, raw_csv_path, base_dir)
         
         # Extract score
         score_value = row[score_col]
@@ -457,11 +491,100 @@ def process_benchmark(
     print(f"  Generated {cleaned_csv_path}, containing {len(model_data)} models")
 
 
+def generate_artificial_analysis_model_list(
+    base_dir: Path,
+    cleaned_dir: Path
+):
+    """
+    Generate a unified model list for all artificial_analysis benchmarks
+    
+    Includes all models that have at least one non-empty score (not "--") 
+    across the 10 artificial_analysis benchmarks.
+    """
+    print("\n" + "=" * 60)
+    print("Generating artificial_analysis unified model list...")
+    
+    raw_dir = base_dir / 'data' / 'raw'
+    artificial_analysis_dir = raw_dir / 'artificial_analysis'
+    
+    # Find all artificial_analysis benchmark directories
+    benchmark_dirs = [d for d in artificial_analysis_dir.iterdir() 
+                     if d.is_dir() and (d / 'data.csv').exists()]
+    
+    if not benchmark_dirs:
+        print("  Warning: No artificial_analysis benchmarks found")
+        return
+    
+    print(f"  Found {len(benchmark_dirs)} artificial_analysis benchmarks")
+    
+    # Collect all models with at least one non-empty score
+    all_models = set()
+    
+    for benchmark_dir in sorted(benchmark_dirs):
+        benchmark_id = benchmark_dir.name
+        csv_path = benchmark_dir / 'data.csv'
+        
+        print(f"  Processing {benchmark_id}...")
+        
+        # Read raw CSV
+        df = None
+        for encoding in ['utf-8', 'gbk', 'latin-1', 'cp1252']:
+            try:
+                df = pd.read_csv(csv_path, encoding=encoding)
+                break
+            except (UnicodeDecodeError, UnicodeError):
+                continue
+        
+        if df is None:
+            print(f"    Warning: Unable to read {csv_path}")
+            continue
+        
+        # Find model column and score column
+        model_col = find_model_column(df)
+        score_info = find_score_column(df, csv_path)
+        
+        if model_col is None or score_info is None:
+            print(f"    Warning: Cannot find model or score column")
+            continue
+        
+        score_col, _ = score_info
+        
+        # Extract models with non-empty scores (not "--")
+        for _, row in df.iterrows():
+            model_name_raw = str(row[model_col]).strip()
+            score_value = str(row[score_col]).strip()
+            
+            # Check if score is not empty (not "--" or empty)
+            if score_value and score_value != '--' and score_value.lower() != 'nan':
+                # Clean model name (artificial_analysis benchmarks don't need special cleaning)
+                model_name_cleaned = clean_model_name(model_name_raw, csv_path, base_dir)
+                all_models.add(model_name_cleaned)
+    
+    # Convert to sorted list
+    model_list = sorted(list(all_models))
+    
+    # Write to cleaned_data.csv format (without scores/ranks, just model names)
+    output_dir = cleaned_dir / 'artificial_analysis'
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_file = output_dir / 'cleaned_data.csv'
+    
+    with open(output_file, 'w', encoding='utf-8', newline='') as f:
+        writer = csv.DictWriter(f, fieldnames=['model_name'])
+        writer.writeheader()
+        for model_name in model_list:
+            writer.writerow({'model_name': model_name})
+    
+    print(f"  Generated {output_file}")
+    print(f"  Total unique models: {len(model_list)}")
+    print("=" * 60)
+
+
 def main():
     """
     Main function
     
-    Iterate through all raw data CSV files and generate cleaned_data.csv for each benchmark
+    Iterate through all raw data CSV files and generate cleaned_data.csv for each benchmark.
+    Additionally, generate a unified model list for artificial_analysis benchmarks.
     """
     base_dir = Path(__file__).parent.parent.parent
     raw_dir = base_dir / 'data' / 'raw'
@@ -481,6 +604,9 @@ def main():
             base_dir,
             cleaned_dir
         )
+    
+    # Generate artificial_analysis unified model list
+    generate_artificial_analysis_model_list(base_dir, cleaned_dir)
     
     print("\nCompleted!")
 

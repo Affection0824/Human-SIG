@@ -2,16 +2,18 @@ import pandas as pd
 from pathlib import Path
 
 BENCHMARK_MAPPING = {
-    'mmlu_pro': 'Intelligence MMLU-Pro (Reasoning & Knowledge)',
-    'scicode': 'Intelligence SciCode (Coding)',
-    'aime_2025': 'Intelligence AIME 2025 (Competition Math)',
-    'aa_lcr': 'Intelligence AA-LCR (Long Context Reasoning)',
-    'tau_bench_telecom': 'Intelligence 𝜏²-Bench Telecom (Agentic Tool Use)',
-    'gpqa_diamond': 'Intelligence GPQA Diamond (Scientific Reasoning)',
-    'live_code_bench': 'Intelligence LiveCodeBench (Coding)',
-    'humanitys_last_exam': "Intelligence Humanity's Last Exam (Reasoning & Knowledge)",
-    'terminal_bench_hard': 'Intelligence Terminal-Bench Hard (Agentic Coding & Terminal Use)',
+    # Mapping keys correspond to folder names (normalized to lowercase with spaces), values correspond to CSV column names
+    # Folder names now match benchmark_name in metadata.json (with spaces and special characters)
+    'aime': 'Intelligence AIME 2025 (Competition Math)',
+    'aa-lcr': 'Intelligence AA-LCR (Long Context Reasoning)',
     'ifbench': 'Intelligence IFBench (Instruction Following)',
+    'livecodebench': 'Intelligence LiveCodeBench (Coding)',
+    'mmlu-pro': 'Intelligence MMLU-Pro (Reasoning & Knowledge)',
+    'scicode': 'Intelligence SciCode (Coding)',
+    'tau2-bench telecom': 'Intelligence 𝜏²-Bench Telecom (Agentic Tool Use)',
+    'terminal-bench hard': 'Intelligence Terminal-Bench Hard (Agentic Coding & Terminal Use)',
+    'gpqa diamond': 'Intelligence GPQA Diamond (Scientific Reasoning)',
+    "humanity's last exam": "Intelligence Humanity's Last Exam (Reasoning & Knowledge)",
 }
 
 def run(data_dir):
@@ -36,9 +38,23 @@ def run(data_dir):
         df = pd.read_csv(input_file)
         print(f"  Loaded table with {len(df)} rows and {len(df.columns)} columns.")
         
-        for subdir_name, target_col in BENCHMARK_MAPPING.items():
-            print(f"Processing {subdir_name}...")
-            output_dir = data_path / subdir_name
+        for subdir_name_normalized, target_col in BENCHMARK_MAPPING.items():
+            # Find the actual folder name (case-insensitive, space-aware matching)
+            actual_folder = None
+            for folder in data_path.iterdir():
+                if folder.is_dir():
+                    # Normalize for comparison: lowercase, handle spaces
+                    folder_normalized = folder.name.lower().replace('_', ' ')
+                    if folder_normalized == subdir_name_normalized:
+                        actual_folder = folder.name
+                        break
+            
+            if actual_folder is None:
+                print(f"  Warning: Folder not found for {subdir_name_normalized}, skipping...")
+                continue
+            
+            print(f"Processing {actual_folder}...")
+            output_dir = data_path / actual_folder
             output_dir.mkdir(exist_ok=True)
             
             cols_to_keep = ['Model', 'Features Creator']
