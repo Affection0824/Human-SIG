@@ -30,6 +30,12 @@ from datetime import datetime
 from scipy import stats
 from scipy.stats import pearsonr
 import logging
+try:
+    from adjustText import adjust_text
+    HAS_ADJUST_TEXT = True
+except ImportError:
+    HAS_ADJUST_TEXT = False
+    logger.warning("adjustText not available, annotations may overlap")
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -118,19 +124,24 @@ def figure_0_swe_bench_illustration(output_dir: Path):
     rank_df = rank_df.sort_values('lmarena_score', ascending=False)  # Higher score = better
     rank_df['lmarena_rank'] = range(1, len(rank_df) + 1)
     
-    # Create scatter plot
-    fig, ax = plt.subplots(figsize=(10, 8))
+    # Create scatter plot (wider/flatter)
+    fig, ax = plt.subplots(figsize=(12, 7))
     
     # Scatter plot
     ax.scatter(rank_df['swe_rank'], rank_df['lmarena_rank'], 
                alpha=0.7, s=100, edgecolors='black', linewidth=1.5, zorder=3)
     
-    # Annotate model names with larger font
+    # Annotate model names with larger font, using adjust_text to avoid overlap
+    texts = []
     for idx, row in rank_df.iterrows():
-        ax.annotate(row['model_name'], 
+        texts.append(ax.annotate(row['model_name'], 
                    (row['swe_rank'], row['lmarena_rank']),
-                   fontsize=16, alpha=0.8, xytext=(5, 5), textcoords='offset points',
-                   bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.7, edgecolor='none'))
+                   fontsize=16, alpha=0.8,
+                   bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.7, edgecolor='none')))
+    
+    # Use adjust_text to avoid overlapping annotations
+    if HAS_ADJUST_TEXT:
+        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     # Reference line y=x (red dashed)
     max_rank = max(rank_df['swe_rank'].max(), rank_df['lmarena_rank'].max())
@@ -268,12 +279,17 @@ def figure_2_scale(df: pd.DataFrame, output_dir: Path):
     sns.regplot(data=df_plot, x='log_question_count', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
     
-    # Add benchmark labels (if not too crowded) with larger font
+    # Add benchmark labels with larger font, using adjust_text to avoid overlap
+    texts = []
     for idx, row in df_plot.iterrows():
         if pd.notna(row['log_question_count']) and pd.notna(row['spearman_rho']):
-            ax.annotate(row['benchmark_id'], 
+            texts.append(ax.annotate(row['benchmark_id'], 
                        (row['log_question_count'], row['spearman_rho']),
-                       fontsize=12, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+                       fontsize=12, alpha=0.7))
+    
+    # Use adjust_text to avoid overlapping annotations
+    if HAS_ADJUST_TEXT and texts:
+        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Scale (log-transformed question count)', fontsize=20)
     ax.set_ylabel('Spearman ρ', fontsize=20)
@@ -375,12 +391,17 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     sns.regplot(data=df_plot, x='release_date_ordinal', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
     
-    # Add benchmark labels with larger font
+    # Add benchmark labels with larger font, using adjust_text to avoid overlap
+    texts = []
     for idx, row in df_plot.iterrows():
         if pd.notna(row['release_date_ordinal']) and pd.notna(row['spearman_rho']):
-            ax.annotate(row['benchmark_id'], 
+            texts.append(ax.annotate(row['benchmark_id'], 
                        (row['release_date_ordinal'], row['spearman_rho']),
-                       fontsize=12, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+                       fontsize=12, alpha=0.7))
+    
+    # Use adjust_text to avoid overlapping annotations
+    if HAS_ADJUST_TEXT and texts:
+        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Recency (Days since 2020-01-01)', fontsize=20)
     ax.set_ylabel('Spearman ρ', fontsize=20)
@@ -431,11 +452,16 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     sns.regplot(data=df_plot, x='difficulty', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
     
-    # Add benchmark labels with larger font
+    # Add benchmark labels with larger font, using adjust_text to avoid overlap
+    texts = []
     for idx, row in df_plot.iterrows():
-        ax.annotate(row['benchmark_id'], 
+        texts.append(ax.annotate(row['benchmark_id'], 
                    (row['difficulty'], row['spearman_rho']),
-                   fontsize=12, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+                   fontsize=12, alpha=0.7))
+    
+    # Use adjust_text to avoid overlapping annotations
+    if HAS_ADJUST_TEXT and texts:
+        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Difficulty (Easy → Hard)', fontsize=20)
     ax.set_ylabel('Spearman ρ', fontsize=20)
@@ -523,26 +549,32 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     
     # Heatmap with larger font
     print("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
-    cbar_ax = sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0,
-                square=True, linewidths=0.5, cbar_kws={"shrink": 0.8}, ax=ax,
+    # Use cbar=False to avoid duplicate colorbar, then add it manually
+    sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0,
+                square=True, linewidths=0.5, cbar=False, ax=ax,
                 vmin=-1, vmax=1, annot_kws={'fontsize': 16})
     
-    # Set colorbar label font size
-    if hasattr(cbar_ax, 'collections') and len(cbar_ax.collections) > 0:
-        cbar = ax.figure.colorbar(cbar_ax.collections[0], ax=ax)
-        cbar.set_label('Correlation', fontsize=16)
-        cbar.ax.tick_params(labelsize=16)
+    # Add colorbar manually (only once)
+    sm = plt.cm.ScalarMappable(cmap='coolwarm', norm=plt.Normalize(vmin=-1, vmax=1))
+    sm.set_array([])
+    cbar = plt.colorbar(sm, ax=ax, shrink=0.8)
+    cbar.set_label('Correlation', fontsize=16)
+    cbar.ax.tick_params(labelsize=16)
     
     # NO TITLE (as per requirements)
     
-    # Add note with larger font
+    # Move axis labels to top
+    ax.xaxis.tick_top()
+    ax.xaxis.set_label_position('top')
+    
+    # Add note with larger font (positioned at bottom, away from axis labels)
     note_text = 'Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme\nTask Type: 0=MCQ, 1=Generative'
-    ax.text(0.5, -0.15, note_text, transform=ax.transAxes,
+    ax.text(0.5, -0.2, note_text, transform=ax.transAxes,
             ha='center', fontsize=14, style='italic',
             bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
     
     # Increase tick label font size
-    ax.tick_params(labelsize=16)
+    ax.tick_params(labelsize=16, top=True, bottom=False, labeltop=True, labelbottom=False)
     
     output_path = output_dir / "Figure_6_Confounder_Heatmap.pdf"
     plt.tight_layout()
