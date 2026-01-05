@@ -742,8 +742,10 @@ Input:
          - Tick marks: Label every 5 ranks starting from 1 (i.e., 1, 6, 11, 16, 21, ...).
          - Grid lines: Use light gray lines for tick marks (grid lines at each tick position, using light gray color).
          - Chart borders: Do NOT close the top and right borders (only show bottom and left borders). Use `ax.spines['top'].set_visible(False)` and `ax.spines['right'].set_visible(False)`.
-      6. **Reference Line:** Draw a red dashed line for y=x (diagonal reference line) and annotate it (e.g., "y=x" or "Perfect Agreement"). Use `plt.plot()` or `ax.plot()` with `linestyle='--'`, `color='red'`, and add a text annotation.
+      6. **Reference Line:** Draw a red dashed line for y=x (diagonal reference line) and annotate it (e.g., "y=x" or "Perfect Agreement"). Use `plt.plot()` or `ax.plot()` with `linestyle='--'`, `color='red'`, and add a text annotation. **CRITICAL: Annotation Position:** The y=x annotation must be positioned in the bottom right corner of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`).
       7. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption. However, when logging progress to the terminal, clearly state the figure name/title (e.g., "Generating Figure 0: SWE-bench (Verified) Illustration").
+      8. **CRITICAL: Layer Ordering:** All scatter plot points must be on the topmost layer (highest zorder, e.g., `zorder=5`) so they are never covered by text annotations or white boxes. Text annotations should have lower zorder (e.g., `zorder=4`) and reference lines should have even lower zorder (e.g., `zorder=1` or `zorder=2`).
+      9. **Figure Aspect Ratio:** The figure should be wider/flatter. Use `figsize=(12, 7)` or similar to create a wider aspect ratio.
     - **Data Source:** 
       - SWE-bench (Verified): `Human-SIG/data/processed/cleaned/SWE-bench (Verified)/cleaned_data.csv` and `mapping.json`
       - LMArena-Coding: `Human-SIG/data/processed/cleaned/LMArena-Coding/cleaned_data.csv`
@@ -783,6 +785,8 @@ Input:
          - Sample size (N = number of benchmarks)
          - Regression equation or slope coefficient if regression line is shown
          - Individual benchmark labels (benchmark_id) as text annotations or tooltips (if not too crowded)
+         - **CRITICAL: Annotation Position:** All statistical annotations (correlation coefficient, p-value, sample size) must be positioned in the **bottom left corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.05, 0.05)`).
+      7. **CRITICAL: Layer Ordering:** All scatter plot points must be on the topmost layer (highest zorder, e.g., `zorder=5`) so they are never covered by text annotations or white boxes. Text annotations should have lower zorder (e.g., `zorder=4`) and regression lines should have lower zorder (e.g., `zorder=1`).
     - **Data Source:** Load from `analysis_ready_data.csv`: `question_count` column (apply log transformation), `spearman_rho` column.
     - **Save Location:** `overleaf/images/Figure_2_Scale.pdf`
     - **CRITICAL: All Annotations Required:** Every element must be annotated: axis labels with descriptions, regression line (if shown) with equation/statistics, correlation coefficient, sample size, and any benchmark labels.
@@ -819,6 +823,8 @@ Input:
          - Sample size (N)
          - Regression equation or slope (if regression line shown)
          - Individual benchmark labels (benchmark_id) as text annotations (if not too crowded)
+         - **CRITICAL: Annotation Position:** All statistical annotations (correlation coefficient, p-value, sample size) must be positioned in the **bottom right corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`).
+      7. **CRITICAL: Layer Ordering:** All scatter plot points must be on the topmost layer (highest zorder, e.g., `zorder=5`) so they are never covered by text annotations or white boxes. Text annotations should have lower zorder (e.g., `zorder=4`) and regression lines should have lower zorder (e.g., `zorder=1`).
     - **Data Source:** Load from `analysis_ready_data.csv`: `release_date` column (convert to ordinal), `spearman_rho` column.
     - **Save Location:** `overleaf/images/Figure_4_Recency.pdf`
     - **CRITICAL: All Annotations Required:** All elements must be annotated: axis labels with date format explanation, regression line statistics, correlation coefficient, sample size, and benchmark labels.
@@ -842,6 +848,9 @@ Input:
          - Sample size (N)
          - R² or adjusted R² for the regression model
          - Individual benchmark labels (benchmark_id) as text annotations (if not too crowded)
+         - **CRITICAL: Annotation Position:** All statistical annotations (regression coefficients, p-values, sample size) must be positioned in the **bottom right corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`).
+         - **CRITICAL: Legend Position:** The size legend (Point Size (CV)) and colorbar must be positioned in the **bottom right corner** (use `loc='lower right'` for legend).
+      10. **CRITICAL: Layer Ordering:** All scatter plot points must be on the topmost layer (highest zorder, e.g., `zorder=5`) so they are never covered by text annotations or white boxes. Text annotations should have lower zorder (e.g., `zorder=4`) and regression lines should have lower zorder (e.g., `zorder=1`).
     - **Data Source:** Load from `analysis_ready_data.csv`: `difficulty` column, `cv` (or `coefficient_of_variation`) column, `spearman_rho` column. Exclude Creative Writing v3 (if not already excluded).
     - **Exclusion Rule:** Exclude Creative Writing v3 from this analysis (only include benchmarks for which Difficulty was calculated).
     - **Save Location:** `overleaf/images/Figure_5_Difficulty_Variance.pdf`
@@ -859,10 +868,14 @@ Input:
       4. **Diagonal:** The diagonal should show 1.0 (perfect correlation with itself) or can be masked/highlighted differently.
       5. **Row/Column Labels:** Use readable labels with spaces (e.g., "Difficulty", "Variance (CV)", "Recency", "Complexity", "Scale", "Task Type"), not underscores.
       6. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption.
-      7. **Annotations:**
-         - Colorbar with correlation value range
+      7. **Axis Label Configuration:**
+         - **CRITICAL:** X-axis labels (variable names) must be positioned at the top of the heatmap and rotated vertically (90 degrees) to avoid overlap and improve readability. Use `ax.xaxis.tick_top()`, `ax.xaxis.set_label_position('top')`, and `plt.setp(ax.xaxis.get_majorticklabels(), rotation=90, ha='center')`.
+         - **Figure Height:** Increase the figure height (e.g., `figsize=(10, 10)`) to accommodate vertical labels and prevent crowding.
+      8. **Annotations:**
+         - Colorbar with correlation value range (only one colorbar, no duplicates)
          - Note explaining variable encodings (e.g., "Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme")
          - Sample size (N) if applicable
+         - **CRITICAL: Annotation Position:** The variable encoding note must be positioned in the **bottom right corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`) to avoid conflict with axis labels.
     - **Data Source:** Load from `analysis_ready_data.csv`: `difficulty` (or `subset_avg_score`), `cv` (or `coefficient_of_variation`), `release_date` (convert to ordinal), `prompt_length` (encode as ordinal), `question_count` (apply log transformation), `task_type` (encode as binary/ordinal). Compute pairwise correlations (Pearson or Spearman as appropriate).
     - **Save Location:** `overleaf/images/Figure_6_Confounder_Heatmap.pdf`
     - **CRITICAL: All Annotations Required:** Every element must be annotated: variable labels, correlation values in cells, colorbar with scale, encoding explanations, and sample size.
@@ -879,9 +892,14 @@ Input:
     - **Figure Quality:**
       - Use high-resolution output (DPI ≥ 300 for PDF)
       - **CRITICAL: Font Size:** All text elements (axis labels, tick labels, annotations, legend labels, model name labels) must use significantly larger font sizes to ensure readability. Set font sizes to at least 18pt for axis labels, 16pt for tick labels, and 14pt for annotations. Use `plt.rcParams['font.size'] = 18`, `plt.rcParams['axes.labelsize'] = 20`, `plt.rcParams['xtick.labelsize'] = 18`, `plt.rcParams['ytick.labelsize'] = 18`, `plt.rcParams['legend.fontsize'] = 16`, and explicitly set font sizes for annotations (e.g., `fontsize=16` in `ax.annotate()`). **CRITICAL:** All font sizes should be increased significantly beyond the minimum requirements to ensure clear readability in the manuscript. Make fonts noticeably larger than standard sizes.
+      - **CRITICAL: Layer Ordering (Z-order):** All scatter plot points must be on the topmost layer (highest zorder, e.g., `zorder=5`) so they are never covered by text annotations or white boxes. Text annotations should have lower zorder (e.g., `zorder=4`), reference lines and regression lines should have lower zorder (e.g., `zorder=1` or `zorder=2`), and grid lines should have the lowest zorder (e.g., `zorder=1`). This ensures that data points are always visible and not obscured by annotations.
+      - **CRITICAL: Annotation and Legend Positioning:**
+        - **Figure 2 (Scale Effect):** All statistical annotations (correlation coefficient, p-value, sample size) must be positioned in the **bottom left corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.05, 0.05)`).
+        - **All other figures (Figure 0, 1, 3, 4, 5, 6):** All annotations and legends (including y=x reference line annotation in Figure 0, statistical annotations in Figures 4 and 5, size legend in Figure 5, and variable encoding note in Figure 6) must be positioned in the **bottom right corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`).
       - Use consistent color schemes across all figures
       - Ensure proper spacing and margins
       - Save as PDF format for manuscript inclusion
+      - **CRITICAL: Annotation Spacing:** For figures with many point annotations (Figure 0, 2, 4, 5), use the `adjustText` library (if available) to automatically adjust annotation positions and avoid overlapping. Import with `try/except` and use `adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))` to adjust annotation positions.
 
 - **4.4.2b:** Table Generation for Manuscript (`Human-SIG/src/analysis/generate_tables.py`).
 

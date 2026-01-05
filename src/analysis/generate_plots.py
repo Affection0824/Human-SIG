@@ -127,27 +127,30 @@ def figure_0_swe_bench_illustration(output_dir: Path):
     # Create scatter plot (wider/flatter)
     fig, ax = plt.subplots(figsize=(12, 7))
     
-    # Scatter plot
+    # Reference line y=x (red dashed) - draw first (lower zorder)
+    max_rank = max(rank_df['swe_rank'].max(), rank_df['lmarena_rank'].max())
+    ax.plot([1, max_rank], [1, max_rank], 'r--', linewidth=2, zorder=1)
+    
+    # Scatter plot - points on top (highest zorder)
     ax.scatter(rank_df['swe_rank'], rank_df['lmarena_rank'], 
-               alpha=0.7, s=100, edgecolors='black', linewidth=1.5, zorder=3)
+               alpha=0.7, s=100, edgecolors='black', linewidth=1.5, zorder=5)
     
     # Annotate model names with larger font, using adjust_text to avoid overlap
+    # Text annotations with lower zorder so points are visible on top
     texts = []
     for idx, row in rank_df.iterrows():
         texts.append(ax.annotate(row['model_name'], 
                    (row['swe_rank'], row['lmarena_rank']),
-                   fontsize=16, alpha=0.8,
+                   fontsize=16, alpha=0.8, zorder=4,
                    bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.7, edgecolor='none')))
     
     # Use adjust_text to avoid overlapping annotations
     if HAS_ADJUST_TEXT:
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
-    # Reference line y=x (red dashed)
-    max_rank = max(rank_df['swe_rank'].max(), rank_df['lmarena_rank'].max())
-    ax.plot([1, max_rank], [1, max_rank], 'r--', linewidth=2, zorder=2)
-    ax.text(max_rank * 0.95, max_rank * 0.95, 'y=x', fontsize=16, color='red', 
-            ha='right', va='bottom', bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8))
+    # y=x annotation in bottom right corner
+    ax.text(0.98, 0.02, 'y=x', fontsize=16, color='red', transform=ax.transAxes,
+            ha='right', va='bottom', bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8), zorder=3)
     
     # Axis labels (larger font)
     ax.set_xlabel('Rank in SWE-bench (Verified) (Weak → Strong)', fontsize=20)
@@ -269,23 +272,24 @@ def figure_2_scale(df: pd.DataFrame, output_dir: Path):
     
     fig, ax = plt.subplots(figsize=(8, 6))
     
-    # Scatter plot
-    print("Generating scatter plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    ax.scatter(df_plot['log_question_count'], df_plot['spearman_rho'], 
-               alpha=0.6, s=60, edgecolors='black', linewidth=0.5)
-    
-    # Regression line
+    # Regression line (draw first, lower zorder)
     print("Generating regression plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     sns.regplot(data=df_plot, x='log_question_count', y='spearman_rho', ax=ax,
-                scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
+                scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
+    
+    # Scatter plot - points on top (highest zorder)
+    print("Generating scatter plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    ax.scatter(df_plot['log_question_count'], df_plot['spearman_rho'], 
+               alpha=0.6, s=60, edgecolors='black', linewidth=0.5, zorder=5)
     
     # Add benchmark labels with larger font, using adjust_text to avoid overlap
+    # Text annotations with lower zorder so points are visible on top
     texts = []
     for idx, row in df_plot.iterrows():
         if pd.notna(row['log_question_count']) and pd.notna(row['spearman_rho']):
             texts.append(ax.annotate(row['benchmark_id'], 
                        (row['log_question_count'], row['spearman_rho']),
-                       fontsize=12, alpha=0.7))
+                       fontsize=12, alpha=0.7, zorder=4))
     
     # Use adjust_text to avoid overlapping annotations
     if HAS_ADJUST_TEXT and texts:
@@ -296,12 +300,12 @@ def figure_2_scale(df: pd.DataFrame, output_dir: Path):
     ax.tick_params(labelsize=18)
     # NO TITLE (as per requirements)
     
-    # Add annotations with larger font
+    # Add annotations with larger font in bottom left corner
     n = len(df_clean)
     p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
     annotation_text = f'r = {corr:.3f}, p = {p_str}\nN = {n}'
-    ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
-            fontsize=16, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    ax.text(0.05, 0.05, annotation_text, transform=ax.transAxes,
+            fontsize=16, verticalalignment='bottom', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
     output_path = output_dir / "Figure_2_Scale.pdf"
     plt.tight_layout()
@@ -381,23 +385,24 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     
     fig, ax = plt.subplots(figsize=(10, 6))
     
-    # Scatter plot
-    print("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    ax.scatter(df_plot['release_date_ordinal'], df_plot['spearman_rho'], 
-               alpha=0.6, s=60, edgecolors='black', linewidth=0.5)
-    
-    # Regression line
+    # Regression line (draw first, lower zorder)
     print("Generating regression plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     sns.regplot(data=df_plot, x='release_date_ordinal', y='spearman_rho', ax=ax,
-                scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
+                scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
+    
+    # Scatter plot - points on top (highest zorder)
+    print("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    ax.scatter(df_plot['release_date_ordinal'], df_plot['spearman_rho'], 
+               alpha=0.6, s=60, edgecolors='black', linewidth=0.5, zorder=5)
     
     # Add benchmark labels with larger font, using adjust_text to avoid overlap
+    # Text annotations with lower zorder so points are visible on top
     texts = []
     for idx, row in df_plot.iterrows():
         if pd.notna(row['release_date_ordinal']) and pd.notna(row['spearman_rho']):
             texts.append(ax.annotate(row['benchmark_id'], 
                        (row['release_date_ordinal'], row['spearman_rho']),
-                       fontsize=12, alpha=0.7))
+                       fontsize=12, alpha=0.7, zorder=4))
     
     # Use adjust_text to avoid overlapping annotations
     if HAS_ADJUST_TEXT and texts:
@@ -408,12 +413,12 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     ax.tick_params(labelsize=18)
     # NO TITLE (as per requirements)
     
-    # Add annotations with larger font
+    # Add annotations with larger font in bottom right corner
     n = len(df_clean)
     p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
     annotation_text = f'ρ = {corr:.3f}, p = {p_str}\nN = {n}'
-    ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
-            fontsize=16, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    ax.text(0.98, 0.02, annotation_text, transform=ax.transAxes,
+            fontsize=16, verticalalignment='bottom', ha='right', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
     output_path = output_dir / "Figure_4_Recency.pdf"
     plt.tight_layout()
@@ -440,24 +445,25 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     
     fig, ax = plt.subplots(figsize=(10, 7))
     
-    # Scatter plot with size and color encoding
+    # Regression line (draw first, lower zorder)
+    print("Generating regression plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    sns.regplot(data=df_plot, x='difficulty', y='spearman_rho', ax=ax,
+                scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
+    
+    # Scatter plot with size and color encoding - points on top (highest zorder)
     print("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv), with CV as point size")
     scatter = ax.scatter(df_plot['difficulty'], df_plot['spearman_rho'],
                         s=df_plot['cv'] * 200,  # Scale CV for visibility
                         c=df_plot['cv'], cmap='viridis', alpha=0.6,
-                        edgecolors='black', linewidth=0.5)
-    
-    # Regression line
-    print("Generating regression plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    sns.regplot(data=df_plot, x='difficulty', y='spearman_rho', ax=ax,
-                scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
+                        edgecolors='black', linewidth=0.5, zorder=5)
     
     # Add benchmark labels with larger font, using adjust_text to avoid overlap
+    # Text annotations with lower zorder so points are visible on top
     texts = []
     for idx, row in df_plot.iterrows():
         texts.append(ax.annotate(row['benchmark_id'], 
                    (row['difficulty'], row['spearman_rho']),
-                   fontsize=12, alpha=0.7))
+                   fontsize=12, alpha=0.7, zorder=4))
     
     # Use adjust_text to avoid overlapping annotations
     if HAS_ADJUST_TEXT and texts:
@@ -473,22 +479,23 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     cbar.set_label('Coefficient of Variation (CV)', fontsize=16)
     cbar.ax.tick_params(labelsize=16)
     
-    # Add size legend (approximate) with larger font
+    # Add size legend (approximate) with larger font in bottom right corner
     sizes = [df_plot['cv'].min(), df_plot['cv'].median(), df_plot['cv'].max()]
     legend_elements = [plt.scatter([], [], s=s*200, c='gray', alpha=0.6, edgecolors='black') 
                       for s in sizes]
     labels = [f'CV = {s:.2f}' for s in sizes]
-    ax.legend(legend_elements, labels, title='Point Size (CV)', loc='upper left', fontsize=14, title_fontsize=16)
+    legend = ax.legend(legend_elements, labels, title='Point Size (CV)', loc='lower right', fontsize=14, title_fontsize=16)
+    legend.set_zorder(3)  # Set zorder after legend creation
     
-    # Add annotations with larger font
+    # Add annotations with larger font in bottom right corner
     n = len(df_plot)
     p_beta1_str = f"{p_beta1:.4f}" if pd.notna(p_beta1) else "N/A"
     p_beta2_str = f"{p_beta2:.4f}" if pd.notna(p_beta2) else "N/A"
     annotation_text = f'β1(Difficulty) = {beta1:.3f}, p = {p_beta1_str}\n'
     annotation_text += f'β2(CV) = {beta2:.3f}, p = {p_beta2_str}\n'
     annotation_text += f'N = {n}'
-    ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
-            fontsize=16, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    ax.text(0.98, 0.02, annotation_text, transform=ax.transAxes,
+            fontsize=16, verticalalignment='bottom', ha='right', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
     output_path = output_dir / "Figure_5_Difficulty_Variance.pdf"
     plt.tight_layout()
@@ -545,7 +552,8 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     df_corr = pd.DataFrame(corr_data)
     corr_matrix = df_corr.corr()
     
-    fig, ax = plt.subplots(figsize=(10, 8))
+    # Increase figure height and adjust width for better vertical label display
+    fig, ax = plt.subplots(figsize=(10, 10))
     
     # Heatmap with larger font
     print("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
@@ -563,14 +571,18 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     
     # NO TITLE (as per requirements)
     
-    # Move axis labels to top
+    # Move axis labels to top and rotate them vertically
     ax.xaxis.tick_top()
     ax.xaxis.set_label_position('top')
     
-    # Add note with larger font (positioned at bottom, away from axis labels)
+    # Rotate x-axis labels vertically
+    plt.setp(ax.xaxis.get_majorticklabels(), rotation=90, ha='center')
+    plt.setp(ax.yaxis.get_majorticklabels(), rotation=0, ha='right')
+    
+    # Add note with larger font (positioned at bottom, away from axis labels) in bottom right corner
     note_text = 'Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme\nTask Type: 0=MCQ, 1=Generative'
-    ax.text(0.5, -0.2, note_text, transform=ax.transAxes,
-            ha='center', fontsize=14, style='italic',
+    ax.text(0.98, 0.02, note_text, transform=ax.transAxes,
+            ha='right', va='bottom', fontsize=14, style='italic',
             bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
     
     # Increase tick label font size
