@@ -148,9 +148,20 @@ def figure_0_swe_bench_illustration(output_dir: Path):
     if HAS_ADJUST_TEXT:
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
-    # y=x annotation in bottom right corner
-    ax.text(0.98, 0.02, 'y=x', fontsize=16, color='red', transform=ax.transAxes,
-            ha='right', va='bottom', bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8), zorder=3)
+    # Calculate Spearman correlation coefficient
+    from scipy.stats import spearmanr
+    spearman_rho, spearman_p = spearmanr(rank_df['swe_rank'], rank_df['lmarena_rank'])
+    
+    # Add Spearman correlation annotation in top left corner
+    ax.text(0.02, 0.98, f'Spearman ρ = {spearman_rho:.3f}', fontsize=18, transform=ax.transAxes,
+            ha='left', va='top', bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'), zorder=3)
+    
+    # y=x legend in bottom right corner with red dashed line example
+    from matplotlib.lines import Line2D
+    legend_elements = [Line2D([0], [0], color='red', linestyle='--', linewidth=2, label='y=x')]
+    legend = ax.legend(legend_elements, ['y=x'], loc='lower right', fontsize=18, 
+                      framealpha=0.9, fancybox=True, shadow=False)
+    legend.set_zorder(3)
     
     # Axis labels (larger font)
     ax.set_xlabel('Rank in SWE-bench (Verified) (Weak → Strong)', fontsize=20)
