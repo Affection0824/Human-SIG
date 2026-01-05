@@ -862,7 +862,7 @@ Input:
          - R² or adjusted R² for the regression model
          - Individual benchmark labels (benchmark_id) as text annotations (if not too crowded)
          - **CRITICAL: Annotation Position:** All statistical annotations (regression coefficients, p-values, sample size) must be positioned in the **bottom right corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`).
-         - **CRITICAL: Legend Position:** The size legend (Point Size (CV)) must be positioned in the **upper right corner** (use `loc='upper right'` for legend) to avoid overlap with beta coefficient annotations. The colorbar should be positioned on the right side of the plot.
+         - **CRITICAL: Legend Position:** The size legend (Point Size (CV)) must be positioned so that its **top edge aligns with the figure midline** (y=0.5) to avoid overlap with beta coefficient annotations. Use `bbox_to_anchor=(1.0, 0.5)` with `loc='center left'` to achieve this positioning. The colorbar should be positioned on the right side of the plot.
       10. **CRITICAL: Layer Ordering:** All scatter plot points must be on the topmost layer (highest zorder, e.g., `zorder=5`) so they are never covered by text annotations or white boxes. Text annotations should have lower zorder (e.g., `zorder=4`) and regression lines should have lower zorder (e.g., `zorder=1`).
     - **Data Source:** Load from `analysis_ready_data.csv`: `difficulty` column, `cv` (or `coefficient_of_variation`) column, `spearman_rho` column. Exclude Creative Writing v3 (if not already excluded).
     - **Exclusion Rule:** Exclude Creative Writing v3 from this analysis (only include benchmarks for which Difficulty was calculated).

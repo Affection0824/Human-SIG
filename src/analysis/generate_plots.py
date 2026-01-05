@@ -491,12 +491,16 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     cbar.set_label('Coefficient of Variation (CV)', fontsize=16)
     cbar.ax.tick_params(labelsize=16)
     
-    # Add size legend (approximate) with larger font in upper right corner to avoid overlap with beta annotations
+    # Add size legend (approximate) with larger font, positioned so top aligns with figure midline
     sizes = [df_plot['cv'].min(), df_plot['cv'].median(), df_plot['cv'].max()]
     legend_elements = [plt.scatter([], [], s=s*200, c='gray', alpha=0.6, edgecolors='black') 
                       for s in sizes]
     labels = [f'CV = {s:.2f}' for s in sizes]
-    legend = ax.legend(legend_elements, labels, title='Point Size (CV)', loc='upper right', fontsize=14, title_fontsize=16)
+    # Position legend so its top aligns with figure midline (y=0.5)
+    # bbox_to_anchor=(1.0, 0.5) means right edge at x=1.0, center at y=0.5
+    # loc='center left' means the left edge of the legend box is at the anchor point
+    legend = ax.legend(legend_elements, labels, title='Point Size (CV)', 
+                      bbox_to_anchor=(1.0, 0.5), loc='center left', fontsize=14, title_fontsize=16)
     legend.set_zorder(3)  # Set zorder after legend creation
     
     # Add annotations with larger font in bottom right corner
