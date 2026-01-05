@@ -143,7 +143,7 @@ def bootstrap_ci(
     data_x: np.ndarray,
     data_y: np.ndarray,
     func: Callable,
-    n_boot: int = 5000
+    n_boot: int = 2000
 ) -> Tuple[float, float]:
     """
     Calculate 95% confidence interval using bootstrap resampling.
@@ -392,16 +392,18 @@ def calculate_spearman_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float,
     # Calculate p-value based on sample size
     if n < 30:
         # Use permutation test for small sample sizes
+        # Reduce n_resamples for faster computation (still statistically valid)
         def statistic(x_data, y_data):
             # Permute y_data under null hypothesis
             return spearmanr(x_data, y_data)[0]
         
         # Permutation test with pairings (preserves pairing structure)
+        # Use 2000 resamples for faster computation (still provides accurate p-values)
         result = stats.permutation_test(
             (x_clean, y_clean),
             statistic,
             permutation_type='pairings',
-            n_resamples=10000,
+            n_resamples=2000,
             random_state=42,
             alternative='two-sided'
         )
@@ -456,16 +458,18 @@ def calculate_kendall_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, 
     # Calculate p-value based on sample size
     if n < 30:
         # Use permutation test for small sample sizes
+        # Reduce n_resamples for faster computation (still statistically valid)
         def statistic(x_data, y_data):
             # Permute y_data under null hypothesis
             return kendalltau(x_data, y_data)[0]
         
         # Permutation test with pairings (preserves pairing structure)
+        # Use 2000 resamples for faster computation (still provides accurate p-values)
         result = stats.permutation_test(
             (x_clean, y_clean),
             statistic,
             permutation_type='pairings',
-            n_resamples=10000,
+            n_resamples=2000,
             random_state=42,
             alternative='two-sided'
         )
