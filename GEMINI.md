@@ -835,7 +835,7 @@ Input:
          - Sample size (N)
          - Regression equation or slope (if regression line shown)
          - Individual benchmark labels (benchmark_id) as text annotations (if not too crowded)
-         - **CRITICAL: Annotation Position:** All statistical annotations (correlation coefficient, p-value, sample size) must be positioned in the **bottom right corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`).
+         - **CRITICAL: Annotation Position:** All statistical annotations (correlation coefficient, p-value, sample size) must be positioned in the **bottom left corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.02, 0.02)`).
       7. **CRITICAL: Layer Ordering:** All scatter plot points must be on the topmost layer (highest zorder, e.g., `zorder=5`) so they are never covered by text annotations or white boxes. Text annotations should have lower zorder (e.g., `zorder=4`) and regression lines should have lower zorder (e.g., `zorder=1`).
     - **Data Source:** Load from `analysis_ready_data.csv`: `release_date` column (convert to ordinal), `spearman_rho` column.
     - **Save Location:** `overleaf/images/Figure_4_Recency.pdf`
@@ -862,7 +862,7 @@ Input:
          - R² or adjusted R² for the regression model
          - Individual benchmark labels (benchmark_id) as text annotations (if not too crowded)
          - **CRITICAL: Annotation Position:** All statistical annotations (regression coefficients, p-values, sample size) must be positioned in the **bottom right corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`).
-         - **CRITICAL: Legend Position:** The size legend (Point Size (CV)) and colorbar must be positioned in the **bottom right corner** (use `loc='lower right'` for legend).
+         - **CRITICAL: Legend Position:** The size legend (Point Size (CV)) must be positioned in the **upper right corner** (use `loc='upper right'` for legend) to avoid overlap with beta coefficient annotations. The colorbar should be positioned on the right side of the plot.
       10. **CRITICAL: Layer Ordering:** All scatter plot points must be on the topmost layer (highest zorder, e.g., `zorder=5`) so they are never covered by text annotations or white boxes. Text annotations should have lower zorder (e.g., `zorder=4`) and regression lines should have lower zorder (e.g., `zorder=1`).
     - **Data Source:** Load from `analysis_ready_data.csv`: `difficulty` column, `cv` (or `coefficient_of_variation`) column, `spearman_rho` column. Exclude Creative Writing v3 (if not already excluded).
     - **Exclusion Rule:** Exclude Creative Writing v3 from this analysis (only include benchmarks for which Difficulty was calculated).
@@ -888,7 +888,7 @@ Input:
          - Colorbar with correlation value range (only one colorbar, no duplicates)
          - Note explaining variable encodings (e.g., "Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme")
          - Sample size (N) if applicable
-         - **CRITICAL: Annotation Position:** The variable encoding note must be positioned in the **bottom right corner** of the plot (using `transform=ax.transAxes` with coordinates like `(0.98, 0.02)`) to avoid conflict with axis labels.
+         - **CRITICAL: Annotation Position:** The variable encoding note must be positioned **below the figure** (outside the plot area, using `fig.text()` with coordinates like `(0.5, 0.02)`) to avoid covering the heatmap. Use `fig.subplots_adjust(bottom=0.15)` to add space at the bottom for the note text.
     - **Data Source:** Load from `analysis_ready_data.csv`: `difficulty` (or `subset_avg_score`), `cv` (or `coefficient_of_variation`), `release_date` (convert to ordinal), `prompt_length` (encode as ordinal), `question_count` (apply log transformation), `task_type` (encode as binary/ordinal). Compute pairwise correlations (Pearson or Spearman as appropriate).
     - **Save Location:** `overleaf/images/Figure_6_Confounder_Heatmap.pdf`
     - **CRITICAL: All Annotations Required:** Every element must be annotated: variable labels, correlation values in cells, colorbar with scale, encoding explanations, and sample size.

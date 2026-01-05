@@ -425,12 +425,12 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     ax.tick_params(labelsize=18)
     # NO TITLE (as per requirements)
     
-    # Add annotations with larger font in bottom right corner
+    # Add annotations with larger font in bottom left corner
     n = len(df_clean)
     p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
     annotation_text = f'ρ = {corr:.3f}, p = {p_str}\nN = {n}'
-    ax.text(0.98, 0.02, annotation_text, transform=ax.transAxes,
-            fontsize=16, verticalalignment='bottom', ha='right', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
+    ax.text(0.02, 0.02, annotation_text, transform=ax.transAxes,
+            fontsize=16, verticalalignment='bottom', ha='left', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
     output_path = output_dir / "Figure_4_Recency.pdf"
     plt.tight_layout()
@@ -491,12 +491,12 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     cbar.set_label('Coefficient of Variation (CV)', fontsize=16)
     cbar.ax.tick_params(labelsize=16)
     
-    # Add size legend (approximate) with larger font in bottom right corner
+    # Add size legend (approximate) with larger font in upper right corner to avoid overlap with beta annotations
     sizes = [df_plot['cv'].min(), df_plot['cv'].median(), df_plot['cv'].max()]
     legend_elements = [plt.scatter([], [], s=s*200, c='gray', alpha=0.6, edgecolors='black') 
                       for s in sizes]
     labels = [f'CV = {s:.2f}' for s in sizes]
-    legend = ax.legend(legend_elements, labels, title='Point Size (CV)', loc='lower right', fontsize=14, title_fontsize=16)
+    legend = ax.legend(legend_elements, labels, title='Point Size (CV)', loc='upper right', fontsize=14, title_fontsize=16)
     legend.set_zorder(3)  # Set zorder after legend creation
     
     # Add annotations with larger font in bottom right corner
@@ -565,7 +565,9 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     corr_matrix = df_corr.corr()
     
     # Increase figure height and adjust width for better vertical label display
+    # Add extra space at bottom for note text
     fig, ax = plt.subplots(figsize=(10, 10))
+    fig.subplots_adjust(bottom=0.15)  # Add space at bottom for note text
     
     # Heatmap with larger font
     print("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
@@ -591,11 +593,11 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     plt.setp(ax.xaxis.get_majorticklabels(), rotation=90, ha='center')
     plt.setp(ax.yaxis.get_majorticklabels(), rotation=0, ha='right')
     
-    # Add note with larger font (positioned at bottom, away from axis labels) in bottom right corner
+    # Add note with larger font positioned below the figure (outside the plot area)
     note_text = 'Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme\nTask Type: 0=MCQ, 1=Generative'
-    ax.text(0.98, 0.02, note_text, transform=ax.transAxes,
-            ha='right', va='bottom', fontsize=14, style='italic',
-            bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
+    # Position below the figure using figtext (outside plot area)
+    fig.text(0.5, 0.02, note_text, ha='center', va='bottom', fontsize=14, style='italic',
+             bbox=dict(boxstyle='round', facecolor='white', alpha=0.7), zorder=4)
     
     # Increase tick label font size
     ax.tick_params(labelsize=16, top=True, bottom=False, labeltop=True, labelbottom=False)
