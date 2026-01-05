@@ -38,12 +38,13 @@ logger = logging.getLogger(__name__)
 sns.set_style("whitegrid")
 plt.rcParams['figure.dpi'] = 300
 plt.rcParams['savefig.dpi'] = 300
-plt.rcParams['font.size'] = 10
-plt.rcParams['axes.labelsize'] = 11
-plt.rcParams['axes.titlesize'] = 12
-plt.rcParams['xtick.labelsize'] = 10
-plt.rcParams['ytick.labelsize'] = 10
-plt.rcParams['legend.fontsize'] = 9
+# CRITICAL: Significantly larger font sizes for readability (increased beyond minimum)
+plt.rcParams['font.size'] = 18
+plt.rcParams['axes.labelsize'] = 20
+plt.rcParams['axes.titlesize'] = 20
+plt.rcParams['xtick.labelsize'] = 18
+plt.rcParams['ytick.labelsize'] = 18
+plt.rcParams['legend.fontsize'] = 16
 
 
 def load_analysis_data(data_path: Path) -> pd.DataFrame:
@@ -60,18 +61,112 @@ def load_hypothesis_results(results_path: Path) -> dict:
         return json.load(f)
 
 
-def figure_0_placeholder(output_dir: Path):
-    """Create placeholder for SWE-bench Illustration."""
-    logger.info("Generating Figure 0: SWE-bench Illustration (placeholder)")
+def figure_0_swe_bench_illustration(output_dir: Path):
+    """Generate Figure 0: SWE-bench Illustration."""
+    logger.info("Generating Figure 0: SWE-bench (Verified) Illustration")
+    print("Generating scatter plot using data: SWE-bench (Verified) ranks vs LMArena-Coding ranks (from cleaned_data.csv files)")
     
-    fig, ax = plt.subplots(figsize=(8, 6))
-    ax.text(0.5, 0.5, 'SWE-bench (Verified) Illustration\n(To be completed later)', 
-            ha='center', va='center', fontsize=16, 
-            bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
-    ax.axis('off')
-    ax.set_title('SWE-bench (Verified) Illustration', fontsize=14, fontweight='bold')
+    base_dir = Path(__file__).parent.parent.parent
+    swe_bench_path = base_dir / "data" / "processed" / "cleaned" / "SWE-bench (Verified)"
+    lmarena_coding_path = base_dir / "data" / "processed" / "cleaned" / "LMArena-Coding"
+    
+    # Load data
+    swe_bench_df = pd.read_csv(swe_bench_path / "cleaned_data.csv")
+    lmarena_coding_df = pd.read_csv(lmarena_coding_path / "cleaned_data.csv")
+    
+    # Load mapping
+    import json
+    with open(swe_bench_path / "mapping.json", 'r', encoding='utf-8') as f:
+        mapping = json.load(f)
+    
+    # Get intersection of models (models in mapping.json)
+    intersection_models = list(mapping.keys())
+    
+    # Extract ranks for intersection models
+    rank_pairs = []
+    model_names = []
+    
+    for swe_model_name in intersection_models:
+        if swe_model_name not in swe_bench_df['model_name'].values:
+            continue
+        
+        lmarena_model_id = mapping[swe_model_name]
+        if lmarena_model_id not in lmarena_coding_df['model_name'].values:
+            continue
+        
+        # Get original ranks
+        swe_rank_orig = swe_bench_df[swe_bench_df['model_name'] == swe_model_name]['rank'].values[0]
+        lmarena_rank_orig = lmarena_coding_df[lmarena_coding_df['model_name'] == lmarena_model_id]['rank'].values[0]
+        
+        rank_pairs.append({
+            'swe_rank_orig': swe_rank_orig,
+            'lmarena_rank_orig': lmarena_rank_orig,
+            'swe_score': swe_bench_df[swe_bench_df['model_name'] == swe_model_name]['score'].values[0],
+            'lmarena_score': lmarena_coding_df[lmarena_coding_df['model_name'] == lmarena_model_id]['score'].values[0],
+            'model_name': lmarena_model_id
+        })
+        model_names.append(lmarena_model_id)
+    
+    # Re-rank within intersection subset
+    rank_df = pd.DataFrame(rank_pairs)
+    
+    # Re-rank SWE-bench within intersection (lower rank = better, based on score)
+    rank_df = rank_df.sort_values('swe_score', ascending=False)  # Higher score = better
+    rank_df['swe_rank'] = range(1, len(rank_df) + 1)
+    
+    # Re-rank LMArena-Coding within intersection (lower rank = better, based on score)
+    rank_df = rank_df.sort_values('lmarena_score', ascending=False)  # Higher score = better
+    rank_df['lmarena_rank'] = range(1, len(rank_df) + 1)
+    
+    # Create scatter plot
+    fig, ax = plt.subplots(figsize=(10, 8))
+    
+    # Scatter plot
+    ax.scatter(rank_df['swe_rank'], rank_df['lmarena_rank'], 
+               alpha=0.7, s=100, edgecolors='black', linewidth=1.5, zorder=3)
+    
+    # Annotate model names with larger font
+    for idx, row in rank_df.iterrows():
+        ax.annotate(row['model_name'], 
+                   (row['swe_rank'], row['lmarena_rank']),
+                   fontsize=16, alpha=0.8, xytext=(5, 5), textcoords='offset points',
+                   bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.7, edgecolor='none'))
+    
+    # Reference line y=x (red dashed)
+    max_rank = max(rank_df['swe_rank'].max(), rank_df['lmarena_rank'].max())
+    ax.plot([1, max_rank], [1, max_rank], 'r--', linewidth=2, zorder=2)
+    ax.text(max_rank * 0.95, max_rank * 0.95, 'y=x', fontsize=16, color='red', 
+            ha='right', va='bottom', bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.8))
+    
+    # Axis labels (larger font)
+    ax.set_xlabel('Rank in SWE-bench (Verified) (Weak → Strong)', fontsize=20)
+    ax.set_ylabel('Rank in LMArena-Coding (Weak → Strong)', fontsize=20)
+    
+    # Axis configuration: origin = weak (high rank), far end = strong (low rank)
+    # Keep normal axis direction (1 at origin, max_rank at far end)
+    # But labels indicate Weak -> Strong, meaning origin (rank 1) = weak, far end (max_rank) = strong
+    # Actually, wait - if rank 1 is best (strong), then origin should show rank 1, and far end shows max_rank (weak)
+    # But user says "横纵坐标靠近原点的一端都是排名大（就是表现差）的模型，远端是排名小（表现好）的模型"
+    # This means: origin = high rank (weak/bad), far end = low rank (strong/good)
+    # So we need to reverse the axis: set xlim to (max_rank, 1) and ylim to (max_rank, 1)
+    ax.set_xlim(max_rank + 0.5, 0.5)  # Reversed: high rank (weak) at origin, low rank (strong) at far end
+    ax.set_ylim(max_rank + 0.5, 0.5)  # Reversed: high rank (weak) at origin, low rank (strong) at far end
+    
+    # Tick marks: every 5 ranks starting from 1
+    tick_positions = list(range(1, max_rank + 1, 5))
+    ax.set_xticks(tick_positions)
+    ax.set_yticks(tick_positions)
+    ax.set_xticklabels(tick_positions, fontsize=18)
+    ax.set_yticklabels(tick_positions, fontsize=18)
+    
+    # Grid lines: light gray
+    ax.grid(True, color='lightgray', linestyle='-', linewidth=0.5, alpha=0.5, zorder=1)
+    
+    # Remove top and right borders
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    
+    # NO TITLE (as per requirements)
     
     output_path = output_dir / "Figure_0_SWE_Bench_Illustration.pdf"
     plt.tight_layout()
@@ -82,7 +177,8 @@ def figure_0_placeholder(output_dir: Path):
 
 def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
     """Generate Figure 1: Task Type Comparison (H1)."""
-    logger.info("Generating scatter plot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    logger.info("Generating Figure 1: Spearman rho by Task Type")
+    print("Generating boxplot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     
     # Filter out "Mixed" task types
     df_filtered = df[df['task_type'] != 'Mixed'].copy()
@@ -100,27 +196,44 @@ def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
     median_mcq = df_filtered[df_filtered['task_type_grouped'] == 'MCQ']['spearman_rho'].median()
     median_gen = df_filtered[df_filtered['task_type_grouped'] == 'Generative']['spearman_rho'].median()
     
-    fig, ax = plt.subplots(figsize=(8, 6))
+    fig, ax = plt.subplots(figsize=(10, 7))
     
-    # Boxplot
+    # Boxplot with different light colors for each category
+    palette = {'MCQ': 'lightblue', 'Generative': 'lightgreen'}
     print("Generating boxplot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     sns.boxplot(data=df_filtered, x='task_type_grouped', y='spearman_rho', ax=ax, 
-                order=['MCQ', 'Generative'], width=0.6)
+                order=['MCQ', 'Generative'], width=0.6, palette=palette)
     
-    # Stripplot
+    # Stripplot with matching colors for each category
     print("Generating stripplot (overlaid) using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    sns.stripplot(data=df_filtered, x='task_type_grouped', y='spearman_rho', ax=ax,
-                  order=['MCQ', 'Generative'], color='black', alpha=0.5, size=5, jitter=True)
+    # Create separate stripplots for each category with matching colors
+    for task_type in ['MCQ', 'Generative']:
+        data_subset = df_filtered[df_filtered['task_type_grouped'] == task_type]
+        if len(data_subset) > 0:
+            x_pos = 0 if task_type == 'MCQ' else 1
+            x_coords = np.random.normal(x_pos, 0.1, len(data_subset))
+            ax.scatter(x_coords, data_subset['spearman_rho'], 
+                      color=palette[task_type], alpha=0.7, s=80, edgecolors='black', linewidth=0.5, zorder=3)
     
-    ax.set_xlabel('Task Type', fontsize=11)
-    ax.set_ylabel('Spearman ρ', fontsize=11)
-    ax.set_title('Spearman rho by Task Type', fontsize=12, fontweight='bold')
+    ax.set_xlabel('Task Type', fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.tick_params(labelsize=18)
+    # NO TITLE (as per requirements)
     
-    # Add annotations
-    ax.text(0, median_mcq, f'Median: {median_mcq:.3f}\nN={n_mcq}', 
-            ha='center', va='bottom', fontsize=9, bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
-    ax.text(1, median_gen, f'Median: {median_gen:.3f}\nN={n_gen}', 
-            ha='center', va='bottom', fontsize=9, bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
+    # Add annotations OUTSIDE the plot area (below x-axis) to avoid overlapping with plot
+    y_min = ax.get_ylim()[0]
+    y_range = ax.get_ylim()[1] - y_min
+    
+    # Position annotations below the plot area
+    ax.text(0, y_min - y_range * 0.15, f'Median: {median_mcq:.3f}\nN={n_mcq}', 
+            ha='center', va='top', fontsize=16, 
+            bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'))
+    ax.text(1, y_min - y_range * 0.15, f'Median: {median_gen:.3f}\nN={n_gen}', 
+            ha='center', va='top', fontsize=16,
+            bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'))
+    
+    # Adjust ylim to accommodate annotations below
+    ax.set_ylim(y_min - y_range * 0.25, ax.get_ylim()[1])
     
     output_path = output_dir / "Figure_1_Task_Type.pdf"
     plt.tight_layout()
@@ -155,23 +268,24 @@ def figure_2_scale(df: pd.DataFrame, output_dir: Path):
     sns.regplot(data=df_plot, x='log_question_count', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
     
-    # Add benchmark labels (if not too crowded)
+    # Add benchmark labels (if not too crowded) with larger font
     for idx, row in df_plot.iterrows():
         if pd.notna(row['log_question_count']) and pd.notna(row['spearman_rho']):
             ax.annotate(row['benchmark_id'], 
                        (row['log_question_count'], row['spearman_rho']),
-                       fontsize=7, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+                       fontsize=12, alpha=0.7, xytext=(3, 3), textcoords='offset points')
     
-    ax.set_xlabel('Scale (log-transformed question count)', fontsize=11)
-    ax.set_ylabel('Spearman ρ', fontsize=11)
-    ax.set_title('Spearman rho by Scale (log(question_count))', fontsize=12, fontweight='bold')
+    ax.set_xlabel('Scale (log-transformed question count)', fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.tick_params(labelsize=18)
+    # NO TITLE (as per requirements)
     
-    # Add annotations
+    # Add annotations with larger font
     n = len(df_clean)
     p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
     annotation_text = f'r = {corr:.3f}, p = {p_str}\nN = {n}'
     ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
-            fontsize=9, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+            fontsize=16, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     
     output_path = output_dir / "Figure_2_Scale.pdf"
     plt.tight_layout()
@@ -189,27 +303,33 @@ def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
     
     fig, ax = plt.subplots(figsize=(10, 6))
     
-    # Boxplot
+    # Boxplot with different light colors for each category
+    palette = {'Short': 'lightblue', 'Medium': 'lightgreen', 'Long': 'lightcoral', 'Extreme': 'lightyellow'}
     print("Generating boxplot using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    sns.boxplot(data=df, x='prompt_length', y='spearman_rho', ax=ax, order=category_order, width=0.6)
+    sns.boxplot(data=df, x='prompt_length', y='spearman_rho', ax=ax, order=category_order, width=0.6, palette=palette)
     
-    # Stripplot
+    # Stripplot with matching colors for each category
     print("Generating stripplot (overlaid) using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    sns.stripplot(data=df, x='prompt_length', y='spearman_rho', ax=ax,
-                  order=category_order, color='black', alpha=0.5, size=5, jitter=True)
+    for i, cat in enumerate(category_order):
+        data_subset = df[df['prompt_length'] == cat]
+        if len(data_subset) > 0:
+            x_coords = np.random.normal(i, 0.1, len(data_subset))
+            ax.scatter(x_coords, data_subset['spearman_rho'], 
+                      color=palette[cat], alpha=0.7, s=80, edgecolors='black', linewidth=0.5, zorder=3)
     
-    ax.set_xlabel('Prompt Length', fontsize=11)
-    ax.set_ylabel('Spearman ρ', fontsize=11)
-    ax.set_title('Spearman rho by Prompt Length', fontsize=12, fontweight='bold')
+    ax.set_xlabel('Prompt Length', fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.tick_params(labelsize=18)
+    # NO TITLE (as per requirements)
     
-    # Add annotations for sample sizes and medians
+    # Add annotations for sample sizes and medians with larger font
     for i, cat in enumerate(category_order):
         cat_data = df[df['prompt_length'] == cat]['spearman_rho'].dropna()
         if len(cat_data) > 0:
             n = len(cat_data)
             median = cat_data.median()
             ax.text(i, ax.get_ylim()[1] * 0.95, f'N={n}\nMed={median:.3f}', 
-                   ha='center', va='top', fontsize=8, 
+                   ha='center', va='top', fontsize=14, 
                    bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
     
     output_path = output_dir / "Figure_3_Complexity_Categories.pdf"
@@ -255,23 +375,24 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     sns.regplot(data=df_plot, x='release_date_ordinal', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
     
-    # Add benchmark labels
+    # Add benchmark labels with larger font
     for idx, row in df_plot.iterrows():
         if pd.notna(row['release_date_ordinal']) and pd.notna(row['spearman_rho']):
             ax.annotate(row['benchmark_id'], 
                        (row['release_date_ordinal'], row['spearman_rho']),
-                       fontsize=7, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+                       fontsize=12, alpha=0.7, xytext=(3, 3), textcoords='offset points')
     
-    ax.set_xlabel('Recency (Days since 2020-01-01)', fontsize=11)
-    ax.set_ylabel('Spearman ρ', fontsize=11)
-    ax.set_title('Spearman rho by Recency (Release Date)', fontsize=12, fontweight='bold')
+    ax.set_xlabel('Recency (Days since 2020-01-01)', fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.tick_params(labelsize=18)
+    # NO TITLE (as per requirements)
     
-    # Add annotations
+    # Add annotations with larger font
     n = len(df_clean)
     p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
     annotation_text = f'ρ = {corr:.3f}, p = {p_str}\nN = {n}'
     ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
-            fontsize=9, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+            fontsize=16, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     
     output_path = output_dir / "Figure_4_Recency.pdf"
     plt.tight_layout()
@@ -310,28 +431,30 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     sns.regplot(data=df_plot, x='difficulty', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
     
-    # Add benchmark labels
+    # Add benchmark labels with larger font
     for idx, row in df_plot.iterrows():
         ax.annotate(row['benchmark_id'], 
                    (row['difficulty'], row['spearman_rho']),
-                   fontsize=7, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+                   fontsize=12, alpha=0.7, xytext=(3, 3), textcoords='offset points')
     
-    ax.set_xlabel('Difficulty (Easy → Hard)', fontsize=11)
-    ax.set_ylabel('Spearman ρ', fontsize=11)
-    ax.set_title('Difficulty vs. Spearman rho (CV encoded as point size and color)', fontsize=12, fontweight='bold')
+    ax.set_xlabel('Difficulty (Easy → Hard)', fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.tick_params(labelsize=18)
+    # NO TITLE (as per requirements)
     
-    # Add colorbar
+    # Add colorbar with larger font
     cbar = plt.colorbar(scatter, ax=ax)
-    cbar.set_label('Coefficient of Variation (CV)', fontsize=10)
+    cbar.set_label('Coefficient of Variation (CV)', fontsize=16)
+    cbar.ax.tick_params(labelsize=16)
     
-    # Add size legend (approximate)
+    # Add size legend (approximate) with larger font
     sizes = [df_plot['cv'].min(), df_plot['cv'].median(), df_plot['cv'].max()]
     legend_elements = [plt.scatter([], [], s=s*200, c='gray', alpha=0.6, edgecolors='black') 
                       for s in sizes]
     labels = [f'CV = {s:.2f}' for s in sizes]
-    ax.legend(legend_elements, labels, title='Point Size (CV)', loc='upper left', fontsize=8)
+    ax.legend(legend_elements, labels, title='Point Size (CV)', loc='upper left', fontsize=14, title_fontsize=16)
     
-    # Add annotations
+    # Add annotations with larger font
     n = len(df_plot)
     p_beta1_str = f"{p_beta1:.4f}" if pd.notna(p_beta1) else "N/A"
     p_beta2_str = f"{p_beta2:.4f}" if pd.notna(p_beta2) else "N/A"
@@ -339,7 +462,7 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     annotation_text += f'β2(CV) = {beta2:.3f}, p = {p_beta2_str}\n'
     annotation_text += f'N = {n}'
     ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
-            fontsize=9, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+            fontsize=16, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
     
     output_path = output_dir / "Figure_5_Difficulty_Variance.pdf"
     plt.tight_layout()
@@ -398,19 +521,28 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     
     fig, ax = plt.subplots(figsize=(10, 8))
     
-    # Heatmap
+    # Heatmap with larger font
     print("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
-    sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0,
+    cbar_ax = sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0,
                 square=True, linewidths=0.5, cbar_kws={"shrink": 0.8}, ax=ax,
-                vmin=-1, vmax=1, annot_kws={'fontsize': 9})
+                vmin=-1, vmax=1, annot_kws={'fontsize': 16})
     
-    ax.set_title('Confounder Correlation Heatmap', fontsize=12, fontweight='bold', pad=20)
+    # Set colorbar label font size
+    if hasattr(cbar_ax, 'collections') and len(cbar_ax.collections) > 0:
+        cbar = ax.figure.colorbar(cbar_ax.collections[0], ax=ax)
+        cbar.set_label('Correlation', fontsize=16)
+        cbar.ax.tick_params(labelsize=16)
     
-    # Add note
+    # NO TITLE (as per requirements)
+    
+    # Add note with larger font
     note_text = 'Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme\nTask Type: 0=MCQ, 1=Generative'
     ax.text(0.5, -0.15, note_text, transform=ax.transAxes,
-            ha='center', fontsize=8, style='italic',
+            ha='center', fontsize=14, style='italic',
             bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
+    
+    # Increase tick label font size
+    ax.tick_params(labelsize=16)
     
     output_path = output_dir / "Figure_6_Confounder_Heatmap.pdf"
     plt.tight_layout()
@@ -439,7 +571,7 @@ def main():
     logger.info("Generating all figures...")
     logger.info("="*60)
     
-    figure_0_placeholder(output_dir)
+    figure_0_swe_bench_illustration(output_dir)
     figure_1_task_type(df, output_dir)
     figure_2_scale(df, output_dir)
     figure_3_complexity(df, output_dir)

@@ -719,20 +719,50 @@ Input:
     - Example format: `print("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")`
     - This logging serves two purposes: (1) It is a good logging practice that allows humans to see what data is being used for plotting by checking the console output, providing transparency and confidence in the visualization process; (2) It helps the agent itself see and understand what data is being used, which can prevent errors and improve code clarity.
   - **CRITICAL: Axis Labels and Legend Names:** All axis labels, legend labels, and category names in figures must use spaces instead of underscores for readability (e.g., "Task Type" instead of "task_type", "Prompt Length" instead of "prompt_length", "Benchmark ID" instead of "benchmark_id"). Do not remove parentheses, single quotes, or other characters from names. This applies to all matplotlib/seaborn plot elements including xlabel, ylabel, legend labels, tick labels, and any text annotations.
-  - **Figure 0 (SWE-bench Illustration):** Placeholder for SWE-bench (Verified) illustration. This figure will be added later. Save as `overleaf/images/Figure_0_SWE_Bench_Illustration.pdf`. **Title Format:** "SWE-bench (Verified) Illustration" (to be completed later).
+  - **Figure 0 (SWE-bench Illustration):**
+    - **Overall Purpose:** This figure visualizes the ranking correlation between SWE-bench (Verified) and LMArena-Coding by comparing model rankings in both leaderboards.
+    - **Data Processing:**
+      1. Load SWE-bench (Verified) data from `Human-SIG/data/processed/cleaned/SWE-bench (Verified)/cleaned_data.csv` (contains `model_name`, `score`, `rank` columns).
+      2. Load LMArena-Coding data from `Human-SIG/data/processed/cleaned/LMArena-Coding/cleaned_data.csv` (contains `model_name`, `score`, `rank` columns).
+      3. Load mapping from `Human-SIG/data/processed/cleaned/SWE-bench (Verified)/mapping.json` to get the intersection of models (models that appear in both leaderboards after entity resolution). The intersection consists of all models that have entries in the mapping.json file.
+      4. For each model in the intersection:
+         - Extract its rank in SWE-bench (Verified) (from the `rank` column in cleaned_data.csv, using the benchmark model name as key).
+         - Extract its rank in LMArena-Coding (map the SWE-bench model name to LMArena model ID using mapping.json, then find the rank in LMArena-Coding cleaned_data.csv using the LMArena model ID).
+      5. If there are n models in the intersection, there will be n pairs of ranks (each model has two ranks: one from SWE-bench, one from LMArena-Coding). These ranks will be in the range [1, n] after re-ranking within the intersection subset.
+      6. **CRITICAL: Re-ranking within Intersection:** After identifying the intersection of models, re-rank the models within this subset for both leaderboards. For SWE-bench (Verified), re-rank the models in the intersection based on their scores (lower rank = better performance). For LMArena-Coding, re-rank the models in the intersection based on their scores (lower rank = better performance). This ensures that both axes show ranks from 1 to n within the intersection subset.
+    - **Figure Components:**
+      1. **Scatter Plot:** Each point represents one model in the intersection, with:
+         - X-coordinate: Rank in SWE-bench (Verified) (re-ranked within the intersection subset, from 1 to n)
+         - Y-coordinate: Rank in LMArena-Coding (re-ranked within the intersection subset, from 1 to n)
+      2. **Model Name Annotations:** For each point, annotate the model name (use the LMArena model ID from mapping.json, or the original model name if preferred). **CRITICAL: Font Size:** Use significantly larger font size (at least 16pt) for model name annotations to ensure readability.
+      3. **X-axis:** Label as "Rank in SWE-bench (Verified) (Weak → Strong)" (origin = weak models with high ranks, far end = strong models with low ranks).
+      4. **Y-axis:** Label as "Rank in LMArena-Coding (Weak → Strong)" (origin = weak models with high ranks, far end = strong models with low ranks).
+      5. **Axis Configuration:**
+         - Both axes start from rank 1 (best performance, lowest rank number).
+         - Tick marks: Label every 5 ranks starting from 1 (i.e., 1, 6, 11, 16, 21, ...).
+         - Grid lines: Use light gray lines for tick marks (grid lines at each tick position, using light gray color).
+         - Chart borders: Do NOT close the top and right borders (only show bottom and left borders). Use `ax.spines['top'].set_visible(False)` and `ax.spines['right'].set_visible(False)`.
+      6. **Reference Line:** Draw a red dashed line for y=x (diagonal reference line) and annotate it (e.g., "y=x" or "Perfect Agreement"). Use `plt.plot()` or `ax.plot()` with `linestyle='--'`, `color='red'`, and add a text annotation.
+      7. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption. However, when logging progress to the terminal, clearly state the figure name/title (e.g., "Generating Figure 0: SWE-bench (Verified) Illustration").
+    - **Data Source:** 
+      - SWE-bench (Verified): `Human-SIG/data/processed/cleaned/SWE-bench (Verified)/cleaned_data.csv` and `mapping.json`
+      - LMArena-Coding: `Human-SIG/data/processed/cleaned/LMArena-Coding/cleaned_data.csv`
+    - **Save Location:** `overleaf/images/Figure_0_SWE_Bench_Illustration.pdf`
+    - **CRITICAL: All Annotations Required:** Every element must be annotated: axis labels with direction indicators, model name labels for each point, reference line annotation, and grid lines.
 
   - **Figure 1 (H1 - Task Type Comparison):**
     - **Overall Purpose:** This figure visualizes H1 (The Generative Hypothesis) by comparing the distribution of Spearman correlation coefficients (between benchmark scores and Perceived Utility) across two task type groups: MCQ (multiple choice) and Generative (which includes both "Generation" and "Agentic" task types merged together).
     - **Figure Components:**
-      1. **Boxplot:** For each task type group (MCQ and Generative), display a boxplot showing the distribution of Spearman rho values. The boxplot should show: median (center line), quartiles (box edges), and whiskers (extending to 1.5×IQR or data range).
-      2. **Stripplot (overlaid):** Overlay individual data points (each point represents one benchmark) on top of the boxplot to show the actual distribution and sample size. Use jitter to avoid overlapping points.
+      1. **Boxplot:** For each task type group (MCQ and Generative), display a boxplot showing the distribution of Spearman rho values. The boxplot should show: median (center line), quartiles (box edges), and whiskers (extending to 1.5×IQR or data range). **CRITICAL: Color Scheme:** Use different light colors for different task type groups (e.g., light blue for MCQ, light green for Generative) to ensure boxes and points are clearly visible. Use `sns.boxplot()` with `palette` parameter to specify colors.
+      2. **Stripplot (overlaid):** Overlay individual data points (each point represents one benchmark) on top of the boxplot to show the actual distribution and sample size. Use jitter to avoid overlapping points. **CRITICAL: Color Scheme:** Use the same light colors as the boxplot for consistency, or use a neutral color (e.g., black or dark gray) with transparency to ensure points are clearly visible.
       3. **X-axis:** Task Type categories ("MCQ" and "Generative"), with clear labels using spaces (not underscores).
       4. **Y-axis:** Spearman rho values, labeled as "Spearman ρ" or "Spearman Correlation Coefficient", with appropriate range and tick marks.
-      5. **Title:** "Spearman rho by Task Type" (or similar descriptive title).
+      5. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption. However, when logging progress to the terminal, clearly state the figure name/title (e.g., "Generating Figure 1: Spearman rho by Task Type").
       6. **Annotations:** Add text annotations or callouts explaining key features:
-         - Sample size (N) for each group
-         - Median values for each group
-         - Any statistical test results (e.g., Mann-Whitney U test p-value) if space permits
+         - Sample size (N) for each group (position annotations OUTSIDE the plot area, e.g., above the plot or in the margins, to avoid overlapping with the plot area)
+         - Median values for each group (position annotations OUTSIDE the plot area, e.g., above the plot or in the margins, to avoid overlapping with the plot area)
+         - Any statistical test results (e.g., Mann-Whitney U test p-value) if space permits (also position outside the plot area)
+      7. **CRITICAL: Annotation Positioning:** The Median and N annotations must be positioned OUTSIDE the plot area (e.g., in the margins or above the plot) to avoid blocking the visualization. Do not place annotations inside the plot area where they might overlap with data points or boxes.
     - **Data Source:** Load from `analysis_ready_data.csv`: `task_type` column (filter out "Mixed"), `spearman_rho` column.
     - **Exclusion Rule:** Benchmarks with `task_type == "Mixed"` must be excluded from the plot.
     - **Save Location:** `overleaf/images/Figure_1_Task_Type.pdf`
@@ -747,7 +777,7 @@ Input:
       2. **Regression Line (optional but recommended):** Overlay a regression line (using `sns.regplot()` or `plt.plot()` with fitted line) to show the trend. Include 95% confidence interval band around the regression line if using `sns.regplot()`.
       3. **X-axis:** Label as "log(Question Count)" or "Scale (log-transformed question count)", with clear tick marks and values.
       4. **Y-axis:** Label as "Spearman ρ" or "Spearman Correlation Coefficient", with appropriate range.
-      5. **Title:** "Spearman rho by Scale (log(question_count))" (or similar).
+      5. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption.
       6. **Annotations:**
          - Pearson correlation coefficient and p-value (if computed)
          - Sample size (N = number of benchmarks)
@@ -760,11 +790,11 @@ Input:
   - **Figure 3 (H3 - Complexity Categories):**
     - **Overall Purpose:** This figure visualizes H3 (The Prompt Complexity Hypothesis) by comparing Spearman correlation distributions across four prompt complexity categories (Short, Medium, Long, Extreme). It tests whether more complex prompts lead to higher correlation with Perceived Utility.
     - **Figure Components:**
-      1. **Boxplot:** For each of the four `prompt_length` categories ("Short", "Medium", "Long", "Extreme"), display a boxplot showing the distribution of Spearman rho values. Show median, quartiles, and whiskers.
-      2. **Stripplot (overlaid):** Overlay individual data points (each benchmark) on top of boxplots with jitter to show actual distribution.
+      1. **Boxplot:** For each of the four `prompt_length` categories ("Short", "Medium", "Long", "Extreme"), display a boxplot showing the distribution of Spearman rho values. Show median, quartiles, and whiskers. **CRITICAL: Color Scheme:** Use different light colors for different prompt length categories (e.g., light blue for Short, light green for Medium, light orange for Long, light red for Extreme) to ensure boxes and points are clearly visible. Use `sns.boxplot()` with `palette` parameter to specify colors.
+      2. **Stripplot (overlaid):** Overlay individual data points (each benchmark) on top of boxplots with jitter to show actual distribution. **CRITICAL: Color Scheme:** Use the same light colors as the boxplot for consistency, or use a neutral color (e.g., black or dark gray) with transparency to ensure points are clearly visible. **CRITICAL:** The stripplot colors must match the boxplot colors for each category to ensure visual consistency and clarity.
       3. **X-axis:** Prompt Length categories ("Short", "Medium", "Long", "Extreme"), ordered logically, with clear labels.
       4. **Y-axis:** Spearman rho values, labeled as "Spearman ρ" or "Spearman Correlation Coefficient".
-      5. **Title:** "Spearman rho by Prompt Length" (or similar).
+      5. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption. However, when logging progress to the terminal, clearly state the figure name/title (e.g., "Generating Figure 3: Spearman rho by Prompt Length").
       6. **Annotations:**
          - Sample size (N) for each category
          - Median values for each category
@@ -783,7 +813,7 @@ Input:
       2. **Regression Line (optional but recommended):** Overlay a regression line with 95% confidence interval band to show the temporal trend.
       3. **X-axis:** Label as "Release Date" or "Recency (Release Date)" with appropriate date formatting (e.g., "YYYY-MM-DD" format or "Days since 2020-01-01"). Use clear tick marks.
       4. **Y-axis:** Label as "Spearman ρ" or "Spearman Correlation Coefficient".
-      5. **Title:** "Spearman rho by Recency (Release Date)" (or similar).
+      5. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption.
       6. **Annotations:**
          - Spearman correlation coefficient between release date and Spearman rho, with p-value
          - Sample size (N)
@@ -806,7 +836,7 @@ Input:
       5. **Y-axis:** Label as "Spearman ρ" or "Spearman Correlation Coefficient".
       6. **Size Legend:** Add a legend showing the mapping between point size and Variance (CV) values, with example sizes and corresponding CV values.
       7. **Color Legend (if using color):** Add a colorbar showing the mapping between color and CV values.
-      8. **Title:** "Difficulty (subset average score) (Easy → Hard) vs. Spearman rho" (or similar).
+      8. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption.
       9. **Annotations:**
          - Regression coefficients (β₁ for Difficulty, β₂ for CV) with p-values
          - Sample size (N)
@@ -828,7 +858,7 @@ Input:
       3. **Value Annotations:** Display the actual correlation coefficient values as text in each cell (formatted to 2-3 decimal places).
       4. **Diagonal:** The diagonal should show 1.0 (perfect correlation with itself) or can be masked/highlighted differently.
       5. **Row/Column Labels:** Use readable labels with spaces (e.g., "Difficulty", "Variance (CV)", "Recency", "Complexity", "Scale", "Task Type"), not underscores.
-      6. **Title:** "Confounder Correlation Heatmap" (or "Correlation Matrix of Independent Variables").
+      6. **NO TITLE:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption.
       7. **Annotations:**
          - Colorbar with correlation value range
          - Note explaining variable encodings (e.g., "Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme")
@@ -839,7 +869,7 @@ Input:
 
   - **General Figure Requirements:**
     - **All Figures Must Include:**
-      1. **Clear Title:** Descriptive title explaining what the figure shows
+      1. **NO TITLE IN PLOT:** Do not include a figure title in the plot itself. The title will be provided in the LaTeX caption. However, when logging progress to the terminal, clearly state the figure name/title (e.g., "Generating Figure 1: Spearman rho by Task Type").
       2. **Axis Labels:** All axes must have clear labels with units/descriptions (use spaces, not underscores)
       3. **Legend:** If using colors, sizes, or other encodings, include a clear legend with labels and scales
       4. **Annotations:** All statistical values (correlations, p-values, sample sizes, regression coefficients) must be annotated on the figure or in the caption
@@ -848,7 +878,7 @@ Input:
       7. **Figure Numbering:** Ensure figure numbers match the file names (Figure 0, Figure 1, etc.)
     - **Figure Quality:**
       - Use high-resolution output (DPI ≥ 300 for PDF)
-      - Ensure text is readable (font size ≥ 10pt)
+      - **CRITICAL: Font Size:** All text elements (axis labels, tick labels, annotations, legend labels, model name labels) must use significantly larger font sizes to ensure readability. Set font sizes to at least 18pt for axis labels, 16pt for tick labels, and 14pt for annotations. Use `plt.rcParams['font.size'] = 18`, `plt.rcParams['axes.labelsize'] = 20`, `plt.rcParams['xtick.labelsize'] = 18`, `plt.rcParams['ytick.labelsize'] = 18`, `plt.rcParams['legend.fontsize'] = 16`, and explicitly set font sizes for annotations (e.g., `fontsize=16` in `ax.annotate()`). **CRITICAL:** All font sizes should be increased significantly beyond the minimum requirements to ensure clear readability in the manuscript. Make fonts noticeably larger than standard sizes.
       - Use consistent color schemes across all figures
       - Ensure proper spacing and margins
       - Save as PDF format for manuscript inclusion
