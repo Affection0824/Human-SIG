@@ -10,7 +10,7 @@ IOI
 LiveCodeBench
 SciCode
 SWE-bench (Verified)
-SWE-Bench Bash Only
+SWE-bench Bash Only
 tau2-Bench Telecom
 Terminal-Bench Hard
 Terminal-Bench v2.0

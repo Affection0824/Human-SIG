@@ -100,7 +100,7 @@ The following is the canonical ordering for all benchmarks and LMArena categorie
 10. LiveCodeBench
 11. SciCode
 12. SWE-bench (Verified)
-13. SWE-Bench Bash Only
+13. SWE-bench Bash Only
 14. tau2-Bench Telecom
 15. Terminal-Bench Hard
 16. Terminal-Bench v2.0
@@ -405,10 +405,9 @@ Proceed to **Phase III: Data Processing**.
     1. Load parsed data (Score + Rank) from the parser output (created in Step 3.3.1). The parser reads cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`, which already contains standardized model names, scores, and ranks.
     2. Map model names using the per-benchmark mapping table from `Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json` (verified in Step 3.2). This per-benchmark mapping contains benchmark-specific mappings with duplicate handling already applied.
     3. Left Join onto `df_master` (Keep only models present in LMArena Study Universe). Models that appear in the benchmark but cannot be mapped to the Study Universe will be excluded.
-
-    4. Add columns: `{benchmark_id}_score` AND `{benchmark_id}_rank`. (Both are needed: Score for Pearson/Spearman correlation, Rank for RBO calculation). Use the sanitized benchmark_id (e.g., "humaneval", "mmlu_pro") as the column name prefix.
-
-    5. Handle missing values: If a model in the Study Universe does not have a score for a particular benchmark, leave the score and rank as `NaN` (do not fill with zeros or default values).
+    4. **CRITICAL: Filter by Overlap Count:** Before adding columns to the master table, calculate the number of overlapping models ($N$) between the benchmark and the Study Universe (i.e., count non-null values after the left join). If $N < 6$ (insufficient for reliable Spearman correlation analysis), **skip this benchmark entirely** - do not add its score and rank columns to the master table. Log a warning message: "Skipping benchmark {benchmark_id}: insufficient overlap (N={N} < 6) for reliable correlation analysis." Continue to the next benchmark.
+    5. Add columns: `{benchmark_id}_score` AND `{benchmark_id}_rank`. (Both are needed: Score for Pearson/Spearman correlation, Rank for RBO calculation). **CRITICAL: benchmark_id Format:** The `benchmark_id` is a string identifier that does NOT use underscores or other separators (e.g., "SWE-bench (Verified)", "HumanEval", "MMLU-Pro"). When using `benchmark_id` as a column name prefix in the master table, you may need to sanitize it (e.g., replace spaces and special characters with underscores) for valid Python/CSV column names, but the original `benchmark_id` value itself should remain unchanged in all data structures and metadata.
+    6. Handle missing values: If a model in the Study Universe does not have a score for a particular benchmark, leave the score and rank as `NaN` (do not fill with zeros or default values).
   - **Data Type Enforcement:** Ensure all Score columns are `float64` and Rank columns are `int` (or nullable int).
 - **3.4.2:** Data Integrity Check
   - **Action:** Script must calculate the "Sparsity Matrix" (also called "Overlap Matrix").
@@ -442,11 +441,11 @@ Proceed to **Phase III: Data Processing**.
       }
     }
     ```
-  - **Warning:** If any benchmark has $N < 10$ (insufficient for reliable correlation analysis), log a CRITICAL WARNING to console and include this information in the overlap stats JSON file.
+  - **Warning:** If any benchmark has $N < 6$ (insufficient for reliable correlation analysis), log a CRITICAL WARNING to console and include this information in the overlap stats JSON file. **Note:** Benchmarks with $N < 6$ are automatically excluded from the master table during the merge loop (see Step 3.4.1), so they will not appear in the final master table columns.
 - **3.4.3:** Persistence
   - **Output:** Save the master table to `Human-SIG/data/processed/master_table/master_correlation_matrix.csv`. This CSV should contain:
     - One row per model (from the Study Universe)
-    - Columns: `model_name`, `elo_overall`, `elo_math`, `elo_coding`, `elo_instruction_following`, `elo_creative_writing`, `elo_hard_prompts`, `elo_expert`, and for each benchmark: `{benchmark_id}_score` and `{benchmark_id}_rank` (benchmarks ordered by standardized category order, then alphabetically within category)
+    - Columns: `model_name`, `elo_overall`, `elo_math`, `elo_coding`, `elo_instruction_following`, `elo_creative_writing`, `elo_hard_prompts`, `elo_expert`, and for each benchmark with $N \geq 6$: `{benchmark_id}_score` and `{benchmark_id}_rank` (benchmarks ordered by standardized category order, then alphabetically within category). **CRITICAL:** Only benchmarks with overlap count $N \geq 6$ are included in the master table (benchmarks with $N < 6$ are filtered out during the merge loop in Step 3.4.1).
     - Missing values should be represented as `NaN` or empty cells (not zeros)
   - **Note:** The overlap statistics JSON file was already saved in Step 3.4.2.
 - **3.4.4:** Commit State
@@ -528,7 +527,7 @@ Input:
     - When $N < 30$ (where $N$ is the number of overlapping models between the benchmark and LMArena), use `scipy.stats.permutation_test` with `permutation_type='pairings'` to compute the p-value. This permutes one ranking under the null hypothesis of independence and recalculates the correlation.
     - When $N \geq 30$, use the p-value returned by `scipy.stats.spearmanr` or `scipy.stats.kendalltau` as a sufficiently accurate approximation.
   - **Confidence Interval Calculation (CRITICAL):** For each Spearman and Kendall correlation coefficient, you MUST compute 95% bootstrap confidence intervals using the `bootstrap_ci` function defined in Step 4.1.1. Use 5000 bootstrap iterations (with replacement) to derive the confidence intervals. This provides uncertainty quantification for correlation estimates, which is critical for interpreting the strength and reliability of relationships between benchmarks and Perceived Utility. The bootstrap procedure resamples the paired data (benchmark scores and LMArena ELO scores) 5000 times, recalculates the correlation for each bootstrap sample, and uses the 2.5th and 97.5th percentiles of the bootstrap distribution as the lower and upper bounds of the 95% confidence interval.
-  - **Store Results:** Save the correlation coefficients (Spearman $\rho$ and Kendall $\tau$), their p-values, AND their 95% confidence intervals for each benchmark in the analysis_ready_data.csv file, along with the difficulty, variance, and other features computed in Tasks A, B, and C. **CRITICAL:** For each correlation metric, you must store:
+  - **Store Results:** Save the correlation coefficients (Spearman $\rho$ and Kendall $\tau$), their p-values, AND their 95% confidence intervals for each benchmark in the analysis_ready_data.csv file, along with the difficulty, variance, and other features computed in Tasks A, B, and C. **CRITICAL:** For each benchmark, you must also store the sample size ($N$) - the number of overlapping models between the benchmark and the corresponding LMArena category used for correlation calculation. This $N$ value represents the number of data points used to compute the Spearman and Kendall correlation coefficients. **CRITICAL:** For each correlation metric, you must store:
     - `spearman_rho`: Spearman correlation coefficient
     - `spearman_pvalue`: P-value for Spearman correlation
     - `spearman_ci_lower`: Lower bound of 95% bootstrap confidence interval for Spearman correlation
@@ -540,16 +539,17 @@ Input:
   - **Halt Protocol:** Identify a known high-quality benchmark (e.g., MMLU-Pro or HumanEval) that should have high Spearman correlation with LMArena scores.
     - Calculate Spearman correlation (with p-value) between the benchmark scores (which represent "higher is better" performance; all benchmarks except Creative Writing v3 are normalized to 0-100 scale) and the corresponding LMArena ELO scores (determined by the benchmark's `category` field in metadata.json, representing Perceived Utility).
     - If Spearman Correlation $< 0.5$: HALT EXECUTION IMMEDIATELY.
-    - **Print:** "CRITICAL: Detected low Spearman correlation (< 0.5) for high-quality benchmark {benchmark_name}. This suggests a data quality issue. Please check: (1) that the correct LMArena ELO column is being used based on the benchmark's category, and (2) that data is loaded correctly from cleaned_data.csv files."
+    - **Print:** "CRITICAL: Detected low Spearman correlation (< 0.5) for high-quality benchmark {benchmark_id}. This suggests a data quality issue. Please check: (1) that the correct LMArena ELO column is being used based on the benchmark's category, and (2) that data is loaded correctly from cleaned_data.csv files."
     - **Wait for User:** Do not proceed until resolved. The user must verify and fix the data issue before continuing.
 - **4.2.3:** Persistence.
   - **Output:** Save the fully engineered table to `Human-SIG/results/analysis_ready_data.csv`.
   - **CSV Column Structure:** The output CSV file must contain the following columns for each benchmark:
-    - `benchmark_name` or `benchmark_id`: Benchmark identifier
+    - `benchmark_id`: Benchmark identifier (string format, no underscores or other separators, e.g., "SWE-bench (Verified)")
     - `subset_avg_score`: Mean score across Common Subset models (as computed in Task B). Used to calculate Difficulty.
     - `difficulty`: Difficulty feature calculated as $Difficulty = 100 - subset\_avg\_score$ (as computed in Task B). Higher values indicate harder benchmarks.
     - `is_estimated_difficulty`: Boolean flag (True if fallback method was used due to insufficient Common Subset overlap, False otherwise)
     - `cv` or `coefficient_of_variation`: Variance feature (Coefficient of Variation, as computed in Task C). Formula: CV = $\sigma$/$\mu$, where $\sigma$ is standard deviation and $\mu$ is mean score.
+    - `n` or `sample_size`: The number of overlapping models ($N$) between the benchmark and the corresponding LMArena category used for correlation calculation. This represents the number of data points used to compute the Spearman and Kendall correlation coefficients.
     - `spearman_rho`: Spearman rank correlation coefficient between benchmark scores and corresponding LMArena ELO scores
     - `spearman_pvalue`: P-value for the Spearman correlation (computed using the logic in Step 4.2.2: permutation test when N < 30, scipy.stats.spearmanr p-value when N >= 30)
     - `spearman_ci_lower`: Lower bound of 95% bootstrap confidence interval for Spearman correlation (computed using 5000 bootstrap iterations)
@@ -580,10 +580,7 @@ Input:
     - **Exclusion Rule:** Benchmarks with `task_type == "Mixed"` must be **excluded** from this analysis. Do not include them in either group. Log the number of excluded Mixed benchmarks for transparency, but do not ask for user guidance.
   - **Guardrail:** Sample Imbalance Check
   - **Action:** Count samples in Group A ($N_A$) and Group B ($N_B$) after excluding "Mixed" benchmarks.
-  - **Logic:**
-    - IF $N_A < 5$ OR $N_B < 5$:
-      - **Log Warning:** "Skipping Mann-Whitney U due to extreme class imbalance (N_A={$N_A$}, N_B={$N_B$}). Reporting descriptive statistics only."
-      - **Fallback:** Compute and return descriptive statistics: Median Difference, Mean Difference, and their 95% bootstrap confidence intervals. Set `p_value = 1.0` (to avoid false significance) and `is_descriptive_only = True` in the results.
+
     - ELSE:
       - Proceed with Mann-Whitney U Test (also known as Wilcoxon rank-sum test).
       - **Test Details:** Use `scipy.stats.mannwhitneyu` with `alternative='two-sided'` to test whether the distribution of correlation metrics differs between Group A (Generative) and Group B (MCQ). **CRITICAL: Multi-Metric Analysis:** Perform the test three times, once for each correlation metric (Spearman $\rho$, Kendall $\tau$, RBO). Report results for all three metrics.
@@ -649,7 +646,7 @@ Input:
 
   - **Output:** Generate `Human-SIG/results/statistical_significance_report.json` (this file will be referenced in Phase V for results reporting).
 
-  - **Structure:** The JSON file must contain entries for all six hypotheses (H1-H6). **CRITICAL:** Since all hypothesis tests are performed using three correlation metrics (Spearman $\rho$, Kendall $\tau$, RBO), include separate entries for each metric. For example, H1_Spearman, H1_Kendall, H1_RBO. For H6 and H5 (regression models), include separate entries for each coefficient and each metric (e.g., H6_Difficulty_Beta1_Spearman, H6_Difficulty_Beta1_Kendall, H6_Difficulty_Beta1_RBO, H5_Variance_Beta2_Spearman, H5_Variance_Beta2_Kendall, H5_Variance_Beta2_RBO). The schema is:
+  - **Structure:** The JSON file must contain entries for all six hypotheses (H1-H6). **CRITICAL:** Since all hypothesis tests are performed using three correlation metrics (Spearman $\rho$, Kendall $\tau$, RBO), include separate entries for each metric. For example, H1 Spearman, H1 Kendall, H1 RBO. For H6 and H5 (regression models), include separate entries for each coefficient and each metric (e.g., H6 Difficulty Beta1 Spearman, H6 Difficulty Beta1 Kendall, H6 Difficulty Beta1 RBO, H5 Variance Beta2 Spearman, H5 Variance Beta2 Kendall, H5 Variance Beta2 RBO). The schema is:
     ```json
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -721,14 +718,140 @@ Input:
     - What type of plot is being generated (e.g., "scatter plot", "regression plot", "boxplot", "histogram", "heatmap")
     - Example format: `print("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")`
     - This logging serves two purposes: (1) It is a good logging practice that allows humans to see what data is being used for plotting by checking the console output, providing transparency and confidence in the visualization process; (2) It helps the agent itself see and understand what data is being used, which can prevent errors and improve code clarity.
-  - **CRITICAL: Axis Labels and Legend Names:** All axis labels, legend labels, and category names in figures must use spaces instead of underscores for readability (e.g., "Task Type" instead of "task_type", "Prompt Length" instead of "prompt_length", "Benchmark Name" instead of "benchmark_name"). Do not remove parentheses, single quotes, or other characters from names. This applies to all matplotlib/seaborn plot elements including xlabel, ylabel, legend labels, tick labels, and any text annotations.
-  - **Figure 0 (SWE-Bench Illustration):** Placeholder for SWE-Bench (Verified) illustration. This figure will be added later. Save as `overleaf/images/Figure_0_SWE_Bench_Illustration.pdf`. **Title Format:** "SWE-Bench (Verified) Illustration" (to be completed later).
-  - **Figure 1 (H1):** `boxplot` with overlaid `stripplot` showing Spearman rho distributions for "MCQ" vs "Generative" (Group A). Exclude "Mixed" benchmarks from the plot. Note: "Generative" includes both "Generation" and "Agentic" task types merged together. Save as `overleaf/images/Figure_1_Task_Type.pdf`. **Title Format:** "Spearman rho by Task Type"
-  - **Figure 2 (H2):** `scatterplot` or `regplot` showing the relationship between log(question_count) and Spearman rho. This visualizes the H2 (Scale) hypothesis test results. Save as `overleaf/images/Figure_2_Scale.pdf`. **Title Format:** "Spearman rho by Scale (log(question_count))"
-  - **Figure 3 (H3):** `boxplot` with overlaid `stripplot` showing Spearman rho distributions across the four `prompt_length` categories ("Short", "Medium", "Long", "Extreme"). This visualizes the Kruskal-Wallis test results. Save as `overleaf/images/Figure_3_Complexity_Categories.pdf`. **Title Format:** "Spearman rho by Prompt Length"
-  - **Figure 4 (H4):** `scatterplot` or `regplot` showing the relationship between release date (Release_Date_Ordinal) and Spearman rho. This visualizes the H4 (Recency) hypothesis test results. Save as `overleaf/images/Figure_4_Recency.pdf`. **Title Format:** "Spearman rho by Recency (Release Date)"
-  - **Figure 5 (H5/H6):** `regplot` overlaying Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho, with point size representing Variance (CV). This visualizes the joint effect of Difficulty and Variance on correlation with Perceived Utility. Save as `overleaf/images/Figure_5_Difficulty_Variance.pdf`. **Title Format:** "Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho"
-  - **Figure 6 (Confounders):** `heatmap` of the correlation matrix between the Independent Variables themselves (e.g., Are all Hard benchmarks also Recent? Do harder benchmarks have lower variance?). Include the following variables: Difficulty (subset_avg_score), Variance (CV), Recency (Release_Date_Ordinal), Complexity (prompt_length as categorical), Scale (log(question_count)), and Task_Type (encoded as binary or ordinal). This helps explain the Regression results and identify multicollinearity. Save as `overleaf/images/Figure_6_Confounder_Heatmap.pdf`. **Title Format:** "Confounder Correlation Heatmap"
+  - **CRITICAL: Axis Labels and Legend Names:** All axis labels, legend labels, and category names in figures must use spaces instead of underscores for readability (e.g., "Task Type" instead of "task_type", "Prompt Length" instead of "prompt_length", "Benchmark ID" instead of "benchmark_id"). Do not remove parentheses, single quotes, or other characters from names. This applies to all matplotlib/seaborn plot elements including xlabel, ylabel, legend labels, tick labels, and any text annotations.
+  - **Figure 0 (SWE-bench Illustration):** Placeholder for SWE-bench (Verified) illustration. This figure will be added later. Save as `overleaf/images/Figure_0_SWE_Bench_Illustration.pdf`. **Title Format:** "SWE-bench (Verified) Illustration" (to be completed later).
+
+  - **Figure 1 (H1 - Task Type Comparison):**
+    - **Overall Purpose:** This figure visualizes H1 (The Generative Hypothesis) by comparing the distribution of Spearman correlation coefficients (between benchmark scores and Perceived Utility) across two task type groups: MCQ (multiple choice) and Generative (which includes both "Generation" and "Agentic" task types merged together).
+    - **Figure Components:**
+      1. **Boxplot:** For each task type group (MCQ and Generative), display a boxplot showing the distribution of Spearman rho values. The boxplot should show: median (center line), quartiles (box edges), and whiskers (extending to 1.5×IQR or data range).
+      2. **Stripplot (overlaid):** Overlay individual data points (each point represents one benchmark) on top of the boxplot to show the actual distribution and sample size. Use jitter to avoid overlapping points.
+      3. **X-axis:** Task Type categories ("MCQ" and "Generative"), with clear labels using spaces (not underscores).
+      4. **Y-axis:** Spearman rho values, labeled as "Spearman ρ" or "Spearman Correlation Coefficient", with appropriate range and tick marks.
+      5. **Title:** "Spearman rho by Task Type" (or similar descriptive title).
+      6. **Annotations:** Add text annotations or callouts explaining key features:
+         - Sample size (N) for each group
+         - Median values for each group
+         - Any statistical test results (e.g., Mann-Whitney U test p-value) if space permits
+    - **Data Source:** Load from `analysis_ready_data.csv`: `task_type` column (filter out "Mixed"), `spearman_rho` column.
+    - **Exclusion Rule:** Benchmarks with `task_type == "Mixed"` must be excluded from the plot.
+    - **Save Location:** `overleaf/images/Figure_1_Task_Type.pdf`
+    - **CRITICAL: All Annotations Required:** Every element in the figure must be clearly labeled and annotated. This includes: axis labels with units/descriptions, legend (if applicable), group labels, sample sizes, and any statistical annotations.
+
+  - **Figure 2 (H2 - Scale Effect):**
+    - **Overall Purpose:** This figure visualizes H2 (The Scale Hypothesis) by showing the relationship between benchmark scale (log-transformed question count) and Spearman correlation with Perceived Utility. It tests whether larger benchmarks (more test items) show higher correlation with Perceived Utility.
+    - **Figure Components:**
+      1. **Scatter Plot:** Each point represents one benchmark, with:
+         - X-coordinate: log(question_count) - the natural logarithm of the number of test items
+         - Y-coordinate: Spearman rho - the correlation coefficient between benchmark scores and Perceived Utility
+      2. **Regression Line (optional but recommended):** Overlay a regression line (using `sns.regplot()` or `plt.plot()` with fitted line) to show the trend. Include 95% confidence interval band around the regression line if using `sns.regplot()`.
+      3. **X-axis:** Label as "log(Question Count)" or "Scale (log-transformed question count)", with clear tick marks and values.
+      4. **Y-axis:** Label as "Spearman ρ" or "Spearman Correlation Coefficient", with appropriate range.
+      5. **Title:** "Spearman rho by Scale (log(question_count))" (or similar).
+      6. **Annotations:**
+         - Pearson correlation coefficient and p-value (if computed)
+         - Sample size (N = number of benchmarks)
+         - Regression equation or slope coefficient if regression line is shown
+         - Individual benchmark labels (benchmark_id) as text annotations or tooltips (if not too crowded)
+    - **Data Source:** Load from `analysis_ready_data.csv`: `question_count` column (apply log transformation), `spearman_rho` column.
+    - **Save Location:** `overleaf/images/Figure_2_Scale.pdf`
+    - **CRITICAL: All Annotations Required:** Every element must be annotated: axis labels with descriptions, regression line (if shown) with equation/statistics, correlation coefficient, sample size, and any benchmark labels.
+
+  - **Figure 3 (H3 - Complexity Categories):**
+    - **Overall Purpose:** This figure visualizes H3 (The Prompt Complexity Hypothesis) by comparing Spearman correlation distributions across four prompt complexity categories (Short, Medium, Long, Extreme). It tests whether more complex prompts lead to higher correlation with Perceived Utility.
+    - **Figure Components:**
+      1. **Boxplot:** For each of the four `prompt_length` categories ("Short", "Medium", "Long", "Extreme"), display a boxplot showing the distribution of Spearman rho values. Show median, quartiles, and whiskers.
+      2. **Stripplot (overlaid):** Overlay individual data points (each benchmark) on top of boxplots with jitter to show actual distribution.
+      3. **X-axis:** Prompt Length categories ("Short", "Medium", "Long", "Extreme"), ordered logically, with clear labels.
+      4. **Y-axis:** Spearman rho values, labeled as "Spearman ρ" or "Spearman Correlation Coefficient".
+      5. **Title:** "Spearman rho by Prompt Length" (or similar).
+      6. **Annotations:**
+         - Sample size (N) for each category
+         - Median values for each category
+         - Kruskal-Wallis test statistic and p-value (if space permits)
+         - Post-hoc pairwise comparison results (if significant differences found) using brackets or text annotations
+    - **Data Source:** Load from `analysis_ready_data.csv`: `prompt_length` column, `spearman_rho` column.
+    - **Save Location:** `overleaf/images/Figure_3_Complexity_Categories.pdf`
+    - **CRITICAL: All Annotations Required:** All elements must be annotated: axis labels, category labels, sample sizes, medians, statistical test results, and any significant pairwise differences.
+
+  - **Figure 4 (H4 - Recency Effect):**
+    - **Overall Purpose:** This figure visualizes H4 (The Recency Hypothesis) by showing the relationship between benchmark release date and Spearman correlation with Perceived Utility. It tests whether more recently released benchmarks show higher correlation with Perceived Utility.
+    - **Figure Components:**
+      1. **Scatter Plot:** Each point represents one benchmark, with:
+         - X-coordinate: Release Date Ordinal (Old -> New) (days since reference date, e.g., days since 2020-01-01, or date as numeric value)
+         - Y-coordinate: Spearman rho
+      2. **Regression Line (optional but recommended):** Overlay a regression line with 95% confidence interval band to show the temporal trend.
+      3. **X-axis:** Label as "Release Date" or "Recency (Release Date)" with appropriate date formatting (e.g., "YYYY-MM-DD" format or "Days since 2020-01-01"). Use clear tick marks.
+      4. **Y-axis:** Label as "Spearman ρ" or "Spearman Correlation Coefficient".
+      5. **Title:** "Spearman rho by Recency (Release Date)" (or similar).
+      6. **Annotations:**
+         - Spearman correlation coefficient between release date and Spearman rho, with p-value
+         - Sample size (N)
+         - Regression equation or slope (if regression line shown)
+         - Individual benchmark labels (benchmark_id) as text annotations (if not too crowded)
+    - **Data Source:** Load from `analysis_ready_data.csv`: `release_date` column (convert to ordinal), `spearman_rho` column.
+    - **Save Location:** `overleaf/images/Figure_4_Recency.pdf`
+    - **CRITICAL: All Annotations Required:** All elements must be annotated: axis labels with date format explanation, regression line statistics, correlation coefficient, sample size, and benchmark labels.
+
+  - **Figure 5 (H5/H6 - Difficulty-Variance Joint Effect):**
+    - **Overall Purpose:** This figure visualizes the joint effect of Difficulty and Variance (CV) on Spearman correlation with Perceived Utility, testing both H5 (Variance Hypothesis) and H6 (Difficulty Hypothesis). It shows how these two factors interact to influence correlation strength.
+    - **Figure Components:**
+      1. **Scatter Plot with Size Encoding:** Each point represents one benchmark, with:
+         - X-coordinate: Difficulty (100 - subset_avg_score), where higher values indicate harder benchmarks. Label axis as "Difficulty" with direction indicator "(Easy → Hard)" or "(Lower → Higher)".
+         - Y-coordinate: Spearman rho
+         - Point Size: Variance (CV - Coefficient of Variation). Larger points indicate higher variance. Use a size scale that makes differences clearly visible.
+      2. **Regression Line:** Overlay a regression line (using `sns.regplot()` or similar) showing the relationship between Difficulty and Spearman rho, with 95% confidence interval band.
+      3. **Color Encoding (optional but recommended):** Use color to encode Variance (CV) as an additional visual dimension, with a colorbar legend showing the CV scale.
+      4. **X-axis:** Label as "Difficulty (subset average score)" with direction indicator "(Easy → Hard)" or "(Lower → Higher)", with clear tick marks.
+      5. **Y-axis:** Label as "Spearman ρ" or "Spearman Correlation Coefficient".
+      6. **Size Legend:** Add a legend showing the mapping between point size and Variance (CV) values, with example sizes and corresponding CV values.
+      7. **Color Legend (if using color):** Add a colorbar showing the mapping between color and CV values.
+      8. **Title:** "Difficulty (subset average score) (Easy → Hard) vs. Spearman rho" (or similar).
+      9. **Annotations:**
+         - Regression coefficients (β₁ for Difficulty, β₂ for CV) with p-values
+         - Sample size (N)
+         - R² or adjusted R² for the regression model
+         - Individual benchmark labels (benchmark_id) as text annotations (if not too crowded)
+    - **Data Source:** Load from `analysis_ready_data.csv`: `difficulty` column, `cv` (or `coefficient_of_variation`) column, `spearman_rho` column. Exclude Creative Writing v3 (if not already excluded).
+    - **Exclusion Rule:** Exclude Creative Writing v3 from this analysis (only include benchmarks for which Difficulty was calculated).
+    - **Save Location:** `overleaf/images/Figure_5_Difficulty_Variance.pdf`
+    - **CRITICAL: All Annotations Required:** All elements must be thoroughly annotated: axis labels with direction indicators, point size legend with CV values, color legend (if used), regression statistics, sample size, and benchmark labels.
+
+  - **Figure 6 (Confounder Correlation Heatmap):**
+    - **Overall Purpose:** This figure shows the correlation matrix between all independent variables (features) used in the hypothesis tests. It helps identify multicollinearity (high correlations between predictors) and explains potential confounding relationships (e.g., are harder benchmarks also more recent?).
+    - **Figure Components:**
+      1. **Heatmap:** A square correlation matrix heatmap where:
+         - Rows and columns represent the independent variables: Difficulty (subset avg score), Variance (CV), Recency (Release Date Ordinal), Complexity (prompt length encoded as ordinal: 1=Short, 2=Medium, 3=Long, 4=Extreme), Scale (log(question count)), and Task Type (encoded as binary: 0=MCQ, 1=Generative, or ordinal)
+         - Each cell shows the correlation coefficient between the row variable and column variable
+         - Color intensity represents correlation strength (e.g., red for positive, blue for negative, white for zero)
+      2. **Color Scale (Colorbar):** Add a colorbar legend showing the mapping between colors and correlation values (typically -1 to +1 range).
+      3. **Value Annotations:** Display the actual correlation coefficient values as text in each cell (formatted to 2-3 decimal places).
+      4. **Diagonal:** The diagonal should show 1.0 (perfect correlation with itself) or can be masked/highlighted differently.
+      5. **Row/Column Labels:** Use readable labels with spaces (e.g., "Difficulty", "Variance (CV)", "Recency", "Complexity", "Scale", "Task Type"), not underscores.
+      6. **Title:** "Confounder Correlation Heatmap" (or "Correlation Matrix of Independent Variables").
+      7. **Annotations:**
+         - Colorbar with correlation value range
+         - Note explaining variable encodings (e.g., "Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme")
+         - Sample size (N) if applicable
+    - **Data Source:** Load from `analysis_ready_data.csv`: `difficulty` (or `subset_avg_score`), `cv` (or `coefficient_of_variation`), `release_date` (convert to ordinal), `prompt_length` (encode as ordinal), `question_count` (apply log transformation), `task_type` (encode as binary/ordinal). Compute pairwise correlations (Pearson or Spearman as appropriate).
+    - **Save Location:** `overleaf/images/Figure_6_Confounder_Heatmap.pdf`
+    - **CRITICAL: All Annotations Required:** Every element must be annotated: variable labels, correlation values in cells, colorbar with scale, encoding explanations, and sample size.
+
+  - **General Figure Requirements:**
+    - **All Figures Must Include:**
+      1. **Clear Title:** Descriptive title explaining what the figure shows
+      2. **Axis Labels:** All axes must have clear labels with units/descriptions (use spaces, not underscores)
+      3. **Legend:** If using colors, sizes, or other encodings, include a clear legend with labels and scales
+      4. **Annotations:** All statistical values (correlations, p-values, sample sizes, regression coefficients) must be annotated on the figure or in the caption
+      5. **Sample Size:** Display sample size (N) for the entire figure or for each group/category
+      6. **Data Source Note:** Optionally include a note about data source (e.g., "Data from analysis_ready_data.csv")
+      7. **Figure Numbering:** Ensure figure numbers match the file names (Figure 0, Figure 1, etc.)
+    - **Figure Quality:**
+      - Use high-resolution output (DPI ≥ 300 for PDF)
+      - Ensure text is readable (font size ≥ 10pt)
+      - Use consistent color schemes across all figures
+      - Ensure proper spacing and margins
+      - Save as PDF format for manuscript inclusion
 
 - **4.4.2b:** Table Generation for Manuscript (`Human-SIG/src/analysis/generate_tables.py`).
 
@@ -765,14 +888,14 @@ Input:
     - **Results Summary Table (Spearman only, for main text):** Create a DataFrame summarizing hypothesis test results (p-values, effect sizes, significance) from `statistical_significance_report.json` for Spearman $\rho$ metric only. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/results_table_spearman.tex`. Include columns: Hypothesis, Effect Size, Effect Size Type, p_raw, p_corrected, significant_strict, ci_lower, ci_upper (if applicable). **CRITICAL: P-value Formatting:** All p-values must be formatted using scientific notation (e.g., 1.23e-3 instead of 0.00123) to avoid displaying 0.000. Use `float_format` parameter in `to_latex()` with a formatter function that converts p-values to scientific notation when p < 0.001. **This is an experimental results table and belongs in `overleaf/tables/` for inclusion in the main text.**
     - **Results Summary Table (Kendall only, for appendix):** Create a DataFrame summarizing hypothesis test results for Kendall $\tau$ metric only. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/appendix_results_table_kendall.tex`. Include the same columns as the Spearman table. **CRITICAL: P-value Formatting:** All p-values must be formatted using scientific notation. **This table belongs in the appendix.**
     - **Results Summary Table (RBO only, for appendix):** Create a DataFrame summarizing hypothesis test results for RBO metric only. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/appendix_results_table_rbo.tex`. Include the same columns as the Spearman table (note: RBO does not have p-values, so p_raw and p_corrected columns may be empty or N/A). **This table belongs in the appendix.**
-    - **Correlation Summary Table (Optional):** If needed for the manuscript, create a table summarizing correlation coefficients (Spearman $\rho$, Kendall $\tau$, and RBO) with their p-values and 95% confidence intervals for each benchmark from `analysis_ready_data.csv`. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/correlation_summary_table.tex`. **CRITICAL:** This table MUST include all three correlation metrics (Spearman $\rho$, Kendall $\tau$, RBO), their p-values (formatted in scientific notation when p < 0.001), and 95% confidence intervals for Spearman and Kendall (RBO does not have p-values or confidence intervals, report only the RBO value). Format: "Spearman $\rho = 0.69$ [95% CI: 0.52, 0.82], $p = 1.23 \times 10^{-3}$; Kendall $\tau = 0.52$ [95% CI: 0.35, 0.68], $p = 3.45 \times 10^{-3}$; RBO = 0.85" or use separate columns for each metric. Do NOT use asterisks to indicate significance. **CRITICAL: Row/Column Naming:** All row and column names in the DataFrame must use spaces instead of underscores for readability (e.g., "Benchmark Name" instead of "benchmark_name", "Task Type" instead of "task_type"). Do not remove parentheses, single quotes, or other characters from names. **This is an experimental results table and belongs in `overleaf/tables/`.**
+    - **Correlation Summary Table (Optional):** If needed for the manuscript, create a table summarizing correlation coefficients (Spearman $\rho$, Kendall $\tau$, and RBO) with their p-values and 95% confidence intervals for each benchmark from `analysis_ready_data.csv`. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/correlation_summary_table.tex`. **CRITICAL:** This table MUST include all three correlation metrics (Spearman $\rho$, Kendall $\tau$, RBO), their p-values (formatted in scientific notation when p < 0.001), 95% confidence intervals for Spearman and Kendall (RBO does not have p-values or confidence intervals, report only the RBO value), AND the sample size ($N$) - the number of overlapping models used to compute each correlation. Format: "Spearman $\rho = 0.69$ [95% CI: 0.52, 0.82], $p = 1.23 \times 10^{-3}$, $N = 45$; Kendall $\tau = 0.52$ [95% CI: 0.35, 0.68], $p = 3.45 \times 10^{-3}$, $N = 45$; RBO = 0.85, $N = 45$" or use separate columns for each metric including a "Sample Size (N)" column. Do NOT use asterisks to indicate significance. **CRITICAL: Row/Column Naming:** All row and column names in the DataFrame must use spaces instead of underscores for readability (e.g., "Benchmark ID" instead of "benchmark_id", "Task Type" instead of "task_type", "Sample Size (N)" instead of "sample_size" or "n"). Do not remove parentheses, single quotes, or other characters from names. Note: The `benchmark_id` values themselves (e.g., "SWE-bench (Verified)") should be displayed as-is in tables, without modification. **This is an experimental results table and belongs in `overleaf/tables/`.**
   - **Non-Experimental Tables:** Tables that are NOT experimental results (e.g., benchmark introduction tables, benchmark characteristics tables for descriptive purposes) should be embedded directly in `acl_latex.tex` using LaTeX table syntax. Do NOT generate these as separate `.tex` files in `overleaf/tables/`.
   
   - **Table Formatting Guidelines:**
     - Ensure tables are properly formatted for ACL 2026 style (refer to ACL template requirements).
     - For tables with confidence intervals, format them as strings in the DataFrame (e.g., "[0.12, 0.78]") before calling `to_latex()`, or use separate columns for `ci_lower` and `ci_upper` and format them appropriately in the LaTeX output.
     - **CRITICAL: P-value Formatting:** All p-values must be formatted using scientific notation when p < 0.001 (e.g., use "$1.23 \times 10^{-3}$" or "1.23e-3" format) to avoid displaying 0.000. Implement a formatter function that checks if p < 0.001 and converts to scientific notation accordingly.
-    - **CRITICAL: Row/Column Naming:** All row and column names in DataFrames must use spaces instead of underscores for readability (e.g., "Benchmark Name" instead of "benchmark_name", "Task Type" instead of "task_type"). Do not remove parentheses, single quotes, or other characters from names. This applies to all tables and figures (axis labels, legend labels, etc.).
+    - **CRITICAL: Row/Column Naming:** All row and column names in DataFrames must use spaces instead of underscores for readability (e.g., "Benchmark ID" instead of "benchmark_id", "Task Type" instead of "task_type"). Do not remove parentheses, single quotes, or other characters from names. Note: The `benchmark_id` values themselves (e.g., "SWE-bench (Verified)") should be displayed as-is in tables and figures, without modification. This applies to all tables and figures (axis labels, legend labels, etc.).
   
   - **Output Location:** All table `.tex` files must be saved to `overleaf/tables/` directory. Ensure the directory exists before writing files (use `Path('overleaf/tables').mkdir(parents=True, exist_ok=True)`).
 
@@ -847,7 +970,7 @@ Objective: Synthesize the findings from Human-SIG/results/ into a scientifically
   - **Source:** Read `Human-SIG/results/data_overlap_stats.json` (from Phase III) and your internal logic from Phase IV.
   - **Action:** Locate the Methodology section (identified in Step 5.1.2) in `overleaf/acl_latex.tex`. Read the existing methodology content and the instructions within the file. Update the content as needed based on the instructions in the file.
   - **Content:**
-    1. **Data Collection:** Describe the ingestion of 29 benchmarks (AIME, FrontierMath Tier 1-3, FrontierMath Tier 4, HMMT (Feb 2025), MATH-500, MGSM, Aider Polyglot, HumanEval, IOI, LiveCodeBench, SciCode, SWE-bench (Verified), SWE-Bench Bash Only, tau2-Bench Telecom, Terminal-Bench Hard, Terminal-Bench v2.0, IFBench, IFEval, Creative Writing v3, WritingBench, AA-LCR, ARC-AGI-2, Arena-Hard (Auto v2.0), FACTS, MMLU-Pro, GPQA, GPQA Diamond, Humanity's Last Exam, SuperGPQA) and the "Strict Entity Resolution" protocol used to map models. Mention the final $N$ (sample size) from the overlap stats. **CRITICAL:** The benchmark list above follows the standardized ordering (by category: Math, Coding, Instruction Following, Creative Writing, Hard Prompts, Expert; then alphabetically within each category).
+    1. **Data Collection:** Describe the ingestion of 29 benchmarks (AIME, FrontierMath Tier 1-3, FrontierMath Tier 4, HMMT (Feb 2025), MATH-500, MGSM, Aider Polyglot, HumanEval, IOI, LiveCodeBench, SciCode, SWE-bench (Verified), SWE-bench Bash Only, tau2-Bench Telecom, Terminal-Bench Hard, Terminal-Bench v2.0, IFBench, IFEval, Creative Writing v3, WritingBench, AA-LCR, ARC-AGI-2, Arena-Hard (Auto v2.0), FACTS, MMLU-Pro, GPQA, GPQA Diamond, Humanity's Last Exam, SuperGPQA) and the "Strict Entity Resolution" protocol used to map models. Mention the final $N$ (sample size) from the overlap stats. **CRITICAL:** The benchmark list above follows the standardized ordering (by category: Math, Coding, Instruction Following, Creative Writing, Hard Prompts, Expert; then alphabetically within each category).
     2. **Statistical Framework:** Explicitly state the use of Rank-Biased Overlap (RBO) ($p=0.9$) to account for top-tier sensitivity, Spearman's rank correlation ($\rho$) and Kendall's $\tau$ for non-parametric correlation analysis, and Fisher z-transformation for correlation aggregation when needed. Explain why multiple correlation metrics are used (RBO for ranking, Spearman/Kendall for robustness to outliers). **P-value Calculation for Correlations:** For each Spearman and Kendall correlation between benchmark scores and LMArena ELO scores, the p-value is calculated as follows: When $N < 30$ (where $N$ is the number of overlapping models between the benchmark and LMArena), we apply a permutation test using `scipy.stats.permutation_test` with `permutation_type='pairings'`, which permutes one ranking under the null hypothesis of independence and recalculates the correlation. When $N \geq 30$, the p-value returned by `scipy.stats.spearmanr` or `scipy.stats.kendalltau` is used as a sufficiently accurate approximation. This approach ensures accurate significance testing for small sample sizes while maintaining computational efficiency for larger samples. **Confidence Intervals for Correlations:** For each Spearman and Kendall correlation coefficient, compute 95% bootstrap confidence intervals using 5000 bootstrap iterations. This provides uncertainty quantification for correlation estimates, which is critical for interpreting the strength and reliability of relationships between benchmarks and Perceived Utility.
     3. **Hypothesis Testing:** Describe the statistical tests used for each hypothesis. **CRITICAL:** All hypothesis tests are performed using three correlation metrics (Spearman $\rho$, Kendall $\tau$, and RBO) separately, and results from all three metrics must be reported. For H1, H2, H3, and H4, perform the test three times (once for each metric). For H5 and H6 (regression models), use Spearman $\rho$ as the dependent variable in the primary analysis, but also report Kendall $\tau$ and RBO as robustness checks.
        - **H1 (Generative):** Mann-Whitney U test to compare Spearman $\rho$ (Kendall $\tau$, RBO) distributions between MCQ and Generative groups. Note: "Generative" includes both "Generation" and "Agentic" task types merged together. Report results for all three metrics.

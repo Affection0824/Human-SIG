@@ -87,8 +87,8 @@
           },
           "task_type": {
             "type": "string",
-            "enum": ["MCQ", "Generation", "Agentic", "Mixed"],
-            "$comment": "Task type classification: MCQ (Multiple Choice Questions), Generation (free-form text/code generation), Agentic (interactive environments, multi-step actions), Mixed (combines multiple task types)"
+            "enum": ["MCQ", "Generative", "Mixed"],
+            "$comment": "Task type classification: MCQ (Multiple Choice Questions), Generative (free-form text/code generation), Mixed (combines multiple task types)"
           },
           "prompt_length": {
             "type": "string",

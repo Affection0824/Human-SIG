@@ -41,12 +41,12 @@
     "untrusted": 1,
     "selected_lmarena_model": "MoonshotAIkimi-k2-0905-preview"
   },
-  "Claude 3.5 Sonnet": {
+  "Claude 3.5 Sonnet 20241022": {
     "benchmark_info": {
       "family": "claude",
       "subfamily": "claude-sonnet",
       "version": "3.5",
-      "date": null,
+      "date": "20241022",
       "parameters": null,
       "other_info": null
     },
@@ -75,7 +75,7 @@
       }
     ],
     "untrusted": 1,
-    "selected_lmarena_model": 0
+    "selected_lmarena_model": "Anthropicclaude-3-5-sonnet-20241022"
   },
   "GPT-5": {
     "benchmark_info": {
@@ -222,17 +222,14 @@
     "untrusted": 1,
     "selected_lmarena_model": "o1-mini"
   },
-  "Claude 3.5 Sonnet(2)": {
+  "Claude 3.5 Sonnet 20240620": {
     "benchmark_info": {
       "family": "claude",
       "subfamily": "claude-sonnet",
       "version": "3.5",
-      "date": null,
+      "date": "20240620",
       "parameters": null,
-      "other_info": [
-        "Sonnet",
-        "2"
-      ]
+      "other_info": null
     },
     "candidates": [
       {
@@ -259,7 +256,7 @@
       }
     ],
     "untrusted": 1,
-    "selected_lmarena_model": 0
+    "selected_lmarena_model": "Anthropicclaude-3-5-sonnet-20240620"
   },
   "Mistral Large 2": {
     "benchmark_info": {

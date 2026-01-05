@@ -33,7 +33,7 @@
     "question_type": "Integer answer math problems",
     "category": "Math",
     "release_date": "2025-02-06",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "artificial_analysis"
   },
   {
@@ -44,7 +44,7 @@
     "question_type": "Research-level math proofs (Tier 1-3)",
     "category": "Math",
     "release_date": "2024-11-07",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "manual_source_code"
   },
   {
@@ -55,7 +55,7 @@
     "question_type": "Research-level math proofs (Tier 4)",
     "category": "Math",
     "release_date": "2024-11-07",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "manual_source_code"
   },
   {
@@ -66,7 +66,7 @@
     "question_type": "Math proofs and answers",
     "category": "Math",
     "release_date": "2025-02-14",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "selenium"
   },
   {
@@ -77,7 +77,7 @@
     "question_type": "Math competition problems",
     "category": "Math",
     "release_date": "2023-05-31",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "vals_ai_manual_json"
   },
   {
@@ -88,7 +88,7 @@
     "question_type": "Multilingual math word problems",
     "category": "Math",
     "release_date": "2022-10-06",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "vals_ai_manual_json"
   },
   {
@@ -110,7 +110,7 @@
     "question_type": "Python function synthesis",
     "category": "Coding",
     "release_date": "2021-07-07",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "selenium"
   },
   {
@@ -121,7 +121,7 @@
     "question_type": "Competitive algorithmic programming",
     "category": "Coding",
     "release_date": "2024-09-01",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "vals_ai_manual_json"
   },
   {
@@ -143,7 +143,7 @@
     "question_type": "Scientific programming simulation",
     "category": "Coding",
     "release_date": "2024-07-18",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "artificial_analysis"
   },
   {
@@ -158,7 +158,7 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "SWE-Bench Bash Only",
+    "benchmark_name": "SWE-bench Bash Only",
     "leaderboard_url": "https://www.swebench.com/bash-only.html",
     "prompt_length": "Extreme",
     "question_count": 500,
@@ -209,7 +209,7 @@
     "question_type": "Complex constraint following",
     "category": "Instruction Following",
     "release_date": "2025-07-03",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "artificial_analysis"
   },
   {
@@ -220,7 +220,7 @@
     "question_type": "Verifiable constraint following",
     "category": "Instruction Following",
     "release_date": "2023-11-14",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "selenium"
   },
   {
@@ -231,7 +231,7 @@
     "question_type": "Creative storytelling",
     "category": "Creative Writing",
     "release_date": "2025-11-01",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "selenium"
   },
   {
@@ -242,7 +242,7 @@
     "question_type": "Generative writing & style",
     "category": "Creative Writing",
     "release_date": "2025-03-07",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "manual"
   },
   {
@@ -253,7 +253,7 @@
     "question_type": "Long Context Reasoning",
     "category": "Hard Prompts",
     "release_date": "2025-08-05",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "artificial_analysis"
   },
   {
@@ -264,7 +264,7 @@
     "question_type": "Visual/symbolic logic reasoning",
     "category": "Hard Prompts",
     "release_date": "2025-03-24",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "selenium"
   },
   {
@@ -275,7 +275,7 @@
     "question_type": "Open-ended complex queries",
     "category": "Hard Prompts",
     "release_date": "2025-04-23",
-    "task_type": "Generation",
+    "task_type": "Generative",
     "scraping_method": "selenium"
   },
   {

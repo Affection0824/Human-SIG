@@ -887,8 +887,13 @@ Construct master correlation matrix by merging benchmark scores and ranks with L
 **Input**: Cleaned data files, mapping files, LMArena data, metadata, Study Universe
 
 **Output**: 
-*   `data/processed/master_table/master_correlation_matrix.csv` - Master table with all benchmark scores and ranks
+*   `data/processed/master_table/master_correlation_matrix.csv` - Master table with benchmark scores and ranks (only benchmarks with N ≥ 6 overlapping models)
 *   `results/data_overlap_stats.json` - Overlap statistics for each benchmark
+
+**Filtering Logic**:
+*   **Critical Filter**: Before adding a benchmark to the master table, the script calculates the number of overlapping models ($N$) between the benchmark and the LMArena Study Universe.
+*   **Exclusion Rule**: If $N < 6$ (insufficient for reliable Spearman correlation analysis), the benchmark is **automatically excluded** from the master table. A warning message is logged: "Skipping benchmark {benchmark_id}: insufficient overlap (N={N} < 6) for reliable correlation analysis."
+*   **Inclusion Rule**: Only benchmarks with $N \geq 6$ overlapping models are included in the master table. This ensures that all benchmarks in the final master table have sufficient sample size for reliable correlation analysis.
 
 **Execution**:
 ```bash
@@ -966,7 +971,7 @@ Generate 6 PDF figures for the manuscript. Logs data sources, plot types, and fi
 *   `overleaf/images/Figure_3a_Complexity_Categories.pdf` - Spearman rho by Prompt Length
 *   `overleaf/images/Figure_3b_Variance_TaskType.pdf` - CV vs. Spearman rho by Task Type
 *   `overleaf/images/Figure_4_Confounder_Heatmap.pdf` - Correlation Matrix of Independent Variables
-*   `overleaf/images/Figure_5_Ranking_Comparison.pdf` - Comparison of large language model (LLM) ranking in SWE-Bench (Verified) and the overall ranking in LMArena-Coding
+*   `overleaf/images/Figure_5_Ranking_Comparison.pdf` - Comparison of large language model (LLM) ranking in SWE-bench (Verified) and the overall ranking in LMArena-Coding
 *   `results/plot_generation_log_YYYYMMDD_HHMMSS.txt` - Generation log with figure descriptions
 
 **Execution**:

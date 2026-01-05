@@ -1,5 +1,4 @@
 model_name,score,rank
-<<<<<<< HEAD
 o3-mini,93.89999999999999,1
 Claude 3.7 Sonnet,93.2,2
 Nova Pro,92.10000000000001,3
@@ -50,55 +49,3 @@ GPT-4.1 nano,74.5,47
 Qwen2.5 7B Instruct,71.2,48
 Phi 4Microsoft,63.0,49
 IBM Granite 4.0 Tiny Preview,63.0,49
-=======
-o3-mini,0.939,1
-Claude 3.7 Sonnet,0.932,2
-Nova Pro,0.921,3
-Llama 3.3 70B Instruct,0.921,3
-Gemma 3 27B,0.904,5
-Nemotron Nano 9B v2,0.903,6
-Gemma 3 4B,0.902,7
-Kimi K2 Instruct,0.898,8
-Kimi K2-Instruct-0905,0.898,8
-Nova Lite,0.897,10
-Llama 3.1 Nemotron Ultra 253B v1,0.894,11
-Gemma 3 12B,0.889,12
-Qwen3-Next-80B-A3B-Thinking,0.889,12
-Qwen3-235B-A22B-Instruct-2507,0.887,14
-Llama 3.1 405B Instruct,0.886,15
-GPT-4.5,0.882,16
-Qwen3 VL 235B A22B Thinking,0.882,16
-Qwen3 VL 235B A22B Instruct,0.878,18
-Qwen3-235B-A22B-Thinking-2507,0.878,18
-Qwen3 VL 32B Thinking,0.878,18
-Qwen3-Next-80B-A3B-Instruct,0.876,21
-Llama 3.1 70B Instruct,0.875,22
-GPT-4.1,0.874,23
-Kimi-k1.5,0.872,24
-Nova Micro,0.872,24
-DeepSeek-V3,0.861,26
-Qwen3 VL 30B A3B Instruct,0.858,27
-Phi 4 Reasoning PlusMicrosoft,0.849,28
-Qwen3 VL 32B Instruct,0.847,29
-GPT-4.1 mini,0.841,30
-Qwen2.5 72B Instruct,0.841,30
-QwQ-32B,0.839,32
-Qwen3 VL 8B Instruct,0.837,33
-Phi 4 ReasoningMicrosoft,0.834,34
-Qwen3 VL 8B Thinking,0.832,35
-Mistral Small 3 24B Instruct,0.829,36
-Qwen3 VL 4B Thinking,0.826,37
-Qwen3 VL 4B Instruct,0.823,38
-Qwen3 VL 30B A3B Thinking,0.817,39
-GPT-4o,0.81,40
-Llama 3.1 8B Instruct,0.804,41
-Gemma 3 1B,0.802,42
-Llama 3.1 Nemotron Nano 8B V1,0.793,43
-Llama 3.2 3B Instruct,0.774,44
-Granite 3.3 8B Base,0.748,45
-Granite 3.3 8B Instruct,0.748,45
-GPT-4.1 nano,0.745,47
-Qwen2.5 7B Instruct,0.712,48
-Phi 4Microsoft,0.63,49
-IBM Granite 4.0 Tiny Preview,0.63,49
->>>>>>> b33f13d89c137653bb0e88783874168f3c5b911a

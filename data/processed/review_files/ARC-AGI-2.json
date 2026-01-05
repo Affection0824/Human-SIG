@@ -278,31 +278,6 @@
     "untrusted": 1,
     "selected_lmarena_model": 0
   },
-  "Grok 4 (Refine.)": {
-    "benchmark_info": {
-      "family": "grok",
-      "subfamily": null,
-      "version": "4.0",
-      "date": null,
-      "parameters": null,
-      "other_info": [
-        "Refine."
-      ]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "grok-4-0709",
-        "family": "grok",
-        "subfamily": null,
-        "version": "4.0",
-        "date": "0709",
-        "parameters": null,
-        "other_info": null
-      }
-    ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-4-0709"
-  },
   "NVARC": {
     "benchmark_info": {
       "family": null,
@@ -357,32 +332,6 @@
     ],
     "untrusted": 1,
     "selected_lmarena_model": 0
-  },
-  "Grok 4 (Refine.)(2)": {
-    "benchmark_info": {
-      "family": "grok",
-      "subfamily": null,
-      "version": "4.0",
-      "date": null,
-      "parameters": null,
-      "other_info": [
-        "Refine.",
-        "2"
-      ]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "grok-4-0709",
-        "family": "grok",
-        "subfamily": null,
-        "version": "4.0",
-        "date": "0709",
-        "parameters": null,
-        "other_info": null
-      }
-    ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-4-0709"
   },
   "Opus 4.5 (Thinking, 16K)": {
     "benchmark_info": {

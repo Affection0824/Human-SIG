@@ -17,8 +17,6 @@
   "gpt-4.1": "gpt-4.1-2025-04-14",
   "claude-3-5-sonnet-20241022": "Anthropicclaude-3-5-sonnet-20241022",
   "Grok 3 Mini Beta (high)": "grok-3-mini-high",
-  "gemini-2.5-flash-preview-04-17 (default)": "gemini-2.5-flash-preview-09-2025",
-  "chatgpt-4o-latest (2025-03-29)": "chatgpt-4o-latest-20250326",
   "gpt-4.5-preview": "gpt-4.5-preview-2025-02-27",
   "gpt-oss-120b (high)": "gpt-oss-120b",
   "Qwen3 32B": "qwen3-32b",

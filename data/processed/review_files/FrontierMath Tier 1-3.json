@@ -1338,14 +1338,17 @@
     "untrusted": 1,
     "selected_lmarena_model": 0
   },
-  "Grok-3 mini": {
+  "Grok-3 mini beta high": {
     "benchmark_info": {
       "family": "grok",
       "subfamily": "grok-mini",
       "version": "3.0",
       "date": null,
       "parameters": null,
-      "other_info": null
+      "other_info": [
+        "beta",
+        "high"
+      ]
     },
     "candidates": [
       {
@@ -1372,7 +1375,7 @@
       }
     ],
     "untrusted": 1,
-    "selected_lmarena_model": 0
+    "selected_lmarena_model": "grok-3-mini-high"
   },
   "GPT-4.1": {
     "benchmark_info": {
@@ -1799,7 +1802,7 @@
     "untrusted": 1,
     "selected_lmarena_model": 0
   },
-  "Grok-3 mini(2)": {
+  "Grok-3 mini beta low": {
     "benchmark_info": {
       "family": "grok",
       "subfamily": "grok-mini",
@@ -1807,8 +1810,8 @@
       "date": null,
       "parameters": null,
       "other_info": [
-        "mini",
-        "2"
+        "beta",
+        "low"
       ]
     },
     "candidates": [
@@ -1836,7 +1839,7 @@
       }
     ],
     "untrusted": 1,
-    "selected_lmarena_model": 0
+    "selected_lmarena_model": "grok-3-mini-beta"
   },
   "GPT-5.1 (no thinking)": {
     "benchmark_info": {

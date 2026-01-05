@@ -11,10 +11,8 @@
   "claude-sonnet-4-20250514-thinking": "Anthropicclaude-sonnet-4-20250514-thinking-32k",
   "gpt-5-nano-2025-08-07": "gpt-5-nano-high",
   "deepseek-r1": "deepseek-r1-0528",
-  "gemini-2.5-flash-preview-04-17-thinking": "gemini-2.5-flash-preview-09-2025",
   "o3-mini-2025-01-31": "o3-mini",
   "claude-3-7-sonnet-20250219-thinking": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k",
-  "langston/nim/nvidia/llama-3.3-nemotron-super-49b-v1-42e84561-thinking": "Nvidianvidia-llama-3.3-nemotron-super-49b-v1.5",
   "o1-2024-12-17": "o1-2024-12-17",
   "claude-opus-4-20250514": "Anthropicclaude-opus-4-20250514-thinking-16k",
   "grok-3": "grok-3-preview-02-24",
@@ -24,10 +22,7 @@
   "gpt-4.1-2025-04-14": "gpt-4.1-2025-04-14",
   "mistral-medium-2505": "mistral-medium-2505",
   "gemini-1.5-pro-002": "gemini-1.5-pro-002",
-  "grok-2-1212": "grok-2-2024-08-13",
   "command-a-03-2025": "Coherecommand-a-03-2025",
   "gpt-4o-2024-08-06": "gpt-4o-2024-08-06",
-  "gpt-4o-2024-11-20": "gpt-4o-2024-05-13",
-  "claude-3-5-sonnet-20241022": "Anthropicclaude-3-5-sonnet-20241022",
-  "mistral-small-2402": "mistral-small-2506"
+  "claude-3-5-sonnet-20241022": "Anthropicclaude-3-5-sonnet-20241022"
 }
