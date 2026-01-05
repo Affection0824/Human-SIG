@@ -302,6 +302,8 @@ Proceed to **Phase III: Data Processing**.
     - Count the number of folders and verify it matches the expected count (benchmarks + LMArena categories from metadata.json).
     - For each folder, verify that `cleaned_data.csv` exists and contains at least one row of data (header + data rows).
     - For each benchmark folder, verify that `mapping.json` exists and is valid JSON (can be empty `{}` if no mappings exist).
+  - **Score Normalization Note:** All benchmark scores in `cleaned_data.csv` files (except Creative Writing v3) have been normalized to the 0-100 scale during data preparation. Specifically, benchmarks using 0-1 scale (FACTS, GPQA, HMMT (Feb 2025), HumanEval, IFEval, SuperGPQA, SWE-bench (Verified), Arena-Hard (Auto v2.0)) have been multiplied by 100. For FACTS, only rows with `Task_Name == "Average"` are included, using the `Numerical_Result` column. All scores (except Creative Writing v3) represent "higher is better" performance after normalization. Creative Writing v3 uses Elo scores and is not normalized to 0-100 range.
+  - **Data Source Note:** All subsequent steps (Step 3.2 onwards) read benchmark data exclusively from `cleaned_data.csv` and `mapping.json` files located in `Human-SIG/data/processed/cleaned/{benchmark_id}/`. These are the only source files used for all analysis and feature calculation.
 
 #### Step 3.2: Understand Data File Formats
 
@@ -312,7 +314,7 @@ Proceed to **Phase III: Data Processing**.
   - **Purpose:** Contains all models from a benchmark with their scores and ranks. Used for correlation analysis and ranking calculations.
   - **Format:** Standard CSV with three columns:
     - `model_name`: String, the original model name exactly as it appears in the benchmark leaderboard.
-    - `score`: Float, the normalized score value (higher is better). Scores are extracted from raw data and normalized to a consistent format (percentages converted to 0-100 scale, error margins removed).
+    - `score`: Float, the score value. For all benchmarks except Creative Writing v3, scores have been normalized to 0-100 scale (higher is better). Creative Writing v3 uses Elo scores and is not normalized to 0-100 range.
     - `rank`: Integer, the rank assigned based on score (1 = best, higher numbers = worse). Tied scores receive the same rank, and the next rank skips the tied count (e.g., scores [99, 98, 98, 97] → ranks [1, 2, 2, 4]).
   - **Example:**
     ```csv
@@ -364,21 +366,21 @@ Proceed to **Phase III: Data Processing**.
 - **3.2.4:** Commit State.
   - **Message:** `Step 3.2.4 Completed: Verified cleaned data files and mappings are present and valid`
 
-#### Step 3.3: Robust Parsing & Score Normalization Strategy
+#### Step 3.3: Robust Parsing & Ranking Logic
 
 - **3.3.1:** Create `Human-SIG/src/processing/parser_utils.py`.
   - **Code Documentation Requirements:**
-    - File header must explain the purpose (parsing and normalizing benchmark scores from CSV files), the score normalization methodology (ensuring all scores are in 0-100 range as specified in Step 2.2), ranking logic, and tie-breaking strategy.
+    - File header must explain the purpose (parsing benchmark scores from CSV files for master table construction), that all benchmarks except Creative Writing v3 are normalized to 0-100 range during data preparation, ranking logic, and tie-breaking strategy.
     - All classes and methods must have docstrings.
   - **Class Definition:** Implement `BenchmarkParser`.
-  - **Input:** Cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`. The parser reads from the cleaned data directory, which contains standardized CSV files with model names, scores, and ranks already extracted and calculated (verified in Step 3.2).
+  - **Input:** Cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`. The parser reads from the cleaned data directory, which contains standardized CSV files with model names, scores, and ranks already extracted and calculated (verified in Step 3.2). All benchmarks except Creative Writing v3 are normalized to 0-100 range.
   - **Ranking Logic:** Compute rank strictly within the Study Universe.
     - **Study Universe Definition:** The "Study Universe" consists of all models in the LMArena dataset with `elo_overall >= 1330`. This Study Universe is defined by the models present in `Human-SIG/data/processed/model_extraction/lmarena_models.json` (which already contains only models with Overall Score >= 1330).
     - **Entity Resolution:** Use the per-benchmark mapping files from `Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json` (verified in Step 3.2) to map benchmark model names to LMArena model IDs. Only models that can be mapped to the Study Universe are included in ranking.
     - **Ranking Filter:** Only rank models that appear in both the benchmark data (after entity resolution) and the Study Universe. Models that appear in the benchmark but cannot be mapped to the Study Universe should be excluded from ranking.
   - **Tie-Breaking:** Use `method='min'` (e.g., if two models tie for first place with score 95, assign both rank 1, and the next model gets rank 3) to support rigorous RBO calculation. This ensures that tied models receive the same rank, which is important for RBO computation.
-  - **Directionality:** When ranking, ensure that higher scores receive better (lower) ranks. All scores from Step 2.2 should already represent "higher is better" performance (after normalization and inversion if needed), so the ranking logic should always assume "higher score = better rank".
-  - **Note:** Scores should already be normalized to 0-100 range from Step 2.2 and stored in CSV files. This parser loads CSV files, performs entity resolution using the mapping table, filters to Study Universe, performs ranking, and outputs data structure transformation. The parser should output both the original scores and the computed ranks.
+  - **Directionality:** When ranking, ensure that higher scores receive better (lower) ranks. All benchmarks (except Creative Writing v3) represent "higher is better" performance, so the ranking logic should always assume "higher score = better rank".
+  - **Note:** All benchmarks except Creative Writing v3 are normalized to 0-100 range and stored in CSV files. This parser loads CSV files, performs entity resolution using the mapping table, filters to Study Universe, performs ranking, and outputs data structure transformation. The parser should output both the original scores and the computed ranks.
 - **3.3.2:** Commit State.
   - **Message:** `Step 3.3.2 Completed: Implemented BenchmarkParser with ranking logic for RBO calculation`
 
@@ -447,7 +449,7 @@ Input:
 
 - `Human-SIG/data/processed/master_table/master_correlation_matrix.csv` (Model Scores & Ranks).
 
-- `Human-SIG/data/metadata.json` (Contains all benchmark metadata including `metric_direction`, `release_date`, `task_type`, `question_count`, and other metadata fields for all benchmarks).
+- `Human-SIG/data/metadata.json` (Contains all benchmark metadata including `release_date`, `task_type`, `question_count`, and other metadata fields for all benchmarks).
 
 
   Output:
@@ -483,31 +485,24 @@ Input:
 
 - **4.2.1:** Create `Human-SIG/src/analysis/compute_features_robust.py`.
   - **Code Documentation Requirements:**
-    - File header must explain the complete workflow: loading benchmark data from CSV files, reading metric_direction from data/metadata.json (for verification purposes), reading category from metadata.json to determine correlation target, verifying metric directionality (scores should already represent "higher is better" after Step 2.2.1), computing difficulty and variance features, and calculating correlations.
+    - File header must explain the complete workflow: loading benchmark data from CSV files (all benchmarks except Creative Writing v3 are normalized to 0-100 scale), reading category from metadata.json to determine correlation target, computing difficulty and variance features, and calculating correlations. All benchmarks (except Creative Writing v3) represent "higher is better" performance.
     - All functions must have docstrings explaining their mathematical operations.
-  - **Task A: Metric Directionality Verification (Critical for H6).**
-    - **Action:** Load benchmark data from CSV files in the appropriate benchmark folders. For each benchmark, read the `metric_direction` field from `Human-SIG/data/metadata.json` (the centralized metadata file containing all benchmark information).
-    - **Prerequisite:** All scores must already be normalized to the 0-100 range and inverted if necessary (as required in Step 2.2.1) so that higher scores represent better performance. If any benchmark's scores are not in the 0-100 range, HALT and report an error.
-    - **Logic:** Check the `metric_direction` field from `Human-SIG/data/metadata.json`.
-    - **Verification Step:** If `metric_direction == "lower_is_better"` (e.g., Perplexity, Bits-per-byte, Error Rate):
-      - **Expected Behavior:** The scores in the CSV file should ALREADY represent "higher is better" performance (i.e., they should have been inverted during Step 2.2.1 normalization). Verify that this is the case by checking that higher scores correspond to better model performance.
-      - **If Verification Fails:** If you find that scores with `metric_direction == "lower_is_better"` still represent "lower is better" (i.e., they were not inverted in Step 2.2.1), HALT and report an error: "CRITICAL: Found benchmark {benchmark_name} with metric_direction='lower_is_better' but scores were not inverted in Step 2.2.1. Scores must represent 'higher is better' after Step 2.2.1 normalization."
-      - **No Additional Transformation:** Since Step 2.2.1 already handles inversion, NO ADDITIONAL TRANSFORMATION is needed in this step. The `metric_direction` field is preserved for verification and documentation purposes only.
-    - **Reasoning:** This verification step ensures that for all 29 benchmarks, a "higher" number mathematically implies better performance, preventing "False Negative" correlations in later steps. The goal is to have a consistent directionality where higher scores always mean better performance, which should already be achieved by Step 2.2.1.
+  - **Task A: Score Directionality (All Scores Represent "Higher is Better").**
+    - **Prerequisite:** All benchmark scores (except Creative Writing v3) have been normalized to 0-100 scale during data preparation, where higher scores represent better performance. Creative Writing v3 uses Elo scores and is not normalized to 0-100 range. No additional transformation or verification is needed. Simply load the benchmark data from `cleaned_data.csv` files in the appropriate benchmark folders and proceed with feature calculation.
   - **Task B: H6 (Difficulty) Feature Calculation.**
     - **Action:** Calculate `subset_avg_score` using the Common Subset (Models with LMArena `elo_overall` Score between 1400 and 1430, inclusive). This subset was identified in Step 2.1.1 (Filter 2).
-    - **Calculation:** For each benchmark, compute the mean score across all models in the Common Subset that have scores for that benchmark. This mean score represents the benchmark's difficulty (lower mean = harder benchmark).
+    - **Exclusion:** Exclude Creative Writing v3 from Difficulty calculation. Creative Writing v3 is not included in the Difficulty feature computation.
+    - **Calculation:** For each benchmark (excluding Creative Writing v3), compute the mean score across all models in the Common Subset that have scores for that benchmark. This mean score is `subset_avg_score`.
+    - **Difficulty Definition:** Calculate `Difficulty = 100 - subset_avg_score`. This ensures that higher Difficulty values represent harder benchmarks (higher Difficulty = harder benchmark). For example, a benchmark with `subset_avg_score = 60` has `Difficulty = 40`, while a benchmark with `subset_avg_score = 80` has `Difficulty = 20` (the first is harder).
     - **Safety Check:** If the number of overlapping models in this specific ELO range is $N < 5$ for any benchmark:
-      - **Log Warning:** "Insufficient overlap for Difficulty Common Subset (N={actual_N}). Using Study Universe mean as fallback."
-      - **Fallback:** Use the full Study Universe mean (all models with `elo_overall >= 1330`).
+      - **Log Warning:** "Insufficient overlap for Difficulty Common Subset (N={actual_N}). 
       - **Flag:** Set column `is_estimated_difficulty = True` to indicate that the difficulty was estimated using the fallback method.
-    - **Note:** The Difficulty feature is the inverse of average score: harder benchmarks have lower average scores. This will be used in the regression model where higher difficulty (lower scores) is expected to correlate with higher construct validity with Perceived Utility.
   - **Task C: H5 (Variance) Feature Calculation.**
     - **Action:** Compute the Coefficient of Variation ($CV$) instead of raw variance.
     - **Formula:** $CV = \frac{\sigma}{\mu}$.
     - **Reasoning:** Raw variance penalizes high-accuracy benchmarks (where scores are compressed near 100%). $CV$ normalizes variance relative to the score scale, making "Accuracy" benchmarks comparable to "Perplexity" benchmarks.
 - **4.2.2:** Construct Validity Calculation Loop & Sanity Check.
-  - **Action:** For each benchmark, calculate Spearman $\rho$ (with p-value), Kendall $\tau$ (with p-value), and RBO between Benchmark_Score (which should already represent "higher is better" performance after Step 2.2.1 normalization, as verified in Task A) and the corresponding LMArena ELO score (representing Perceived Utility). The correlation category for each benchmark is determined by the `category` field in metadata.json, which maps to the corresponding ELO column (listed in standardized category order):
+  - **Action:** For each benchmark, calculate Spearman $\rho$ (with p-value), Kendall $\tau$ (with p-value), and RBO between Benchmark_Score (which represents "higher is better" performance; all benchmarks except Creative Writing v3 are normalized to 0-100 scale) and the corresponding LMArena ELO score (representing Perceived Utility). **CRITICAL:** All correlations are computed between each benchmark and its corresponding LMArena category (determined by the `category` field in metadata.json). NO benchmark should be compared with LMArena-Overall; each benchmark is compared only with its specific category (e.g., Math benchmarks with `elo_math`, Coding benchmarks with `elo_coding`). The correlation category for each benchmark is determined by the `category` field in metadata.json, which maps to the corresponding ELO column (listed in standardized category order):
     - "Math" -> `elo_math`
     - "Coding" -> `elo_coding`
     - "Instruction Following" -> `elo_instruction_following`
@@ -520,7 +515,7 @@ Input:
     - When $N < 30$ (where $N$ is the number of overlapping models between the benchmark and LMArena), use `scipy.stats.permutation_test` with `permutation_type='pairings'` to compute the p-value. This permutes one ranking under the null hypothesis of independence and recalculates the correlation.
     - When $N \geq 30$, use the p-value returned by `scipy.stats.spearmanr` or `scipy.stats.kendalltau` as a sufficiently accurate approximation.
   - **Confidence Interval Calculation (CRITICAL):** For each Spearman and Kendall correlation coefficient, you MUST compute 95% bootstrap confidence intervals using the `bootstrap_ci` function defined in Step 4.1.1. Use 5000 bootstrap iterations (with replacement) to derive the confidence intervals. This provides uncertainty quantification for correlation estimates, which is critical for interpreting the strength and reliability of relationships between benchmarks and Perceived Utility. The bootstrap procedure resamples the paired data (benchmark scores and LMArena ELO scores) 5000 times, recalculates the correlation for each bootstrap sample, and uses the 2.5th and 97.5th percentiles of the bootstrap distribution as the lower and upper bounds of the 95% confidence interval.
-  - **Store Results:** Save the construct validity measures (correlation coefficients, their p-values, AND their 95% confidence intervals) for each benchmark in the analysis_ready_data.csv file, along with the difficulty, variance, and other features computed in Tasks A, B, and C. **CRITICAL:** For each correlation metric, you must store:
+  - **Store Results:** Save the correlation coefficients (Spearman $\rho$ and Kendall $\tau$), their p-values, AND their 95% confidence intervals for each benchmark in the analysis_ready_data.csv file, along with the difficulty, variance, and other features computed in Tasks A, B, and C. **CRITICAL:** For each correlation metric, you must store:
     - `spearman_rho`: Spearman correlation coefficient
     - `spearman_pvalue`: P-value for Spearman correlation
     - `spearman_ci_lower`: Lower bound of 95% bootstrap confidence interval for Spearman correlation
@@ -529,16 +524,17 @@ Input:
     - `kendall_pvalue`: P-value for Kendall correlation
     - `kendall_ci_lower`: Lower bound of 95% bootstrap confidence interval for Kendall correlation
     - `kendall_ci_upper`: Upper bound of 95% bootstrap confidence interval for Kendall correlation
-  - **Halt Protocol:** Identify a known high-quality benchmark (e.g., MMLU-Pro or HumanEval) that should have strong construct validity with Perceived Utility (high correlation with LMArena scores).
-    - Calculate Spearman correlation (with p-value) between the benchmark scores (which should already represent "higher is better" performance after Step 2.2.1 normalization) and the corresponding LMArena ELO scores (determined by the benchmark's `category` field in metadata.json, representing Perceived Utility).
+  - **Halt Protocol:** Identify a known high-quality benchmark (e.g., MMLU-Pro or HumanEval) that should have high Spearman correlation with LMArena scores.
+    - Calculate Spearman correlation (with p-value) between the benchmark scores (which represent "higher is better" performance; all benchmarks except Creative Writing v3 are normalized to 0-100 scale) and the corresponding LMArena ELO scores (determined by the benchmark's `category` field in metadata.json, representing Perceived Utility).
     - If Spearman Correlation $< 0.5$: HALT EXECUTION IMMEDIATELY.
-    - **Print:** "CRITICAL: Detected low construct validity with Perceived Utility (correlation < 0.5) for high-quality benchmark {benchmark_name}. This suggests a data quality issue. Please check: (1) metric directionality in the metadata file (Human-SIG/data/metadata.json), (2) that scores in CSV files are correctly normalized to 0-100 range, (3) that metric inversion was applied correctly in Step 2.2.1 if metric_direction == 'lower_is_better' (scores should represent 'higher is better' after normalization), and (4) that the correct LMArena ELO column is being used based on the benchmark's category."
+    - **Print:** "CRITICAL: Detected low Spearman correlation (< 0.5) for high-quality benchmark {benchmark_name}. This suggests a data quality issue. Please check: (1) that the correct LMArena ELO column is being used based on the benchmark's category, and (2) that data is loaded correctly from cleaned_data.csv files."
     - **Wait for User:** Do not proceed until resolved. The user must verify and fix the data issue before continuing.
 - **4.2.3:** Persistence.
   - **Output:** Save the fully engineered table to `Human-SIG/results/analysis_ready_data.csv`.
   - **CSV Column Structure:** The output CSV file must contain the following columns for each benchmark:
     - `benchmark_name` or `benchmark_id`: Benchmark identifier
-    - `subset_avg_score`: Difficulty feature (mean score across Common Subset models, as computed in Task B). Lower values indicate harder benchmarks.
+    - `subset_avg_score`: Mean score across Common Subset models (as computed in Task B). Used to calculate Difficulty.
+    - `difficulty`: Difficulty feature calculated as $Difficulty = 100 - subset\_avg\_score$ (as computed in Task B). Higher values indicate harder benchmarks.
     - `is_estimated_difficulty`: Boolean flag (True if fallback method was used due to insufficient Common Subset overlap, False otherwise)
     - `cv` or `coefficient_of_variation`: Variance feature (Coefficient of Variation, as computed in Task C). Formula: CV = $\sigma$/$\mu$, where $\sigma$ is standard deviation and $\mu$ is mean score.
     - `spearman_rho`: Spearman rank correlation coefficient between benchmark scores and corresponding LMArena ELO scores
@@ -553,7 +549,7 @@ Input:
     - Additional metadata columns from metadata.json (e.g., `release_date`, `task_type`, `prompt_length`, `question_count`, `category`)
   - **Data Format:** All numerical values should be stored as floats. Boolean values can be stored as True/False or 1/0. Missing values should be represented as empty cells or NaN.
   - **Important Note:** This CSV file is for data processing and analysis purposes only. Any tables that will be directly included in the manuscript must be generated using `DataFrame.to_latex()` and saved directly to `overleaf/tables/` as `.tex` files (see Step 4.4.2b and Step 5.4.2 for table generation). Do NOT create CSV files in `results/` that contain the same data as LaTeX tables.
-  - **Message:** `Step 4.2.3 Completed: Computed robust features (CV, Inverted Scores) and verified directionality`
+  - **Message:** `Step 4.2.3 Completed: Computed robust features (Difficulty, CV) and correlation coefficients`
 
 #### Step 4.3: Hypothesis Testing Strategy (The Small-N Protocol)
 
@@ -564,50 +560,63 @@ Input:
   - **Context:** Since $N=29$ is too small for a 6-variable regression (Rule of thumb: 10 samples per variable), you must execute Targeted Tests for each hypothesis.
   - **Global Settings:** `n_bootstraps = 5000`, `alpha = 0.05`.
 - **4.3.2:** Test Execution: H6 (Difficulty) & H5 (Variance) - The "Trade-off" Test.
-  - **Hypothesis:** Harder benchmarks (lower average scores) contribute negatively to the CV of Perceived Utility (H6), but variance (CV) also drives construct validity (H5). These factors are often collinear (floor effects reduce variance in high-accuracy benchmarks).
-  - **Model:** Run a Bivariate Robust Regression using `statsmodels.RLM` with Huber's t-criterion for robust estimation.
-  - **Equation:** $Construct\_Validity \sim \beta_1 \cdot Difficulty + \beta_2 \cdot CV + \epsilon$, where:
-    - $Difficulty$ is the subset_avg_score (lower values = harder benchmarks). For regression, you may want to use $Difficulty = 100 - subset\_avg\_score$ so that higher values represent harder benchmarks, or use the raw subset_avg_score and interpret the sign accordingly.
+  - **Exclusion:** Exclude Creative Writing v3 from this analysis. Only include benchmarks for which Difficulty was calculated in Step 4.2.1 Task B.
+  - **Hypothesis:** Harder benchmarks (higher Difficulty values) contribute negatively to correlation with Perceived Utility (H6), but variance (CV) also drives correlation (H5). These factors are often collinear (floor effects reduce variance in high-accuracy benchmarks).
+  - **CRITICAL: Multi-Metric Analysis:** Perform the regression analysis three times, once for each correlation metric (Spearman $\rho$, Kendall $\tau$, RBO). For regression models, use each metric as the dependent variable separately. Report results for all three metrics.
+  - **Model:** Run a Bivariate Robust Regression using `statsmodels.RLM` with Huber's t-criterion for robust estimation. Perform the regression separately for each correlation metric:
+    - Primary: $Spearman\_rho \sim \beta_1 \cdot Difficulty + \beta_2 \cdot CV + \epsilon$
+    - Robustness check 1: $Kendall\_tau \sim \beta_1 \cdot Difficulty + \beta_2 \cdot CV + \epsilon$
+    - Robustness check 2: $RBO \sim \beta_1 \cdot Difficulty + \beta_2 \cdot CV + \epsilon$
+  - **Equation Parameters:**
+    - $Difficulty = 100 - subset\_avg\_score$ (as computed in Step 4.2.1 Task B). Higher values represent harder benchmarks.
     - $CV$ is the Coefficient of Variation computed in Task C.
     - $\epsilon$ is the error term.
-  - **Action:** Store the p-values and coefficients for both $\beta_1$ and $\beta_2$, along with their 95% bootstrap confidence intervals.
-  - **Criteria:** H6 is supported only if $\beta_1$ is significant (p < 0.05 before correction) while controlling for CV. H5 is supported if $\beta_2$ is significant while controlling for Difficulty.
+  - **Action:** Store the p-values and coefficients for both $\beta_1$ and $\beta_2$ for each of the three regression models (Spearman, Kendall, RBO), along with their 95% bootstrap confidence intervals. Report results from all three metrics in the output.
+  - **Criteria:** H6 is supported only if $\beta_1$ is significant (p < 0.05 before correction) and negative (higher Difficulty correlates with lower correlation) while controlling for CV in at least one metric (preferably Spearman, with Kendall and RBO as robustness checks). H5 is supported if $\beta_2$ is significant while controlling for Difficulty in at least one metric.
 - **4.3.2b:** Test Execution: H5 (Variance) - The "Task Type Interaction" Test.
-  - **Hypothesis:** The relationship between variance (CV) and construct validity with Perceived Utility may differ across different task types. This tests whether variance affects construct validity differently for MCQ, Generation, and Agentic tasks.
-  - **Method:** Stratified analysis by task type. For each of the three main task types (MCQ, Generation, Agentic), separately examine the relationship between CV and construct validity with Perceived Utility.
-    - **Group 1 (MCQ):** Benchmarks with `task_type == "MCQ"`. Compute the Spearman correlation between CV and Benchmark_Alignment_Correlation (construct validity with Perceived Utility) for this group.
-    - **Group 2 (Generation):** Benchmarks with `task_type == "Generation"`. Compute the Spearman correlation between CV and Benchmark_Alignment_Correlation (construct validity with Perceived Utility) for this group.
-    - **Group 3 (Agentic):** Benchmarks with `task_type == "Agentic"`. Compute the Spearman correlation between CV and Benchmark_Alignment_Correlation (construct validity with Perceived Utility) for this group.
+  - **Hypothesis:** The relationship between variance (CV) and Spearman correlation with Perceived Utility may differ across different task types. This tests whether variance affects Spearman correlation differently for MCQ, Generation, and Agentic tasks.
+  - **Method:** Stratified analysis by task type. For each of the three main task types (MCQ, Generation, Agentic), separately examine the relationship between CV and Spearman rho.
+    - **Group 1 (MCQ):** Benchmarks with `task_type == "MCQ"`. Compute the Spearman correlation between CV and Spearman rho (from Step 4.2.2) for this group.
+    - **Group 2 (Generation):** Benchmarks with `task_type == "Generation"`. Compute the Spearman correlation between CV and Spearman rho (from Step 4.2.2) for this group.
+    - **Group 3 (Agentic):** Benchmarks with `task_type == "Agentic"`. Compute the Spearman correlation between CV and Spearman rho (from Step 4.2.2) for this group.
     - **Exclusion:** Benchmarks with `task_type == "Mixed"` are excluded from this analysis.
   - **Statistical Test:** 
-    - For each group, compute Spearman correlation between CV and construct validity with Perceived Utility, along with its p-value (using the same logic as in Step 4.2.2: permutation test when N < 30, scipy.stats.spearmanr p-value when N >= 30) and 95% bootstrap confidence intervals (5000 iterations, using the `bootstrap_ci` function from Step 4.1.1). **CRITICAL:** Both p-values and 95% confidence intervals must be computed and stored for each task type group.
+    - For each group, compute Spearman correlation between CV and Spearman rho, along with its p-value (using the same logic as in Step 4.2.2: permutation test when N < 30, scipy.stats.spearmanr p-value when N >= 30) and 95% bootstrap confidence intervals (5000 iterations, using the `bootstrap_ci` function from Step 4.1.1). **CRITICAL:** Both p-values and 95% confidence intervals must be computed and stored for each task type group.
     - **Comparison Method:** To test whether the three correlation coefficients differ significantly:
       - **Option 1 (Recommended if N >= 5 for each group):** Use Fisher z-transformation to convert each correlation coefficient to z-scores: $z_i = \text{arctanh}(r_i)$. Then use a one-way ANOVA (or Kruskal-Wallis if normality is questionable) to test whether the three z-scores differ significantly. The standard error for each z-score is $SE = \frac{1}{\sqrt{N_i - 3}}$, where $N_i$ is the sample size for group $i$.
       - **Option 2 (If sample sizes are very small):** Use a permutation test: randomly permute the group labels 10,000 times, compute the correlation for each permuted group, and compare the observed difference in correlations to the null distribution.
       - **Option 3 (If N < 5 for any group):** Report descriptive statistics only (median CV, median correlation, and the Spearman correlation with 95% CI for each group) with clear notes about sample size limitations. Do not perform formal statistical comparison, but visually compare the confidence intervals to assess potential differences.
     - **Implementation Note:** The Fisher z-transformation approach is statistically rigorous and accounts for the different sample sizes across groups. The test statistic follows a chi-square distribution under the null hypothesis that all three correlations are equal.
   - **Output:** Store the correlation coefficient, p-value (MANDATORY - computed using the logic in Step 4.2.2), and 95% CI (MANDATORY - computed using 5000 bootstrap iterations) for each task type group. Also store a comparison statistic (if computed) indicating whether the three groups differ significantly. The output must include: `correlation_coefficient`, `p_value`, `ci_lower`, and `ci_upper` for each of the three task type groups (MCQ, Generation, Agentic).
-  - **Interpretation:** H5 is supported if variance shows a positive relationship with construct validity with Perceived Utility in at least one task type group, or if the relationship differs significantly across task types (suggesting task type moderates the variance-construct validity relationship).
+  - **Interpretation:** H5 is supported if variance shows a positive relationship with Spearman rho in at least one task type group, or if the relationship differs significantly across task types (suggesting task type moderates the variance-Spearman correlation relationship).
 - **4.3.3:** Test Execution: H4 (Recency) - The "Trend" Test.
-  - **Model:** Univariate Spearman Correlation between Release_Date_Ordinal and Benchmark_Alignment_Correlation.
+  - **CRITICAL: Multi-Metric Analysis:** Perform the correlation analysis three times, once for each metric (Spearman $\rho$, Kendall $\tau$, RBO). Report results for all three metrics.
+  - **Model:** Univariate Spearman Correlation between Release_Date_Ordinal and correlation metrics (Spearman $\rho$, Kendall $\tau$, RBO).
   - **Variable Construction:** 
     - `Release_Date_Ordinal`: Convert `release_date` from metadata.json (YYYY-MM-DD format) to ordinal days since a reference date (e.g., days since 2020-01-01, or simply use the date as a numeric value).
-    - `Benchmark_Alignment_Correlation`: This is the Spearman correlation between the benchmark scores and the corresponding LMArena ELO scores (computed in Step 4.2.2), representing construct validity with Perceived Utility.
-  - **P-value Calculation:** Compute the p-value for the Spearman correlation using the same logic as in Step 4.2.2: permutation test when N < 30, scipy.stats.spearmanr p-value when N >= 30. Note: For H4, N = 29 (number of benchmarks), so use scipy.stats.spearmanr p-value.
-  - **Confidence Interval Calculation:** Resample the 29 benchmarks 5000 times (with replacement) using the `bootstrap_ci` function from Step 4.1.1 to derive a 95% Confidence Interval for the Spearman correlation coefficient. Store both the point estimate, the p-value, and the confidence interval (ci_lower, ci_upper).
+    - Use correlation metrics from Step 4.2.2: `spearman_rho`, `kendall_tau`, and `rbo` (the correlations between the benchmark scores and the corresponding LMArena ELO scores).
+  - **Analysis:** Compute Spearman correlation between Release_Date_Ordinal and each of the three correlation metrics separately:
+    - Release_Date_Ordinal vs Spearman rho
+    - Release_Date_Ordinal vs Kendall tau
+    - Release_Date_Ordinal vs RBO
+  - **P-value Calculation:** For Spearman and Kendall correlations, compute the p-value using the same logic as in Step 4.2.2: permutation test when N < 30, scipy.stats.spearmanr/scipy.stats.kendalltau p-value when N >= 30. Note: For H4, N = 29 (number of benchmarks), so use scipy.stats.spearmanr/scipy.stats.kendalltau p-value. RBO does not have a p-value, report only the correlation coefficient.
+  - **Confidence Interval Calculation:** For Spearman and Kendall correlations, resample the 29 benchmarks 5000 times (with replacement) using the `bootstrap_ci` function from Step 4.1.1 to derive 95% Confidence Intervals. RBO does not have confidence intervals. Store both the point estimate, the p-value (for Spearman and Kendall), and the confidence interval (ci_lower, ci_upper for Spearman and Kendall) for all three metrics.
 - **4.3.4:** Test Execution: H3 (Complexity) & H2 (Scale) - The "Categorical/Continuous" Test.
-  - **H3 (Complexity):** Test whether prompt complexity (as a categorical variable) affects construct validity with Perceived Utility.
+  - **H3 (Complexity):** Test whether prompt complexity (as a categorical variable) affects correlation with Perceived Utility.
+    - **CRITICAL: Multi-Metric Analysis:** Perform the test three times, once for each correlation metric (Spearman $\rho$, Kendall $\tau$, RBO). Report results for all three metrics.
     - **Rationale:** Treating `prompt_length` as an ordinal variable with equal spacing (1, 2, 3, 4) assumes that the difference between "Short" and "Medium" is the same as between "Long" and "Extreme", which may not be valid. Instead, use a categorical approach.
-    - **Method:** Use Kruskal-Wallis H-test (non-parametric one-way ANOVA) to test whether the distribution of construct validity with Perceived Utility differs across the four `prompt_length` categories: "Short", "Medium", "Long", "Extreme".
+    - **Method:** Use Kruskal-Wallis H-test (non-parametric one-way ANOVA) to test whether the distribution of correlation metrics differs across the four `prompt_length` categories: "Short", "Medium", "Long", "Extreme". Perform the test separately for Spearman rho, Kendall tau, and RBO.
     - **Implementation:** 
       - Group benchmarks by `prompt_length` category.
-      - Extract the construct validity values (Spearman $\rho$ from Step 4.2.2, representing construct validity with Perceived Utility) for each group.
-      - Use `scipy.stats.kruskal` to test the null hypothesis that all groups have the same distribution of construct validity with Perceived Utility.
-      - If the test is significant (p < 0.05), perform post-hoc pairwise comparisons using Mann-Whitney U tests (with Bonferroni correction for multiple comparisons) to identify which categories differ.
-    - **Output:** Store the Kruskal-Wallis test statistic, p-value, and post-hoc comparison results (if applicable).
-  - **H2 (Scale):** Pearson Correlation between $\log(N_{samples})$ and construct validity with Perceived Utility.
+      - Extract the correlation metric values (Spearman rho, Kendall tau, RBO from Step 4.2.2) for each group.
+      - Use `scipy.stats.kruskal` to test the null hypothesis that all groups have the same distribution for each metric separately.
+      - If the test is significant (p < 0.05) for any metric, perform post-hoc pairwise comparisons using Mann-Whitney U tests (with Bonferroni correction for multiple comparisons) to identify which categories differ.
+    - **Output:** Store the Kruskal-Wallis test statistic, p-value, and post-hoc comparison results (if applicable) for all three metrics. Report results from all three metrics in the output.
+  - **H2 (Scale):** Pearson Correlation between $\log(N_{samples})$ and correlation metrics (Spearman $\rho$, Kendall $\tau$, RBO).
+    - **CRITICAL: Multi-Metric Analysis:** Perform the correlation analysis three times, once for each metric. Report results for all three metrics.
     - **Variable Definition:** $N_{samples}$ is the `question_count` field from metadata.json. Apply natural logarithm transformation: $\log(N_{samples}) = \ln(question\_count)$.
-    - **P-value Calculation:** Compute the p-value for the Pearson correlation using `scipy.stats.pearsonr`, which returns both the correlation coefficient and its p-value. Store both the correlation coefficient and the p-value.
+    - **Analysis:** Compute Pearson correlation between $\log(N_{samples})$ and Spearman rho, Kendall tau, and RBO separately. For Spearman and Kendall, compute p-values using `scipy.stats.pearsonr`. RBO does not have a p-value, report only the correlation coefficient.
+    - **Output:** Store the correlation coefficients and p-values (for Spearman and Kendall) for all three metrics. Report results from all three metrics in the output.
 - **4.3.5:** Test Execution: H1 (Generative vs. MCQ) - The "Group" Test.
   - **Model:** Categorical comparison using the `task_type` field from `Human-SIG/data/metadata.json`.
     - **Group A:** Benchmarks with `task_type == "Generation"` or `task_type == "Agentic"` (generative tasks).
@@ -621,9 +630,9 @@ Input:
       - **Fallback:** Compute and return descriptive statistics: Median Difference, Mean Difference, and their 95% bootstrap confidence intervals. Set `p_value = 1.0` (to avoid false significance) and `is_descriptive_only = True` in the results.
     - ELSE:
       - Proceed with Mann-Whitney U Test (also known as Wilcoxon rank-sum test).
-      - **Test Details:** Use `scipy.stats.mannwhitneyu` with `alternative='two-sided'` to test whether the distribution of construct validity with Perceived Utility differs between Group A (Generative/Agentic) and Group B (MCQ).
+      - **Test Details:** Use `scipy.stats.mannwhitneyu` with `alternative='two-sided'` to test whether the distribution of correlation metrics differs between Group A (Generative/Agentic) and Group B (MCQ). **CRITICAL: Multi-Metric Analysis:** Perform the test three times, once for each correlation metric (Spearman $\rho$, Kendall $\tau$, RBO). Report results for all three metrics.
   - **Reasoning:** Non-parametric tests lose validity when one group is essentially anecdotal (e.g., 3 benchmarks). The Mann-Whitney U test is appropriate for comparing two independent groups when the normality assumption may not hold.
-  - **Action:** Compare the distribution of construct validity with Perceived Utility (Spearman $\rho$ values computed in Step 4.2.2) between the two groups. Store the test statistic, p-value, and effect size (e.g., rank-biserial correlation).
+  - **Action:** Compare the distribution of correlation metrics (Spearman rho, Kendall tau, RBO computed in Step 4.2.2) between the two groups. Perform the test separately for each metric. Store the test statistic, p-value, and effect size (e.g., rank-biserial correlation) for all three metrics. Report results from all three metrics in the output.
 - **4.3.6:** Commit State
   - **Message:** `Step 4.3.6 Completed: Executed targeted Small-N statistical tests (Robust Regression, Kruskal-Wallis, Mann-Whitney, and stratified H5 analysis)`
 
@@ -642,7 +651,7 @@ Input:
 
   - **Output:** Generate `Human-SIG/results/statistical_significance_report.json` (this file will be referenced in Phase V for results reporting).
 
-  - **Structure:** The JSON file must contain entries for all six hypotheses (H1-H6). For H6 and H5, include separate entries for each coefficient (H6_Difficulty_Beta1, H5_Variance_Beta2). For H5, also include entries for each task type group (H5_Variance_MCQ, H5_Variance_Generation, H5_Variance_Agentic). The schema is:
+  - **Structure:** The JSON file must contain entries for all six hypotheses (H1-H6). **CRITICAL:** Since all hypothesis tests are performed using three correlation metrics (Spearman $\rho$, Kendall $\tau$, RBO), include separate entries for each metric. For example, H1_Spearman, H1_Kendall, H1_RBO. For H6 and H5 (regression models), include separate entries for each coefficient and each metric (e.g., H6_Difficulty_Beta1_Spearman, H6_Difficulty_Beta1_Kendall, H6_Difficulty_Beta1_RBO). For H5, also include entries for each task type group and each metric (e.g., H5_Variance_MCQ_Spearman, H5_Variance_MCQ_Kendall, H5_Variance_MCQ_RBO). The schema is:
     ```json
     {
       "$schema": "http://json-schema.org/draft-07/schema#",
@@ -709,10 +718,10 @@ Input:
 
   - **Action:** Use `seaborn` and `matplotlib` to generate the following figures for the manuscript.
   - **Important:** All figures must be saved directly to `overleaf/images/` directory (not `overleaf/figures/`). If an `overleaf/images/` directory does not exist, create it. If an existing `overleaf/images/` folder contains reference images, rename it to `overleaf/reference_image/` first.
-  - **Figure 1 (H6/H5):** `regplot` overlaying Difficulty vs. Construct Validity with Perceived Utility, with point size representing Variance (CV). Save as `overleaf/images/Figure_1_Difficulty_Variance.pdf`.
-  - **Figure 2 (H1):** `boxplot` with overlaid `stripplot` showing Construct Validity with Perceived Utility distributions for "MCQ" vs "Generative/Agentic" (Group A). Exclude "Mixed" benchmarks from the plot. Save as `overleaf/images/Figure_2_Task_Type.pdf`.
-  - **Figure 3a (H3):** `boxplot` with overlaid `stripplot` showing Construct Validity with Perceived Utility distributions across the four `prompt_length` categories ("Short", "Medium", "Long", "Extreme"). This visualizes the Kruskal-Wallis test results. Save as `overleaf/images/Figure_3a_Complexity_Categories.pdf`.
-  - **Figure 3b (H5 Task Type Interaction):** `scatterplot` or `regplot` showing the relationship between CV and Construct Validity with Perceived Utility, with different colors/markers for each task type (MCQ, Generation, Agentic). This visualizes the stratified H5 analysis. Save as `overleaf/images/Figure_3b_Variance_TaskType.pdf`.
+  - **Figure 1 (H6/H5):** `regplot` overlaying Difficulty (subset average score) (Weak -> Strong) vs. Spearman rho, with point size representing Variance (CV). Save as `overleaf/images/Figure_1_Difficulty_Variance.pdf`. **Title Format:** "Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho"
+  - **Figure 2 (H1):** `boxplot` with overlaid `stripplot` showing Spearman rho distributions for "MCQ" vs "Generative/Agentic" (Group A). Exclude "Mixed" benchmarks from the plot. Save as `overleaf/images/Figure_2_Task_Type.pdf`. **Title Format:** "Spearman rho by Task Type"
+  - **Figure 3a (H3):** `boxplot` with overlaid `stripplot` showing Spearman rho distributions across the four `prompt_length` categories ("Short", "Medium", "Long", "Extreme"). This visualizes the Kruskal-Wallis test results. Save as `overleaf/images/Figure_3a_Complexity_Categories.pdf`. **Title Format:** "Spearman rho by Prompt Length"
+  - **Figure 3b (H5 Task Type Interaction):** `scatterplot` or `regplot` showing the relationship between CV and Spearman rho, with different colors/markers for each task type (MCQ, Generation, Agentic). This visualizes the stratified H5 analysis. Save as `overleaf/images/Figure_3b_Variance_TaskType.pdf`. **Title Format:** "CV vs. Spearman rho by Task Type"
   - **Figure 4 (Confounders):** `heatmap` of the correlation matrix between the Independent Variables themselves (e.g., Are all Hard benchmarks also Recent? Do harder benchmarks have lower variance?). Include the following variables: Difficulty (subset_avg_score), Variance (CV), Recency (Release_Date_Ordinal), Complexity (prompt_length as categorical), Scale (log(question_count)), and Task_Type (encoded as binary or ordinal). This helps explain the Regression results and identify multicollinearity. Save as `overleaf/images/Figure_4_Confounder_Heatmap.pdf`.
 
 - **4.4.2b:** Table Generation for Manuscript (`Human-SIG/src/analysis/generate_tables.py`).
@@ -748,7 +757,7 @@ Input:
   
   - **Required Tables (Experimental Results Only):**
     - **Results Summary Table:** Create a DataFrame summarizing hypothesis test results (p-values, effect sizes, significance) from `statistical_significance_report.json`. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/results_table.tex`. Include columns: Hypothesis, Effect Size, Effect Size Type, p_raw, p_corrected, significant_strict, ci_lower, ci_upper (if applicable). **This is an experimental results table and belongs in `overleaf/tables/`.**
-    - **Correlation Summary Table (Optional):** If needed for the manuscript, create a table summarizing correlation coefficients (Spearman $\rho$ and Kendall $\tau$) with their p-values and 95% confidence intervals for each benchmark from `analysis_ready_data.csv`. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/correlation_summary_table.tex`. **CRITICAL:** This table MUST include correlation coefficients, p-values, and 95% confidence intervals. Format: "0.69 [95% CI: 0.52, 0.82], p = 0.001" or use separate columns for coefficient, ci_lower, ci_upper, and pvalue. Do NOT use asterisks to indicate significance. **This is an experimental results table and belongs in `overleaf/tables/`.**
+    - **Correlation Summary Table (Optional):** If needed for the manuscript, create a table summarizing correlation coefficients (Spearman $\rho$, Kendall $\tau$, and RBO) with their p-values and 95% confidence intervals for each benchmark from `analysis_ready_data.csv`. Use `DataFrame.to_latex()` to save directly to `overleaf/tables/correlation_summary_table.tex`. **CRITICAL:** This table MUST include all three correlation metrics (Spearman $\rho$, Kendall $\tau$, RBO), their p-values, and 95% confidence intervals for Spearman and Kendall (RBO does not have p-values or confidence intervals, report only the RBO value). Format: "Spearman $\rho = 0.69$ [95% CI: 0.52, 0.82], $p = 0.001$; Kendall $\tau = 0.52$ [95% CI: 0.35, 0.68], $p = 0.003$; RBO = 0.85" or use separate columns for each metric. Do NOT use asterisks to indicate significance. **This is an experimental results table and belongs in `overleaf/tables/`.**
   - **Non-Experimental Tables:** Tables that are NOT experimental results (e.g., benchmark introduction tables, benchmark characteristics tables for descriptive purposes) should be embedded directly in `acl_latex.tex` using LaTeX table syntax. Do NOT generate these as separate `.tex` files in `overleaf/tables/`.
   
   - **Table Formatting Guidelines:**
@@ -787,83 +796,54 @@ Objective: Synthesize the findings from Human-SIG/results/ into a scientifically
 
 #### Step 5.1: LaTeX Architecture Setup
 
-- **5.1.1:** Initialize `overleaf/main.tex` using the ACL 2026 template.
+- **5.1.1:** Initialize `overleaf/acl_latex.tex` using the ACL 2026 template.
 
   - **Action:** Write the preamble, title ("Correlating Benchmarks with Perceived Utility in the Post-Saturation Era"), and author placeholders.
 
-  - **Structure:** Inside `\begin{document}`, strictly write ONLY the following inclusion logic:
+  - **Note:** The `overleaf/acl_latex.tex` file already exists and contains the complete LaTeX document structure. For table generation rules, see Step 4.4.2b.
 
-    ```
-    \begin{document}
-    \input{acl_latex}
-    \bibliography{anthology,custom}
-    \end{document}
-    ```
+- **5.1.2:** Understand the structure of `overleaf/acl_latex.tex`.
 
-  - **Note:** All LaTeX content (abstract, introduction, methodology, results, discussion, conclusion) will be written directly into `overleaf/acl_latex.tex`. For table generation rules, see Step 4.4.2b.
-
-- **5.1.2:** Create `overleaf/acl_latex.tex` with the basic structure.
-
-  - **Action:** Initialize the file with the following structure:
-
-    ```
-    \maketitle
-    \begin{abstract}
-    % Abstract content will be added in Step 5.2.1
-    \end{abstract}
-    
-    \section{Introduction}
-    % Introduction content will be added in Step 5.2.2
-    
-    \section{Methodology}
-    % Methodology content will be added in Step 5.3.1
-    
-    \section{Results}
-    % Results content will be added in Step 5.4.2
-    
-    \section{Discussion}
-    % Discussion content will be added in Step 5.5.1
-    
-    \section{Conclusion}
-    % Conclusion content will be added in Step 5.5.2
-    ```
+  - **Action:** Read `overleaf/acl_latex.tex` to understand its current structure. The file already contains Abstract, Introduction (which may include Related Works), Methodology, Results, Discussion, and Conclusion sections.
+  - **CRITICAL:** The `acl_latex.tex` file contains many detailed instructions and guidelines for writing each section. You must carefully read and follow these instructions, treating them as guidance for content generation, NOT as placeholders to be replaced. Do NOT simply replace placeholder comments; instead, understand the context and existing content, then modify or extend the sections as needed.
+  - **Structure Analysis:** Identify the line numbers where each section begins and ends:
+    - Abstract section (between `\begin{abstract}` and `\end{abstract}`)
+    - Introduction section (between `\section{Introduction}` and the next `\section{...}`)
+    - Related Works (if present within Introduction)
+    - Methodology section (between `\section{Methodology}` and the next `\section{...}`)
+    - Results section (between `\section{Results}` and the next `\section{...}`)
+    - Discussion section (between `\section{Discussion}` and the next `\section{...}`)
+    - Conclusion section (between `\section{Conclusion}` and `\end{document}` or end of file)
+  - **Purpose:** This analysis will help you know exactly where to modify content in subsequent steps, rather than replacing placeholder comments.
 
 - **5.1.3:** Commit State.
 
-  - **Message:** `Step 5.1.3 Completed: Initialized acl_latex.tex structure`
+  - **Message:** `Step 5.1.3 Completed: Analyzed acl_latex.tex structure and identified section locations`
 
-#### Step 5.2: Abstract and Introduction (Contextualization)
+#### Step 5.2: Abstract Update
 
-- **5.2.1:** Write the abstract section in `overleaf/acl_latex.tex`.
-  - **Source:** Read `Human-SIG/results/statistical_significance_report.json` (created in Step 4.4.1) to identify the top-level conclusion (e.g., "H1 and H5 supported"). Also read `Human-SIG/results/analysis_ready_data.csv` to get summary statistics.
-  - **Action:** Replace the placeholder comment `% Abstract content will be added in Step 5.2.1` in `overleaf/acl_latex.tex` with the actual abstract content.
-  - **Content:** Write a 200-word abstract summarizing the analysis of 29 benchmarks (AIME, FrontierMath Tier 1-3, FrontierMath Tier 4, HMMT (Feb 2025), MATH-500, MGSM, Aider Polyglot, HumanEval, IOI, LiveCodeBench, SciCode, SWE-bench (Verified), SWE-Bench Bash Only, tau2-Bench Telecom, Terminal-Bench Hard, Terminal-Bench v2.0, IFBench, IFEval, Creative Writing v3, WritingBench, AA-LCR, ARC-AGI-2, Arena-Hard (Auto v2.0), FACTS, MMLU-Pro, GPQA, GPQA Diamond, Humanity's Last Exam, SuperGPQA) against LMArena. Explicitly mention the shift from "Static Accuracy" to "Dynamic Perceived Utility." Report the key findings: which hypotheses were supported, the effect sizes, and the statistical significance (after correction). Mention the use of robust statistical methods (bootstrap, robust regression) to handle the small sample size. **CRITICAL:** The benchmark list above follows the standardized ordering (by category: Math, Coding, Instruction Following, Creative Writing, Hard Prompts, Expert; then alphabetically within each category).
+- **5.2.1:** Update the abstract section in `overleaf/acl_latex.tex`.
+  - **Action:** Locate the Abstract section (identified in Step 5.1.2) in `overleaf/acl_latex.tex`. Read the existing abstract content and the instructions within the file.
+  - **Update:** At the end of the abstract, add a sentence summarizing the hypothesis testing conclusions. Read `Human-SIG/results/statistical_significance_report.json` (created in Step 4.4.1) to identify which hypotheses were supported. Report the key findings: which hypotheses were supported, the effect sizes, and the statistical significance (after correction).
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
-- **5.2.2:** Write the introduction section in `overleaf/acl_latex.tex`.
-  - **Action:** Replace the placeholder comment `% Introduction content will be added in Step 5.2.2` in `overleaf/acl_latex.tex` with the actual introduction content.
-  - **Content:**
-    1. Define the problem: The "Saturation" of MMLU and the "Identity Crisis" of models (from Master Data Source).
-    2. Define the Ground Truth: LMArena as the proxy for Perceived Utility (Perceived Utility of a particular LLM).
-    3. State the Research Questions: List the six hypotheses in the following order: H1 (The Generative Hypothesis), H2 (The Scale Hypothesis), H3 (The Prompt Complexity Hypothesis), H4 (The Recency Hypothesis), H5 (The Variance Hypothesis), H6 (The Difficulty Hypothesis).
-  - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
-- **5.2.3:** Commit State.
-  - **Message:** `Step 5.2.3 Completed: Drafted Abstract and Introduction sections in acl_latex.tex`
+- **5.2.2:** Commit State.
+  - **Message:** `Step 5.2.2 Completed: Updated Abstract with hypothesis testing conclusions`
 
 #### Step 5.3: Methodology (The Rigor Check)
 
-- **5.3.1:** Write the methodology section in `overleaf/acl_latex.tex`.
+- **5.3.1:** Update the methodology section in `overleaf/acl_latex.tex`.
   - **Source:** Read `Human-SIG/results/data_overlap_stats.json` (from Phase III) and your internal logic from Phase IV.
-  - **Action:** Replace the placeholder comment `% Methodology content will be added in Step 5.3.1` in `overleaf/acl_latex.tex` with the actual methodology content.
+  - **Action:** Locate the Methodology section (identified in Step 5.1.2) in `overleaf/acl_latex.tex`. Read the existing methodology content and the instructions within the file. Update the content as needed based on the instructions in the file.
   - **Content:**
     1. **Data Collection:** Describe the ingestion of 29 benchmarks (AIME, FrontierMath Tier 1-3, FrontierMath Tier 4, HMMT (Feb 2025), MATH-500, MGSM, Aider Polyglot, HumanEval, IOI, LiveCodeBench, SciCode, SWE-bench (Verified), SWE-Bench Bash Only, tau2-Bench Telecom, Terminal-Bench Hard, Terminal-Bench v2.0, IFBench, IFEval, Creative Writing v3, WritingBench, AA-LCR, ARC-AGI-2, Arena-Hard (Auto v2.0), FACTS, MMLU-Pro, GPQA, GPQA Diamond, Humanity's Last Exam, SuperGPQA) and the "Strict Entity Resolution" protocol used to map models. Mention the final $N$ (sample size) from the overlap stats. **CRITICAL:** The benchmark list above follows the standardized ordering (by category: Math, Coding, Instruction Following, Creative Writing, Hard Prompts, Expert; then alphabetically within each category).
     2. **Statistical Framework:** Explicitly state the use of Rank-Biased Overlap (RBO) ($p=0.9$) to account for top-tier sensitivity, Spearman's rank correlation ($\rho$) and Kendall's $\tau$ for non-parametric correlation analysis, and Fisher z-transformation for correlation aggregation when needed. Explain why multiple correlation metrics are used (RBO for ranking, Spearman/Kendall for robustness to outliers). **P-value Calculation for Correlations:** For each Spearman and Kendall correlation between benchmark scores and LMArena ELO scores, the p-value is calculated as follows: When $N < 30$ (where $N$ is the number of overlapping models between the benchmark and LMArena), we apply a permutation test using `scipy.stats.permutation_test` with `permutation_type='pairings'`, which permutes one ranking under the null hypothesis of independence and recalculates the correlation. When $N \geq 30$, the p-value returned by `scipy.stats.spearmanr` or `scipy.stats.kendalltau` is used as a sufficiently accurate approximation. This approach ensures accurate significance testing for small sample sizes while maintaining computational efficiency for larger samples. **Confidence Intervals for Correlations:** For each Spearman and Kendall correlation coefficient, compute 95% bootstrap confidence intervals using 5000 bootstrap iterations. This provides uncertainty quantification for correlation estimates, which is critical for interpreting the strength and reliability of relationships between benchmarks and Perceived Utility.
-    3. **Hypothesis Testing:** Describe the statistical tests used for each hypothesis:
-       - **H1 (Generative):** Mann-Whitney U test to compare construct validity with Perceived Utility distributions between MCQ and Generative/Agentic groups.
-       - **H2 (Scale):** Pearson correlation between log(question_count) and construct validity with Perceived Utility.
-       - **H3 (Complexity):** Kruskal-Wallis H-test (non-parametric one-way ANOVA) to test whether construct validity with Perceived Utility distributions differ across prompt_length categories, with post-hoc pairwise comparisons if significant.
-       - **H4 (Recency):** Univariate Spearman correlation between release date and construct validity with Perceived Utility.
-       - **H5 (Variance):** Multiple Robust Regression model (Construct Validity with Perceived Utility ~ Difficulty + CV) using `statsmodels.RLM` with Huber's t-criterion, with stratified analysis by task type (MCQ, Generation, Agentic) to examine task type moderation effects.
-       - **H6 (Difficulty):** Multiple Robust Regression model (Construct Validity with Perceived Utility ~ Difficulty + CV) using `statsmodels.RLM` with Huber's t-criterion, controlling for variance.
+    3. **Hypothesis Testing:** Describe the statistical tests used for each hypothesis. **CRITICAL:** All hypothesis tests are performed using three correlation metrics (Spearman $\rho$, Kendall $\tau$, and RBO) separately, and results from all three metrics must be reported. For H1, H2, H3, and H4, perform the test three times (once for each metric). For H5 and H6 (regression models), use Spearman $\rho$ as the dependent variable in the primary analysis, but also report Kendall $\tau$ and RBO as robustness checks.
+       - **H1 (Generative):** Mann-Whitney U test to compare Spearman $\rho$ (Kendall $\tau$, RBO) distributions between MCQ and Generative/Agentic groups. Report results for all three metrics.
+       - **H2 (Scale):** Pearson correlation between log(question_count) and Spearman $\rho$ (Kendall $\tau$, RBO). Report correlations for all three metrics.
+       - **H3 (Complexity):** Kruskal-Wallis H-test (non-parametric one-way ANOVA) to test whether Spearman $\rho$ (Kendall $\tau$, RBO) distributions differ across prompt_length categories, with post-hoc pairwise comparisons if significant. Report results for all three metrics.
+       - **H4 (Recency):** Univariate Spearman correlation between release date and Spearman $\rho$ (Kendall $\tau$, RBO). Report correlations for all three metrics.
+       - **H5 (Variance):** Multiple Robust Regression model (Spearman $\rho$ ~ Difficulty + CV) using `statsmodels.RLM` with Huber's t-criterion, with stratified analysis by task type (MCQ, Generation, Agentic) to examine task type moderation effects. Also perform regression using Kendall $\tau$ and RBO as dependent variables for robustness checks.
+       - **H6 (Difficulty):** Multiple Robust Regression model (Spearman $\rho$ ~ Difficulty + CV) using `statsmodels.RLM` with Huber's t-criterion, controlling for variance. Also perform regression using Kendall $\tau$ and RBO as dependent variables for robustness checks.
     4. **Small-N Considerations:** Explain why multivariate regression with all 6 variables was avoided due to small sample size ($N=29$), which would violate the rule of thumb requiring at least 10 samples per variable. Describe the bootstrap resampling procedure (5000 iterations) used to compute confidence intervals for all effect sizes and correlation coefficients. Explain why categorical tests (Kruskal-Wallis) are preferred over assuming ordinal spacing for prompt_length.
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
 - **5.3.2:** Commit State.
@@ -875,7 +855,7 @@ Objective: Synthesize the findings from Human-SIG/results/ into a scientifically
   - **Action:** BEFORE generating any LaTeX code, you must strictly read `Human-SIG/results/statistical_significance_report.json` and `Human-SIG/results/analysis_ready_data.csv` (created in Steps 4.4.1 and 4.2.3) into a local memory variable.
   - **Constraint:** When calling the LLM to write the text, explicitly inject the raw JSON/CSV data snippets into the context window. DO NOT rely on the Agent's "memory" of previous steps.
 - **5.4.2:** Write the results section in `overleaf/acl_latex.tex`.
-  - **Action:** Replace the placeholder comment `% Results content will be added in Step 5.4.2` in `overleaf/acl_latex.tex` with the actual results content.
+  - **Action:** Locate the Results section in `overleaf/acl_latex.tex` and write the actual results content.
   - **Content Block 1:** Reference the results summary table. The table should already exist at `overleaf/tables/results_table.tex` (generated in Step 4.4.2b using `DataFrame.to_latex()`). Reference it with: `\input{tables/results_table}`. **Important:** Do NOT generate this table manually or by reading from CSV. The table must be generated programmatically using `DataFrame.to_latex()` to ensure all numerical values are exactly as computed by the code.
   - **Content Block 2:** For H1-H6, report the Bootstrap 95% Confidence Intervals (e.g., "Coefficient: 0.45 [95% CI: 0.12, 0.78]"). Include both raw and corrected p-values (after Holm-Bonferroni correction) for each hypothesis. Clearly indicate which hypotheses are statistically significant after correction.
   - **CRITICAL: Correlation Reporting Format (Anti-Hallucination Protocol):** Whenever you report a Spearman or Kendall correlation coefficient between a benchmark and an LMArena category, you MUST include both the p-value and the 95% confidence interval explicitly in the text. **DO NOT use asterisks (*, **, ***) to indicate significance.** Instead, always report correlations in the format: "Spearman $\rho = 0.69$ [95% CI: 0.52, 0.82], $p = 0.001$" or "Kendall $\tau = 0.52$ [95% CI: 0.35, 0.68], $p = 0.003$". This applies to:
@@ -884,9 +864,9 @@ Objective: Synthesize the findings from Human-SIG/results/ into a scientifically
     - Any figure caption that references correlation values
     - Any discussion of individual benchmark performance
   - **Specifics:**
-    - Discuss the specific impact of variance (CV - Coefficient of Variation) on construct validity with Perceived Utility, and how it interacts with difficulty (The Clustering Effect: high-accuracy benchmarks compress variance near 100%, making it harder to distinguish between top-performing models). Explain the trade-off between difficulty and variance: harder benchmarks may have lower variance due to floor effects, while easier benchmarks may have compressed variance near the ceiling. **When reporting specific correlations, always include both p-values and 95% confidence intervals in the format specified above.**
-    - **H5 Task Type Analysis:** Report the stratified analysis results showing how the relationship between variance and construct validity with Perceived Utility differs across task types (MCQ, Generation, Agentic). Discuss whether variance affects construct validity differently for different task types, and what this implies for benchmark design. **When reporting correlations for each task type group, always include both p-values and 95% confidence intervals in the format specified above.**
-    - Explicitly mention that all benchmark scores were normalized to a 0-100 scale (as specified in Step 2.2.1) to ensure comparability across different metric types, and that metric directionality was handled through inversion for "lower_is_better" metrics during the normalization process in Step 2.2.1 (verified in Step 4.2.1).
+    - Discuss the specific impact of variance (CV - Coefficient of Variation) on Spearman correlation with Perceived Utility, and how it interacts with difficulty (The Clustering Effect: high-accuracy benchmarks compress variance near 100%, making it harder to distinguish between top-performing models). Explain the trade-off between difficulty and variance: harder benchmarks may have lower variance due to floor effects, while easier benchmarks may have compressed variance near the ceiling. **When reporting specific correlations, always include both p-values and 95% confidence intervals in the format specified above.**
+    - **H5 Task Type Analysis:** Report the stratified analysis results showing how the relationship between variance and Spearman correlation with Perceived Utility differs across task types (MCQ, Generation, Agentic). Discuss whether variance affects Spearman correlation differently for different task types, and what this implies for benchmark design. **When reporting correlations for each task type group, always include both p-values and 95% confidence intervals in the format specified above.**
+    - Explicitly mention that all benchmark scores were normalized to a 0-100 scale during data preparation (verified in Step 3.1) to ensure comparability across different metric types. Specifically, benchmarks using 0-1 scale (FACTS, GPQA, HMMT (Feb 2025), HumanEval, IFEval, SuperGPQA, SWE-bench (Verified), Arena-Hard (Auto v2.0)) had their scores multiplied by 100. For FACTS benchmark, only rows with Task_Name == "Average" were included, using the Numerical_Result column. Metric directionality (inversion for "lower_is_better" metrics) was handled during data preparation (verified in Step 3.1 and Step 4.2.1).
   - **Reference:** Include `\includegraphics{images/Figure_1_Difficulty_Variance.pdf}`, `\includegraphics{images/Figure_2_Task_Type.pdf}`, `\includegraphics{images/Figure_3a_Complexity_Categories.pdf}`, `\includegraphics{images/Figure_3b_Variance_TaskType.pdf}`, and `\includegraphics{images/Figure_4_Confounder_Heatmap.pdf}`.
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
 - **5.4.3:** Commit State.
@@ -894,21 +874,21 @@ Objective: Synthesize the findings from Human-SIG/results/ into a scientifically
 
 #### Step 5.5: Discussion and Conclusion
 
-- **5.5.1:** Write the discussion section in `overleaf/acl_latex.tex`.
-  - **Action:** Replace the placeholder comment `% Discussion content will be added in Step 5.5.1` in `overleaf/acl_latex.tex` with the actual discussion content.
+- **5.5.1:** Update the discussion section in `overleaf/acl_latex.tex`.
+  - **Action:** Locate the Discussion section (identified in Step 5.1.2) in `overleaf/acl_latex.tex`. Read the existing discussion content and the instructions within the file. Update the content as needed based on the instructions in the file.
   - **Content:** Interpret the results based on the statistical significance report. Read `Human-SIG/results/statistical_significance_report.json` to determine which hypotheses are supported.
-    - If H1 supported: Discuss why "Generative/Agentic" tasks exhibit higher construct validity with Perceived Utility than MCQs (open-ended tasks may better capture real-world Perceived Utility).
-    - If H2 supported: Discuss how larger test volumes contribute to construct validity with Perceived Utility.
-    - If H3 supported: Discuss how prompt complexity affects construct validity with Perceived Utility.
-    - If H4 supported: Discuss "Contamination vs. Generalization" (recent benchmarks may have higher construct validity with Perceived Utility due to training data contamination or genuine generalization improvements).
-    - If H5 supported: Discuss how variance affects construct validity with Perceived Utility, and how it interacts with task type.
-    - If H6 supported: Discuss "The Alignment Tax" (harder benchmarks contribute negatively to the CV of Perceived Utility, particularly when controlling for variance). Explain the interaction between difficulty and variance.
+    - If H1 supported: Discuss why "Generative/Agentic" tasks exhibit higher Spearman correlation with Perceived Utility than MCQs (open-ended tasks may better capture real-world Perceived Utility).
+    - If H2 supported: Discuss how larger test volumes contribute to Spearman correlation with Perceived Utility.
+    - If H3 supported: Discuss how prompt complexity affects Spearman correlation with Perceived Utility.
+    - If H4 supported: Discuss "Contamination vs. Generalization" (recent benchmarks may have higher Spearman correlation with Perceived Utility due to training data contamination or genuine generalization improvements).
+    - If H5 supported: Discuss how variance affects Spearman correlation with Perceived Utility, and how it interacts with task type.
+    - If H6 supported: Discuss "The Alignment Tax" (harder benchmarks contribute negatively to Spearman correlation with Perceived Utility, particularly when controlling for variance). Explain the interaction between difficulty and variance.
     - **Statistical Power and Sample Size Considerations:** Address the concern about the relatively small sample size ($N=29$) by explaining that while the sample size is limited, the statistical analyses were designed to maximize power given this constraint. Specifically, all hypothesis tests involve at most two independent variables simultaneously (e.g., the bivariate robust regression for H6/H5 uses only Difficulty and CV). Following the rule of thumb requiring approximately 10 samples per variable, the effective sample size requirement for bivariate models is approximately 20 samples, which is met by the current sample of 29 benchmarks. This targeted approach, combined with non-parametric tests (Spearman, Kendall, Mann-Whitney, Kruskal-Wallis) that are robust to small sample sizes, and bootstrap resampling (5000 iterations) for confidence interval estimation, ensures reasonable statistical validity despite the limited sample size. Discuss the trade-offs: while multivariate regression with all six factors simultaneously would require a larger sample, the current approach allows for rigorous testing of individual hypotheses while maintaining statistical power.
     - **Methodological Consideration: Difficulty Calculation and Potential Circularity:** Address the methodological choice of calculating the Difficulty feature (subset_avg_score) using the Common Subset of models with LMArena Overall ELO scores between 1400 and 1430, which is derived from the same LMArena data used as the dependent variable in correlation analyses. Acknowledge that this approach could theoretically introduce circularity concerns, as the same data source (LMArena) is used to both define the difficulty metric (via model subset selection) and as the target for correlation. However, explain the methodological necessity of this approach: (1) The benchmark leaderboards contain a highly heterogeneous set of models with vastly different capabilities, making direct calculation of benchmark difficulty across all models problematic due to floor and ceiling effects; (2) Using a single model as the reference would introduce excessive individual model bias, making the difficulty measure unreliable; (3) The Common Subset approach provides a principled way to select a homogeneous group of models with similar overall capability levels, ensuring sufficient sample size while minimizing individual model bias; (4) The choice of LMArena Overall ELO as the selection criterion is justified by its status as a comprehensive measure of model capabilities across diverse domains, making it the most appropriate proxy for general model capability. Conclude by noting that while this approach acknowledges a potential methodological limitation, it represents the most principled solution given the constraints of the data structure, and that sensitivity analyses (e.g., varying the ELO range thresholds) could be explored in future work.
     - Discuss other limitations: dependency on LMArena as ground truth, potential confounding factors, and generalizability concerns.
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
-- **5.5.2:** Write the conclusion section in `overleaf/acl_latex.tex`.
-  - **Action:** Replace the placeholder comment `% Conclusion content will be added in Step 5.5.2` in `overleaf/acl_latex.tex` with the actual conclusion content.
+- **5.5.2:** Update the conclusion section in `overleaf/acl_latex.tex`.
+  - **Action:** Locate the Conclusion section (identified in Step 5.1.2) in `overleaf/acl_latex.tex`. Read the existing conclusion content and the instructions within the file. Update the content as needed based on the instructions in the file.
   - **Content:** Final summary and limitations (e.g., dependency on LMArena crowd demographics).
   - **Formatting:** Each sentence must be on a separate line. Use blank lines to separate paragraphs.
 - **5.5.3:** Commit State.
@@ -939,8 +919,8 @@ Objective: Synthesize the findings from Human-SIG/results/ into a scientifically
 
 - **5.6.3:** Check for Formatting Warnings (Overfull/Underfull).
   - **Action:** After successful compilation, examine the `.log` file for formatting warnings:
-    - **On Unix/Linux/Mac:** Use `grep -E "(Overfull|Underfull)" overleaf/main.log`
-    - **On Windows (PowerShell):** Use `Select-String -Pattern "(Overfull|Underfull)" overleaf/main.log`
+    - **On Unix/Linux/Mac:** Use `grep -E "(Overfull|Underfull)" overleaf/acl_latex.log` (or `overleaf/main.log` if using a driver file)
+    - **On Windows (PowerShell):** Use `Select-String -Pattern "(Overfull|Underfull)" overleaf/acl_latex.log` (or `overleaf/main.log` if using a driver file)
     - **Cross-platform alternative:** Read the `.log` file and search for lines containing "Overfull" or "Underfull" using Python or any text processing tool.
   - **Overfull Box Warnings:** Indicate that text extends beyond the right margin.
     - **Common Causes:** Long words, URLs, or technical terms that cannot be hyphenated.

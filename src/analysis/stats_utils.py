@@ -130,10 +130,19 @@ def calculate_rbo(list1: List, list2: List, p: float = 0.9) -> float:
         return 1.0  # Both empty lists
     
     # Calculate RBO
+    # Optimize: with p=0.9, weights decay quickly. Stop when weight becomes negligible (< 1e-6)
     rbo_sum = 0.0
     agreement_at_depth = 0.0
+    min_weight = 1e-6  # Stop when weight becomes negligible
     
     for d in range(1, max_depth + 1):
+        # Weight: (1-p) * p^(d-1)
+        weight = (1 - p) * (p ** (d - 1))
+        
+        # Early stopping: if weight is negligible, remaining terms won't affect result
+        if weight < min_weight:
+            break
+        
         # Get items up to depth d
         items1_d = set(list1[:d]) if d <= len(list1) else set1
         items2_d = set(list2[:d]) if d <= len(list2) else set2
@@ -147,8 +156,6 @@ def calculate_rbo(list1: List, list2: List, p: float = 0.9) -> float:
         else:
             agreement_at_depth = len(intersection) / len(union)
         
-        # Weight: (1-p) * p^(d-1)
-        weight = (1 - p) * (p ** (d - 1))
         rbo_sum += weight * agreement_at_depth
     
     return rbo_sum
@@ -191,21 +198,26 @@ def bootstrap_ci(
     bootstrap_stats = []
     
     # Set random seed for reproducibility
-    np.random.seed(42)
+    rng = np.random.RandomState(42)
     
-    for _ in range(n_boot):
+    for i in range(n_boot):
         # Resample with replacement
-        indices = np.random.choice(n, size=n, replace=True)
+        indices = rng.choice(n, size=n, replace=True)
         x_boot = data_x[indices]
         y_boot = data_y[indices]
         
         # Compute statistic
         try:
             stat = func(x_boot, y_boot)
-            bootstrap_stats.append(stat)
-        except (ValueError, RuntimeError):
+            if not np.isnan(stat):
+                bootstrap_stats.append(stat)
+        except (ValueError, RuntimeError, TypeError):
             # Skip if statistic cannot be computed (e.g., all values are the same)
             continue
+        
+        # Progress indicator every 1000 iterations (reduced frequency to minimize I/O overhead)
+        if (i + 1) % 1000 == 0:
+            print(f"      Bootstrap progress: {i + 1}/{n_boot} iterations ({100*(i+1)/n_boot:.1f}%)", end='\r', flush=True)
     
     if len(bootstrap_stats) == 0:
         return (np.nan, np.nan)
@@ -323,6 +335,68 @@ def huber_loss_regression(X: np.ndarray, y: np.ndarray) -> Dict:
         "rsquared": results.rsquared,
         "model": results
     }
+
+
+def calculate_spearman_fast(x: np.ndarray, y: np.ndarray) -> float:
+    """
+    Fast Spearman correlation calculation for bootstrap (no p-value, no permutation test).
+    
+    This function is optimized for bootstrap resampling where we only need the correlation
+    coefficient, not the p-value. It directly uses scipy.stats.spearmanr without permutation
+    testing, making it much faster for bootstrap iterations.
+    
+    Args:
+        x: First data array
+        y: Second data array (must have same length as x)
+    
+    Returns:
+        Spearman correlation coefficient (float)
+    """
+    if len(x) != len(y):
+        raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
+    
+    # Remove missing values
+    mask = ~(np.isnan(x) | np.isnan(y))
+    x_clean = x[mask]
+    y_clean = y[mask]
+    
+    if len(x_clean) < 2:
+        return np.nan
+    
+    # Fast calculation: just get correlation, no p-value
+    correlation, _ = spearmanr(x_clean, y_clean)
+    return correlation
+
+
+def calculate_kendall_fast(x: np.ndarray, y: np.ndarray) -> float:
+    """
+    Fast Kendall correlation calculation for bootstrap (no p-value, no permutation test).
+    
+    This function is optimized for bootstrap resampling where we only need the correlation
+    coefficient, not the p-value. It directly uses scipy.stats.kendalltau without permutation
+    testing, making it much faster for bootstrap iterations.
+    
+    Args:
+        x: First data array
+        y: Second data array (must have same length as x)
+    
+    Returns:
+        Kendall's tau correlation coefficient (float)
+    """
+    if len(x) != len(y):
+        raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
+    
+    # Remove missing values
+    mask = ~(np.isnan(x) | np.isnan(y))
+    x_clean = x[mask]
+    y_clean = y[mask]
+    
+    if len(x_clean) < 2:
+        return np.nan
+    
+    # Fast calculation: just get correlation, no p-value
+    correlation, _ = kendalltau(x_clean, y_clean)
+    return correlation
 
 
 def calculate_spearman_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, float]:
@@ -473,4 +547,66 @@ def calculate_kendall_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, 
         _, p_value = kendalltau(x_clean, y_clean)
     
     return (correlation, p_value)
+
+
+def calculate_spearman_fast(x: np.ndarray, y: np.ndarray) -> float:
+    """
+    Fast Spearman correlation calculation for bootstrap (no p-value, no permutation test).
+    
+    This function is optimized for bootstrap resampling where we only need the correlation
+    coefficient, not the p-value. It directly uses scipy.stats.spearmanr without permutation
+    testing, making it much faster for bootstrap iterations.
+    
+    Args:
+        x: First data array
+        y: Second data array (must have same length as x)
+    
+    Returns:
+        Spearman correlation coefficient (float)
+    """
+    if len(x) != len(y):
+        raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
+    
+    # Remove missing values
+    mask = ~(np.isnan(x) | np.isnan(y))
+    x_clean = x[mask]
+    y_clean = y[mask]
+    
+    if len(x_clean) < 2:
+        return np.nan
+    
+    # Fast calculation: just get correlation, no p-value
+    correlation, _ = spearmanr(x_clean, y_clean)
+    return correlation
+
+
+def calculate_kendall_fast(x: np.ndarray, y: np.ndarray) -> float:
+    """
+    Fast Kendall correlation calculation for bootstrap (no p-value, no permutation test).
+    
+    This function is optimized for bootstrap resampling where we only need the correlation
+    coefficient, not the p-value. It directly uses scipy.stats.kendalltau without permutation
+    testing, making it much faster for bootstrap iterations.
+    
+    Args:
+        x: First data array
+        y: Second data array (must have same length as x)
+    
+    Returns:
+        Kendall's tau correlation coefficient (float)
+    """
+    if len(x) != len(y):
+        raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
+    
+    # Remove missing values
+    mask = ~(np.isnan(x) | np.isnan(y))
+    x_clean = x[mask]
+    y_clean = y[mask]
+    
+    if len(x_clean) < 2:
+        return np.nan
+    
+    # Fast calculation: just get correlation, no p-value
+    correlation, _ = kendalltau(x_clean, y_clean)
+    return correlation
 
