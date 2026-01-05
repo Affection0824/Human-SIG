@@ -1,221 +1,387 @@
 """
-Table Generation Module for Manuscript
+Generate Tables for Manuscript
 
 Purpose:
-    Generate experimental results tables for the manuscript using pandas.DataFrame.to_latex().
-    All tables must be saved directly to overleaf/tables/ directory as .tex files.
+    This script generates experimental results tables for the manuscript using
+    pandas.DataFrame.to_latex() method. All tables are saved directly to
+    overleaf/tables/ directory as .tex files.
 
-Tables:
-    - Results Summary Table: Hypothesis test results (p-values, effect sizes, significance)
-    - Correlation Summary Table: Correlation coefficients (Spearman ρ, Kendall τ, RBO) 
-      with p-values and 95% confidence intervals for each benchmark
+Tables Generated:
+    - Results Summary Table (Spearman only, for main text)
+    - Results Summary Table (Kendall only, for appendix)
+    - Results Summary Table (RBO only, for appendix)
+    - Correlation Summary Table (optional, for each benchmark)
 """
 
 import json
 import pandas as pd
 import numpy as np
 from pathlib import Path
-import sys
+import logging
 
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
-
-
-def ensure_output_directory():
-    """Ensure overleaf/tables/ directory exists."""
-    output_dir = project_root.parent / "overleaf" / "tables"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    return output_dir
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
-def generate_results_summary_table(report_path: Path, output_dir: Path):
+def format_pvalue(p_val):
     """
-    Generate results summary table from statistical_significance_report.json.
+    Format p-value with scientific notation when p < 0.001.
     
-    Columns: Hypothesis, Effect Size, Effect Size Type, p_raw, p_corrected, 
-             significant_strict, ci_lower, ci_upper (if applicable)
+    Args:
+        p_val: P-value (float or NaN)
+        
+    Returns:
+        Formatted string (e.g., "1.23e-3" or "0.0123")
     """
-    # Load report
+    if pd.isna(p_val):
+        return "N/A"
+    if p_val < 0.001:
+        return f"{p_val:.2e}"
+    else:
+        return f"{p_val:.4f}"
+
+
+def load_significance_report(report_path: Path) -> dict:
+    """Load statistical significance report."""
     with open(report_path, 'r', encoding='utf-8') as f:
-        report = json.load(f)
+        return json.load(f)
+
+
+def load_analysis_data(data_path: Path) -> pd.DataFrame:
+    """Load analysis-ready data."""
+    return pd.read_csv(data_path)
+
+
+def create_results_table_spearman(report: dict, output_path: Path):
+    """Create results summary table for Spearman metric only."""
+    logger.info("Creating results summary table (Spearman only)...")
     
-    # Extract results
-    results = report.get('results', {})
+    # Filter to Spearman results only
+    spearman_keys = [k for k in report.keys() if 'spearman_rho' in k and not k.startswith('$')]
     
-    # Build DataFrame
     rows = []
-    for hyp_key, hyp_data in results.items():
-        row = {
-            'Hypothesis': hyp_key,
-            'Effect Size': hyp_data.get('effect_size', np.nan),
-            'Effect Size Type': hyp_data.get('effect_size_type', 'unknown'),
-            'p_raw': hyp_data.get('p_raw', np.nan),
-            'p_corrected': hyp_data.get('p_corrected', np.nan),
-            'Significant': hyp_data.get('significant_strict', False)
-        }
-        
-        # Add CI if available
-        if 'ci_lower' in hyp_data and hyp_data['ci_lower'] is not None:
-            row['CI Lower'] = hyp_data['ci_lower']
-        if 'ci_upper' in hyp_data and hyp_data['ci_upper'] is not None:
-            row['CI Upper'] = hyp_data['ci_upper']
-        
-        # Add sample size if available
-        if 'sample_size' in hyp_data:
-            row['Sample Size'] = hyp_data['sample_size']
-        
-        rows.append(row)
+    for key in sorted(spearman_keys):
+        result = report[key]
+        if isinstance(result, dict):
+            # Extract hypothesis name
+            if key.startswith('H1_'):
+                hypothesis = 'H1 (Generative)'
+            elif key.startswith('H2_'):
+                hypothesis = 'H2 (Scale)'
+            elif key.startswith('H3_'):
+                hypothesis = 'H3 (Complexity)'
+            elif key.startswith('H4_'):
+                hypothesis = 'H4 (Recency)'
+            elif 'H6_Difficulty_Beta1' in key:
+                hypothesis = 'H6 (Difficulty)'
+            elif 'H5_Variance_Beta2' in key:
+                hypothesis = 'H5 (Variance)'
+            else:
+                hypothesis = key
+            
+            rows.append({
+                'Hypothesis': hypothesis,
+                'Effect Size': result.get('effect_size', np.nan),
+                'Effect Size Type': result.get('effect_size_type', 'unknown'),
+                'p_raw': result.get('p_raw', np.nan),
+                'p_corrected': result.get('p_corrected', np.nan),
+                'significant_strict': result.get('significant_strict', False),
+                'ci_lower': result.get('ci_lower', np.nan),
+                'ci_upper': result.get('ci_upper', np.nan)
+            })
     
     df = pd.DataFrame(rows)
     
-    # Format columns for LaTeX
-    # Format p-values and effect sizes
-    if 'p_raw' in df.columns:
-        df['p_raw'] = df['p_raw'].apply(lambda x: f'{x:.4f}' if pd.notna(x) else '--')
-    if 'p_corrected' in df.columns:
-        df['p_corrected'] = df['p_corrected'].apply(lambda x: f'{x:.4f}' if pd.notna(x) else '--')
-    if 'Effect Size' in df.columns:
-        df['Effect Size'] = df['Effect Size'].apply(lambda x: f'{x:.4f}' if pd.notna(x) else '--')
-    if 'CI Lower' in df.columns:
-        df['CI Lower'] = df['CI Lower'].apply(lambda x: f'{x:.4f}' if pd.notna(x) else '--')
-    if 'CI Upper' in df.columns:
-        df['CI Upper'] = df['CI Upper'].apply(lambda x: f'{x:.4f}' if pd.notna(x) else '--')
+    # Format p-values
+    df['p_raw_formatted'] = df['p_raw'].apply(format_pvalue)
+    df['p_corrected_formatted'] = df['p_corrected'].apply(format_pvalue)
     
-    # Convert Significant to Yes/No
-    if 'Significant' in df.columns:
-        df['Significant'] = df['Significant'].apply(lambda x: 'Yes' if x else 'No')
-    
-    # Reorder columns
-    column_order = ['Hypothesis', 'Effect Size', 'Effect Size Type', 'p_raw', 'p_corrected', 'Significant']
-    if 'CI Lower' in df.columns:
-        column_order.insert(-1, 'CI Lower')
-    if 'CI Upper' in df.columns:
-        column_order.insert(-1, 'CI Upper')
-    if 'Sample Size' in df.columns:
-        column_order.append('Sample Size')
-    
-    # Select only columns that exist
-    column_order = [col for col in column_order if col in df.columns]
-    df = df[column_order]
-    
-    # Rename columns for LaTeX
-    df = df.rename(columns={
-        'p_raw': 'p (raw)',
-        'p_corrected': 'p (corrected)',
-        'Effect Size': 'Effect Size',
-        'Effect Size Type': 'Effect Type',
-        'CI Lower': 'CI Lower',
-        'CI Upper': 'CI Upper',
-        'Sample Size': 'N'
-    })
-    
-    # Generate LaTeX table
-    output_path = output_dir / "results_table.tex"
-    
-    latex_table = df.to_latex(
-        buf=str(output_path),
-        index=False,
-        float_format='%.4f',
-        caption='Hypothesis Test Results Summary',
-        label='tab:results_summary',
-        column_format='l' + 'r' * (len(df.columns) - 1),
-        escape=False,
-        na_rep='--'
+    # Format CI
+    df['CI'] = df.apply(
+        lambda row: f"[{row['ci_lower']:.3f}, {row['ci_upper']:.3f}]" 
+        if pd.notna(row['ci_lower']) and pd.notna(row['ci_upper']) else "N/A",
+        axis=1
     )
     
-    print(f"Results summary table saved to {output_path}")
+    # Select columns for table
+    df_table = df[['Hypothesis', 'Effect Size', 'p_raw_formatted', 'p_corrected_formatted', 
+                   'significant_strict', 'CI']].copy()
+    df_table.columns = ['Hypothesis', 'Effect Size', 'p (raw)', 'p (corrected)', 
+                        'Significant', '95% CI']
+    
+    # Format effect size
+    df_table['Effect Size'] = df_table['Effect Size'].apply(
+        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
+    )
+    
+    # Convert boolean to Yes/No
+    df_table['Significant'] = df_table['Significant'].apply(lambda x: 'Yes' if x else 'No')
+    
+    # Save to LaTeX
+    logger.info(f"Saving table to {output_path}")
+    with open(output_path, 'w', encoding='utf-8') as f:
+        latex_str = df_table.to_latex(
+            index=False,
+            float_format='%.3f',
+            caption='Hypothesis Test Results (Spearman ρ)',
+            label='tab:results_spearman',
+            column_format='lrrrrr',
+            escape=False
+        )
+        f.write(latex_str)
+    
+    logger.info("Table saved successfully")
 
 
-def generate_correlation_summary_table(data_path: Path, output_dir: Path):
-    """
-    Generate correlation summary table for each benchmark.
+def create_results_table_kendall(report: dict, output_path: Path):
+    """Create results summary table for Kendall metric only."""
+    logger.info("Creating results summary table (Kendall only)...")
     
-    Format: "Spearman ρ = 0.69 [95% CI: 0.52, 0.82], p = 0.001; 
-             Kendall τ = 0.52 [95% CI: 0.35, 0.68], p = 0.003; 
-             RBO = 0.85"
-    """
-    # Load data
-    df = pd.read_csv(data_path)
+    # Filter to Kendall results only
+    kendall_keys = [k for k in report.keys() if 'kendall_tau' in k and not k.startswith('$')]
     
-    # Build rows for each benchmark
     rows = []
-    for _, row in df.iterrows():
-        benchmark_name = row['benchmark_name']
-        
-        # Format Spearman
-        spearman_str = f"$\\rho$ = {row['spearman_rho']:.3f}"
-        if pd.notna(row['spearman_ci_lower']) and pd.notna(row['spearman_ci_upper']):
-            spearman_str += f" [95\\% CI: {row['spearman_ci_lower']:.3f}, {row['spearman_ci_upper']:.3f}]"
-        if pd.notna(row['spearman_pvalue']):
-            spearman_str += f", $p$ = {row['spearman_pvalue']:.3f}"
-        
-        # Format Kendall
-        kendall_str = f"$\\tau$ = {row['kendall_tau']:.3f}"
-        if pd.notna(row['kendall_ci_lower']) and pd.notna(row['kendall_ci_upper']):
-            kendall_str += f" [95\\% CI: {row['kendall_ci_lower']:.3f}, {row['kendall_ci_upper']:.3f}]"
-        if pd.notna(row['kendall_pvalue']):
-            kendall_str += f", $p$ = {row['kendall_pvalue']:.3f}"
-        
-        # Format RBO
-        rbo_str = f"RBO = {row['rbo']:.3f}"
-        
-        # Combine
-        correlation_str = f"{spearman_str}; {kendall_str}; {rbo_str}"
-        
-        rows.append({
-            'Benchmark': benchmark_name,
-            'Spearman ρ': f"{row['spearman_rho']:.3f}" if pd.notna(row['spearman_rho']) else '--',
-            'Spearman CI': f"[{row['spearman_ci_lower']:.3f}, {row['spearman_ci_upper']:.3f}]" 
-                         if pd.notna(row['spearman_ci_lower']) and pd.notna(row['spearman_ci_upper']) else '--',
-            'Spearman p': f"{row['spearman_pvalue']:.3f}" if pd.notna(row['spearman_pvalue']) else '--',
-            'Kendall τ': f"{row['kendall_tau']:.3f}" if pd.notna(row['kendall_tau']) else '--',
-            'Kendall CI': f"[{row['kendall_ci_lower']:.3f}, {row['kendall_ci_upper']:.3f}]" 
-                        if pd.notna(row['kendall_ci_lower']) and pd.notna(row['kendall_ci_upper']) else '--',
-            'Kendall p': f"{row['kendall_pvalue']:.3f}" if pd.notna(row['kendall_pvalue']) else '--',
-            'RBO': f"{row['rbo']:.3f}" if pd.notna(row['rbo']) else '--'
-        })
+    for key in sorted(kendall_keys):
+        result = report[key]
+        if isinstance(result, dict):
+            # Extract hypothesis name
+            if key.startswith('H1_'):
+                hypothesis = 'H1 (Generative)'
+            elif key.startswith('H2_'):
+                hypothesis = 'H2 (Scale)'
+            elif key.startswith('H3_'):
+                hypothesis = 'H3 (Complexity)'
+            elif key.startswith('H4_'):
+                hypothesis = 'H4 (Recency)'
+            elif 'H6_Difficulty_Beta1' in key:
+                hypothesis = 'H6 (Difficulty)'
+            elif 'H5_Variance_Beta2' in key:
+                hypothesis = 'H5 (Variance)'
+            else:
+                hypothesis = key
+            
+            rows.append({
+                'Hypothesis': hypothesis,
+                'Effect Size': result.get('effect_size', np.nan),
+                'Effect Size Type': result.get('effect_size_type', 'unknown'),
+                'p_raw': result.get('p_raw', np.nan),
+                'p_corrected': result.get('p_corrected', np.nan),
+                'significant_strict': result.get('significant_strict', False),
+                'ci_lower': result.get('ci_lower', np.nan),
+                'ci_upper': result.get('ci_upper', np.nan)
+            })
     
-    df_table = pd.DataFrame(rows)
+    df = pd.DataFrame(rows)
     
-    # Generate LaTeX table
-    output_path = output_dir / "correlation_summary_table.tex"
+    # Format p-values
+    df['p_raw_formatted'] = df['p_raw'].apply(format_pvalue)
+    df['p_corrected_formatted'] = df['p_corrected'].apply(format_pvalue)
     
-    latex_table = df_table.to_latex(
-        buf=str(output_path),
-        index=False,
-        float_format='%.3f',
-        caption='Correlation Summary for All Benchmarks',
-        label='tab:correlation_summary',
-        column_format='l' + 'r' * (len(df_table.columns) - 1),
-        escape=False,
-        na_rep='--',
-        longtable=True  # Use longtable for long tables
+    # Format CI
+    df['CI'] = df.apply(
+        lambda row: f"[{row['ci_lower']:.3f}, {row['ci_upper']:.3f}]" 
+        if pd.notna(row['ci_lower']) and pd.notna(row['ci_upper']) else "N/A",
+        axis=1
     )
     
-    print(f"Correlation summary table saved to {output_path}")
+    # Select columns for table
+    df_table = df[['Hypothesis', 'Effect Size', 'p_raw_formatted', 'p_corrected_formatted', 
+                   'significant_strict', 'CI']].copy()
+    df_table.columns = ['Hypothesis', 'Effect Size', 'p (raw)', 'p (corrected)', 
+                        'Significant', '95% CI']
+    
+    # Format effect size
+    df_table['Effect Size'] = df_table['Effect Size'].apply(
+        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
+    )
+    
+    # Convert boolean to Yes/No
+    df_table['Significant'] = df_table['Significant'].apply(lambda x: 'Yes' if x else 'No')
+    
+    # Save to LaTeX
+    logger.info(f"Saving table to {output_path}")
+    with open(output_path, 'w', encoding='utf-8') as f:
+        latex_str = df_table.to_latex(
+            index=False,
+            float_format='%.3f',
+            caption='Hypothesis Test Results (Kendall τ)',
+            label='tab:results_kendall',
+            column_format='lrrrrr',
+            escape=False
+        )
+        f.write(latex_str)
+    
+    logger.info("Table saved successfully")
 
 
-def generate_all_tables():
-    """Generate all tables for the manuscript."""
-    # Paths
-    report_path = project_root / "results" / "statistical_significance_report.json"
-    data_path = project_root / "results" / "analysis_ready_data.csv"
+def create_results_table_rbo(report: dict, output_path: Path):
+    """Create results summary table for RBO metric only."""
+    logger.info("Creating results summary table (RBO only)...")
     
-    # Ensure output directory exists
-    output_dir = ensure_output_directory()
+    # Filter to RBO results only
+    rbo_keys = [k for k in report.keys() if 'rbo' in k and not k.startswith('$')]
     
-    print("Generating tables...")
-    print("=" * 60)
+    rows = []
+    for key in sorted(rbo_keys):
+        result = report[key]
+        if isinstance(result, dict):
+            # Extract hypothesis name
+            if key.startswith('H1_'):
+                hypothesis = 'H1 (Generative)'
+            elif key.startswith('H2_'):
+                hypothesis = 'H2 (Scale)'
+            elif key.startswith('H3_'):
+                hypothesis = 'H3 (Complexity)'
+            elif key.startswith('H4_'):
+                hypothesis = 'H4 (Recency)'
+            elif 'H6_Difficulty_Beta1' in key:
+                hypothesis = 'H6 (Difficulty)'
+            elif 'H5_Variance_Beta2' in key:
+                hypothesis = 'H5 (Variance)'
+            else:
+                hypothesis = key
+            
+            rows.append({
+                'Hypothesis': hypothesis,
+                'Effect Size': result.get('effect_size', np.nan),
+                'Effect Size Type': result.get('effect_size_type', 'unknown'),
+                'p_raw': result.get('p_raw', np.nan),
+                'p_corrected': result.get('p_corrected', np.nan),
+                'significant_strict': result.get('significant_strict', False)
+            })
+    
+    df = pd.DataFrame(rows)
+    
+    # Format p-values (RBO doesn't have p-values, but include for consistency)
+    df['p_raw_formatted'] = df['p_raw'].apply(format_pvalue)
+    df['p_corrected_formatted'] = df['p_corrected'].apply(format_pvalue)
+    
+    # Select columns for table
+    df_table = df[['Hypothesis', 'Effect Size', 'p_raw_formatted', 'p_corrected_formatted', 
+                   'significant_strict']].copy()
+    df_table.columns = ['Hypothesis', 'Effect Size', 'p (raw)', 'p (corrected)', 'Significant']
+    
+    # Format effect size
+    df_table['Effect Size'] = df_table['Effect Size'].apply(
+        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
+    )
+    
+    # Convert boolean to Yes/No
+    df_table['Significant'] = df_table['Significant'].apply(lambda x: 'Yes' if x else 'No')
+    
+    # Save to LaTeX
+    logger.info(f"Saving table to {output_path}")
+    with open(output_path, 'w', encoding='utf-8') as f:
+        latex_str = df_table.to_latex(
+            index=False,
+            float_format='%.3f',
+            caption='Hypothesis Test Results (RBO)',
+            label='tab:results_rbo',
+            column_format='lrrrr',
+            escape=False
+        )
+        f.write(latex_str)
+    
+    logger.info("Table saved successfully")
+
+
+def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
+    """Create correlation summary table for each benchmark."""
+    logger.info("Creating correlation summary table...")
+    
+    # Select relevant columns
+    df_table = df[['benchmark_id', 'spearman_rho', 'spearman_pvalue', 
+                   'spearman_ci_lower', 'spearman_ci_upper',
+                   'kendall_tau', 'kendall_pvalue',
+                   'kendall_ci_lower', 'kendall_ci_upper',
+                   'rbo', 'sample_size']].copy()
+    
+    # Rename columns to use spaces
+    df_table.columns = ['Benchmark ID', 'Spearman ρ', 'Spearman p-value',
+                       'Spearman CI Lower', 'Spearman CI Upper',
+                       'Kendall τ', 'Kendall p-value',
+                       'Kendall CI Lower', 'Kendall CI Upper',
+                       'RBO', 'Sample Size (N)']
+    
+    # Format correlation coefficients
+    df_table['Spearman ρ'] = df_table['Spearman ρ'].apply(
+        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
+    )
+    df_table['Kendall τ'] = df_table['Kendall τ'].apply(
+        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
+    )
+    df_table['RBO'] = df_table['RBO'].apply(
+        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
+    )
+    
+    # Format p-values
+    df_table['Spearman p-value'] = df_table['Spearman p-value'].apply(format_pvalue)
+    df_table['Kendall p-value'] = df_table['Kendall p-value'].apply(format_pvalue)
+    
+    # Format CIs
+    df_table['Spearman CI'] = df_table.apply(
+        lambda row: f"[{row['Spearman CI Lower']:.3f}, {row['Spearman CI Upper']:.3f}]"
+        if pd.notna(row['Spearman CI Lower']) and pd.notna(row['Spearman CI Upper']) else "N/A",
+        axis=1
+    )
+    df_table['Kendall CI'] = df_table.apply(
+        lambda row: f"[{row['Kendall CI Lower']:.3f}, {row['Kendall CI Upper']:.3f}]"
+        if pd.notna(row['Kendall CI Lower']) and pd.notna(row['Kendall CI Upper']) else "N/A",
+        axis=1
+    )
+    
+    # Select final columns
+    df_final = df_table[['Benchmark ID', 'Spearman ρ', 'Spearman CI', 'Spearman p-value',
+                         'Kendall τ', 'Kendall CI', 'Kendall p-value',
+                         'RBO', 'Sample Size (N)']].copy()
+    
+    # Save to LaTeX
+    logger.info(f"Saving table to {output_path}")
+    with open(output_path, 'w', encoding='utf-8') as f:
+        latex_str = df_final.to_latex(
+            index=False,
+            caption='Correlation Summary for All Benchmarks',
+            label='tab:correlation_summary',
+            column_format='lrrrrrrrr',
+            escape=False,
+            longtable=True
+        )
+        f.write(latex_str)
+    
+    logger.info("Table saved successfully")
+
+
+def main():
+    """Main execution function."""
+    base_dir = Path(__file__).parent.parent.parent
+    report_path = base_dir / "results" / "statistical_significance_report.json"
+    data_path = base_dir / "results" / "analysis_ready_data.csv"
+    output_dir = base_dir / "overleaf" / "tables"
+    
+    # Create output directory
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Load data
+    logger.info("Loading data...")
+    report = load_significance_report(report_path)
+    df = load_analysis_data(data_path)
     
     # Generate tables
-    generate_results_summary_table(report_path, output_dir)
-    generate_correlation_summary_table(data_path, output_dir)
+    logger.info("\n" + "="*60)
+    logger.info("Generating all tables...")
+    logger.info("="*60)
     
-    print("=" * 60)
-    print("All tables generated successfully!")
+    create_results_table_spearman(report, output_dir / "results_table_spearman.tex")
+    create_results_table_kendall(report, output_dir / "appendix_results_table_kendall.tex")
+    create_results_table_rbo(report, output_dir / "appendix_results_table_rbo.tex")
+    create_correlation_summary_table(df, output_dir / "correlation_summary_table.tex")
+    
+    logger.info("\n" + "="*60)
+    logger.info("All tables generated successfully!")
+    logger.info(f"Tables saved to: {output_dir}")
+    logger.info("="*60)
 
 
 if __name__ == "__main__":
-    generate_all_tables()
+    main()
 

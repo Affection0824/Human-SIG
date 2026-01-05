@@ -1,17 +1,24 @@
 """
-Visualization Generation Module
+Generate Figures for Manuscript
 
 Purpose:
-    Generate all figures for the manuscript using seaborn and matplotlib.
-    All figures must be saved directly to overleaf/images/ directory.
+    This script generates all figures required for the manuscript using seaborn and matplotlib.
+    All figures are saved directly to overleaf/images/ directory as PDF files.
 
-Figures:
-    - Figure 1: Difficulty vs Spearman rho, with point size representing CV
-    - Figure 2: Boxplot showing Spearman rho distributions for MCQ vs Generative/Agentic
-    - Figure 3a: Boxplot showing Spearman rho distributions across prompt_length categories
-    - Figure 3b: Scatterplot showing CV vs Spearman rho by task type
-    - Figure 4: Heatmap of correlation matrix between independent variables
-    - Figure 5: Ranking comparison scatter plot between SWE-Bench (Verified) and LMArena-Coding
+Figures Generated:
+    - Figure 0: SWE-bench Illustration (placeholder)
+    - Figure 1: Task Type Comparison (H1)
+    - Figure 2: Scale Effect (H2)
+    - Figure 3: Complexity Categories (H3)
+    - Figure 4: Recency Effect (H4)
+    - Figure 5: Difficulty-Variance Joint Effect (H5/H6)
+    - Figure 6: Confounder Correlation Heatmap
+
+Requirements:
+    - All axis labels and legends must use spaces instead of underscores
+    - All figures must include comprehensive annotations
+    - High resolution output (DPI ≥ 300)
+    - Save as PDF format
 """
 
 import pandas as pd
@@ -19,309 +26,333 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
-import sys
 from datetime import datetime
-from scipy.stats import spearmanr
+from scipy import stats
+from scipy.stats import pearsonr
+import logging
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 # Set style
 sns.set_style("whitegrid")
-plt.rcParams['font.size'] = 16  # Increased base font size
 plt.rcParams['figure.dpi'] = 300
-
-# Add project root to path
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
-
-
-def ensure_output_directory():
-    """Ensure overleaf/images/ directory exists."""
-    output_dir = project_root.parent / "overleaf" / "images"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    return output_dir
+plt.rcParams['savefig.dpi'] = 300
+plt.rcParams['font.size'] = 10
+plt.rcParams['axes.labelsize'] = 11
+plt.rcParams['axes.titlesize'] = 12
+plt.rcParams['xtick.labelsize'] = 10
+plt.rcParams['ytick.labelsize'] = 10
+plt.rcParams['legend.fontsize'] = 9
 
 
-def figure_1_difficulty_variance(df: pd.DataFrame, output_dir: Path):
-    """
-    Figure 1: Difficulty (subset average score) vs Spearman rho, 
-    with point size representing Variance (CV).
+def load_analysis_data(data_path: Path) -> pd.DataFrame:
+    """Load analysis-ready data."""
+    df = pd.read_csv(data_path)
+    logger.info(f"Loaded {len(df)} benchmarks from analysis_ready_data.csv")
+    return df
+
+
+def load_hypothesis_results(results_path: Path) -> dict:
+    """Load hypothesis test results."""
+    import json
+    with open(results_path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+
+def figure_0_placeholder(output_dir: Path):
+    """Create placeholder for SWE-bench Illustration."""
+    logger.info("Generating Figure 0: SWE-bench Illustration (placeholder)")
     
-    Title: "Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho"
-    """
-    # Exclude Creative Writing v3 (not in Difficulty calculation)
-    df_plot = df[df['benchmark_name'] != 'Creative Writing v3'].copy()
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ax.text(0.5, 0.5, 'SWE-bench (Verified) Illustration\n(To be completed later)', 
+            ha='center', va='center', fontsize=16, 
+            bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+    ax.axis('off')
+    ax.set_title('SWE-bench (Verified) Illustration', fontsize=14, fontweight='bold')
     
-    # Remove missing values
-    df_plot = df_plot[['subset_avg_score', 'spearman_rho', 'coefficient_of_variation']].dropna()
+    output_path = output_dir / "Figure_0_SWE_Bench_Illustration.pdf"
+    plt.tight_layout()
+    plt.savefig(output_path, format='pdf', bbox_inches='tight')
+    plt.close()
+    logger.info(f"Saved Figure 0 to {output_path}")
+
+
+def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 1: Task Type Comparison (H1)."""
+    logger.info("Generating scatter plot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     
-    # Log data sources and plot type
-    print("Generating scatter plot using data from analysis_ready_data.csv:")
-    print("  - Figure description: Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho")
-    print("  - X-axis: Difficulty (subset_avg_score column)")
-    print("  - Y-axis: Spearman rho (spearman_rho column)")
-    print("  - Point size: Coefficient of Variation (coefficient_of_variation column)")
-    print("  - Plot type: scatter plot with regression line overlay")
+    # Filter out "Mixed" task types
+    df_filtered = df[df['task_type'] != 'Mixed'].copy()
+    
+    # Merge "Generation" and "Agentic" into "Generative"
+    df_filtered['task_type_grouped'] = df_filtered['task_type'].apply(
+        lambda x: 'Generative' if x in ['Generation', 'Agentic'] else x
+    )
+    
+    # Get sample sizes
+    n_mcq = len(df_filtered[df_filtered['task_type_grouped'] == 'MCQ'])
+    n_gen = len(df_filtered[df_filtered['task_type_grouped'] == 'Generative'])
+    
+    # Get medians
+    median_mcq = df_filtered[df_filtered['task_type_grouped'] == 'MCQ']['spearman_rho'].median()
+    median_gen = df_filtered[df_filtered['task_type_grouped'] == 'Generative']['spearman_rho'].median()
     
     fig, ax = plt.subplots(figsize=(8, 6))
     
-    # Create scatter plot with point size representing CV
-    scatter = ax.scatter(
-        df_plot['subset_avg_score'],
-        df_plot['spearman_rho'],
-        s=df_plot['coefficient_of_variation'] * 100,  # Scale CV for point size
-        alpha=0.6,
-        c=df_plot['coefficient_of_variation'],
-        cmap='viridis',
-        edgecolors='black',
-        linewidths=0.5
-    )
+    # Boxplot
+    print("Generating boxplot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    sns.boxplot(data=df_filtered, x='task_type_grouped', y='spearman_rho', ax=ax, 
+                order=['MCQ', 'Generative'], width=0.6)
     
-    # Add regression line
-    z = np.polyfit(df_plot['subset_avg_score'], df_plot['spearman_rho'], 1)
-    p = np.poly1d(z)
-    ax.plot(df_plot['subset_avg_score'], p(df_plot['subset_avg_score']), 
-            "r--", alpha=0.5, linewidth=2, label='Trend line')
+    # Stripplot
+    print("Generating stripplot (overlaid) using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    sns.stripplot(data=df_filtered, x='task_type_grouped', y='spearman_rho', ax=ax,
+                  order=['MCQ', 'Generative'], color='black', alpha=0.5, size=5, jitter=True)
     
-    # Labels (title removed)
-    ax.set_xlabel('Difficulty (subset average score) (Easy -> Hard)', fontsize=18)
-    ax.set_ylabel('Spearman ρ', fontsize=18)
+    ax.set_xlabel('Task Type', fontsize=11)
+    ax.set_ylabel('Spearman ρ', fontsize=11)
+    ax.set_title('Spearman rho by Task Type', fontsize=12, fontweight='bold')
     
-    # Increase tick label font size
-    ax.tick_params(axis='both', which='major', labelsize=16)
+    # Add annotations
+    ax.text(0, median_mcq, f'Median: {median_mcq:.3f}\nN={n_mcq}', 
+            ha='center', va='bottom', fontsize=9, bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
+    ax.text(1, median_gen, f'Median: {median_gen:.3f}\nN={n_gen}', 
+            ha='center', va='bottom', fontsize=9, bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
+    
+    output_path = output_dir / "Figure_1_Task_Type.pdf"
+    plt.tight_layout()
+    plt.savefig(output_path, format='pdf', bbox_inches='tight')
+    plt.close()
+    logger.info(f"Saved Figure 1 to {output_path}")
+
+
+def figure_2_scale(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 2: Scale Effect (H2)."""
+    logger.info("Generating scatter plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    
+    df_plot = df.copy()
+    df_plot['log_question_count'] = np.log(df_plot['question_count'])
+    
+    # Calculate correlation
+    df_clean = df_plot[['log_question_count', 'spearman_rho']].dropna()
+    if len(df_clean) > 0:
+        corr, p_val = pearsonr(df_clean['log_question_count'], df_clean['spearman_rho'])
+    else:
+        corr, p_val = np.nan, np.nan
+    
+    fig, ax = plt.subplots(figsize=(8, 6))
+    
+    # Scatter plot
+    print("Generating scatter plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    ax.scatter(df_plot['log_question_count'], df_plot['spearman_rho'], 
+               alpha=0.6, s=60, edgecolors='black', linewidth=0.5)
+    
+    # Regression line
+    print("Generating regression plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    sns.regplot(data=df_plot, x='log_question_count', y='spearman_rho', ax=ax,
+                scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
+    
+    # Add benchmark labels (if not too crowded)
+    for idx, row in df_plot.iterrows():
+        if pd.notna(row['log_question_count']) and pd.notna(row['spearman_rho']):
+            ax.annotate(row['benchmark_id'], 
+                       (row['log_question_count'], row['spearman_rho']),
+                       fontsize=7, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+    
+    ax.set_xlabel('Scale (log-transformed question count)', fontsize=11)
+    ax.set_ylabel('Spearman ρ', fontsize=11)
+    ax.set_title('Spearman rho by Scale (log(question_count))', fontsize=12, fontweight='bold')
+    
+    # Add annotations
+    n = len(df_clean)
+    p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
+    annotation_text = f'r = {corr:.3f}, p = {p_str}\nN = {n}'
+    ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
+            fontsize=9, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    
+    output_path = output_dir / "Figure_2_Scale.pdf"
+    plt.tight_layout()
+    plt.savefig(output_path, format='pdf', bbox_inches='tight')
+    plt.close()
+    logger.info(f"Saved Figure 2 to {output_path}")
+
+
+def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 3: Complexity Categories (H3)."""
+    logger.info("Generating boxplot using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    
+    # Order categories
+    category_order = ['Short', 'Medium', 'Long', 'Extreme']
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Boxplot
+    print("Generating boxplot using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    sns.boxplot(data=df, x='prompt_length', y='spearman_rho', ax=ax, order=category_order, width=0.6)
+    
+    # Stripplot
+    print("Generating stripplot (overlaid) using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    sns.stripplot(data=df, x='prompt_length', y='spearman_rho', ax=ax,
+                  order=category_order, color='black', alpha=0.5, size=5, jitter=True)
+    
+    ax.set_xlabel('Prompt Length', fontsize=11)
+    ax.set_ylabel('Spearman ρ', fontsize=11)
+    ax.set_title('Spearman rho by Prompt Length', fontsize=12, fontweight='bold')
+    
+    # Add annotations for sample sizes and medians
+    for i, cat in enumerate(category_order):
+        cat_data = df[df['prompt_length'] == cat]['spearman_rho'].dropna()
+        if len(cat_data) > 0:
+            n = len(cat_data)
+            median = cat_data.median()
+            ax.text(i, ax.get_ylim()[1] * 0.95, f'N={n}\nMed={median:.3f}', 
+                   ha='center', va='top', fontsize=8, 
+                   bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
+    
+    output_path = output_dir / "Figure_3_Complexity_Categories.pdf"
+    plt.tight_layout()
+    plt.savefig(output_path, format='pdf', bbox_inches='tight')
+    plt.close()
+    logger.info(f"Saved Figure 3 to {output_path}")
+
+
+def figure_4_recency(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 4: Recency Effect (H4)."""
+    logger.info("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    
+    # Convert release_date to ordinal
+    reference_date = datetime(2020, 1, 1)
+    df_plot = df.copy()
+    
+    def date_to_ordinal(date_str):
+        try:
+            date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+            return (date_obj - reference_date).days
+        except:
+            return np.nan
+    
+    df_plot['release_date_ordinal'] = df_plot['release_date'].apply(date_to_ordinal)
+    
+    # Calculate correlation
+    df_clean = df_plot[['release_date_ordinal', 'spearman_rho']].dropna()
+    if len(df_clean) > 0:
+        corr, p_val = stats.spearmanr(df_clean['release_date_ordinal'], df_clean['spearman_rho'])
+    else:
+        corr, p_val = np.nan, np.nan
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    # Scatter plot
+    print("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    ax.scatter(df_plot['release_date_ordinal'], df_plot['spearman_rho'], 
+               alpha=0.6, s=60, edgecolors='black', linewidth=0.5)
+    
+    # Regression line
+    print("Generating regression plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    sns.regplot(data=df_plot, x='release_date_ordinal', y='spearman_rho', ax=ax,
+                scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
+    
+    # Add benchmark labels
+    for idx, row in df_plot.iterrows():
+        if pd.notna(row['release_date_ordinal']) and pd.notna(row['spearman_rho']):
+            ax.annotate(row['benchmark_id'], 
+                       (row['release_date_ordinal'], row['spearman_rho']),
+                       fontsize=7, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+    
+    ax.set_xlabel('Recency (Days since 2020-01-01)', fontsize=11)
+    ax.set_ylabel('Spearman ρ', fontsize=11)
+    ax.set_title('Spearman rho by Recency (Release Date)', fontsize=12, fontweight='bold')
+    
+    # Add annotations
+    n = len(df_clean)
+    p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
+    annotation_text = f'ρ = {corr:.3f}, p = {p_str}\nN = {n}'
+    ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
+            fontsize=9, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    
+    output_path = output_dir / "Figure_4_Recency.pdf"
+    plt.tight_layout()
+    plt.savefig(output_path, format='pdf', bbox_inches='tight')
+    plt.close()
+    logger.info(f"Saved Figure 4 to {output_path}")
+
+
+def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict):
+    """Generate Figure 5: Difficulty-Variance Joint Effect (H5/H6)."""
+    logger.info("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv), with CV encoded as point size and color")
+    
+    # Exclude Creative Writing v3
+    df_plot = df[df['benchmark_id'] != 'Creative Writing v3'].copy()
+    df_plot = df_plot[df_plot['difficulty'].notna() & df_plot['cv'].notna() & df_plot['spearman_rho'].notna()].copy()
+    
+    # Get regression coefficients from hypothesis results
+    beta1_key = 'H6_Difficulty_Beta1_spearman_rho'
+    beta2_key = 'H5_Variance_Beta2_spearman_rho'
+    beta1 = hypothesis_results.get(beta1_key, {}).get('coefficient', np.nan)
+    beta2 = hypothesis_results.get(beta2_key, {}).get('coefficient', np.nan)
+    p_beta1 = hypothesis_results.get(beta1_key, {}).get('p_raw', np.nan)
+    p_beta2 = hypothesis_results.get(beta2_key, {}).get('p_raw', np.nan)
+    
+    fig, ax = plt.subplots(figsize=(10, 7))
+    
+    # Scatter plot with size and color encoding
+    print("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv), with CV as point size")
+    scatter = ax.scatter(df_plot['difficulty'], df_plot['spearman_rho'],
+                        s=df_plot['cv'] * 200,  # Scale CV for visibility
+                        c=df_plot['cv'], cmap='viridis', alpha=0.6,
+                        edgecolors='black', linewidth=0.5)
+    
+    # Regression line
+    print("Generating regression plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    sns.regplot(data=df_plot, x='difficulty', y='spearman_rho', ax=ax,
+                scatter=False, ci=95, color='red', line_kws={'linewidth': 2})
+    
+    # Add benchmark labels
+    for idx, row in df_plot.iterrows():
+        ax.annotate(row['benchmark_id'], 
+                   (row['difficulty'], row['spearman_rho']),
+                   fontsize=7, alpha=0.7, xytext=(3, 3), textcoords='offset points')
+    
+    ax.set_xlabel('Difficulty (Easy → Hard)', fontsize=11)
+    ax.set_ylabel('Spearman ρ', fontsize=11)
+    ax.set_title('Difficulty vs. Spearman rho (CV encoded as point size and color)', fontsize=12, fontweight='bold')
     
     # Add colorbar
     cbar = plt.colorbar(scatter, ax=ax)
-    cbar.set_label('Coefficient of Variation (CV)', fontsize=16)
-    cbar.ax.tick_params(labelsize=16)
+    cbar.set_label('Coefficient of Variation (CV)', fontsize=10)
     
-    # Add legend for point size (optional)
-    ax.legend(loc='best', fontsize=16)
+    # Add size legend (approximate)
+    sizes = [df_plot['cv'].min(), df_plot['cv'].median(), df_plot['cv'].max()]
+    legend_elements = [plt.scatter([], [], s=s*200, c='gray', alpha=0.6, edgecolors='black') 
+                      for s in sizes]
+    labels = [f'CV = {s:.2f}' for s in sizes]
+    ax.legend(legend_elements, labels, title='Point Size (CV)', loc='upper left', fontsize=8)
     
+    # Add annotations
+    n = len(df_plot)
+    p_beta1_str = f"{p_beta1:.4f}" if pd.notna(p_beta1) else "N/A"
+    p_beta2_str = f"{p_beta2:.4f}" if pd.notna(p_beta2) else "N/A"
+    annotation_text = f'β1(Difficulty) = {beta1:.3f}, p = {p_beta1_str}\n'
+    annotation_text += f'β2(CV) = {beta2:.3f}, p = {p_beta2_str}\n'
+    annotation_text += f'N = {n}'
+    ax.text(0.05, 0.95, annotation_text, transform=ax.transAxes,
+            fontsize=9, verticalalignment='top', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8))
+    
+    output_path = output_dir / "Figure_5_Difficulty_Variance.pdf"
     plt.tight_layout()
-    
-    # Save figure
-    output_path = output_dir / "Figure_1_Difficulty_Variance.pdf"
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    
-    print(f"Figure 1 saved to {output_path}")
+    logger.info(f"Saved Figure 5 to {output_path}")
 
 
-def figure_2_task_type(df: pd.DataFrame, output_dir: Path):
-    """
-    Figure 2: Boxplot with overlaid stripplot showing Spearman rho distributions
-    for "MCQ" vs "Generative/Agentic" (Group A).
+def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 6: Confounder Correlation Heatmap."""
+    logger.info("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
     
-    Exclude "Mixed" benchmarks from the plot.
-    Title: "Spearman rho by Task Type"
-    """
-    # Exclude "Mixed" benchmarks
-    df_plot = df[df['task_type'].isin(['MCQ', 'Generation', 'Agentic'])].copy()
-    
-    # Create Group A (Generative/Agentic)
-    df_plot['task_group'] = df_plot['task_type'].apply(
-        lambda x: 'Generative/Agentic' if x in ['Generation', 'Agentic'] else 'MCQ'
-    )
-    
-    # Remove missing values
-    df_plot = df_plot[['task_group', 'spearman_rho']].dropna()
-    
-    # Log data sources and plot type
-    print("Generating boxplot with stripplot overlay using data from analysis_ready_data.csv:")
-    print("  - Figure description: Spearman rho by Task Type")
-    print("  - X-axis: Task Type (task_type column, grouped as MCQ vs Generative/Agentic)")
-    print("  - Y-axis: Spearman rho (spearman_rho column)")
-    print("  - Plot type: boxplot with overlaid stripplot")
-    
-    fig, ax = plt.subplots(figsize=(6, 6))
-    
-    # Create boxplot
-    box = ax.boxplot(
-        [df_plot[df_plot['task_group'] == 'MCQ']['spearman_rho'].values,
-         df_plot[df_plot['task_group'] == 'Generative/Agentic']['spearman_rho'].values],
-        tick_labels=['MCQ', 'Generative/Agentic'],
-        patch_artist=True,
-        widths=0.6
-    )
-    
-    # Color the boxes
-    colors = ['lightblue', 'lightcoral']
-    for patch, color in zip(box['boxes'], colors):
-        patch.set_facecolor(color)
-        patch.set_alpha(0.7)
-    
-    # Add stripplot overlay
-    for i, group in enumerate(['MCQ', 'Generative/Agentic']):
-        data = df_plot[df_plot['task_group'] == group]['spearman_rho'].values
-        x_pos = np.random.normal(i + 1, 0.04, size=len(data))
-        ax.scatter(x_pos, data, alpha=0.6, s=50, color='black', zorder=3)
-    
-    ax.set_ylabel('Spearman ρ', fontsize=18)
-    ax.set_xlabel('Task Type', fontsize=18)
-    
-    # Increase tick label font size
-    ax.tick_params(axis='both', which='major', labelsize=16)
-    
-    plt.tight_layout()
-    
-    # Save figure
-    output_path = output_dir / "Figure_2_Task_Type.pdf"
-    plt.savefig(output_path, format='pdf', bbox_inches='tight')
-    plt.close()
-    
-    print(f"Figure 2 saved to {output_path}")
-
-
-def figure_3a_complexity(df: pd.DataFrame, output_dir: Path):
-    """
-    Figure 3a: Boxplot with overlaid stripplot showing Spearman rho distributions
-    across the four prompt_length categories ("Short", "Medium", "Long", "Extreme").
-    
-    Title: "Spearman rho by Prompt Length"
-    """
-    # Remove missing values
-    df_plot = df[['prompt_length', 'spearman_rho']].dropna()
-    
-    # Define order
-    order = ['Short', 'Medium', 'Long', 'Extreme']
-    df_plot = df_plot[df_plot['prompt_length'].isin(order)]
-    
-    # Log data sources and plot type
-    print("Generating boxplot with stripplot overlay using data from analysis_ready_data.csv:")
-    print("  - Figure description: Spearman rho by Prompt Length")
-    print("  - X-axis: Prompt Length categories (prompt_length column: Short, Medium, Long, Extreme)")
-    print("  - Y-axis: Spearman rho (spearman_rho column)")
-    print("  - Plot type: boxplot with overlaid stripplot")
-    
-    fig, ax = plt.subplots(figsize=(8, 6))
-    
-    # Prepare data for boxplot
-    data_for_boxplot = [df_plot[df_plot['prompt_length'] == cat]['spearman_rho'].values 
-                        for cat in order]
-    
-    # Create boxplot
-    box = ax.boxplot(
-        data_for_boxplot,
-        tick_labels=order,
-        patch_artist=True,
-        widths=0.6
-    )
-    
-    # Color the boxes
-    colors = ['lightblue', 'lightgreen', 'lightcoral', 'lightyellow']
-    for patch, color in zip(box['boxes'], colors):
-        patch.set_facecolor(color)
-        patch.set_alpha(0.7)
-    
-    # Add stripplot overlay
-    for i, cat in enumerate(order):
-        data = df_plot[df_plot['prompt_length'] == cat]['spearman_rho'].values
-        x_pos = np.random.normal(i + 1, 0.04, size=len(data))
-        ax.scatter(x_pos, data, alpha=0.6, s=50, color='black', zorder=3)
-    
-    ax.set_ylabel('Spearman ρ', fontsize=18)
-    ax.set_xlabel('Prompt Length', fontsize=18)
-    
-    # Increase tick label font size
-    ax.tick_params(axis='both', which='major', labelsize=16)
-    
-    plt.tight_layout()
-    
-    # Save figure
-    output_path = output_dir / "Figure_3a_Complexity_Categories.pdf"
-    plt.savefig(output_path, format='pdf', bbox_inches='tight')
-    plt.close()
-    
-    print(f"Figure 3a saved to {output_path}")
-
-
-def figure_3b_variance_tasktype(df: pd.DataFrame, output_dir: Path):
-    """
-    Figure 3b: Scatterplot or regplot showing the relationship between CV and Spearman rho,
-    with different colors/markers for each task type (MCQ, Generation, Agentic).
-    
-    Title: "CV vs. Spearman rho by Task Type"
-    """
-    # Exclude "Mixed" benchmarks
-    df_plot = df[df['task_type'].isin(['MCQ', 'Generation', 'Agentic'])].copy()
-    
-    # Remove missing values
-    df_plot = df_plot[['task_type', 'coefficient_of_variation', 'spearman_rho']].dropna()
-    
-    # Log data sources and plot type
-    print("Generating scatter plot with regression lines using data from analysis_ready_data.csv:")
-    print("  - Figure description: CV vs. Spearman rho by Task Type")
-    print("  - X-axis: Coefficient of Variation (coefficient_of_variation column)")
-    print("  - Y-axis: Spearman rho (spearman_rho column)")
-    print("  - Color/Marker: Task Type (task_type column: MCQ, Generation, Agentic)")
-    print("  - Plot type: scatter plot with task-type-specific regression lines")
-    
-    fig, ax = plt.subplots(figsize=(8, 6))
-    
-    # Define colors and markers for each task type
-    task_styles = {
-        'MCQ': {'color': 'blue', 'marker': 'o', 'label': 'MCQ'},
-        'Generation': {'color': 'red', 'marker': 's', 'label': 'Generation'},
-        'Agentic': {'color': 'green', 'marker': '^', 'label': 'Agentic'}
-    }
-    
-    # Plot each task type
-    for task_type in ['MCQ', 'Generation', 'Agentic']:
-        task_data = df_plot[df_plot['task_type'] == task_type]
-        if len(task_data) > 0:
-            ax.scatter(
-                task_data['coefficient_of_variation'],
-                task_data['spearman_rho'],
-                c=task_styles[task_type]['color'],
-                marker=task_styles[task_type]['marker'],
-                label=task_styles[task_type]['label'],
-                s=100,
-                alpha=0.7,
-                edgecolors='black',
-                linewidths=0.5
-            )
-            
-            # Add regression line for this task type
-            if len(task_data) >= 3:
-                z = np.polyfit(task_data['coefficient_of_variation'], 
-                             task_data['spearman_rho'], 1)
-                p = np.poly1d(z)
-                x_line = np.linspace(task_data['coefficient_of_variation'].min(),
-                                    task_data['coefficient_of_variation'].max(), 100)
-                ax.plot(x_line, p(x_line), '--', color=task_styles[task_type]['color'],
-                       alpha=0.5, linewidth=2)
-    
-    ax.set_xlabel('Coefficient of Variation (CV)', fontsize=18)
-    ax.set_ylabel('Spearman ρ', fontsize=18)
-    
-    # Increase tick label font size
-    ax.tick_params(axis='both', which='major', labelsize=16)
-    
-    ax.legend(loc='best', fontsize=16)
-    
-    plt.tight_layout()
-    
-    # Save figure
-    output_path = output_dir / "Figure_3b_Variance_TaskType.pdf"
-    plt.savefig(output_path, format='pdf', bbox_inches='tight')
-    plt.close()
-    
-    print(f"Figure 3b saved to {output_path}")
-
-
-def figure_4_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
-    """
-    Figure 4: Heatmap of the correlation matrix between the Independent Variables themselves.
-    
-    Variables included:
-    - Difficulty (subset_avg_score)
-    - Variance (CV)
-    - Recency (Release_Date_Ordinal)
-    - Complexity (prompt_length as categorical - encode as ordinal)
-    - Scale (log(question_count))
-    - Task_Type (encoded as binary or ordinal)
-    """
-    from datetime import datetime
-    
+    # Prepare variables
     df_plot = df.copy()
     
     # Convert release_date to ordinal
@@ -335,353 +366,92 @@ def figure_4_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     
     df_plot['release_date_ordinal'] = df_plot['release_date'].apply(date_to_ordinal)
     
-    # Encode prompt_length as ordinal (1, 2, 3, 4)
+    # Encode prompt_length as ordinal
     prompt_length_map = {'Short': 1, 'Medium': 2, 'Long': 3, 'Extreme': 4}
     df_plot['prompt_length_ordinal'] = df_plot['prompt_length'].map(prompt_length_map)
     
-    # Encode task_type as binary (MCQ=0, Generation=1, Agentic=1, Mixed=2)
-    task_type_map = {'MCQ': 0, 'Generation': 1, 'Agentic': 1, 'Mixed': 2}
-    df_plot['task_type_ordinal'] = df_plot['task_type'].map(task_type_map)
+    # Encode task_type as binary (0=MCQ, 1=Generative)
+    df_plot['task_type_binary'] = df_plot['task_type'].apply(
+        lambda x: 1 if x in ['Generation', 'Agentic'] else (0 if x == 'MCQ' else np.nan)
+    )
     
-    # Create correlation matrix
-    corr_vars = [
-        'subset_avg_score',  # Difficulty
-        'coefficient_of_variation',  # Variance (CV)
-        'release_date_ordinal',  # Recency
-        'prompt_length_ordinal',  # Complexity
-        'question_count'  # Scale (will log transform)
-    ]
-    
-    # Apply log transformation to question_count
+    # Calculate log(question_count)
     df_plot['log_question_count'] = np.log(df_plot['question_count'])
-    corr_vars = [v if v != 'question_count' else 'log_question_count' for v in corr_vars]
     
-    # Add task_type_ordinal
-    corr_vars.append('task_type_ordinal')
+    # Select variables for correlation matrix
+    vars_for_corr = {
+        'Difficulty': 'difficulty',
+        'Variance (CV)': 'cv',
+        'Recency': 'release_date_ordinal',
+        'Complexity': 'prompt_length_ordinal',
+        'Scale': 'log_question_count',
+        'Task Type': 'task_type_binary'
+    }
     
-    # Select and dropna
-    df_corr = df_plot[corr_vars].dropna()
+    # Build correlation matrix
+    corr_data = {}
+    for label, col in vars_for_corr.items():
+        corr_data[label] = df_plot[col].values
     
-    # Calculate correlation matrix
+    df_corr = pd.DataFrame(corr_data)
     corr_matrix = df_corr.corr()
     
-    # Log data sources and plot type
-    print("Generating heatmap using data from analysis_ready_data.csv:")
-    print("  - Figure description: Correlation Matrix of Independent Variables")
-    print("  - Variables: Difficulty (subset_avg_score), Variance (coefficient_of_variation),")
-    print("    Recency (release_date_ordinal), Complexity (prompt_length_ordinal),")
-    print("    Scale (log(question_count)), Task Type (task_type_ordinal)")
-    print("  - Plot type: correlation heatmap (seaborn heatmap)")
-    
-    # Create labels
-    labels = [
-        'Difficulty\n(subset_avg_score)',
-        'Variance\n(CV)',
-        'Recency\n(release_date)',
-        'Complexity\n(prompt_length)',
-        'Scale\n(log(question_count))',
-        'Task Type\n(ordinal)'
-    ]
-    
-    # Create heatmap
     fig, ax = plt.subplots(figsize=(10, 8))
     
-    heatmap_plot = sns.heatmap(
-        corr_matrix,
-        annot=True,
-        fmt='.2f',
-        cmap='coolwarm',
-        center=0,
-        square=True,
-        linewidths=0.5,
-        cbar_kws={"shrink": 0.8},
-        xticklabels=labels,
-        yticklabels=labels,
-        ax=ax,
-        annot_kws={"size": 16}  # Increase annotation font size
-    )
+    # Heatmap
+    print("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
+    sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0,
+                square=True, linewidths=0.5, cbar_kws={"shrink": 0.8}, ax=ax,
+                vmin=-1, vmax=1, annot_kws={'fontsize': 9})
     
-    # Increase tick label font size
-    ax.tick_params(axis='both', which='major', labelsize=16)
+    ax.set_title('Confounder Correlation Heatmap', fontsize=12, fontweight='bold', pad=20)
     
-    # Increase colorbar label and tick font size
-    if hasattr(heatmap_plot, 'collections') and len(heatmap_plot.collections) > 0:
-        cbar = heatmap_plot.collections[0].colorbar
-        if cbar:
-            cbar.ax.tick_params(labelsize=16)
+    # Add note
+    note_text = 'Complexity: 1=Short, 2=Medium, 3=Long, 4=Extreme\nTask Type: 0=MCQ, 1=Generative'
+    ax.text(0.5, -0.15, note_text, transform=ax.transAxes,
+            ha='center', fontsize=8, style='italic',
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
     
+    output_path = output_dir / "Figure_6_Confounder_Heatmap.pdf"
     plt.tight_layout()
-    
-    # Save figure
-    output_path = output_dir / "Figure_4_Confounder_Heatmap.pdf"
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    
-    print(f"Figure 4 saved to {output_path}")
+    logger.info(f"Saved Figure 6 to {output_path}")
 
 
-def ranking_comparison_plot(
-    benchmark_id: str,
-    benchmark_name: str,
-    benchmark_score_col: str,
-    elo_col: str,
-    elo_category_name: str,
-    output_dir: Path,
-    output_filename: str
-):
-    """
-    Generic function to create ranking comparison scatter plot between a benchmark and LMArena category.
+def main():
+    """Main execution function."""
+    base_dir = Path(__file__).parent.parent.parent
+    data_path = base_dir / "results" / "analysis_ready_data.csv"
+    results_path = base_dir / "results" / "hypothesis_test_results.json"
+    output_dir = base_dir / "overleaf" / "images"
     
-    Args:
-        benchmark_id: Benchmark ID (e.g., 'swe_bench_verified', 'facts', 'ifeval')
-        benchmark_name: Display name for the benchmark (e.g., 'SWE-Bench (Verified)', 'FACTS', 'IFEval')
-        benchmark_score_col: Column name for benchmark score (e.g., 'swe_bench_verified_score')
-        elo_col: Column name for LMArena ELO (e.g., 'elo_coding', 'elo_hard_prompts')
-        elo_category_name: Display name for LMArena category (e.g., 'LMArena-Coding', 'LMArena-Hard Prompts')
-        output_dir: Output directory for the figure
-        output_filename: Output filename (e.g., 'Figure_5_Ranking_Comparison.pdf')
-    """
-    # Load master table
-    master_table_path = project_root / "data" / "processed" / "master_table" / "master_correlation_matrix.csv"
+    # Create output directory
+    output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Log data sources and plot type
-    print(f"Generating ranking comparison scatter plot using data from master_correlation_matrix.csv:")
-    print(f"  - Figure description: Comparison of large language model (LLM) ranking in {benchmark_name} and the overall ranking in {elo_category_name}")
-    print(f"  - X-axis: Rank in {benchmark_name} ({benchmark_score_col} column)")
-    print(f"  - Y-axis: Rank in {elo_category_name} ({elo_col} column)")
-    print(f"  - Plot type: scatter plot with y=x reference line and Spearman correlation")
-    
-    df_master = pd.read_csv(master_table_path)
-    df_master = df_master.set_index('model_name')
-    
-    # Find intersection: models with non-null values in both rankings
-    df_intersection = df_master[[benchmark_score_col, elo_col]].dropna()
-    
-    if len(df_intersection) < 2:
-        print(f"  Warning: Insufficient data for comparison (only {len(df_intersection)} models in intersection)")
-        return
-    
-    # Compute sub-rankings within the intersection set
-    # For benchmark: higher score = better, so rank 1 = best
-    benchmark_subranks = df_intersection[benchmark_score_col].rank(method='min', ascending=False).astype(int)
-    
-    # For LMArena: higher ELO = better, so rank 1 = best
-    elo_subranks = df_intersection[elo_col].rank(method='min', ascending=False).astype(int)
-    
-    # Create DataFrame with sub-ranks
-    df_plot = pd.DataFrame({
-        'benchmark_subrank': benchmark_subranks,
-        'elo_subrank': elo_subranks
-    })
-    
-    # Calculate Spearman correlation
-    spearman_rho, spearman_pvalue = spearmanr(df_plot['benchmark_subrank'], df_plot['elo_subrank'])
-    
-    # Create figure (wider aspect ratio for better readability)
-    fig, ax = plt.subplots(figsize=(12, 8))
-    
-    # Plot scatter points
-    ax.scatter(
-        df_plot['benchmark_subrank'],
-        df_plot['elo_subrank'],
-        alpha=0.7,
-        s=100,
-        color='blue',
-        edgecolors='black',
-        linewidths=0.5,
-        zorder=3
-    )
-    
-    # Add model name labels
-    for idx, row in df_plot.iterrows():
-        # Shorten model names for readability
-        model_name = idx
-        # Truncate very long names
-        if len(model_name) > 30:
-            model_name = model_name[:27] + "..."
-        ax.annotate(
-            model_name,
-            (row['benchmark_subrank'], row['elo_subrank']),
-            fontsize=14,
-            alpha=0.8,
-            xytext=(5, 5),
-            textcoords='offset points',
-            bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.7, edgecolor='none')
-        )
-    
-    # Add y=x reference line
-    max_rank = max(df_plot['benchmark_subrank'].max(), df_plot['elo_subrank'].max())
-    min_rank = min(df_plot['benchmark_subrank'].min(), df_plot['elo_subrank'].min())
-    ax.plot([min_rank, max_rank], [min_rank, max_rank], 
-            'r--', linewidth=2, alpha=0.7, label='y = x', zorder=1)
-    
-    # Set axis labels with (Weak -> Strong) notation
-    ax.set_xlabel(f'Rank in {benchmark_name} (Weak -> Strong)', fontsize=18)
-    ax.set_ylabel(f'Rank in {elo_category_name} (Weak -> Strong)', fontsize=18)
-    
-    # Increase tick label font size
-    ax.tick_params(axis='both', which='major', labelsize=16)
-    
-    # Set custom tick locations: 1, 6, 11, 16, 21, 26
-    max_rank = max(df_plot['benchmark_subrank'].max(), df_plot['elo_subrank'].max())
-    tick_locations = [1, 6, 11, 16, 21, 26]
-    # Filter to only include ticks within the data range
-    tick_locations = [t for t in tick_locations if t <= max_rank]
-    ax.set_xticks(tick_locations)
-    ax.set_yticks(tick_locations)
-    
-    # Reverse axes so that rank 1 (best) is at the top/right
-    # This means higher ranks (worse performance) are closer to origin
-    ax.invert_xaxis()
-    ax.invert_yaxis()
-    
-    # Hide top and right spines (borders)
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    
-    # Add Spearman correlation coefficient text box
-    corr_text = f'Correlation Coefficient = {spearman_rho:.2f}'
-    ax.text(0.98, 0.02, corr_text,
-            transform=ax.transAxes,
-            fontsize=16,
-            verticalalignment='bottom',
-            horizontalalignment='right',
-            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8, edgecolor='black'),
-            zorder=4)
-    
-    # Add legend with larger font
-    ax.legend(loc='upper left', fontsize=16)
-    
-    # Adjust aspect ratio to make plot flatter (wider)
-    ax.set_aspect('auto', adjustable='box')
-    
-    plt.tight_layout()
-    
-    # Save figure
-    output_path = output_dir / output_filename
-    plt.savefig(output_path, format='pdf', bbox_inches='tight')
-    plt.close()
-    
-    print(f"Figure saved to {output_path}")
-    print(f"  Spearman ρ = {spearman_rho:.4f}, p-value = {spearman_pvalue:.4f}")
-    print(f"  Number of models in intersection: {len(df_plot)}")
-
-
-def figure_5_ranking_comparison(output_dir: Path):
-    """
-    Figure 5: Scatter plot comparing rankings between SWE-Bench (Verified) and LMArena-Coding.
-    
-    For models present in both rankings, compute sub-rankings within the intersection set,
-    then plot scatter plot with y=x reference line and Spearman correlation coefficient.
-    """
-    ranking_comparison_plot(
-        benchmark_id='swe_bench_verified',
-        benchmark_name='SWE-Bench (Verified)',
-        benchmark_score_col='swe_bench_verified_score',
-        elo_col='elo_coding',
-        elo_category_name='LMArena-Coding',
-        output_dir=output_dir,
-        output_filename='Figure_5_Ranking_Comparison.pdf'
-    )
-
-
-def generate_all_plots():
-    """Generate all figures for the manuscript."""
     # Load data
-    data_path = project_root / "results" / "analysis_ready_data.csv"
-    df = pd.read_csv(data_path)
+    logger.info("Loading data...")
+    df = load_analysis_data(data_path)
+    hypothesis_results = load_hypothesis_results(results_path)
     
-    # Ensure output directory exists
-    output_dir = ensure_output_directory()
+    # Generate all figures
+    logger.info("\n" + "="*60)
+    logger.info("Generating all figures...")
+    logger.info("="*60)
     
-    # Setup logging to both console and file
-    log_dir = project_root / "results"
-    log_dir.mkdir(parents=True, exist_ok=True)
-    log_file = log_dir / f"plot_generation_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    figure_0_placeholder(output_dir)
+    figure_1_task_type(df, output_dir)
+    figure_2_scale(df, output_dir)
+    figure_3_complexity(df, output_dir)
+    figure_4_recency(df, output_dir)
+    figure_5_difficulty_variance(df, output_dir, hypothesis_results)
+    figure_6_confounder_heatmap(df, output_dir)
     
-    class Tee:
-        """Class to write to both console and file."""
-        def __init__(self, *files):
-            self.files = files
-        
-        def write(self, obj):
-            for f in self.files:
-                f.write(obj)
-                f.flush()
-        
-        def flush(self):
-            for f in self.files:
-                f.flush()
-    
-    # Open log file and create Tee object
-    log_file_handle = open(log_file, 'w', encoding='utf-8')
-    tee = Tee(sys.stdout, log_file_handle)
-    
-    # Redirect print to both console and file
-    original_print = print
-    def log_print(*args, **kwargs):
-        kwargs['file'] = tee
-        original_print(*args, **kwargs)
-    
-    # Temporarily replace print
-    import builtins
-    builtins.print = log_print
-    
-    try:
-        print("=" * 60)
-        print(f"Plot Generation Log - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print("=" * 60)
-        print(f"Data source: {data_path}")
-        print(f"Output directory: {output_dir}")
-        print("=" * 60)
-        print("Generating figures...")
-        print("=" * 60)
-        
-        # Generate all figures
-        figure_1_difficulty_variance(df, output_dir)
-        figure_2_task_type(df, output_dir)
-        figure_3a_complexity(df, output_dir)
-        figure_3b_variance_tasktype(df, output_dir)
-        figure_4_confounder_heatmap(df, output_dir)
-        figure_5_ranking_comparison(output_dir)
-        
-        # Generate additional ranking comparison plots for FACTS and IFEval
-        print("\n" + "=" * 60)
-        print("Generating additional ranking comparison plots...")
-        print("=" * 60)
-        
-        # FACTS vs LMArena-Hard Prompts
-        ranking_comparison_plot(
-            benchmark_id='facts',
-            benchmark_name='FACTS',
-            benchmark_score_col='facts_score',
-            elo_col='elo_hard_prompts',
-            elo_category_name='LMArena-Hard Prompts',
-            output_dir=output_dir,
-            output_filename='FACTS_Ranking_Comparison.pdf'
-        )
-        
-        # IFEval vs LMArena-Instruction Following
-        ranking_comparison_plot(
-            benchmark_id='ifeval',
-            benchmark_name='IFEval',
-            benchmark_score_col='ifeval_score',
-            elo_col='elo_instruction_following',
-            elo_category_name='LMArena-Instruction Following',
-            output_dir=output_dir,
-            output_filename='IFEval_Ranking_Comparison.pdf'
-        )
-        
-        print("=" * 60)
-        print("All figures generated successfully!")
-        print(f"Log file saved to: {log_file}")
-        print("=" * 60)
-    finally:
-        # Restore original print
-        builtins.print = original_print
-        log_file_handle.close()
+    logger.info("\n" + "="*60)
+    logger.info("All figures generated successfully!")
+    logger.info(f"Figures saved to: {output_dir}")
+    logger.info("="*60)
 
 
 if __name__ == "__main__":
-    generate_all_plots()
-
+    main()
