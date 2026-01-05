@@ -3,7 +3,8 @@ Generate Figures for Manuscript
 
 Purpose:
     This script generates all figures required for the manuscript using seaborn and matplotlib.
-    All figures are saved directly to overleaf/images/ directory as PDF files.
+    All figures are saved directly to ../overleaf/images/ directory (relative to Human-SIG/) as PDF files.
+    CRITICAL: overleaf/ is a separate Git repository at the same level as Human-SIG/, NOT inside it.
 
 Figures Generated:
     - Figure 0: SWE-bench Illustration (placeholder)
@@ -608,10 +609,11 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
 
 def main():
     """Main execution function."""
-    base_dir = Path(__file__).parent.parent.parent
+    base_dir = Path(__file__).parent.parent.parent  # Human-SIG/
     data_path = base_dir / "results" / "analysis_ready_data.csv"
     results_path = base_dir / "results" / "hypothesis_test_results.json"
-    output_dir = base_dir / "overleaf" / "images"
+    # CRITICAL: overleaf/ is a separate repository at the same level as Human-SIG/, NOT inside it
+    output_dir = base_dir.parent / "overleaf" / "images"
     
     # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)

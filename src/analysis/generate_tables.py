@@ -4,7 +4,8 @@ Generate Tables for Manuscript
 Purpose:
     This script generates experimental results tables for the manuscript using
     pandas.DataFrame.to_latex() method. All tables are saved directly to
-    overleaf/tables/ directory as .tex files.
+    ../overleaf/tables/ directory (relative to Human-SIG/) as .tex files.
+    CRITICAL: overleaf/ is a separate Git repository at the same level as Human-SIG/, NOT inside it.
 
 Tables Generated:
     - Results Summary Table (Spearman only, for main text)
@@ -353,10 +354,11 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
 
 def main():
     """Main execution function."""
-    base_dir = Path(__file__).parent.parent.parent
+    base_dir = Path(__file__).parent.parent.parent  # Human-SIG/
     report_path = base_dir / "results" / "statistical_significance_report.json"
     data_path = base_dir / "results" / "analysis_ready_data.csv"
-    output_dir = base_dir / "overleaf" / "tables"
+    # CRITICAL: overleaf/ is a separate repository at the same level as Human-SIG/, NOT inside it
+    output_dir = base_dir.parent / "overleaf" / "tables"
     
     # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
