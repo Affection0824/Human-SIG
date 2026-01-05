@@ -961,18 +961,18 @@ uv run python src/analysis/apply_correction.py
 
 **Script**: `src/analysis/generate_plots.py`
 
-Generate 6 PDF figures for the manuscript. Logs data sources, plot types, and figure descriptions to console and log file.
+Generate 7 PDF figures for the manuscript. Logs data sources, plot types, and figure descriptions to console.
 
-**Input**: Analysis-ready data, master table (for Figure 5)
+**Input**: Analysis-ready data, master table (for Figure 0), hypothesis test results (for Figure 5)
 
 **Output**: 
-*   `overleaf/images/Figure_1_Difficulty_Variance.pdf` - Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho
-*   `overleaf/images/Figure_2_Task_Type.pdf` - Spearman rho by Task Type
-*   `overleaf/images/Figure_3a_Complexity_Categories.pdf` - Spearman rho by Prompt Length
-*   `overleaf/images/Figure_3b_Variance_TaskType.pdf` - CV vs. Spearman rho by Task Type
-*   `overleaf/images/Figure_4_Confounder_Heatmap.pdf` - Correlation Matrix of Independent Variables
-*   `overleaf/images/Figure_5_Ranking_Comparison.pdf` - Comparison of large language model (LLM) ranking in SWE-bench (Verified) and the overall ranking in LMArena-Coding
-*   `results/plot_generation_log_YYYYMMDD_HHMMSS.txt` - Generation log with figure descriptions
+*   `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf` - Comparison of large language model (LLM) ranking in SWE-bench (Verified) and the overall ranking in LMArena-Coding
+*   `../overleaf/images/Figure_1_Task_Type.pdf` - Spearman rho by Task Type (MCQ vs Generative)
+*   `../overleaf/images/Figure_2_Scale.pdf` - Scale effect: log(question_count) vs. Spearman rho
+*   `../overleaf/images/Figure_3_Complexity_Categories.pdf` - Spearman rho by Prompt Length categories (Short, Medium, Long, Extreme)
+*   `../overleaf/images/Figure_4_Recency.pdf` - Recency effect: Release Date vs. Spearman rho
+*   `../overleaf/images/Figure_5_Difficulty_Variance.pdf` - Difficulty-Variance joint effect: Difficulty vs. Spearman rho (with CV encoded as point size and color)
+*   `../overleaf/images/Figure_6_Confounder_Heatmap.pdf` - Correlation Matrix of Independent Variables
 
 **Execution**:
 ```bash
@@ -991,8 +991,10 @@ Generate LaTeX tables for the manuscript using `pandas.DataFrame.to_latex()`.
 **Input**: Statistical significance report, analysis-ready data (optional)
 
 **Output**:
-*   `overleaf/tables/results_table.tex` - Hypothesis test results summary
-*   `overleaf/tables/correlation_summary_table.tex` - Correlation summary
+*   `../overleaf/tables/results_table_spearman.tex` - Hypothesis test results summary (Spearman ρ only, for main text)
+*   `../overleaf/tables/appendix_results_table_kendall.tex` - Hypothesis test results summary (Kendall τ only, for appendix)
+*   `../overleaf/tables/appendix_results_table_rbo.tex` - Hypothesis test results summary (RBO only, for appendix)
+*   `../overleaf/tables/correlation_summary_table.tex` - Correlation summary for all benchmarks
 
 **Execution**:
 ```bash
@@ -1037,8 +1039,7 @@ uv run python src/analysis/generate_tables.py
 *   `analysis_ready_data.csv` - Feature-engineered dataset
 *   `hypothesis_test_results.json` - Raw test results
 *   `statistical_significance_report.json` - Corrected results
-*   `plot_generation_log_*.txt` - Plot generation logs
 
-**Manuscript Files** (`overleaf/`):
-*   `images/Figure_*.pdf` (6 figures)
-*   `tables/*.tex` (2 tables)
+**Manuscript Files** (`../overleaf/`):
+*   `images/Figure_*.pdf` (7 figures)
+*   `tables/*.tex` (4 tables)
