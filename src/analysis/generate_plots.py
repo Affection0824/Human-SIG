@@ -19,6 +19,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 import sys
+from datetime import datetime
 
 # Set style
 sns.set_style("whitegrid")
@@ -31,8 +32,8 @@ sys.path.insert(0, str(project_root))
 
 
 def ensure_output_directory():
-    """Ensure overleaf/images/ directory exists."""
-    output_dir = project_root.parent / "overleaf" / "images"
+    """Ensure 694154159178ff1940922366/images/ directory exists."""
+    output_dir = project_root.parent / "694154159178ff1940922366" / "images"
     output_dir.mkdir(parents=True, exist_ok=True)
     return output_dir
 
@@ -49,6 +50,13 @@ def figure_1_difficulty_variance(df: pd.DataFrame, output_dir: Path):
     
     # Remove missing values
     df_plot = df_plot[['subset_avg_score', 'spearman_rho', 'coefficient_of_variation']].dropna()
+    
+    # Log data sources and plot type
+    print("Generating scatter plot using data from analysis_ready_data.csv:")
+    print("  - X-axis: Difficulty (subset_avg_score column)")
+    print("  - Y-axis: Spearman rho (spearman_rho column)")
+    print("  - Point size: Coefficient of Variation (coefficient_of_variation column)")
+    print("  - Plot type: scatter plot with regression line overlay")
     
     fig, ax = plt.subplots(figsize=(8, 6))
     
@@ -112,13 +120,19 @@ def figure_2_task_type(df: pd.DataFrame, output_dir: Path):
     # Remove missing values
     df_plot = df_plot[['task_group', 'spearman_rho']].dropna()
     
+    # Log data sources and plot type
+    print("Generating boxplot with stripplot overlay using data from analysis_ready_data.csv:")
+    print("  - X-axis: Task Type (task_type column, grouped as MCQ vs Generative/Agentic)")
+    print("  - Y-axis: Spearman rho (spearman_rho column)")
+    print("  - Plot type: boxplot with overlaid stripplot")
+    
     fig, ax = plt.subplots(figsize=(6, 6))
     
     # Create boxplot
     box = ax.boxplot(
         [df_plot[df_plot['task_group'] == 'MCQ']['spearman_rho'].values,
          df_plot[df_plot['task_group'] == 'Generative/Agentic']['spearman_rho'].values],
-        labels=['MCQ', 'Generative/Agentic'],
+        tick_labels=['MCQ', 'Generative/Agentic'],
         patch_artist=True,
         widths=0.6
     )
@@ -163,6 +177,12 @@ def figure_3a_complexity(df: pd.DataFrame, output_dir: Path):
     order = ['Short', 'Medium', 'Long', 'Extreme']
     df_plot = df_plot[df_plot['prompt_length'].isin(order)]
     
+    # Log data sources and plot type
+    print("Generating boxplot with stripplot overlay using data from analysis_ready_data.csv:")
+    print("  - X-axis: Prompt Length categories (prompt_length column: Short, Medium, Long, Extreme)")
+    print("  - Y-axis: Spearman rho (spearman_rho column)")
+    print("  - Plot type: boxplot with overlaid stripplot")
+    
     fig, ax = plt.subplots(figsize=(8, 6))
     
     # Prepare data for boxplot
@@ -172,7 +192,7 @@ def figure_3a_complexity(df: pd.DataFrame, output_dir: Path):
     # Create boxplot
     box = ax.boxplot(
         data_for_boxplot,
-        labels=order,
+        tick_labels=order,
         patch_artist=True,
         widths=0.6
     )
@@ -215,6 +235,13 @@ def figure_3b_variance_tasktype(df: pd.DataFrame, output_dir: Path):
     
     # Remove missing values
     df_plot = df_plot[['task_type', 'coefficient_of_variation', 'spearman_rho']].dropna()
+    
+    # Log data sources and plot type
+    print("Generating scatter plot with regression lines using data from analysis_ready_data.csv:")
+    print("  - X-axis: Coefficient of Variation (coefficient_of_variation column)")
+    print("  - Y-axis: Spearman rho (spearman_rho column)")
+    print("  - Color/Marker: Task Type (task_type column: MCQ, Generation, Agentic)")
+    print("  - Plot type: scatter plot with task-type-specific regression lines")
     
     fig, ax = plt.subplots(figsize=(8, 6))
     
@@ -323,6 +350,13 @@ def figure_4_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     # Calculate correlation matrix
     corr_matrix = df_corr.corr()
     
+    # Log data sources and plot type
+    print("Generating heatmap using data from analysis_ready_data.csv:")
+    print("  - Variables: Difficulty (subset_avg_score), Variance (coefficient_of_variation),")
+    print("    Recency (release_date_ordinal), Complexity (prompt_length_ordinal),")
+    print("    Scale (log_question_count), Task Type (task_type_ordinal)")
+    print("  - Plot type: correlation heatmap (seaborn heatmap)")
+    
     # Create labels
     labels = [
         'Difficulty\n(subset_avg_score)',
@@ -372,18 +406,64 @@ def generate_all_plots():
     # Ensure output directory exists
     output_dir = ensure_output_directory()
     
-    print("Generating figures...")
-    print("=" * 60)
+    # Setup logging to both console and file
+    log_dir = project_root / "results"
+    log_dir.mkdir(parents=True, exist_ok=True)
+    log_file = log_dir / f"plot_generation_log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
     
-    # Generate all figures
-    figure_1_difficulty_variance(df, output_dir)
-    figure_2_task_type(df, output_dir)
-    figure_3a_complexity(df, output_dir)
-    figure_3b_variance_tasktype(df, output_dir)
-    figure_4_confounder_heatmap(df, output_dir)
+    class Tee:
+        """Class to write to both console and file."""
+        def __init__(self, *files):
+            self.files = files
+        
+        def write(self, obj):
+            for f in self.files:
+                f.write(obj)
+                f.flush()
+        
+        def flush(self):
+            for f in self.files:
+                f.flush()
     
-    print("=" * 60)
-    print("All figures generated successfully!")
+    # Open log file and create Tee object
+    log_file_handle = open(log_file, 'w', encoding='utf-8')
+    tee = Tee(sys.stdout, log_file_handle)
+    
+    # Redirect print to both console and file
+    original_print = print
+    def log_print(*args, **kwargs):
+        kwargs['file'] = tee
+        original_print(*args, **kwargs)
+    
+    # Temporarily replace print
+    import builtins
+    builtins.print = log_print
+    
+    try:
+        print("=" * 60)
+        print(f"Plot Generation Log - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print("=" * 60)
+        print(f"Data source: {data_path}")
+        print(f"Output directory: {output_dir}")
+        print("=" * 60)
+        print("Generating figures...")
+        print("=" * 60)
+        
+        # Generate all figures
+        figure_1_difficulty_variance(df, output_dir)
+        figure_2_task_type(df, output_dir)
+        figure_3a_complexity(df, output_dir)
+        figure_3b_variance_tasktype(df, output_dir)
+        figure_4_confounder_heatmap(df, output_dir)
+        
+        print("=" * 60)
+        print("All figures generated successfully!")
+        print(f"Log file saved to: {log_file}")
+        print("=" * 60)
+    finally:
+        # Restore original print
+        builtins.print = original_print
+        log_file_handle.close()
 
 
 if __name__ == "__main__":

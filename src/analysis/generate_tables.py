@@ -23,8 +23,8 @@ sys.path.insert(0, str(project_root))
 
 
 def ensure_output_directory():
-    """Ensure overleaf/tables/ directory exists."""
-    output_dir = project_root.parent / "overleaf" / "tables"
+    """Ensure 694154159178ff1940922366/tables/ directory exists."""
+    output_dir = project_root.parent / "694154159178ff1940922366" / "tables"
     output_dir.mkdir(parents=True, exist_ok=True)
     return output_dir
 
