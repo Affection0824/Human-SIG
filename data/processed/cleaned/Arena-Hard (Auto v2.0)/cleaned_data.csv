@@ -1,4 +1,5 @@
 model_name,score,rank
+<<<<<<< HEAD
 MiMo-V2-Flash,86.2,1
 Qwen3-Next-80B-A3B-Instruct,82.69999999999999,2
 Qwen3-235B-A22B-Thinking-2507,79.7,3
@@ -12,3 +13,18 @@ Qwen3 VL 30B A3B Instruct,58.5,10
 Qwen3 VL 30B A3B Thinking,56.699999999999996,11
 Qwen3 VL 8B Thinking,51.1,12
 Qwen3 VL 4B Thinking,36.8,13
+=======
+MiMo-V2-Flash,0.862,1
+Qwen3-Next-80B-A3B-Instruct,0.827,2
+Qwen3-235B-A22B-Thinking-2507,0.797,3
+Qwen3-235B-A22B-Instruct-2507,0.792,4
+Qwen3 VL 235B A22B Instruct,0.774,5
+Nemotron 3 Nano (30B A3B),0.677,6
+Qwen3 VL 32B Instruct,0.647,7
+Qwen3-Next-80B-A3B-Thinking,0.623,8
+Qwen3 VL 32B Thinking,0.605,9
+Qwen3 VL 30B A3B Instruct,0.585,10
+Qwen3 VL 30B A3B Thinking,0.567,11
+Qwen3 VL 8B Thinking,0.511,12
+Qwen3 VL 4B Thinking,0.368,13
+>>>>>>> b33f13d89c137653bb0e88783874168f3c5b911a

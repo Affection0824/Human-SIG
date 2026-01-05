@@ -429,6 +429,7 @@ def process_benchmark(
     # Extract data
     model_data = []
     
+<<<<<<< HEAD
     # Benchmarks that need score multiplication by 100 (normalize from 0-1 scale to 0-100 scale)
     SCORE_MULTIPLY_100_BENCHMARKS = [
         'FACTS',
@@ -443,6 +444,10 @@ def process_benchmark(
     
     # For FACTS benchmark, only extract rows where Task_Name == Average
     if benchmark_id == 'FACTS':
+=======
+    # For manual_direct_facts benchmark, only extract rows where Task_Name == Average
+    if benchmark_id == 'manual_direct_facts':
+>>>>>>> b33f13d89c137653bb0e88783874168f3c5b911a
         # Find Task_Name column
         task_name_col = None
         for col in df.columns:
@@ -472,10 +477,13 @@ def process_benchmark(
         if score is None:
             continue
         
+<<<<<<< HEAD
         # Multiply score by 100 for benchmarks that use 0-1 scale
         if benchmark_id in SCORE_MULTIPLY_100_BENCHMARKS:
             score = score * 100
         
+=======
+>>>>>>> b33f13d89c137653bb0e88783874168f3c5b911a
         model_data.append({
             'model_name': model_name_cleaned,
             'score': score

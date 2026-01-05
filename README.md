@@ -274,8 +274,11 @@ The script is self-contained with all necessary utility functions and requires n
     *   Handle percentage format (e.g., "71%" → 71.0)
     *   Handle decimal format (e.g., "0.945" → 0.945)
     *   Convert to float for ranking calculation
+<<<<<<< HEAD
     *   **Special handling for FACTS benchmark**: Only extract rows where `Task_Name == "Average"`, use `Numerical_Result` column for scores
     *   **Score normalization**: For benchmarks using 0-1 scale (FACTS, GPQA, HMMT (Feb 2025), HumanEval, IFEval, SuperGPQA, SWE-bench (Verified), Arena-Hard (Auto v2.0)), multiply scores by 100 to normalize to 0-100 scale
+=======
+>>>>>>> b33f13d89c137653bb0e88783874168f3c5b911a
 6.  **Calculate rankings**:
     *   Sort by score in descending order
     *   Tied scores: Models with same score get same rank

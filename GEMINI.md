@@ -184,7 +184,7 @@ Human-SIG/
 │  │  │   │   └── data.csv    # Extracted data file
 │  │  ├── artificial_analysis/  # Artificial Analysis unified table extraction
 │  │  │   ├── input.txt          # User-manually copied <table> element HTML (unified table, shared by all benchmarks, HTML format text)
-│  │  │   └── {benchmark_name}/ # Each benchmark has its own folder
+│  │  │   └── {benchmark_id}/ # Each benchmark has its own folder
 │  │  │       ├── input.txt     # Benchmark description or reference (optional)
 │  │  │       └── data.csv      # Extracted data file
 │  │  ├── frontiermath/        # FrontierMath (manual_source_code method)
@@ -195,18 +195,18 @@ Human-SIG/
 │  │  │       ├── input.txt     # User-manually copied <table> element HTML (HTML format text)
 │  │  │       └── data.csv      # Extracted data file
 │  │  ├── manual_direct/        # Directly provided data files
-│  │  │   └── {benchmark_name}/
+│  │  │   └── {benchmark_id}/
 │  │  │       └── data.csv      # or data.xlsx (user directly provides, rename if needed)
 │  │  ├── pandas_read_html/     # pandas.read_html method
-│  │  │   └── {benchmark_name}/
+│  │  │   └── {benchmark_id}/
 │  │  │       ├── input.txt     # URL file (one line with URL)
 │  │  │       └── data.csv      # Scraped data file
 │  │  ├── selenium/             # Selenium method
-│  │  │   └── {benchmark_name}/
+│  │  │   └── {benchmark_id}/
 │  │  │       ├── input.txt     # URL file (one line with URL)
 │  │  │       └── data.csv      # Scraped data file
 │  │  └── vals_ai/              # VALS.ai platform data
-│  │      └── {benchmark_name}/
+│  │      └── {benchmark_id}/
 │  │          ├── input.txt     # User-manually copied JSON element (from webpage source code, JSON format text)
 │  │          └── data.csv      # Converted data file
 │  └── processed/              # Processed data
@@ -305,6 +305,7 @@ Proceed to **Phase III: Data Processing**.
   - **Score Normalization Note:** All benchmark scores in `cleaned_data.csv` files (except Creative Writing v3) have been normalized to the 0-100 scale during data preparation. Specifically, benchmarks using 0-1 scale (FACTS, GPQA, HMMT (Feb 2025), HumanEval, IFEval, SuperGPQA, SWE-bench (Verified), Arena-Hard (Auto v2.0)) have been multiplied by 100. For FACTS, only rows with `Task_Name == "Average"` are included, using the `Numerical_Result` column. All scores (except Creative Writing v3) represent "higher is better" performance after normalization. Creative Writing v3 uses Elo scores and is not normalized to 0-100 range.
   - **Data Source Note:** All subsequent steps (Step 3.2 onwards) read benchmark data exclusively from `cleaned_data.csv` and `mapping.json` files located in `Human-SIG/data/processed/cleaned/{benchmark_id}/`. These are the only source files used for all analysis and feature calculation.
 
+
 #### Step 3.2: Understand Data File Formats
 
 **Purpose:** The cleaned data files contain standardized benchmark scores and rankings, while mapping files enable entity resolution between benchmark model names and LMArena model IDs.
@@ -314,7 +315,9 @@ Proceed to **Phase III: Data Processing**.
   - **Purpose:** Contains all models from a benchmark with their scores and ranks. Used for correlation analysis and ranking calculations.
   - **Format:** Standard CSV with three columns:
     - `model_name`: String, the original model name exactly as it appears in the benchmark leaderboard.
+
     - `score`: Float, the score value. For all benchmarks except Creative Writing v3, scores have been normalized to 0-100 scale (higher is better). Creative Writing v3 uses Elo scores and is not normalized to 0-100 range.
+
     - `rank`: Integer, the rank assigned based on score (1 = best, higher numbers = worse). Tied scores receive the same rank, and the next rank skips the tied count (e.g., scores [99, 98, 98, 97] → ranks [1, 2, 2, 4]).
   - **Example:**
     ```csv
@@ -366,21 +369,27 @@ Proceed to **Phase III: Data Processing**.
 - **3.2.4:** Commit State.
   - **Message:** `Step 3.2.4 Completed: Verified cleaned data files and mappings are present and valid`
 
+
 #### Step 3.3: Robust Parsing & Ranking Logic
+
 
 - **3.3.1:** Create `Human-SIG/src/processing/parser_utils.py`.
   - **Code Documentation Requirements:**
     - File header must explain the purpose (parsing benchmark scores from CSV files for master table construction), that all benchmarks except Creative Writing v3 are normalized to 0-100 range during data preparation, ranking logic, and tie-breaking strategy.
     - All classes and methods must have docstrings.
   - **Class Definition:** Implement `BenchmarkParser`.
+
   - **Input:** Cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`. The parser reads from the cleaned data directory, which contains standardized CSV files with model names, scores, and ranks already extracted and calculated (verified in Step 3.2). All benchmarks except Creative Writing v3 are normalized to 0-100 range.
+
   - **Ranking Logic:** Compute rank strictly within the Study Universe.
     - **Study Universe Definition:** The "Study Universe" consists of all models in the LMArena dataset with `elo_overall >= 1330`. This Study Universe is defined by the models present in `Human-SIG/data/processed/model_extraction/lmarena_models.json` (which already contains only models with Overall Score >= 1330).
     - **Entity Resolution:** Use the per-benchmark mapping files from `Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json` (verified in Step 3.2) to map benchmark model names to LMArena model IDs. Only models that can be mapped to the Study Universe are included in ranking.
     - **Ranking Filter:** Only rank models that appear in both the benchmark data (after entity resolution) and the Study Universe. Models that appear in the benchmark but cannot be mapped to the Study Universe should be excluded from ranking.
   - **Tie-Breaking:** Use `method='min'` (e.g., if two models tie for first place with score 95, assign both rank 1, and the next model gets rank 3) to support rigorous RBO calculation. This ensures that tied models receive the same rank, which is important for RBO computation.
+
   - **Directionality:** When ranking, ensure that higher scores receive better (lower) ranks. All benchmarks (except Creative Writing v3) represent "higher is better" performance, so the ranking logic should always assume "higher score = better rank".
   - **Note:** All benchmarks except Creative Writing v3 are normalized to 0-100 range and stored in CSV files. This parser loads CSV files, performs entity resolution using the mapping table, filters to Study Universe, performs ranking, and outputs data structure transformation. The parser should output both the original scores and the computed ranks.
+
 - **3.3.2:** Commit State.
   - **Message:** `Step 3.3.2 Completed: Implemented BenchmarkParser with ranking logic for RBO calculation`
 
@@ -396,7 +405,9 @@ Proceed to **Phase III: Data Processing**.
     1. Load parsed data (Score + Rank) from the parser output (created in Step 3.3.1). The parser reads cleaned data files from `Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv`, which already contains standardized model names, scores, and ranks.
     2. Map model names using the per-benchmark mapping table from `Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json` (verified in Step 3.2). This per-benchmark mapping contains benchmark-specific mappings with duplicate handling already applied.
     3. Left Join onto `df_master` (Keep only models present in LMArena Study Universe). Models that appear in the benchmark but cannot be mapped to the Study Universe will be excluded.
+
     4. Add columns: `{benchmark_id}_score` AND `{benchmark_id}_rank`. (Both are needed: Score for Pearson/Spearman correlation, Rank for RBO calculation). Use the sanitized benchmark_id (e.g., "humaneval", "mmlu_pro") as the column name prefix.
+
     5. Handle missing values: If a model in the Study Universe does not have a score for a particular benchmark, leave the score and rank as `NaN` (do not fill with zeros or default values).
   - **Data Type Enforcement:** Ensure all Score columns are `float64` and Rank columns are `int` (or nullable int).
 - **3.4.2:** Data Integrity Check
@@ -411,7 +422,7 @@ Proceed to **Phase III: Data Processing**.
       "patternProperties": {
         "^[a-zA-Z0-9_]+$": {
           "type": "object",
-          "description": "Statistics for a single benchmark, keyed by benchmark_id (sanitized benchmark name)",
+          "description": "Statistics for a single benchmark, keyed by benchmark_id",
           "properties": {
             "overlap_count": {
               "type": "integer",
@@ -449,7 +460,9 @@ Input:
 
 - `Human-SIG/data/processed/master_table/master_correlation_matrix.csv` (Model Scores & Ranks).
 
+
 - `Human-SIG/data/metadata.json` (Contains all benchmark metadata including `release_date`, `task_type`, `question_count`, and other metadata fields for all benchmarks).
+
 
 
   Output:
@@ -820,6 +833,8 @@ Objective: Synthesize the findings from Human-SIG/results/ into a scientifically
     - Discussion section (between `\section{Discussion}` and the next `\section{...}`)
     - Conclusion section (between `\section{Conclusion}` and `\end{document}` or end of file)
   - **Purpose:** This analysis will help you know exactly where to modify content in subsequent steps, rather than replacing placeholder comments.
+
+  - **Note:** All LaTeX content (abstract, introduction, methodology, results, discussion, conclusion) will be written directly into `overleaf/acl_latex.tex`. For table generation rules, see Step 4.4.2b.
 
 - **5.1.3:** Commit State.
 

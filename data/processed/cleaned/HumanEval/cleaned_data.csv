@@ -1,4 +1,5 @@
 model_name,score,rank
+<<<<<<< HEAD
 Kimi K2 0905,94.5,1
 Claude 3.5 Sonnet,93.7,2
 GPT-5,93.4,3
@@ -49,3 +50,55 @@ Gemma 3n E4B Instructed LiteRT Preview,75.0,46
 Gemini 1.5 Flash,74.3,48
 Grok-1.5,74.1,49
 Claude 3 Sonnet,73.0,50
+=======
+Kimi K2 0905,0.945,1
+Claude 3.5 Sonnet,0.937,2
+GPT-5,0.934,3
+Kimi K2 Instruct,0.933,4
+Qwen2.5-Coder 32B Instruct,0.927,5
+o1-mini,0.924,6
+Claude 3.5 Sonnet(2),0.92,7
+Mistral Large 2,0.92,7
+Qwen2.5 VL 32B Instruct,0.915,9
+GPT-4o,0.902,10
+Granite 3.3 8B Instruct,0.897,11
+Granite 3.3 8B Base,0.897,11
+Gemini Diffusion,0.896,13
+Nova Pro,0.89,14
+Llama 3.1 405B Instruct,0.89,14
+DeepSeek-V2.5,0.89,14
+Mistral Small 3.1 24B Instruct,0.884,17
+Qwen2.5 32B Instruct,0.884,17
+Llama 3.3 70B Instruct,0.884,17
+Qwen2.5-Coder 7B Instruct,0.884,17
+Grok-2,0.884,17
+Claude 3.5 Haiku,0.881,22
+o1,0.881,22
+GPT-4.5,0.88,24
+Gemma 3 27B,0.878,25
+GPT-4o mini,0.872,26
+GPT-4 Turbo,0.871,27
+Qwen2.5 72B Instruct,0.866,28
+Qwen2 72B Instruct,0.86,29
+Grok-2 mini,0.857,30
+Nova Lite,0.854,31
+Gemma 3 12B,0.854,31
+Claude 3 Opus,0.849,33
+Mistral Small 3 24B Instruct,0.848,34
+Qwen2.5 7B Instruct,0.848,34
+Gemini 1.5 Pro,0.841,36
+Qwen2.5 14B Instruct,0.835,37
+Phi 4Microsoft,0.826,38
+IBM Granite 4.0 Tiny Preview,0.824,39
+Nova Micro,0.811,40
+Codestral-22B,0.811,40
+Llama 3.1 70B Instruct,0.805,42
+Qwen2 7B Instruct,0.799,43
+Qwen2.5-Omni-7B,0.787,44
+Claude 3 Haiku,0.759,45
+Gemma 3n E4B Instructed,0.75,46
+Gemma 3n E4B Instructed LiteRT Preview,0.75,46
+Gemini 1.5 Flash,0.743,48
+Grok-1.5,0.741,49
+Claude 3 Sonnet,0.73,50
+>>>>>>> b33f13d89c137653bb0e88783874168f3c5b911a
