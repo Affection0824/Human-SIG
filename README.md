@@ -274,11 +274,10 @@ The script is self-contained with all necessary utility functions and requires n
     *   Handle percentage format (e.g., "71%" → 71.0)
     *   Handle decimal format (e.g., "0.945" → 0.945)
     *   Convert to float for ranking calculation
-<<<<<<< HEAD
+
     *   **Special handling for FACTS benchmark**: Only extract rows where `Task_Name == "Average"`, use `Numerical_Result` column for scores
     *   **Score normalization**: For benchmarks using 0-1 scale (FACTS, GPQA, HMMT (Feb 2025), HumanEval, IFEval, SuperGPQA, SWE-bench (Verified), Arena-Hard (Auto v2.0)), multiply scores by 100 to normalize to 0-100 scale
-=======
->>>>>>> b33f13d89c137653bb0e88783874168f3c5b911a
+
 6.  **Calculate rankings**:
     *   Sort by score in descending order
     *   Tied scores: Models with same score get same rank
@@ -861,3 +860,179 @@ The script is self-contained with all necessary utility functions and requires n
 | Automatic selection incorrect | Modify `selected_lmarena_model`, then set `untrusted: 0` |
 | Confirm no match | Change `selected_lmarena_model` to `-1`, `untrusted` to `0` |
 | Need to add candidate | Add to `candidates`, then modify `selected_lmarena_model` |
+
+---
+
+## Statistical Analysis Pipeline
+
+After completing the data processing pipeline (Steps 1-3), the following steps perform statistical analysis and generate results for the manuscript.
+
+### Prerequisites
+
+Ensure the following files are ready:
+*   Cleaned data: `data/processed/cleaned/{benchmark_id}/cleaned_data.csv` (all benchmarks)
+*   Mapping files: `data/processed/cleaned/{benchmark_id}/mapping.json` (all benchmarks)
+*   LMArena data: `data/processed/cleaned/LMArena-{category}/cleaned_data.csv` (all LMArena categories)
+*   Metadata: `data/metadata.json`
+*   Study Universe: `data/processed/model_extraction/lmarena_models.json`
+
+---
+
+## Step 4: Master Table Construction
+
+**Script**: `src/processing/build_master_table.py`
+
+Construct master correlation matrix by merging benchmark scores and ranks with LMArena ELO scores.
+
+**Input**: Cleaned data files, mapping files, LMArena data, metadata, Study Universe
+
+**Output**: 
+*   `data/processed/master_table/master_correlation_matrix.csv` - Master table with all benchmark scores and ranks
+*   `results/data_overlap_stats.json` - Overlap statistics for each benchmark
+
+**Execution**:
+```bash
+cd Human-SIG
+uv run python src/processing/build_master_table.py
+```
+
+---
+
+## Step 5: Feature Engineering
+
+**Script**: `src/analysis/compute_features_robust.py`
+
+Calculate benchmark features (Difficulty, CV) and correlation metrics (Spearman ρ, Kendall τ, RBO) with bootstrap confidence intervals.
+
+**Input**: Master table, metadata
+
+**Output**: `results/analysis_ready_data.csv` - Dataset with all features and correlation metrics
+
+**Execution**:
+```bash
+cd Human-SIG
+uv run python src/analysis/compute_features_robust.py
+```
+
+---
+
+## Step 6: Hypothesis Testing
+
+**Script**: `src/analysis/small_n_hypothesis_test.py`
+
+Execute statistical tests for H1-H6 using three correlation metrics (Spearman ρ, Kendall τ, RBO). Includes stratified analysis for H5 by task type.
+
+**Input**: Analysis-ready data, metadata
+
+**Output**: `results/hypothesis_test_results.json` - Raw test results with p-values and effect sizes
+
+**Execution**:
+```bash
+cd Human-SIG
+uv run python src/analysis/small_n_hypothesis_test.py
+```
+
+---
+
+## Step 7: Multiple Comparison Correction
+
+**Script**: `src/analysis/apply_correction.py`
+
+Apply Holm-Bonferroni correction to control family-wise error rate.
+
+**Input**: Hypothesis test results
+
+**Output**: `results/statistical_significance_report.json` - Corrected p-values and significance flags
+
+**Execution**:
+```bash
+cd Human-SIG
+uv run python src/analysis/apply_correction.py
+```
+
+---
+
+## Step 8: Generate Figures
+
+**Script**: `src/analysis/generate_plots.py`
+
+Generate 5 PDF figures for the manuscript. Logs data sources and plot types to console and log file.
+
+**Input**: Analysis-ready data
+
+**Output**: 
+*   `694154159178ff1940922366/images/Figure_1_Difficulty_Variance.pdf`
+*   `694154159178ff1940922366/images/Figure_2_Task_Type.pdf`
+*   `694154159178ff1940922366/images/Figure_3a_Complexity_Categories.pdf`
+*   `694154159178ff1940922366/images/Figure_3b_Variance_TaskType.pdf`
+*   `694154159178ff1940922366/images/Figure_4_Confounder_Heatmap.pdf`
+*   `results/plot_generation_log_YYYYMMDD_HHMMSS.txt` - Generation log
+
+**Execution**:
+```bash
+cd Human-SIG
+uv run python src/analysis/generate_plots.py
+```
+
+---
+
+## Step 9: Generate Tables
+
+**Script**: `src/analysis/generate_tables.py`
+
+Generate LaTeX tables for the manuscript using `pandas.DataFrame.to_latex()`.
+
+**Input**: Statistical significance report, analysis-ready data (optional)
+
+**Output**:
+*   `694154159178ff1940922366/tables/results_table.tex` - Hypothesis test results summary
+*   `694154159178ff1940922366/tables/correlation_summary_table.tex` - Correlation summary
+
+**Execution**:
+```bash
+cd Human-SIG
+uv run python src/analysis/generate_tables.py
+```
+
+---
+
+## Complete Workflow
+
+Run all analysis steps in sequence:
+
+```bash
+cd Human-SIG
+
+# Step 4: Build Master Table
+uv run python src/processing/build_master_table.py
+
+# Step 5: Feature Engineering
+uv run python src/analysis/compute_features_robust.py
+
+# Step 6: Hypothesis Testing
+uv run python src/analysis/small_n_hypothesis_test.py
+
+# Step 7: Multiple Comparison Correction
+uv run python src/analysis/apply_correction.py
+
+# Step 8: Generate Figures
+uv run python src/analysis/generate_plots.py
+
+# Step 9: Generate Tables
+uv run python src/analysis/generate_tables.py
+```
+
+---
+
+## Output Files
+
+**Data Files** (`results/`):
+*   `data_overlap_stats.json` - Overlap statistics
+*   `analysis_ready_data.csv` - Feature-engineered dataset
+*   `hypothesis_test_results.json` - Raw test results
+*   `statistical_significance_report.json` - Corrected results
+*   `plot_generation_log_*.txt` - Plot generation logs
+
+**Manuscript Files** (`694154159178ff1940922366/`):
+*   `images/Figure_*.pdf` (5 figures)
+*   `tables/*.tex` (2 tables)
