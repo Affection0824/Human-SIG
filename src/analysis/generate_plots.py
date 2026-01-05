@@ -420,64 +420,69 @@ def figure_4_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     print(f"Figure 4 saved to {output_path}")
 
 
-def figure_5_ranking_comparison(output_dir: Path):
+def ranking_comparison_plot(
+    benchmark_id: str,
+    benchmark_name: str,
+    benchmark_score_col: str,
+    elo_col: str,
+    elo_category_name: str,
+    output_dir: Path,
+    output_filename: str
+):
     """
-    Figure 5: Scatter plot comparing rankings between SWE-Bench (Verified) and LMArena-Coding.
+    Generic function to create ranking comparison scatter plot between a benchmark and LMArena category.
     
-    For models present in both rankings, compute sub-rankings within the intersection set,
-    then plot scatter plot with y=x reference line and Spearman correlation coefficient.
-    
-    Title: "Comparison of large language model (LLM) ranking in SWE-Bench (Verified) and the overall ranking in LMArena-Coding"
+    Args:
+        benchmark_id: Benchmark ID (e.g., 'swe_bench_verified', 'facts', 'ifeval')
+        benchmark_name: Display name for the benchmark (e.g., 'SWE-Bench (Verified)', 'FACTS', 'IFEval')
+        benchmark_score_col: Column name for benchmark score (e.g., 'swe_bench_verified_score')
+        elo_col: Column name for LMArena ELO (e.g., 'elo_coding', 'elo_hard_prompts')
+        elo_category_name: Display name for LMArena category (e.g., 'LMArena-Coding', 'LMArena-Hard Prompts')
+        output_dir: Output directory for the figure
+        output_filename: Output filename (e.g., 'Figure_5_Ranking_Comparison.pdf')
     """
     # Load master table
     master_table_path = project_root / "data" / "processed" / "master_table" / "master_correlation_matrix.csv"
     
     # Log data sources and plot type
-    print("Generating ranking comparison scatter plot using data from master_correlation_matrix.csv:")
-    print("  - Figure description: Comparison of large language model (LLM) ranking in SWE-Bench (Verified) and the overall ranking in LMArena-Coding")
-    print("  - X-axis: Rank in SWE-Bench (Verified) (swe_bench_verified_score column)")
-    print("  - Y-axis: Rank in LMArena-Coding (elo_coding column)")
-    print("  - Plot type: scatter plot with y=x reference line and Spearman correlation")
+    print(f"Generating ranking comparison scatter plot using data from master_correlation_matrix.csv:")
+    print(f"  - Figure description: Comparison of large language model (LLM) ranking in {benchmark_name} and the overall ranking in {elo_category_name}")
+    print(f"  - X-axis: Rank in {benchmark_name} ({benchmark_score_col} column)")
+    print(f"  - Y-axis: Rank in {elo_category_name} ({elo_col} column)")
+    print(f"  - Plot type: scatter plot with y=x reference line and Spearman correlation")
     
     df_master = pd.read_csv(master_table_path)
     df_master = df_master.set_index('model_name')
     
-    # Get columns for SWE-Bench (Verified) and LMArena-Coding
-    swe_score_col = 'swe_bench_verified_score'
-    swe_rank_col = 'swe_bench_verified_rank'
-    elo_coding_col = 'elo_coding'
-    
     # Find intersection: models with non-null values in both rankings
-    df_intersection = df_master[[swe_score_col, elo_coding_col]].dropna()
+    df_intersection = df_master[[benchmark_score_col, elo_col]].dropna()
     
     if len(df_intersection) < 2:
         print(f"  Warning: Insufficient data for comparison (only {len(df_intersection)} models in intersection)")
         return
     
     # Compute sub-rankings within the intersection set
-    # For SWE-Bench: higher score = better, so rank 1 = best
-    # Use rank method with ascending=False (higher score gets lower rank number, i.e., rank 1)
-    swe_subranks = df_intersection[swe_score_col].rank(method='min', ascending=False).astype(int)
+    # For benchmark: higher score = better, so rank 1 = best
+    benchmark_subranks = df_intersection[benchmark_score_col].rank(method='min', ascending=False).astype(int)
     
-    # For LMArena-Coding: higher ELO = better, so rank 1 = best
-    # Use rank method with ascending=False (higher ELO gets lower rank number, i.e., rank 1)
-    elo_subranks = df_intersection[elo_coding_col].rank(method='min', ascending=False).astype(int)
+    # For LMArena: higher ELO = better, so rank 1 = best
+    elo_subranks = df_intersection[elo_col].rank(method='min', ascending=False).astype(int)
     
     # Create DataFrame with sub-ranks
     df_plot = pd.DataFrame({
-        'swe_subrank': swe_subranks,
+        'benchmark_subrank': benchmark_subranks,
         'elo_subrank': elo_subranks
     })
     
     # Calculate Spearman correlation
-    spearman_rho, spearman_pvalue = spearmanr(df_plot['swe_subrank'], df_plot['elo_subrank'])
+    spearman_rho, spearman_pvalue = spearmanr(df_plot['benchmark_subrank'], df_plot['elo_subrank'])
     
     # Create figure (wider aspect ratio for better readability)
     fig, ax = plt.subplots(figsize=(12, 8))
     
     # Plot scatter points
     ax.scatter(
-        df_plot['swe_subrank'],
+        df_plot['benchmark_subrank'],
         df_plot['elo_subrank'],
         alpha=0.7,
         s=100,
@@ -496,7 +501,7 @@ def figure_5_ranking_comparison(output_dir: Path):
             model_name = model_name[:27] + "..."
         ax.annotate(
             model_name,
-            (row['swe_subrank'], row['elo_subrank']),
+            (row['benchmark_subrank'], row['elo_subrank']),
             fontsize=14,
             alpha=0.8,
             xytext=(5, 5),
@@ -505,20 +510,20 @@ def figure_5_ranking_comparison(output_dir: Path):
         )
     
     # Add y=x reference line
-    max_rank = max(df_plot['swe_subrank'].max(), df_plot['elo_subrank'].max())
-    min_rank = min(df_plot['swe_subrank'].min(), df_plot['elo_subrank'].min())
+    max_rank = max(df_plot['benchmark_subrank'].max(), df_plot['elo_subrank'].max())
+    min_rank = min(df_plot['benchmark_subrank'].min(), df_plot['elo_subrank'].min())
     ax.plot([min_rank, max_rank], [min_rank, max_rank], 
             'r--', linewidth=2, alpha=0.7, label='y = x', zorder=1)
     
     # Set axis labels with (Weak -> Strong) notation
-    ax.set_xlabel('Rank in SWE-Bench (Verified) (Weak -> Strong)', fontsize=18)
-    ax.set_ylabel('Rank in LMArena-Coding (Weak -> Strong)', fontsize=18)
+    ax.set_xlabel(f'Rank in {benchmark_name} (Weak -> Strong)', fontsize=18)
+    ax.set_ylabel(f'Rank in {elo_category_name} (Weak -> Strong)', fontsize=18)
     
     # Increase tick label font size
     ax.tick_params(axis='both', which='major', labelsize=16)
     
     # Set custom tick locations: 1, 6, 11, 16, 21, 26
-    max_rank = max(df_plot['swe_subrank'].max(), df_plot['elo_subrank'].max())
+    max_rank = max(df_plot['benchmark_subrank'].max(), df_plot['elo_subrank'].max())
     tick_locations = [1, 6, 11, 16, 21, 26]
     # Filter to only include ticks within the data range
     tick_locations = [t for t in tick_locations if t <= max_rank]
@@ -533,8 +538,6 @@ def figure_5_ranking_comparison(output_dir: Path):
     # Hide top and right spines (borders)
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    
-    # Title removed
     
     # Add Spearman correlation coefficient text box
     corr_text = f'Correlation Coefficient = {spearman_rho:.2f}'
@@ -555,13 +558,31 @@ def figure_5_ranking_comparison(output_dir: Path):
     plt.tight_layout()
     
     # Save figure
-    output_path = output_dir / "Figure_5_Ranking_Comparison.pdf"
+    output_path = output_dir / output_filename
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
     
-    print(f"Figure 5 saved to {output_path}")
+    print(f"Figure saved to {output_path}")
     print(f"  Spearman ρ = {spearman_rho:.4f}, p-value = {spearman_pvalue:.4f}")
     print(f"  Number of models in intersection: {len(df_plot)}")
+
+
+def figure_5_ranking_comparison(output_dir: Path):
+    """
+    Figure 5: Scatter plot comparing rankings between SWE-Bench (Verified) and LMArena-Coding.
+    
+    For models present in both rankings, compute sub-rankings within the intersection set,
+    then plot scatter plot with y=x reference line and Spearman correlation coefficient.
+    """
+    ranking_comparison_plot(
+        benchmark_id='swe_bench_verified',
+        benchmark_name='SWE-Bench (Verified)',
+        benchmark_score_col='swe_bench_verified_score',
+        elo_col='elo_coding',
+        elo_category_name='LMArena-Coding',
+        output_dir=output_dir,
+        output_filename='Figure_5_Ranking_Comparison.pdf'
+    )
 
 
 def generate_all_plots():
@@ -623,6 +644,33 @@ def generate_all_plots():
         figure_3b_variance_tasktype(df, output_dir)
         figure_4_confounder_heatmap(df, output_dir)
         figure_5_ranking_comparison(output_dir)
+        
+        # Generate additional ranking comparison plots for FACTS and IFEval
+        print("\n" + "=" * 60)
+        print("Generating additional ranking comparison plots...")
+        print("=" * 60)
+        
+        # FACTS vs LMArena-Hard Prompts
+        ranking_comparison_plot(
+            benchmark_id='facts',
+            benchmark_name='FACTS',
+            benchmark_score_col='facts_score',
+            elo_col='elo_hard_prompts',
+            elo_category_name='LMArena-Hard Prompts',
+            output_dir=output_dir,
+            output_filename='FACTS_Ranking_Comparison.pdf'
+        )
+        
+        # IFEval vs LMArena-Instruction Following
+        ranking_comparison_plot(
+            benchmark_id='ifeval',
+            benchmark_name='IFEval',
+            benchmark_score_col='ifeval_score',
+            elo_col='elo_instruction_following',
+            elo_category_name='LMArena-Instruction Following',
+            output_dir=output_dir,
+            output_filename='IFEval_Ranking_Comparison.pdf'
+        )
         
         print("=" * 60)
         print("All figures generated successfully!")
