@@ -26,4 +26,5 @@ dependencies = [
     "python-levenshtein>=0.27.3",
     "jinja2",
     "scikit-learn",
+    "adjustText",
 ]

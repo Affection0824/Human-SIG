@@ -500,7 +500,7 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     # bbox_to_anchor=(0.95, 0.35) positions it near right edge but lower, within plot area
     # loc='center left' means the left edge of the legend box is at the anchor point
     legend = ax.legend(legend_elements, labels, title='Point Size (CV)', 
-                      bbox_to_anchor=(0.95, 0.35), loc='center left', fontsize=14, title_fontsize=16)
+                      bbox_to_anchor=(0.75, 0.35), loc='center left', fontsize=14, title_fontsize=16)
     legend.set_zorder(3)  # Set zorder after legend creation
     
     # Add annotations with larger font in bottom right corner
