@@ -2,204 +2,217 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "type": "object",
   "description": "Statistical significance report for all hypotheses after Holm-Bonferroni correction",
-  "results": {
-    "H6_Difficulty_Beta1_Spearman_rho": {
-      "p_raw": 0.7803113841483571,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": null,
-      "effect_size_type": "unknown",
-      "conclusion": "Hypothesis H6_Difficulty_Beta1_Spearman_rho is not statistically significant after Holm-Bonferroni correction (p_raw = 0.7803, p_corrected = 1.0000). Effect size: effect size = nan."
-    },
-    "H5_Variance_Beta2_Spearman_rho": {
-      "p_raw": 0.4317047343910122,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": null,
-      "effect_size_type": "unknown",
-      "conclusion": "Hypothesis H5_Variance_Beta2_Spearman_rho is not statistically significant after Holm-Bonferroni correction (p_raw = 0.4317, p_corrected = 1.0000). Effect size: effect size = nan."
-    },
-    "H6_Difficulty_Beta1_Kendall_tau": {
-      "p_raw": 0.8944960306903793,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": null,
-      "effect_size_type": "unknown",
-      "conclusion": "Hypothesis H6_Difficulty_Beta1_Kendall_tau is not statistically significant after Holm-Bonferroni correction (p_raw = 0.8945, p_corrected = 1.0000). Effect size: effect size = nan."
-    },
-    "H5_Variance_Beta2_Kendall_tau": {
-      "p_raw": 0.43181212480092424,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": null,
-      "effect_size_type": "unknown",
-      "conclusion": "Hypothesis H5_Variance_Beta2_Kendall_tau is not statistically significant after Holm-Bonferroni correction (p_raw = 0.4318, p_corrected = 1.0000). Effect size: effect size = nan."
-    },
-    "H6_Difficulty_Beta1_Rbo": {
-      "p_raw": 0.3916945478690329,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": null,
-      "effect_size_type": "unknown",
-      "conclusion": "Hypothesis H6_Difficulty_Beta1_Rbo is not statistically significant after Holm-Bonferroni correction (p_raw = 0.3917, p_corrected = 1.0000). Effect size: effect size = nan."
-    },
-    "H5_Variance_Beta2_Rbo": {
-      "p_raw": 0.15837061652939644,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": null,
-      "effect_size_type": "unknown",
-      "conclusion": "Hypothesis H5_Variance_Beta2_Rbo is not statistically significant after Holm-Bonferroni correction (p_raw = 0.1584, p_corrected = 1.0000). Effect size: effect size = nan."
-    },
-    "H5_Variance_MCQ_Spearman": {
-      "p_raw": 0.3275,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": 0.7777777777777779,
-      "effect_size_type": "spearman_rho",
-      "conclusion": "Hypothesis H5_Variance_MCQ_Spearman is not statistically significant after Holm-Bonferroni correction (p_raw = 0.3275, p_corrected = 1.0000). Effect size: correlation = 0.7778.",
-      "ci_lower": -1.0,
-      "ci_upper": 1.0,
-      "sample_size": 4
-    },
-    "H5_Variance_Generation_Spearman": {
-      "p_raw": 0.4958,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": 0.18529411764705883,
-      "effect_size_type": "spearman_rho",
-      "conclusion": "Hypothesis H5_Variance_Generation_Spearman is not statistically significant after Holm-Bonferroni correction (p_raw = 0.4958, p_corrected = 1.0000). Effect size: correlation = 0.1853.",
-      "ci_lower": -0.3636398228863982,
-      "ci_upper": 0.6632142928321035,
-      "sample_size": 16
-    },
-    "H5_Variance_Agentic_Spearman": {
-      "p_raw": 0.9212,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": -0.08571428571428573,
-      "effect_size_type": "spearman_rho",
-      "conclusion": "Hypothesis H5_Variance_Agentic_Spearman is not statistically significant after Holm-Bonferroni correction (p_raw = 0.9212, p_corrected = 1.0000). Effect size: correlation = -0.0857.",
-      "ci_lower": -1.0,
-      "ci_upper": 0.8064516129032258,
-      "sample_size": 6
-    },
-    "H4_Recency_Spearman": {
-      "p_raw": 0.3072,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": -0.19576198251309165,
-      "effect_size_type": "spearman_rho",
-      "conclusion": "Hypothesis H4_Recency_Spearman is not statistically significant after Holm-Bonferroni correction (p_raw = 0.3072, p_corrected = 1.0000). Effect size: correlation = -0.1958.",
-      "ci_lower": -0.585834015550478,
-      "ci_upper": 0.22989694954481177
-    },
-    "H4_Recency_Kendall": {
-      "p_raw": 0.3544,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": -0.12608167852216234,
-      "effect_size_type": "kendall_tau",
-      "conclusion": "Hypothesis H4_Recency_Kendall is not statistically significant after Holm-Bonferroni correction (p_raw = 0.3544, p_corrected = 1.0000). Effect size: correlation = -0.1261.",
-      "ci_lower": -0.44046785367767044,
-      "ci_upper": 0.2027949321156664
-    },
-    "H4_Recency_RBO": {
-      "p_raw": null,
-      "p_corrected": null,
-      "significant_strict": false,
-      "effect_size": -0.16964395841442867,
-      "effect_size_type": "pearson_r",
-      "conclusion": "P-value is undefined (descriptive only or insufficient data).",
-      "ci_lower": null,
-      "ci_upper": null
-    },
-    "H3_Complexity_Spearman": {
-      "p_raw": 0.8363083771613574,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": 0.8548465686677035,
-      "effect_size_type": "spearman_rho",
-      "conclusion": "Hypothesis H3_Complexity_Spearman is not statistically significant after Holm-Bonferroni correction (p_raw = 0.8363, p_corrected = 1.0000). Effect size: correlation = 0.8548."
-    },
-    "H3_Complexity_Kendall": {
-      "p_raw": 0.8335966757180047,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": 0.866113711642168,
-      "effect_size_type": "spearman_rho",
-      "conclusion": "Hypothesis H3_Complexity_Kendall is not statistically significant after Holm-Bonferroni correction (p_raw = 0.8336, p_corrected = 1.0000). Effect size: correlation = 0.8661."
-    },
-    "H3_Complexity_RBO": {
-      "p_raw": 0.2364485888145329,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": 4.24242424242424,
-      "effect_size_type": "spearman_rho",
-      "conclusion": "Hypothesis H3_Complexity_RBO is not statistically significant after Holm-Bonferroni correction (p_raw = 0.2364, p_corrected = 1.0000). Effect size: correlation = 4.2424."
-    },
-    "H2_Scale_Spearman": {
-      "p_raw": 0.28575085324114796,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": -0.20513343637551887,
-      "effect_size_type": "pearson_r",
-      "conclusion": "Hypothesis H2_Scale_Spearman is not statistically significant after Holm-Bonferroni correction (p_raw = 0.2858, p_corrected = 1.0000). Effect size: correlation = -0.2051.",
-      "sample_size": 29
-    },
-    "H2_Scale_Kendall": {
-      "p_raw": 0.2700848177962351,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": -0.21177902265685833,
-      "effect_size_type": "pearson_r",
-      "conclusion": "Hypothesis H2_Scale_Kendall is not statistically significant after Holm-Bonferroni correction (p_raw = 0.2701, p_corrected = 1.0000). Effect size: correlation = -0.2118.",
-      "sample_size": 29
-    },
-    "H2_Scale_RBO": {
-      "p_raw": null,
-      "p_corrected": null,
-      "significant_strict": false,
-      "effect_size": 0.10748848169617574,
-      "effect_size_type": "pearson_r",
-      "conclusion": "P-value is undefined (descriptive only or insufficient data).",
-      "sample_size": 29
-    },
-    "H1_TaskType_Spearman": {
-      "p_raw": 1.0,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": 0.008626840966884486,
-      "effect_size_type": "median_difference",
-      "conclusion": "Hypothesis H1_TaskType_Spearman is not statistically significant after Holm-Bonferroni correction (p_raw = 1.0000, p_corrected = 1.0000). Effect size: median difference = 0.0086.",
-      "ci_lower": -0.1680644351440419,
-      "ci_upper": 0.32016372946306726,
-      "sample_size": 26,
-      "is_descriptive_only": true
-    },
-    "H1_TaskType_Kendall": {
-      "p_raw": 1.0,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": 0.009497934793820884,
-      "effect_size_type": "median_difference",
-      "conclusion": "Hypothesis H1_TaskType_Kendall is not statistically significant after Holm-Bonferroni correction (p_raw = 1.0000, p_corrected = 1.0000). Effect size: median difference = 0.0095.",
-      "ci_lower": -0.1567094600952434,
-      "ci_upper": 0.24685691679343963,
-      "sample_size": 26,
-      "is_descriptive_only": true
-    },
-    "H1_TaskType_RBO": {
-      "p_raw": 1.0,
-      "p_corrected": 1.0,
-      "significant_strict": false,
-      "effect_size": -0.10545212743917987,
-      "effect_size_type": "median_difference",
-      "conclusion": "Hypothesis H1_TaskType_RBO is not statistically significant after Holm-Bonferroni correction (p_raw = 1.0000, p_corrected = 1.0000). Effect size: median difference = -0.1055.",
-      "ci_lower": -0.1675521118018693,
-      "ci_upper": 0.19682498165920803,
-      "sample_size": 26,
-      "is_descriptive_only": true
-    }
+  "H1_spearman_rho": {
+    "test_statistic": 15.0,
+    "p_raw": 0.5929096584060489,
+    "effect_size": 0.08649662803136249,
+    "effect_size_type": "median_difference",
+    "rank_biserial": 0.25,
+    "n_a": 6,
+    "n_b": 4,
+    "median_a": 0.6775890784819302,
+    "median_b": 0.5910924504505677,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Median difference = 0.086."
+  },
+  "H1_kendall_tau": {
+    "test_statistic": 14.0,
+    "p_raw": 0.7483812122920345,
+    "effect_size": 0.1016057778307008,
+    "effect_size_type": "median_difference",
+    "rank_biserial": 0.16666666666666663,
+    "n_a": 6,
+    "n_b": 4,
+    "median_a": 0.5374261512277119,
+    "median_b": 0.4358203733970111,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Median difference = 0.102."
+  },
+  "H1_rbo": {
+    "test_statistic": 8.0,
+    "p_raw": 0.4541742673554505,
+    "effect_size": -0.08635434542353254,
+    "effect_size_type": "median_difference",
+    "rank_biserial": 0.33333333333333337,
+    "n_a": 6,
+    "n_b": 4,
+    "median_a": 0.47851990550601003,
+    "median_b": 0.5648742509295426,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Median difference = -0.086."
+  },
+  "H2_spearman_rho": {
+    "correlation": -0.11123611625271183,
+    "p_raw": 0.5656545596915066,
+    "effect_size": -0.11123611625271183,
+    "effect_size_type": "pearson_r",
+    "sample_size": 29,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = -0.111."
+  },
+  "H2_kendall_tau": {
+    "correlation": -0.1256625069195867,
+    "p_raw": 0.5159964695527304,
+    "effect_size": -0.1256625069195867,
+    "effect_size_type": "pearson_r",
+    "sample_size": 29,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = -0.126."
+  },
+  "H2_rbo": {
+    "correlation": 0.19979614477274377,
+    "p_raw": NaN,
+    "effect_size": 0.19979614477274377,
+    "effect_size_type": "pearson_r",
+    "sample_size": 29,
+    "p_corrected": NaN,
+    "significant_strict": false,
+    "conclusion": "Insufficient data for statistical testing."
+  },
+  "H3_spearman_rho": {
+    "test_statistic": 1.8255071035558887,
+    "p_raw": 0.6094000971769384,
+    "effect_size": -0.04697971585776445,
+    "effect_size_type": "eta_squared",
+    "n_groups": 4,
+    "total_n": 29,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size = -0.047."
+  },
+  "H3_kendall_tau": {
+    "test_statistic": 1.6039966056226125,
+    "p_raw": 0.6584839560698645,
+    "effect_size": -0.0558401357750955,
+    "effect_size_type": "eta_squared",
+    "n_groups": 4,
+    "total_n": 29,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size = -0.056."
+  },
+  "H3_rbo": {
+    "test_statistic": 6.017727409597332,
+    "p_raw": 0.11075092619409398,
+    "effect_size": 0.12070909638389328,
+    "effect_size_type": "eta_squared",
+    "n_groups": 4,
+    "total_n": 29,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size = 0.121."
+  },
+  "H4_spearman_rho": {
+    "correlation": -0.1489466562985071,
+    "p_raw": 0.4406260381423327,
+    "effect_size": -0.1489466562985071,
+    "effect_size_type": "spearman_rho",
+    "ci_lower": -0.5150078253861493,
+    "ci_upper": 0.24094524286605618,
+    "sample_size": 29,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = -0.149."
+  },
+  "H4_kendall_tau": {
+    "correlation": -0.1797462130186285,
+    "p_raw": 0.3508123200455,
+    "effect_size": -0.1797462130186285,
+    "effect_size_type": "spearman_rho",
+    "ci_lower": -0.5510632693919103,
+    "ci_upper": 0.22297808836344954,
+    "sample_size": 29,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = -0.180."
+  },
+  "H4_rbo": {
+    "correlation": -0.13381628725361408,
+    "p_raw": NaN,
+    "effect_size": -0.13381628725361408,
+    "effect_size_type": "spearman_rho",
+    "ci_lower": -0.5323292643257276,
+    "ci_upper": 0.23408170559373678,
+    "sample_size": 29,
+    "p_corrected": NaN,
+    "significant_strict": false,
+    "conclusion": "Insufficient data for statistical testing."
+  },
+  "H6_Difficulty_Beta1_spearman_rho": {
+    "coefficient": -0.001031870009264713,
+    "p_raw": 0.7449369773463462,
+    "effect_size": -0.001031870009264713,
+    "effect_size_type": "beta_coefficient",
+    "ci_lower": -0.006230321525903288,
+    "ci_upper": 0.004027237634669164,
+    "sample_size": 28,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = -0.001."
+  },
+  "H5_Variance_Beta2_spearman_rho": {
+    "coefficient": 0.21756358622194916,
+    "p_raw": 0.4455860276720015,
+    "effect_size": 0.21756358622194916,
+    "effect_size_type": "beta_coefficient",
+    "ci_lower": -0.16587017406326945,
+    "ci_upper": 0.6912238130855904,
+    "sample_size": 28,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = 0.218."
+  },
+  "H6_Difficulty_Beta1_kendall_tau": {
+    "coefficient": -0.00047462603225631363,
+    "p_raw": 0.8609731003079028,
+    "effect_size": -0.00047462603225631363,
+    "effect_size_type": "beta_coefficient",
+    "ci_lower": -0.005209383639374931,
+    "ci_upper": 0.004299362357256186,
+    "sample_size": 28,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = -0.000."
+  },
+  "H5_Variance_Beta2_kendall_tau": {
+    "coefficient": 0.1824973666803557,
+    "p_raw": 0.4539302345975611,
+    "effect_size": 0.1824973666803557,
+    "effect_size_type": "beta_coefficient",
+    "ci_lower": -0.15824756800123668,
+    "ci_upper": 0.5919831968623833,
+    "sample_size": 28,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = 0.182."
+  },
+  "H6_Difficulty_Beta1_rbo": {
+    "coefficient": -0.00019750403367487825,
+    "p_raw": 0.9338190104768354,
+    "effect_size": -0.00019750403367487825,
+    "effect_size_type": "beta_coefficient",
+    "ci_lower": -0.004273093807885508,
+    "ci_upper": 0.0043371666176647465,
+    "sample_size": 28,
+    "p_corrected": 0.9338190104768354,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 0.9338). Effect size (β) = -0.000."
+  },
+  "H5_Variance_Beta2_rbo": {
+    "coefficient": 0.05763366573136797,
+    "p_raw": 0.7875613056924119,
+    "effect_size": 0.05763366573136797,
+    "effect_size_type": "beta_coefficient",
+    "ci_lower": -0.341040835248654,
+    "ci_upper": 0.4100479538809001,
+    "sample_size": 28,
+    "p_corrected": 1.0,
+    "significant_strict": false,
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = 0.058."
   }
 }
