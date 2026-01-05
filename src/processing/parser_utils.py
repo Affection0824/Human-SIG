@@ -4,157 +4,206 @@ Benchmark Parser Utility Module
 Purpose:
     This module provides the BenchmarkParser class for parsing benchmark scores from CSV files
     and preparing them for master table construction. The parser reads standardized cleaned data
-    files (which contain model names, scores, and pre-computed ranks), performs entity resolution
-    using mapping files to align benchmark model names with LMArena model IDs, filters to the
-    Study Universe (models with elo_overall >= 1330), and recomputes ranks within the Study Universe
-    using the 'min' method for tie-breaking to support rigorous RBO calculation.
+    files (cleaned_data.csv) that contain model names, scores, and ranks. All benchmarks except
+    Creative Writing v3 have been normalized to 0-100 scale during data preparation.
 
 Input:
     - Cleaned data files from Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv
-      Format: CSV with columns: model_name, score, rank
     - Mapping files from Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json
-      Format: JSON object mapping benchmark model names to LMArena model IDs
-    - Study Universe definition from Human-SIG/data/processed/model_extraction/lmarena_models.json
-      Contains all LMArena models with elo_overall >= 1330
+    - Study Universe definition from LMArena-Overall cleaned_data.csv (models with elo_overall >= 1330)
 
 Output:
-    - Dictionary with keys: 'scores' and 'ranks'
-      - 'scores': Dict mapping LMArena model IDs to benchmark scores
-      - 'ranks': Dict mapping LMArena model IDs to benchmark ranks (recomputed within Study Universe)
-
-Key Assumptions:
-    - All benchmarks except Creative Writing v3 are normalized to 0-100 range during data preparation
-    - All benchmarks (except Creative Writing v3) represent "higher is better" performance
-    - Ranking uses method='min' for tie-breaking (e.g., two models with score 95 both get rank 1,
-      next model gets rank 3) to support RBO calculation
-    - Only models that can be mapped to the Study Universe are included in ranking
-    - Models that appear in benchmark but cannot be mapped are excluded
+    - Parsed benchmark data with scores and ranks, filtered to Study Universe models only
+    - Both original scores and computed ranks are output for correlation analysis
 
 Workflow:
-    1. Load cleaned_data.csv to get benchmark model names, scores, and ranks
+    1. Load cleaned_data.csv containing model_name, score, rank columns
     2. Load mapping.json to map benchmark model names to LMArena model IDs
-    3. Load Study Universe (all model IDs from lmarena_models.json)
-    4. Perform entity resolution: map benchmark model names to LMArena IDs
-    5. Filter to only include models present in both benchmark data (after mapping) and Study Universe
-    6. Recompute ranks within the filtered Study Universe using method='min'
-    7. Return scores and ranks as dictionaries keyed by LMArena model ID
+    3. Filter to Study Universe (models present in LMArena with elo_overall >= 1330)
+    4. Perform entity resolution using mapping table
+    5. Recompute ranks within Study Universe using method='min' for tie-breaking
+    6. Output both scores and ranks for master table construction
+
+Key Assumptions:
+    - All benchmarks except Creative Writing v3 are normalized to 0-100 scale (higher is better)
+    - Creative Writing v3 uses Elo scores and is not normalized
+    - Ranking logic assumes "higher score = better rank" for all benchmarks
+    - Tied scores receive the same rank (method='min'), which is critical for RBO calculation
+    - Only models that can be mapped to Study Universe are included in ranking
 """
 
 import json
 import pandas as pd
 from pathlib import Path
-from typing import Dict, Set, Optional
+from typing import Dict, Tuple, Optional
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 class BenchmarkParser:
     """
-    Parser for benchmark data files that performs entity resolution and ranking within Study Universe.
+    Parser for benchmark cleaned data files.
     
-    This class reads cleaned benchmark data files, maps benchmark model names to LMArena model IDs
-    using mapping files, filters to the Study Universe, and recomputes ranks using the 'min' method
-    for tie-breaking to support RBO calculation.
+    This class handles loading benchmark scores from cleaned_data.csv files,
+    performing entity resolution using mapping.json files, filtering to Study Universe,
+    and computing ranks within the Study Universe for RBO calculation.
     """
     
-    def __init__(self, study_universe: Set[str]):
+    def __init__(self, cleaned_data_dir: Path, study_universe: set):
         """
-        Initialize the BenchmarkParser with a Study Universe.
+        Initialize the BenchmarkParser.
         
         Args:
-            study_universe: Set of LMArena model IDs that define the Study Universe
-                          (models with elo_overall >= 1330)
+            cleaned_data_dir: Path to the cleaned data directory (Human-SIG/data/processed/cleaned/)
+            study_universe: Set of LMArena model IDs that form the Study Universe (elo_overall >= 1330)
         """
+        self.cleaned_data_dir = Path(cleaned_data_dir)
         self.study_universe = study_universe
-    
-    @classmethod
-    def load_study_universe(cls, lmarena_models_path: Path) -> Set[str]:
-        """
-        Load the Study Universe from lmarena_models.json.
         
-        The Study Universe consists of all models in the LMArena dataset with elo_overall >= 1330.
-        The lmarena_models.json file already contains only models meeting this criterion.
+    def load_cleaned_data(self, benchmark_id: str) -> pd.DataFrame:
+        """
+        Load cleaned_data.csv for a benchmark.
         
         Args:
-            lmarena_models_path: Path to lmarena_models.json file
+            benchmark_id: The benchmark identifier (e.g., "HumanEval", "SWE-bench (Verified)")
             
         Returns:
-            Set of LMArena model IDs (keys from the JSON file)
+            DataFrame with columns: model_name, score, rank
         """
-        with open(lmarena_models_path, 'r', encoding='utf-8') as f:
-            lmarena_models = json.load(f)
-        return set(lmarena_models.keys())
-    
-    def parse_benchmark(
-        self,
-        cleaned_data_path: Path,
-        mapping_path: Optional[Path] = None
-    ) -> Dict[str, Dict[str, float]]:
-        """
-        Parse a benchmark data file and return scores and ranks for models in Study Universe.
+        benchmark_dir = self.cleaned_data_dir / benchmark_id
+        csv_path = benchmark_dir / "cleaned_data.csv"
         
-        This method:
-        1. Loads the cleaned_data.csv file (contains model_name, score, rank)
-        2. Loads the mapping.json file (maps benchmark model names to LMArena IDs)
-        3. Performs entity resolution to map benchmark model names to LMArena IDs
-        4. Filters to only include models present in both benchmark data (after mapping) and Study Universe
-        5. Recomputes ranks within the filtered Study Universe using method='min' for tie-breaking
-        6. Returns scores and ranks as dictionaries keyed by LMArena model ID
+        if not csv_path.exists():
+            raise FileNotFoundError(f"Cleaned data file not found: {csv_path}")
+        
+        df = pd.read_csv(csv_path)
+        
+        # Validate required columns
+        required_columns = ['model_name', 'score', 'rank']
+        missing_columns = set(required_columns) - set(df.columns)
+        if missing_columns:
+            raise ValueError(f"Missing required columns in {csv_path}: {missing_columns}")
+        
+        # Validate data types
+        if not pd.api.types.is_numeric_dtype(df['score']):
+            raise ValueError(f"Score column must be numeric in {csv_path}")
+        if not pd.api.types.is_integer_dtype(df['rank']):
+            # Try to convert to int if possible
+            df['rank'] = pd.to_numeric(df['rank'], errors='coerce').astype('Int64')
+        
+        logger.info(f"Loaded {len(df)} models from {benchmark_id}")
+        return df
+    
+    def load_mapping(self, benchmark_id: str) -> Dict[str, str]:
+        """
+        Load mapping.json for a benchmark.
         
         Args:
-            cleaned_data_path: Path to cleaned_data.csv file
-            mapping_path: Optional path to mapping.json file. If None, assumes no mapping exists
-                         (e.g., for LMArena categories which don't need mapping)
-        
+            benchmark_id: The benchmark identifier
+            
         Returns:
-            Dictionary with keys:
-                - 'scores': Dict mapping LMArena model IDs to benchmark scores (float)
-                - 'ranks': Dict mapping LMArena model IDs to benchmark ranks (int)
+            Dictionary mapping benchmark model names to LMArena model IDs
+            Returns empty dict if mapping file doesn't exist (for LMArena categories)
+        """
+        benchmark_dir = self.cleaned_data_dir / benchmark_id
+        mapping_path = benchmark_dir / "mapping.json"
+        
+        if not mapping_path.exists():
+            # LMArena categories don't have mapping files
+            logger.debug(f"No mapping file found for {benchmark_id}, returning empty mapping")
+            return {}
+        
+        with open(mapping_path, 'r', encoding='utf-8') as f:
+            mapping = json.load(f)
+        
+        logger.info(f"Loaded {len(mapping)} mappings for {benchmark_id}")
+        return mapping
+    
+    def parse_benchmark(self, benchmark_id: str) -> Tuple[pd.DataFrame, int]:
+        """
+        Parse a benchmark's cleaned data and return scores/ranks for Study Universe models.
+        
+        This method:
+        1. Loads cleaned_data.csv
+        2. Loads mapping.json (if exists)
+        3. Maps benchmark model names to LMArena model IDs
+        4. Filters to Study Universe models only
+        5. Recomputes ranks within Study Universe using method='min' for tie-breaking
+        
+        Args:
+            benchmark_id: The benchmark identifier
+            
+        Returns:
+            Tuple of (DataFrame with columns: lmarena_model_id, score, rank, overlap_count)
+            - lmarena_model_id: LMArena model ID (used as index in master table)
+            - score: Original score from cleaned_data.csv
+            - rank: Recomputed rank within Study Universe (method='min' for ties)
+            - overlap_count: Number of overlapping models (for validation)
         """
         # Load cleaned data
-        df = pd.read_csv(cleaned_data_path)
+        df = self.load_cleaned_data(benchmark_id)
         
-        # Verify required columns exist
-        required_columns = ['model_name', 'score', 'rank']
-        if not all(col in df.columns for col in required_columns):
-            raise ValueError(
-                f"cleaned_data.csv must contain columns: {required_columns}. "
-                f"Found: {list(df.columns)}"
-            )
+        # Load mapping
+        mapping = self.load_mapping(benchmark_id)
         
-        # Load mapping if provided
-        mapping: Dict[str, str] = {}
-        if mapping_path is not None and mapping_path.exists():
-            with open(mapping_path, 'r', encoding='utf-8') as f:
-                mapping = json.load(f)
-        
-        # Perform entity resolution
-        # Map benchmark model names to LMArena model IDs
-        df['lmarena_id'] = df['model_name'].map(mapping)
-        
-        # If no mapping file exists (e.g., for LMArena categories), use model_name as lmarena_id
+        # For LMArena categories, model_name is already the LMArena ID
         if not mapping:
-            df['lmarena_id'] = df['model_name']
+            # This is a LMArena category, model_name is already the LMArena ID
+            df['lmarena_model_id'] = df['model_name']
+        else:
+            # Map benchmark model names to LMArena model IDs
+            df['lmarena_model_id'] = df['model_name'].map(mapping)
         
-        # Filter to Study Universe: only include models that can be mapped and are in Study Universe
-        df_filtered = df[df['lmarena_id'].notna() & df['lmarena_id'].isin(self.study_universe)].copy()
+        # Filter to Study Universe only
+        df_filtered = df[df['lmarena_model_id'].isin(self.study_universe)].copy()
         
-        if len(df_filtered) == 0:
-            # No overlapping models
-            return {'scores': {}, 'ranks': {}}
+        # Count overlap
+        overlap_count = len(df_filtered)
         
-        # Extract scores (use original scores from CSV, which are already normalized to 0-100
-        # for all benchmarks except Creative Writing v3)
-        scores_dict = dict(zip(df_filtered['lmarena_id'], df_filtered['score']))
+        if overlap_count == 0:
+            logger.warning(f"No overlapping models found for {benchmark_id} in Study Universe")
+            return pd.DataFrame(columns=['lmarena_model_id', 'score', 'rank']), 0
         
-        # Recompute ranks within Study Universe using method='min' for tie-breaking
+        # Recompute ranks within Study Universe
+        # Use method='min' for tie-breaking (critical for RBO calculation)
         # Higher scores get better (lower) ranks
-        # Method 'min' means: if two models tie for first place with score 95, both get rank 1,
-        # and the next model gets rank 3 (not rank 2)
-        df_filtered['recomputed_rank'] = df_filtered['score'].rank(method='min', ascending=False).astype(int)
+        df_filtered['rank'] = df_filtered['score'].rank(method='min', ascending=False).astype(int)
         
-        ranks_dict = dict(zip(df_filtered['lmarena_id'], df_filtered['recomputed_rank']))
+        # Select and reorder columns
+        result_df = df_filtered[['lmarena_model_id', 'score', 'rank']].copy()
         
-        return {
-            'scores': scores_dict,
-            'ranks': ranks_dict
-        }
+        logger.info(f"Parsed {benchmark_id}: {overlap_count} models in Study Universe")
+        
+        return result_df, overlap_count
+    
+    @staticmethod
+    def load_study_universe(lmarena_overall_path: Path, min_elo: float = 1330.0) -> set:
+        """
+        Load Study Universe from LMArena-Overall cleaned_data.csv.
+        
+        The Study Universe consists of all models in LMArena with elo_overall >= min_elo.
+        
+        Args:
+            lmarena_overall_path: Path to LMArena-Overall cleaned_data.csv
+            min_elo: Minimum ELO score for inclusion in Study Universe (default: 1330.0)
+            
+        Returns:
+            Set of LMArena model IDs (model_name values) that form the Study Universe
+        """
+        if not lmarena_overall_path.exists():
+            raise FileNotFoundError(f"LMArena-Overall data not found: {lmarena_overall_path}")
+        
+        df = pd.read_csv(lmarena_overall_path)
+        
+        # Filter to models with score >= min_elo
+        # Note: In LMArena-Overall, the 'score' column is elo_overall
+        df_universe = df[df['score'] >= min_elo].copy()
+        
+        study_universe = set(df_universe['model_name'].unique())
+        
+        logger.info(f"Loaded Study Universe: {len(study_universe)} models with elo_overall >= {min_elo}")
+        
+        return study_universe
 
