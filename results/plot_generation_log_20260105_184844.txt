@@ -1,0 +1,47 @@
+============================================================
+Plot Generation Log - 2026-01-05 18:48:44
+============================================================
+Data source: C:\Users\taoye\Desktop\Human-SIG\Human-SIG\results\analysis_ready_data.csv
+Output directory: C:\Users\taoye\Desktop\Human-SIG\overleaf\images
+============================================================
+Generating figures...
+============================================================
+Generating scatter plot using data from analysis_ready_data.csv:
+  - X-axis: Difficulty (subset_avg_score column)
+  - Y-axis: Spearman rho (spearman_rho column)
+  - Point size: Coefficient of Variation (coefficient_of_variation column)
+  - Plot type: scatter plot with regression line overlay
+Figure 1 saved to C:\Users\taoye\Desktop\Human-SIG\overleaf\images\Figure_1_Difficulty_Variance.pdf
+Generating boxplot with stripplot overlay using data from analysis_ready_data.csv:
+  - X-axis: Task Type (task_type column, grouped as MCQ vs Generative/Agentic)
+  - Y-axis: Spearman rho (spearman_rho column)
+  - Plot type: boxplot with overlaid stripplot
+Figure 2 saved to C:\Users\taoye\Desktop\Human-SIG\overleaf\images\Figure_2_Task_Type.pdf
+Generating boxplot with stripplot overlay using data from analysis_ready_data.csv:
+  - X-axis: Prompt Length categories (prompt_length column: Short, Medium, Long, Extreme)
+  - Y-axis: Spearman rho (spearman_rho column)
+  - Plot type: boxplot with overlaid stripplot
+Figure 3a saved to C:\Users\taoye\Desktop\Human-SIG\overleaf\images\Figure_3a_Complexity_Categories.pdf
+Generating scatter plot with regression lines using data from analysis_ready_data.csv:
+  - X-axis: Coefficient of Variation (coefficient_of_variation column)
+  - Y-axis: Spearman rho (spearman_rho column)
+  - Color/Marker: Task Type (task_type column: MCQ, Generation, Agentic)
+  - Plot type: scatter plot with task-type-specific regression lines
+Figure 3b saved to C:\Users\taoye\Desktop\Human-SIG\overleaf\images\Figure_3b_Variance_TaskType.pdf
+Generating heatmap using data from analysis_ready_data.csv:
+  - Variables: Difficulty (subset_avg_score), Variance (coefficient_of_variation),
+    Recency (release_date_ordinal), Complexity (prompt_length_ordinal),
+    Scale (log_question_count), Task Type (task_type_ordinal)
+  - Plot type: correlation heatmap (seaborn heatmap)
+Figure 4 saved to C:\Users\taoye\Desktop\Human-SIG\overleaf\images\Figure_4_Confounder_Heatmap.pdf
+Generating ranking comparison scatter plot using data from master_correlation_matrix.csv:
+  - X-axis: Rank in SWE-Bench (Verified) (swe_bench_verified_score column)
+  - Y-axis: Rank in LMArena-Coding (elo_coding column)
+  - Plot type: scatter plot with y=x reference line and Spearman correlation
+Figure 5 saved to C:\Users\taoye\Desktop\Human-SIG\overleaf\images\Figure_5_Ranking_Comparison.pdf
+  Spearman ρ = 0.5341, p-value = 0.0049
+  Number of models in intersection: 26
+============================================================
+All figures generated successfully!
+Log file saved to: C:\Users\taoye\Desktop\Human-SIG\Human-SIG\results\plot_generation_log_20260105_184844.txt
+============================================================

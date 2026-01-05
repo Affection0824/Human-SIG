@@ -11,6 +11,7 @@ Figures:
     - Figure 3a: Boxplot showing Spearman rho distributions across prompt_length categories
     - Figure 3b: Scatterplot showing CV vs Spearman rho by task type
     - Figure 4: Heatmap of correlation matrix between independent variables
+    - Figure 5: Ranking comparison scatter plot between SWE-Bench (Verified) and LMArena-Coding
 """
 
 import pandas as pd
@@ -20,10 +21,11 @@ import seaborn as sns
 from pathlib import Path
 import sys
 from datetime import datetime
+from scipy.stats import spearmanr
 
 # Set style
 sns.set_style("whitegrid")
-plt.rcParams['font.size'] = 10
+plt.rcParams['font.size'] = 16  # Increased base font size
 plt.rcParams['figure.dpi'] = 300
 
 # Add project root to path
@@ -32,8 +34,8 @@ sys.path.insert(0, str(project_root))
 
 
 def ensure_output_directory():
-    """Ensure 694154159178ff1940922366/images/ directory exists."""
-    output_dir = project_root.parent / "694154159178ff1940922366" / "images"
+    """Ensure overleaf/images/ directory exists."""
+    output_dir = project_root.parent / "overleaf" / "images"
     output_dir.mkdir(parents=True, exist_ok=True)
     return output_dir
 
@@ -53,6 +55,7 @@ def figure_1_difficulty_variance(df: pd.DataFrame, output_dir: Path):
     
     # Log data sources and plot type
     print("Generating scatter plot using data from analysis_ready_data.csv:")
+    print("  - Figure description: Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho")
     print("  - X-axis: Difficulty (subset_avg_score column)")
     print("  - Y-axis: Spearman rho (spearman_rho column)")
     print("  - Point size: Coefficient of Variation (coefficient_of_variation column)")
@@ -78,18 +81,20 @@ def figure_1_difficulty_variance(df: pd.DataFrame, output_dir: Path):
     ax.plot(df_plot['subset_avg_score'], p(df_plot['subset_avg_score']), 
             "r--", alpha=0.5, linewidth=2, label='Trend line')
     
-    # Labels and title
-    ax.set_xlabel('Difficulty (subset average score) (Easy -> Hard)', fontsize=12)
-    ax.set_ylabel('Spearman ρ', fontsize=12)
-    ax.set_title('Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho', 
-                 fontsize=14, fontweight='bold')
+    # Labels (title removed)
+    ax.set_xlabel('Difficulty (subset average score) (Easy -> Hard)', fontsize=18)
+    ax.set_ylabel('Spearman ρ', fontsize=18)
+    
+    # Increase tick label font size
+    ax.tick_params(axis='both', which='major', labelsize=16)
     
     # Add colorbar
     cbar = plt.colorbar(scatter, ax=ax)
-    cbar.set_label('Coefficient of Variation (CV)', fontsize=10)
+    cbar.set_label('Coefficient of Variation (CV)', fontsize=16)
+    cbar.ax.tick_params(labelsize=16)
     
     # Add legend for point size (optional)
-    ax.legend(loc='best')
+    ax.legend(loc='best', fontsize=16)
     
     plt.tight_layout()
     
@@ -122,6 +127,7 @@ def figure_2_task_type(df: pd.DataFrame, output_dir: Path):
     
     # Log data sources and plot type
     print("Generating boxplot with stripplot overlay using data from analysis_ready_data.csv:")
+    print("  - Figure description: Spearman rho by Task Type")
     print("  - X-axis: Task Type (task_type column, grouped as MCQ vs Generative/Agentic)")
     print("  - Y-axis: Spearman rho (spearman_rho column)")
     print("  - Plot type: boxplot with overlaid stripplot")
@@ -149,9 +155,11 @@ def figure_2_task_type(df: pd.DataFrame, output_dir: Path):
         x_pos = np.random.normal(i + 1, 0.04, size=len(data))
         ax.scatter(x_pos, data, alpha=0.6, s=50, color='black', zorder=3)
     
-    ax.set_ylabel('Spearman ρ', fontsize=12)
-    ax.set_xlabel('Task Type', fontsize=12)
-    ax.set_title('Spearman rho by Task Type', fontsize=14, fontweight='bold')
+    ax.set_ylabel('Spearman ρ', fontsize=18)
+    ax.set_xlabel('Task Type', fontsize=18)
+    
+    # Increase tick label font size
+    ax.tick_params(axis='both', which='major', labelsize=16)
     
     plt.tight_layout()
     
@@ -179,6 +187,7 @@ def figure_3a_complexity(df: pd.DataFrame, output_dir: Path):
     
     # Log data sources and plot type
     print("Generating boxplot with stripplot overlay using data from analysis_ready_data.csv:")
+    print("  - Figure description: Spearman rho by Prompt Length")
     print("  - X-axis: Prompt Length categories (prompt_length column: Short, Medium, Long, Extreme)")
     print("  - Y-axis: Spearman rho (spearman_rho column)")
     print("  - Plot type: boxplot with overlaid stripplot")
@@ -209,9 +218,11 @@ def figure_3a_complexity(df: pd.DataFrame, output_dir: Path):
         x_pos = np.random.normal(i + 1, 0.04, size=len(data))
         ax.scatter(x_pos, data, alpha=0.6, s=50, color='black', zorder=3)
     
-    ax.set_ylabel('Spearman ρ', fontsize=12)
-    ax.set_xlabel('Prompt Length', fontsize=12)
-    ax.set_title('Spearman rho by Prompt Length', fontsize=14, fontweight='bold')
+    ax.set_ylabel('Spearman ρ', fontsize=18)
+    ax.set_xlabel('Prompt Length', fontsize=18)
+    
+    # Increase tick label font size
+    ax.tick_params(axis='both', which='major', labelsize=16)
     
     plt.tight_layout()
     
@@ -238,6 +249,7 @@ def figure_3b_variance_tasktype(df: pd.DataFrame, output_dir: Path):
     
     # Log data sources and plot type
     print("Generating scatter plot with regression lines using data from analysis_ready_data.csv:")
+    print("  - Figure description: CV vs. Spearman rho by Task Type")
     print("  - X-axis: Coefficient of Variation (coefficient_of_variation column)")
     print("  - Y-axis: Spearman rho (spearman_rho column)")
     print("  - Color/Marker: Task Type (task_type column: MCQ, Generation, Agentic)")
@@ -278,10 +290,13 @@ def figure_3b_variance_tasktype(df: pd.DataFrame, output_dir: Path):
                 ax.plot(x_line, p(x_line), '--', color=task_styles[task_type]['color'],
                        alpha=0.5, linewidth=2)
     
-    ax.set_xlabel('Coefficient of Variation (CV)', fontsize=12)
-    ax.set_ylabel('Spearman ρ', fontsize=12)
-    ax.set_title('CV vs. Spearman rho by Task Type', fontsize=14, fontweight='bold')
-    ax.legend(loc='best')
+    ax.set_xlabel('Coefficient of Variation (CV)', fontsize=18)
+    ax.set_ylabel('Spearman ρ', fontsize=18)
+    
+    # Increase tick label font size
+    ax.tick_params(axis='both', which='major', labelsize=16)
+    
+    ax.legend(loc='best', fontsize=16)
     
     plt.tight_layout()
     
@@ -352,9 +367,10 @@ def figure_4_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     
     # Log data sources and plot type
     print("Generating heatmap using data from analysis_ready_data.csv:")
+    print("  - Figure description: Correlation Matrix of Independent Variables")
     print("  - Variables: Difficulty (subset_avg_score), Variance (coefficient_of_variation),")
     print("    Recency (release_date_ordinal), Complexity (prompt_length_ordinal),")
-    print("    Scale (log_question_count), Task Type (task_type_ordinal)")
+    print("    Scale (log(question_count)), Task Type (task_type_ordinal)")
     print("  - Plot type: correlation heatmap (seaborn heatmap)")
     
     # Create labels
@@ -370,7 +386,7 @@ def figure_4_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     # Create heatmap
     fig, ax = plt.subplots(figsize=(10, 8))
     
-    sns.heatmap(
+    heatmap_plot = sns.heatmap(
         corr_matrix,
         annot=True,
         fmt='.2f',
@@ -381,11 +397,18 @@ def figure_4_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
         cbar_kws={"shrink": 0.8},
         xticklabels=labels,
         yticklabels=labels,
-        ax=ax
+        ax=ax,
+        annot_kws={"size": 16}  # Increase annotation font size
     )
     
-    ax.set_title('Correlation Matrix of Independent Variables', 
-                 fontsize=14, fontweight='bold', pad=20)
+    # Increase tick label font size
+    ax.tick_params(axis='both', which='major', labelsize=16)
+    
+    # Increase colorbar label and tick font size
+    if hasattr(heatmap_plot, 'collections') and len(heatmap_plot.collections) > 0:
+        cbar = heatmap_plot.collections[0].colorbar
+        if cbar:
+            cbar.ax.tick_params(labelsize=16)
     
     plt.tight_layout()
     
@@ -395,6 +418,150 @@ def figure_4_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     plt.close()
     
     print(f"Figure 4 saved to {output_path}")
+
+
+def figure_5_ranking_comparison(output_dir: Path):
+    """
+    Figure 5: Scatter plot comparing rankings between SWE-Bench (Verified) and LMArena-Coding.
+    
+    For models present in both rankings, compute sub-rankings within the intersection set,
+    then plot scatter plot with y=x reference line and Spearman correlation coefficient.
+    
+    Title: "Comparison of large language model (LLM) ranking in SWE-Bench (Verified) and the overall ranking in LMArena-Coding"
+    """
+    # Load master table
+    master_table_path = project_root / "data" / "processed" / "master_table" / "master_correlation_matrix.csv"
+    
+    # Log data sources and plot type
+    print("Generating ranking comparison scatter plot using data from master_correlation_matrix.csv:")
+    print("  - Figure description: Comparison of large language model (LLM) ranking in SWE-Bench (Verified) and the overall ranking in LMArena-Coding")
+    print("  - X-axis: Rank in SWE-Bench (Verified) (swe_bench_verified_score column)")
+    print("  - Y-axis: Rank in LMArena-Coding (elo_coding column)")
+    print("  - Plot type: scatter plot with y=x reference line and Spearman correlation")
+    
+    df_master = pd.read_csv(master_table_path)
+    df_master = df_master.set_index('model_name')
+    
+    # Get columns for SWE-Bench (Verified) and LMArena-Coding
+    swe_score_col = 'swe_bench_verified_score'
+    swe_rank_col = 'swe_bench_verified_rank'
+    elo_coding_col = 'elo_coding'
+    
+    # Find intersection: models with non-null values in both rankings
+    df_intersection = df_master[[swe_score_col, elo_coding_col]].dropna()
+    
+    if len(df_intersection) < 2:
+        print(f"  Warning: Insufficient data for comparison (only {len(df_intersection)} models in intersection)")
+        return
+    
+    # Compute sub-rankings within the intersection set
+    # For SWE-Bench: higher score = better, so rank 1 = best
+    # Use rank method with ascending=False (higher score gets lower rank number, i.e., rank 1)
+    swe_subranks = df_intersection[swe_score_col].rank(method='min', ascending=False).astype(int)
+    
+    # For LMArena-Coding: higher ELO = better, so rank 1 = best
+    # Use rank method with ascending=False (higher ELO gets lower rank number, i.e., rank 1)
+    elo_subranks = df_intersection[elo_coding_col].rank(method='min', ascending=False).astype(int)
+    
+    # Create DataFrame with sub-ranks
+    df_plot = pd.DataFrame({
+        'swe_subrank': swe_subranks,
+        'elo_subrank': elo_subranks
+    })
+    
+    # Calculate Spearman correlation
+    spearman_rho, spearman_pvalue = spearmanr(df_plot['swe_subrank'], df_plot['elo_subrank'])
+    
+    # Create figure (wider aspect ratio for better readability)
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    # Plot scatter points
+    ax.scatter(
+        df_plot['swe_subrank'],
+        df_plot['elo_subrank'],
+        alpha=0.7,
+        s=100,
+        color='blue',
+        edgecolors='black',
+        linewidths=0.5,
+        zorder=3
+    )
+    
+    # Add model name labels
+    for idx, row in df_plot.iterrows():
+        # Shorten model names for readability
+        model_name = idx
+        # Truncate very long names
+        if len(model_name) > 30:
+            model_name = model_name[:27] + "..."
+        ax.annotate(
+            model_name,
+            (row['swe_subrank'], row['elo_subrank']),
+            fontsize=14,
+            alpha=0.8,
+            xytext=(5, 5),
+            textcoords='offset points',
+            bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.7, edgecolor='none')
+        )
+    
+    # Add y=x reference line
+    max_rank = max(df_plot['swe_subrank'].max(), df_plot['elo_subrank'].max())
+    min_rank = min(df_plot['swe_subrank'].min(), df_plot['elo_subrank'].min())
+    ax.plot([min_rank, max_rank], [min_rank, max_rank], 
+            'r--', linewidth=2, alpha=0.7, label='y = x', zorder=1)
+    
+    # Set axis labels with (Weak -> Strong) notation
+    ax.set_xlabel('Rank in SWE-Bench (Verified) (Weak -> Strong)', fontsize=18)
+    ax.set_ylabel('Rank in LMArena-Coding (Weak -> Strong)', fontsize=18)
+    
+    # Increase tick label font size
+    ax.tick_params(axis='both', which='major', labelsize=16)
+    
+    # Set custom tick locations: 1, 6, 11, 16, 21, 26
+    max_rank = max(df_plot['swe_subrank'].max(), df_plot['elo_subrank'].max())
+    tick_locations = [1, 6, 11, 16, 21, 26]
+    # Filter to only include ticks within the data range
+    tick_locations = [t for t in tick_locations if t <= max_rank]
+    ax.set_xticks(tick_locations)
+    ax.set_yticks(tick_locations)
+    
+    # Reverse axes so that rank 1 (best) is at the top/right
+    # This means higher ranks (worse performance) are closer to origin
+    ax.invert_xaxis()
+    ax.invert_yaxis()
+    
+    # Hide top and right spines (borders)
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    
+    # Title removed
+    
+    # Add Spearman correlation coefficient text box
+    corr_text = f'Correlation Coefficient = {spearman_rho:.2f}'
+    ax.text(0.98, 0.02, corr_text,
+            transform=ax.transAxes,
+            fontsize=16,
+            verticalalignment='bottom',
+            horizontalalignment='right',
+            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8, edgecolor='black'),
+            zorder=4)
+    
+    # Add legend with larger font
+    ax.legend(loc='upper left', fontsize=16)
+    
+    # Adjust aspect ratio to make plot flatter (wider)
+    ax.set_aspect('auto', adjustable='box')
+    
+    plt.tight_layout()
+    
+    # Save figure
+    output_path = output_dir / "Figure_5_Ranking_Comparison.pdf"
+    plt.savefig(output_path, format='pdf', bbox_inches='tight')
+    plt.close()
+    
+    print(f"Figure 5 saved to {output_path}")
+    print(f"  Spearman ρ = {spearman_rho:.4f}, p-value = {spearman_pvalue:.4f}")
+    print(f"  Number of models in intersection: {len(df_plot)}")
 
 
 def generate_all_plots():
@@ -455,6 +622,7 @@ def generate_all_plots():
         figure_3a_complexity(df, output_dir)
         figure_3b_variance_tasktype(df, output_dir)
         figure_4_confounder_heatmap(df, output_dir)
+        figure_5_ranking_comparison(output_dir)
         
         print("=" * 60)
         print("All figures generated successfully!")

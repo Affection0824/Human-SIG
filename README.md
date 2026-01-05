@@ -956,17 +956,18 @@ uv run python src/analysis/apply_correction.py
 
 **Script**: `src/analysis/generate_plots.py`
 
-Generate 5 PDF figures for the manuscript. Logs data sources and plot types to console and log file.
+Generate 6 PDF figures for the manuscript. Logs data sources, plot types, and figure descriptions to console and log file.
 
-**Input**: Analysis-ready data
+**Input**: Analysis-ready data, master table (for Figure 5)
 
 **Output**: 
-*   `694154159178ff1940922366/images/Figure_1_Difficulty_Variance.pdf`
-*   `694154159178ff1940922366/images/Figure_2_Task_Type.pdf`
-*   `694154159178ff1940922366/images/Figure_3a_Complexity_Categories.pdf`
-*   `694154159178ff1940922366/images/Figure_3b_Variance_TaskType.pdf`
-*   `694154159178ff1940922366/images/Figure_4_Confounder_Heatmap.pdf`
-*   `results/plot_generation_log_YYYYMMDD_HHMMSS.txt` - Generation log
+*   `overleaf/images/Figure_1_Difficulty_Variance.pdf` - Difficulty (subset average score) (Easy -> Hard) vs. Spearman rho
+*   `overleaf/images/Figure_2_Task_Type.pdf` - Spearman rho by Task Type
+*   `overleaf/images/Figure_3a_Complexity_Categories.pdf` - Spearman rho by Prompt Length
+*   `overleaf/images/Figure_3b_Variance_TaskType.pdf` - CV vs. Spearman rho by Task Type
+*   `overleaf/images/Figure_4_Confounder_Heatmap.pdf` - Correlation Matrix of Independent Variables
+*   `overleaf/images/Figure_5_Ranking_Comparison.pdf` - Comparison of large language model (LLM) ranking in SWE-Bench (Verified) and the overall ranking in LMArena-Coding
+*   `results/plot_generation_log_YYYYMMDD_HHMMSS.txt` - Generation log with figure descriptions
 
 **Execution**:
 ```bash
@@ -985,8 +986,8 @@ Generate LaTeX tables for the manuscript using `pandas.DataFrame.to_latex()`.
 **Input**: Statistical significance report, analysis-ready data (optional)
 
 **Output**:
-*   `694154159178ff1940922366/tables/results_table.tex` - Hypothesis test results summary
-*   `694154159178ff1940922366/tables/correlation_summary_table.tex` - Correlation summary
+*   `overleaf/tables/results_table.tex` - Hypothesis test results summary
+*   `overleaf/tables/correlation_summary_table.tex` - Correlation summary
 
 **Execution**:
 ```bash
@@ -1033,6 +1034,6 @@ uv run python src/analysis/generate_tables.py
 *   `statistical_significance_report.json` - Corrected results
 *   `plot_generation_log_*.txt` - Plot generation logs
 
-**Manuscript Files** (`694154159178ff1940922366/`):
-*   `images/Figure_*.pdf` (5 figures)
+**Manuscript Files** (`overleaf/`):
+*   `images/Figure_*.pdf` (6 figures)
 *   `tables/*.tex` (2 tables)
