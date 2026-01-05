@@ -1,164 +1,142 @@
 """
-Advanced Statistical Utility Functions
+Advanced Statistical Utility Functions for Small-N Analysis
 
 Purpose:
-    This module provides rigorous statistical functions specifically designed for small-N analysis
-    (N=29 benchmarks). The functions implement advanced statistical methods including Fisher z-transformation,
-    Rank-Biased Overlap (RBO), bootstrap confidence intervals, Holm-Bonferroni correction for multiple
-    comparisons, robust regression using Huber loss, and permutation-based p-value calculation for
-    small sample sizes.
+    This module provides rigorous statistical functions specifically designed for small sample
+    size analysis (N=29 benchmarks). The methods implemented here are appropriate for small-N
+    datasets where standard asymptotic approximations may not hold.
 
 Mathematical Foundations:
-    - Fisher z-transformation: Used for averaging correlations, as correlation coefficients are not
-      normally distributed. The transformation z = arctanh(r) makes the distribution approximately normal.
-    - RBO (Rank-Biased Overlap): A rank correlation metric that focuses on top-ranked items, with parameter
-      p controlling the weight decay (p=0.9 means top items are weighted more heavily).
-    - Bootstrap: Resampling with replacement to estimate confidence intervals, robust for small samples.
-    - Holm-Bonferroni Correction: A step-down procedure for controlling family-wise error rate in multiple
-      comparisons, less conservative than Bonferroni but still controls Type I error.
-    - Huber Loss Regression: A robust regression method that minimizes the impact of outliers by using
-      a loss function that transitions from quadratic (for small errors) to linear (for large errors).
-    - Permutation Test: For small sample sizes (N < 30), permutation tests provide exact p-values by
-      permuting one ranking under the null hypothesis of independence and recalculating the correlation.
+    - Fisher Z-Transform: Converts correlation coefficients to approximately normal distribution
+      for averaging and aggregation
+    - Rank-Biased Overlap (RBO): Measures ranking similarity with emphasis on top-ranked items
+    - Bootstrap Resampling: Non-parametric method for confidence interval estimation without
+      distributional assumptions
+    - Holm-Bonferroni Correction: Sequential multiple comparison correction that is less
+      conservative than standard Bonferroni
+    - Huber Loss Regression: Robust regression that minimizes impact of outliers in small-N
+      datasets
+    - Permutation Tests: Exact p-value calculation for small sample sizes (N < 30)
 
 Why These Methods for Small-N:
-    - Small sample sizes (N=29) require methods that are robust to outliers and don't rely on large-sample
-      asymptotic assumptions.
-    - Permutation tests provide exact p-values for small samples, avoiding approximation errors.
-    - Bootstrap resampling provides reliable confidence intervals without assuming normality.
-    - Robust regression (Huber loss) minimizes the impact of outliers that can disproportionately affect
-      small samples.
-    - Multiple comparison correction is essential when testing multiple hypotheses simultaneously.
+    - Permutation tests provide exact p-values without relying on asymptotic approximations
+    - Bootstrap resampling allows confidence interval estimation without distributional assumptions
+    - Robust regression (Huber loss) reduces sensitivity to outliers, which is critical when
+      sample size is small
+    - RBO focuses on top-ranked items, which is more relevant for benchmark evaluation
+    - Fisher Z-transform enables proper aggregation of correlation coefficients
 
 Input/Output:
-    - Functions accept numpy arrays or pandas Series as input
-    - Return dictionaries or tuples containing statistics, p-values, and confidence intervals
-    - All functions are designed to handle missing values gracefully
+    - Functions accept numpy arrays or pandas Series
+    - Return values include correlation coefficients, p-values, confidence intervals, and
+      corrected significance levels
 """
 
 import numpy as np
-import pandas as pd
 from scipy import stats
 from scipy.stats import spearmanr, kendalltau
-from sklearn.linear_model import HuberRegressor
-import statsmodels.api as sm
-from statsmodels.robust.robust_linear_model import RLM
 from typing import Tuple, Dict, List, Callable, Optional
 import warnings
 
 
 def fisher_z_transform(r: float) -> float:
     """
-    Apply Fisher z-transformation to a correlation coefficient.
-    
-    The Fisher z-transformation converts correlation coefficients to a scale that is approximately
-    normally distributed, making it suitable for averaging and statistical inference.
+    Apply Fisher Z-transformation to correlation coefficient.
     
     Formula: z = arctanh(r) = 0.5 * ln((1 + r) / (1 - r))
     
-    Purpose:
-        - Correlation coefficients are not normally distributed, especially near the boundaries (-1, 1)
-        - The Fisher transformation makes the distribution approximately normal
-        - This allows for averaging correlations and computing confidence intervals
-        - Inverse transformation: r = tanh(z) = (exp(2z) - 1) / (exp(2z) + 1)
+    The Fisher transformation converts correlation coefficients to an approximately
+    normal distribution, which is useful for:
+    - Averaging multiple correlation coefficients
+    - Computing confidence intervals for correlations
+    - Statistical tests on correlation coefficients
     
     Args:
         r: Correlation coefficient (must be in range [-1, 1])
-    
+        
     Returns:
-        Fisher z-transformed value
-    
+        Fisher Z-transformed value
+        
     Raises:
-        ValueError: If r is not in range [-1, 1]
+        ValueError: If r is not in valid range [-1, 1]
     """
-    if not -1 <= r <= 1:
-        raise ValueError(f"Correlation coefficient r must be in range [-1, 1], got {r}")
+    if not (-1 <= r <= 1):
+        raise ValueError(f"Correlation coefficient must be in range [-1, 1], got {r}")
     
     # Handle edge cases
-    if r == 1.0:
-        return np.inf
-    if r == -1.0:
-        return -np.inf
-    if r == 0.0:
-        return 0.0
+    if abs(r) >= 1.0:
+        # Return large finite value instead of inf
+        return np.sign(r) * 10.0
     
-    # Fisher z-transformation: z = arctanh(r)
-    z = np.arctanh(r)
-    return z
+    return np.arctanh(r)
 
 
 def calculate_rbo(list1: List, list2: List, p: float = 0.9) -> float:
     """
     Calculate Rank-Biased Overlap (RBO) between two ranked lists.
     
-    RBO is a rank correlation metric that focuses on top-ranked items. The parameter p controls
-    the weight decay: higher p means more weight on top items. With p=0.9, the top 10 items
-    receive most of the weight.
+    RBO measures ranking similarity with emphasis on top-ranked items.
+    The parameter p (0 < p < 1) controls the weight decay: smaller p gives more
+    weight to top-ranked items. p=0.9 is a standard choice that focuses on top 10 items.
     
-    Formula:
-        RBO = (1 - p) * sum_{d=1}^{infinity} p^{d-1} * A_d
-        where A_d is the agreement at depth d (proportion of items in common up to depth d)
-    
-    The p parameter:
-        - p=0.9 means that the first item gets weight (1-0.9)*0.9^0 = 0.1
-        - The second item gets weight (1-0.9)*0.9^1 = 0.09
-        - The third item gets weight (1-0.9)*0.9^2 = 0.081
-        - This creates exponential decay, focusing on top items
+    Formula: RBO = (1 - p) * sum(p^(d-1) * A_d) for d=1 to infinity
+    where A_d is the agreement at depth d (proportion of items in both lists up to depth d)
     
     Args:
-        list1: First ranked list (items in order of rank, best first)
-        list2: Second ranked list (items in order of rank, best first)
-        p: Weight decay parameter (default 0.9, must be in (0, 1))
-    
+        list1: First ranked list (list of items, ordered by rank)
+        list2: Second ranked list (list of items, ordered by rank)
+        p: Weight decay parameter (default: 0.9). Must be in (0, 1).
+           Smaller p = more weight on top items. p=0.9 focuses on top ~10 items.
+        
     Returns:
-        RBO score between 0 and 1 (1 = perfect agreement, 0 = no agreement)
-    
+        RBO score in range [0, 1], where 1 indicates identical rankings
+        and 0 indicates no overlap
+        
     Raises:
-        ValueError: If p is not in range (0, 1)
+        ValueError: If p is not in valid range (0, 1)
     """
-    if not 0 < p < 1:
+    if not (0 < p < 1):
         raise ValueError(f"Parameter p must be in range (0, 1), got {p}")
+    
+    if len(list1) == 0 and len(list2) == 0:
+        return 1.0
+    if len(list1) == 0 or len(list2) == 0:
+        return 0.0
     
     # Convert to sets for faster lookup, but preserve order
     set1 = set(list1)
     set2 = set(list2)
     
-    # Find maximum depth
+    # Calculate RBO
+    rbo_sum = 0.0
+    seen1 = set()
+    seen2 = set()
+    
     max_depth = max(len(list1), len(list2))
     
-    if max_depth == 0:
-        return 1.0  # Both empty lists
-    
-    # Calculate RBO
-    # Optimize: with p=0.9, weights decay quickly. Stop when weight becomes negligible (< 1e-6)
-    rbo_sum = 0.0
-    agreement_at_depth = 0.0
-    min_weight = 1e-6  # Stop when weight becomes negligible
-    
     for d in range(1, max_depth + 1):
-        # Weight: (1-p) * p^(d-1)
-        weight = (1 - p) * (p ** (d - 1))
+        # Add items at depth d
+        if d <= len(list1):
+            seen1.add(list1[d - 1])
+        if d <= len(list2):
+            seen2.add(list2[d - 1])
         
-        # Early stopping: if weight is negligible, remaining terms won't affect result
-        if weight < min_weight:
-            break
-        
-        # Get items up to depth d
-        items1_d = set(list1[:d]) if d <= len(list1) else set1
-        items2_d = set(list2[:d]) if d <= len(list2) else set2
-        
-        # Agreement at depth d: proportion of items in common
-        intersection = items1_d & items2_d
-        union = items1_d | items2_d
+        # Calculate agreement at depth d
+        intersection = seen1 & seen2
+        union = seen1 | seen2
         
         if len(union) == 0:
-            agreement_at_depth = 1.0
+            agreement = 0.0
         else:
-            agreement_at_depth = len(intersection) / len(union)
+            agreement = len(intersection) / len(union)
         
-        rbo_sum += weight * agreement_at_depth
+        # Weight by p^(d-1)
+        rbo_sum += (p ** (d - 1)) * agreement
     
-    return rbo_sum
+    # Normalize by (1 - p)
+    rbo = (1 - p) * rbo_sum
+    
+    return rbo
 
 
 def bootstrap_ci(
@@ -171,23 +149,23 @@ def bootstrap_ci(
     Calculate 95% confidence interval using bootstrap resampling.
     
     Bootstrap methodology:
-        1. Resample the paired data (x, y) with replacement n_boot times
-        2. For each bootstrap sample, compute the statistic using func
-        3. The 95% confidence interval is the 2.5th and 97.5th percentiles of the bootstrap distribution
+    1. Resample n_boot times with replacement from the paired data (data_x, data_y)
+    2. Apply func to each bootstrap sample to get a statistic
+    3. Use 2.5th and 97.5th percentiles of bootstrap distribution as CI bounds
     
-    This method provides reliable confidence intervals without assuming normality, making it
-    particularly suitable for small sample sizes.
+    This method makes no distributional assumptions and is appropriate for
+    small sample sizes where asymptotic approximations may not hold.
     
     Args:
-        data_x: First data array (must have same length as data_y)
-        data_y: Second data array (must have same length as data_x)
-        func: Function that computes the statistic of interest
-              Must accept two arrays (x, y) and return a single value
-        n_boot: Number of bootstrap iterations (default 5000)
-    
+        data_x: First array of paired data
+        data_y: Second array of paired data (must have same length as data_x)
+        func: Function that takes (x, y) arrays and returns a scalar statistic
+              (e.g., correlation coefficient)
+        n_boot: Number of bootstrap iterations (default: 5000)
+        
     Returns:
         Tuple of (lower_bound, upper_bound) for 95% confidence interval
-    
+        
     Raises:
         ValueError: If data_x and data_y have different lengths
     """
@@ -197,239 +175,208 @@ def bootstrap_ci(
     n = len(data_x)
     bootstrap_stats = []
     
-    # Set random seed for reproducibility
-    rng = np.random.RandomState(42)
+    np.random.seed(42)  # For reproducibility
     
-    for i in range(n_boot):
+    for _ in range(n_boot):
         # Resample with replacement
-        indices = rng.choice(n, size=n, replace=True)
+        indices = np.random.choice(n, size=n, replace=True)
         x_boot = data_x[indices]
         y_boot = data_y[indices]
         
-        # Compute statistic
+        # Calculate statistic on bootstrap sample
         try:
             stat = func(x_boot, y_boot)
-            if not np.isnan(stat):
+            if np.isfinite(stat):
                 bootstrap_stats.append(stat)
-        except (ValueError, RuntimeError, TypeError):
-            # Skip if statistic cannot be computed (e.g., all values are the same)
+        except Exception:
+            # Skip invalid bootstrap samples
             continue
-        
-        # Progress indicator every 1000 iterations (reduced frequency to minimize I/O overhead)
-        if (i + 1) % 1000 == 0:
-            print(f"      Bootstrap progress: {i + 1}/{n_boot} iterations ({100*(i+1)/n_boot:.1f}%)", end='\r', flush=True)
     
     if len(bootstrap_stats) == 0:
         return (np.nan, np.nan)
     
-    # Calculate 95% confidence interval (2.5th and 97.5th percentiles)
-    ci_lower = np.percentile(bootstrap_stats, 2.5)
-    ci_upper = np.percentile(bootstrap_stats, 97.5)
+    # Calculate 95% CI (2.5th and 97.5th percentiles)
+    lower = np.percentile(bootstrap_stats, 2.5)
+    upper = np.percentile(bootstrap_stats, 97.5)
     
-    return (ci_lower, ci_upper)
+    return (lower, upper)
 
 
-def holm_bonferroni_correction(p_values_dict: Dict[str, float]) -> Dict[str, Dict]:
+def holm_bonferroni_correction(p_values_dict: Dict[str, float], alpha: float = 0.05) -> Dict[str, Dict]:
     """
     Apply Holm-Bonferroni correction for multiple comparisons.
     
-    The Holm-Bonferroni correction is a step-down procedure that controls the family-wise error rate
-    (FWER) while being less conservative than the standard Bonferroni correction.
+    The Holm-Bonferroni method is a sequential correction procedure that is less
+    conservative than the standard Bonferroni correction while still controlling
+    the family-wise error rate (FWER).
     
     Algorithm:
-        1. Sort p-values from smallest to largest
-        2. For each p-value at rank i (1-indexed), adjust: p_corrected = p_raw * (m - i + 1)
-           where m is the total number of hypotheses
-        3. Ensure monotonicity: each corrected p-value must be >= the previous one
-    
-    This correction ensures that the probability of at least one Type I error (false positive)
-    across all tests is controlled at the desired level (typically 0.05).
+    1. Sort p-values from smallest to largest: p(1) <= p(2) <= ... <= p(m)
+    2. For each p-value p(i), compare to alpha / (m - i + 1)
+    3. Reject null hypothesis for p(i) if p(i) <= alpha / (m - i + 1)
+    4. Once a hypothesis is not rejected, all subsequent hypotheses are also not rejected
     
     Args:
         p_values_dict: Dictionary mapping hypothesis names to raw p-values
-                      Format: {"H1": 0.03, "H2": 0.15, ...}
-    
+                      Format: {hypothesis_name: raw_p_value}
+        alpha: Significance level (default: 0.05)
+        
     Returns:
-        Dictionary mapping hypothesis names to results dictionaries:
+        Dictionary mapping hypothesis names to correction results:
         {
-            "H1": {
-                "p_raw": 0.03,
-                "p_corrected": 0.15,  # Adjusted for multiple comparisons
-                "is_significant": True  # True if p_corrected < 0.05
-            },
-            ...
+            hypothesis_name: {
+                'p_raw': raw p-value,
+                'p_corrected': adjusted p-value (or None if not applicable),
+                'is_significant': boolean indicating significance after correction
+            }
         }
     """
-    if not p_values_dict:
+    if len(p_values_dict) == 0:
         return {}
     
-    # Convert to list of (hypothesis, p_value) tuples and sort by p-value
-    hypotheses = list(p_values_dict.keys())
-    p_values = list(p_values_dict.values())
+    # Sort p-values from smallest to largest
+    sorted_items = sorted(p_values_dict.items(), key=lambda x: x[1])
+    m = len(sorted_items)
     
-    sorted_pairs = sorted(zip(hypotheses, p_values), key=lambda x: x[1])
-    m = len(sorted_pairs)
-    
-    # Apply Holm-Bonferroni correction
     results = {}
-    previous_corrected = 0.0
+    found_non_significant = False
     
-    for rank, (hypothesis, p_raw) in enumerate(sorted_pairs, start=1):
-        # Adjusted p-value: p_corrected = p_raw * (m - rank + 1)
-        p_corrected = p_raw * (m - rank + 1)
+    for rank, (hypothesis, p_raw) in enumerate(sorted_items, start=1):
+        # Adjusted significance level: alpha / (m - rank + 1)
+        adjusted_alpha = alpha / (m - rank + 1)
         
-        # Ensure monotonicity: each corrected p-value must be >= previous
-        p_corrected = max(p_corrected, previous_corrected)
-        previous_corrected = p_corrected
+        # Calculate adjusted p-value (multiply by (m - rank + 1), cap at 1.0)
+        p_corrected = min(p_raw * (m - rank + 1), 1.0)
         
-        # Cap at 1.0
-        p_corrected = min(p_corrected, 1.0)
+        # Check significance
+        if found_non_significant:
+            # Once we find a non-significant result, all subsequent are also non-significant
+            is_significant = False
+        else:
+            is_significant = p_raw <= adjusted_alpha
+        
+        if not is_significant:
+            found_non_significant = True
         
         results[hypothesis] = {
-            "p_raw": p_raw,
-            "p_corrected": p_corrected,
-            "is_significant": p_corrected < 0.05
+            'p_raw': p_raw,
+            'p_corrected': p_corrected,
+            'is_significant': is_significant
         }
     
     return results
 
 
-def huber_loss_regression(X: np.ndarray, y: np.ndarray) -> Dict:
+def huber_loss_regression(X: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, Dict]:
     """
-    Perform robust regression using Huber loss to minimize the impact of outliers.
+    Perform robust regression using Huber loss function.
     
-    Huber loss is a robust loss function that transitions from quadratic (for small errors) to
-    linear (for large errors). This makes the regression less sensitive to outliers compared to
-    ordinary least squares (OLS).
+    Huber loss is less sensitive to outliers than ordinary least squares (OLS),
+    making it appropriate for small-N datasets where outliers can have
+    disproportionate influence.
     
-    Why use Huber loss for small-N:
-        - Small samples are more susceptible to outliers
-        - A single outlier can disproportionately affect OLS regression coefficients
-        - Huber loss downweights outliers while still using all data points
-        - This provides more stable coefficient estimates for small samples
+    Huber loss function:
+    - For small residuals (|r| <= epsilon): quadratic loss (like OLS)
+    - For large residuals (|r| > epsilon): linear loss (reduces outlier influence)
     
-    Implementation:
-        Uses statsmodels.RLM (Robust Linear Model) with Huber's t-criterion, which is equivalent
-        to Huber loss regression.
+    This implementation uses statsmodels.RLM (Robust Linear Model) with Huber's
+    t-criterion, which is specifically designed for robust estimation.
     
     Args:
-        X: Feature matrix (n_samples, n_features). Should include intercept column if needed.
+        X: Design matrix (n_samples, n_features). Should include intercept column if needed.
         y: Target vector (n_samples,)
-    
+        
     Returns:
-        Dictionary containing:
-        {
-            "coefficients": array of regression coefficients,
-            "pvalues": array of p-values for each coefficient,
-            "rsquared": R-squared value,
-            "model": fitted RLM model object
+        Tuple of (coefficients, results_dict):
+        - coefficients: Array of regression coefficients (including intercept if included)
+        - results_dict: Dictionary containing:
+            - 'pvalues': p-values for each coefficient
+            - 'rsquared': R-squared value
+            - 'fittedvalues': predicted values
+            - Additional model statistics
+    """
+    try:
+        from statsmodels.robust.robust_linear_model import RLM
+        from statsmodels.robust.norms import HuberT
+        
+        # Create RLM model with Huber's t-criterion
+        model = RLM(y, X, M=HuberT())
+        results = model.fit()
+        
+        coefficients = results.params
+        pvalues = results.pvalues
+        
+        results_dict = {
+            'coefficients': coefficients,
+            'pvalues': pvalues,
+            'rsquared': results.rsquared if hasattr(results, 'rsquared') else np.nan,
+            'fittedvalues': results.fittedvalues,
+            'resid': results.resid,
+            'df_resid': results.df_resid,
+            'df_model': results.df_model
         }
-    """
-    # Fit robust linear model with Huber's t-criterion
-    model = RLM(y, X, M=sm.robust.norms.HuberT())
-    results = model.fit()
-    
-    return {
-        "coefficients": results.params,
-        "pvalues": results.pvalues,
-        "rsquared": results.rsquared,
-        "model": results
-    }
-
-
-def calculate_spearman_fast(x: np.ndarray, y: np.ndarray) -> float:
-    """
-    Fast Spearman correlation calculation for bootstrap (no p-value, no permutation test).
-    
-    This function is optimized for bootstrap resampling where we only need the correlation
-    coefficient, not the p-value. It directly uses scipy.stats.spearmanr without permutation
-    testing, making it much faster for bootstrap iterations.
-    
-    Args:
-        x: First data array
-        y: Second data array (must have same length as x)
-    
-    Returns:
-        Spearman correlation coefficient (float)
-    """
-    if len(x) != len(y):
-        raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
-    
-    # Remove missing values
-    mask = ~(np.isnan(x) | np.isnan(y))
-    x_clean = x[mask]
-    y_clean = y[mask]
-    
-    if len(x_clean) < 2:
-        return np.nan
-    
-    # Fast calculation: just get correlation, no p-value
-    correlation, _ = spearmanr(x_clean, y_clean)
-    return correlation
-
-
-def calculate_kendall_fast(x: np.ndarray, y: np.ndarray) -> float:
-    """
-    Fast Kendall correlation calculation for bootstrap (no p-value, no permutation test).
-    
-    This function is optimized for bootstrap resampling where we only need the correlation
-    coefficient, not the p-value. It directly uses scipy.stats.kendalltau without permutation
-    testing, making it much faster for bootstrap iterations.
-    
-    Args:
-        x: First data array
-        y: Second data array (must have same length as x)
-    
-    Returns:
-        Kendall's tau correlation coefficient (float)
-    """
-    if len(x) != len(y):
-        raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
-    
-    # Remove missing values
-    mask = ~(np.isnan(x) | np.isnan(y))
-    x_clean = x[mask]
-    y_clean = y[mask]
-    
-    if len(x_clean) < 2:
-        return np.nan
-    
-    # Fast calculation: just get correlation, no p-value
-    correlation, _ = kendalltau(x_clean, y_clean)
-    return correlation
+        
+        return coefficients, results_dict
+        
+    except ImportError:
+        # Fallback to sklearn if statsmodels not available
+        try:
+            from sklearn.linear_model import HuberRegressor
+            
+            model = HuberRegressor(epsilon=1.35, max_iter=200, alpha=0.0)
+            model.fit(X, y)
+            
+            coefficients = np.append(model.intercept_, model.coef_)
+            
+            # Approximate p-values using t-test (not exact for Huber regression)
+            y_pred = model.predict(X)
+            residuals = y - y_pred
+            mse = np.mean(residuals ** 2)
+            
+            # Simple approximation (not exact for robust regression)
+            results_dict = {
+                'coefficients': coefficients,
+                'pvalues': np.full(len(coefficients), np.nan),  # Not available in sklearn
+                'rsquared': model.score(X, y),
+                'fittedvalues': y_pred,
+                'resid': residuals
+            }
+            
+            return coefficients, results_dict
+            
+        except ImportError:
+            raise ImportError(
+                "Neither statsmodels nor sklearn available. "
+                "Please install statsmodels (recommended) or sklearn for robust regression."
+            )
 
 
 def calculate_spearman_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, float]:
     """
-    Calculate Spearman rank correlation coefficient and its p-value.
+    Calculate Spearman rank correlation coefficient and p-value.
     
-    Critical p-value calculation logic:
-        - When N < 30: Use permutation test with permutation_type='pairings' to compute exact p-value.
-          This permutes one ranking under the null hypothesis of independence and recalculates the
-          correlation. This provides exact p-values for small samples.
-        - When N >= 30: Use the p-value returned by scipy.stats.spearmanr as a sufficiently
-          accurate approximation (asymptotic approximation is reliable for larger samples).
+    For small sample sizes (N < 30), uses permutation test for exact p-value calculation.
+    For larger samples (N >= 30), uses asymptotic approximation from scipy.stats.spearmanr.
     
     Rationale for conditional logic:
-        - For small samples (N < 30), the asymptotic p-value from spearmanr may be inaccurate
-        - Permutation tests provide exact p-values without relying on large-sample assumptions
-        - For larger samples (N >= 30), the asymptotic approximation is sufficiently accurate
-          and computationally more efficient
+    - Permutation tests provide exact p-values without distributional assumptions
+    - For small N, asymptotic approximations may be inaccurate
+    - For large N, asymptotic approximation is sufficiently accurate and computationally efficient
     
     Args:
-        x: First data array
-        y: Second data array (must have same length as x)
-    
+        x: First array of paired data
+        y: Second array of paired data (must have same length as x)
+        
     Returns:
         Tuple of (correlation_coefficient, p_value)
-    
+        
     Raises:
-        ValueError: If x and y have different lengths
+        ValueError: If x and y have different lengths or insufficient data
     """
     if len(x) != len(y):
         raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
     
-    # Remove missing values
+    # Remove NaN pairs
     mask = ~(np.isnan(x) | np.isnan(y))
     x_clean = x[mask]
     y_clean = y[mask]
@@ -439,72 +386,61 @@ def calculate_spearman_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float,
     if n < 2:
         return (np.nan, np.nan)
     
-    # Calculate Spearman correlation
-    correlation, _ = spearmanr(x_clean, y_clean)
+    # Calculate correlation coefficient
+    rho, _ = spearmanr(x_clean, y_clean)
     
     # Calculate p-value based on sample size
     if n < 30:
-        # Use permutation test for small samples
-        # Permute one ranking under the null hypothesis of independence
-        np.random.seed(42)  # For reproducibility
+        # Use permutation test for small sample sizes
+        def statistic(x_data, y_data):
+            # Permute y_data under null hypothesis
+            return spearmanr(x_data, y_data)[0]
         
-        # Observed correlation
-        observed_corr = correlation
+        # Permutation test with pairings (preserves pairing structure)
+        result = stats.permutation_test(
+            (x_clean, y_clean),
+            statistic,
+            permutation_type='pairings',
+            n_resamples=10000,
+            random_state=42,
+            alternative='two-sided'
+        )
         
-        # Permutation test: permute y and recalculate correlation
-        n_permutations = 10000
-        permuted_corrs = []
+        p_value = result.pvalue
         
-        for _ in range(n_permutations):
-            y_permuted = np.random.permutation(y_clean)
-            perm_corr, _ = spearmanr(x_clean, y_permuted)
-            permuted_corrs.append(perm_corr)
-        
-        permuted_corrs = np.array(permuted_corrs)
-        
-        # Two-sided p-value: proportion of permuted correlations as extreme as observed
-        p_value = np.mean(np.abs(permuted_corrs) >= np.abs(observed_corr))
-        
-        # Ensure p-value is at least 1/n_permutations
-        p_value = max(p_value, 1.0 / n_permutations)
     else:
-        # Use asymptotic p-value for larger samples
+        # Use asymptotic approximation for larger samples
         _, p_value = spearmanr(x_clean, y_clean)
     
-    return (correlation, p_value)
+    return (rho, p_value)
 
 
 def calculate_kendall_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, float]:
     """
-    Calculate Kendall's tau correlation coefficient and its p-value.
+    Calculate Kendall's tau correlation coefficient and p-value.
     
-    Critical p-value calculation logic:
-        - When N < 30: Use permutation test with permutation_type='pairings' to compute exact p-value.
-          This permutes one ranking under the null hypothesis of independence and recalculates the
-          correlation. This provides exact p-values for small samples.
-        - When N >= 30: Use the p-value returned by scipy.stats.kendalltau as a sufficiently
-          accurate approximation (asymptotic approximation is reliable for larger samples).
+    For small sample sizes (N < 30), uses permutation test for exact p-value calculation.
+    For larger samples (N >= 30), uses asymptotic approximation from scipy.stats.kendalltau.
     
     Rationale for conditional logic:
-        - For small samples (N < 30), the asymptotic p-value from kendalltau may be inaccurate
-        - Permutation tests provide exact p-values without relying on large-sample assumptions
-        - For larger samples (N >= 30), the asymptotic approximation is sufficiently accurate
-          and computationally more efficient
+    - Permutation tests provide exact p-values without distributional assumptions
+    - For small N, asymptotic approximations may be inaccurate
+    - For large N, asymptotic approximation is sufficiently accurate and computationally efficient
     
     Args:
-        x: First data array
-        y: Second data array (must have same length as x)
-    
+        x: First array of paired data
+        y: Second array of paired data (must have same length as x)
+        
     Returns:
         Tuple of (correlation_coefficient, p_value)
-    
+        
     Raises:
-        ValueError: If x and y have different lengths
+        ValueError: If x and y have different lengths or insufficient data
     """
     if len(x) != len(y):
         raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
     
-    # Remove missing values
+    # Remove NaN pairs
     mask = ~(np.isnan(x) | np.isnan(y))
     x_clean = x[mask]
     y_clean = y[mask]
@@ -514,99 +450,31 @@ def calculate_kendall_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, 
     if n < 2:
         return (np.nan, np.nan)
     
-    # Calculate Kendall's tau
-    correlation, _ = kendalltau(x_clean, y_clean)
+    # Calculate correlation coefficient
+    tau, _ = kendalltau(x_clean, y_clean)
     
     # Calculate p-value based on sample size
     if n < 30:
-        # Use permutation test for small samples
-        # Permute one ranking under the null hypothesis of independence
-        np.random.seed(42)  # For reproducibility
+        # Use permutation test for small sample sizes
+        def statistic(x_data, y_data):
+            # Permute y_data under null hypothesis
+            return kendalltau(x_data, y_data)[0]
         
-        # Observed correlation
-        observed_corr = correlation
+        # Permutation test with pairings (preserves pairing structure)
+        result = stats.permutation_test(
+            (x_clean, y_clean),
+            statistic,
+            permutation_type='pairings',
+            n_resamples=10000,
+            random_state=42,
+            alternative='two-sided'
+        )
         
-        # Permutation test: permute y and recalculate correlation
-        n_permutations = 10000
-        permuted_corrs = []
+        p_value = result.pvalue
         
-        for _ in range(n_permutations):
-            y_permuted = np.random.permutation(y_clean)
-            perm_corr, _ = kendalltau(x_clean, y_permuted)
-            permuted_corrs.append(perm_corr)
-        
-        permuted_corrs = np.array(permuted_corrs)
-        
-        # Two-sided p-value: proportion of permuted correlations as extreme as observed
-        p_value = np.mean(np.abs(permuted_corrs) >= np.abs(observed_corr))
-        
-        # Ensure p-value is at least 1/n_permutations
-        p_value = max(p_value, 1.0 / n_permutations)
     else:
-        # Use asymptotic p-value for larger samples
+        # Use asymptotic approximation for larger samples
         _, p_value = kendalltau(x_clean, y_clean)
     
-    return (correlation, p_value)
-
-
-def calculate_spearman_fast(x: np.ndarray, y: np.ndarray) -> float:
-    """
-    Fast Spearman correlation calculation for bootstrap (no p-value, no permutation test).
-    
-    This function is optimized for bootstrap resampling where we only need the correlation
-    coefficient, not the p-value. It directly uses scipy.stats.spearmanr without permutation
-    testing, making it much faster for bootstrap iterations.
-    
-    Args:
-        x: First data array
-        y: Second data array (must have same length as x)
-    
-    Returns:
-        Spearman correlation coefficient (float)
-    """
-    if len(x) != len(y):
-        raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
-    
-    # Remove missing values
-    mask = ~(np.isnan(x) | np.isnan(y))
-    x_clean = x[mask]
-    y_clean = y[mask]
-    
-    if len(x_clean) < 2:
-        return np.nan
-    
-    # Fast calculation: just get correlation, no p-value
-    correlation, _ = spearmanr(x_clean, y_clean)
-    return correlation
-
-
-def calculate_kendall_fast(x: np.ndarray, y: np.ndarray) -> float:
-    """
-    Fast Kendall correlation calculation for bootstrap (no p-value, no permutation test).
-    
-    This function is optimized for bootstrap resampling where we only need the correlation
-    coefficient, not the p-value. It directly uses scipy.stats.kendalltau without permutation
-    testing, making it much faster for bootstrap iterations.
-    
-    Args:
-        x: First data array
-        y: Second data array (must have same length as x)
-    
-    Returns:
-        Kendall's tau correlation coefficient (float)
-    """
-    if len(x) != len(y):
-        raise ValueError(f"x and y must have same length, got {len(x)} and {len(y)}")
-    
-    # Remove missing values
-    mask = ~(np.isnan(x) | np.isnan(y))
-    x_clean = x[mask]
-    y_clean = y[mask]
-    
-    if len(x_clean) < 2:
-        return np.nan
-    
-    # Fast calculation: just get correlation, no p-value
-    correlation, _ = kendalltau(x_clean, y_clean)
-    return correlation
+    return (tau, p_value)
 
