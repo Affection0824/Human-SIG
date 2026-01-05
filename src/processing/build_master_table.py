@@ -1,91 +1,87 @@
 """
-Master Table Construction Module
+Master Table Construction Script
 
 Purpose:
-    This module constructs the master correlation matrix by merging benchmark scores and ranks
-    with LMArena ELO scores. The master table serves as the foundation for all correlation analyses
-    and hypothesis testing.
+    This script constructs the master correlation matrix by merging benchmark scores and ranks
+    with LMArena ELO scores. The master table serves as the foundation for all correlation
+    analyses in Phase IV.
 
 Master Table Structure:
-    - Index: LMArena model IDs (Study Universe: models with elo_overall >= 1330)
+    - Index: LMArena model IDs (from Study Universe: elo_overall >= 1330)
     - Columns:
-        - ELO columns: elo_overall, elo_math, elo_coding, elo_instruction_following,
-          elo_creative_writing, elo_hard_prompts, elo_expert
-        - Benchmark columns: For each benchmark, two columns are added:
-          - {benchmark_id}_score: Benchmark score (float64)
-          - {benchmark_id}_rank: Benchmark rank within Study Universe (int)
-    - Missing values: Represented as NaN (not filled with zeros or default values)
+      * LMArena ELO columns: elo_overall, elo_math, elo_coding, elo_instruction_following,
+        elo_creative_writing, elo_hard_prompts, elo_expert
+      * For each benchmark (with N >= 6): {benchmark_id}_score and {benchmark_id}_rank
+    - Missing values: NaN (not filled with zeros)
 
 Merge Strategy:
-    - Left join to preserve Study Universe: All models in the Study Universe are included
-      as rows, even if they don't have scores for a particular benchmark
-    - Models that appear in benchmark but cannot be mapped to Study Universe are excluded
-    - Both score and rank columns are needed:
-      - Score: For Pearson/Spearman correlation calculations
-      - Rank: For RBO (Rank-Biased Overlap) calculations
+    - Left join to preserve Study Universe: All models in Study Universe are included as rows
+    - Only benchmarks with overlap count N >= 6 are included (filtered during merge loop)
+    - Models that appear in benchmarks but cannot be mapped to Study Universe are excluded
+
+Why Both Score and Rank Columns:
+    - Score columns: Used for Pearson and Spearman correlation analysis
+    - Rank columns: Used for RBO (Rank-Biased Overlap) calculation
+    - Both are necessary for comprehensive correlation analysis across different metrics
 
 Input:
-    - LMArena category data: Human-SIG/data/processed/cleaned/LMArena-{category}/cleaned_data.csv
-    - Benchmark data: Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv
+    - Cleaned data files: Human-SIG/data/processed/cleaned/{benchmark_id}/cleaned_data.csv
     - Mapping files: Human-SIG/data/processed/cleaned/{benchmark_id}/mapping.json
-    - Metadata: Human-SIG/data/metadata.json (to identify benchmarks vs LMArena categories)
-    - Study Universe: Human-SIG/data/processed/model_extraction/lmarena_models.json
+    - LMArena category data: Human-SIG/data/processed/cleaned/LMArena-{category}/cleaned_data.csv
+    - Metadata: Human-SIG/data/metadata.json
 
 Output:
     - Master table: Human-SIG/data/processed/master_table/master_correlation_matrix.csv
     - Overlap statistics: Human-SIG/results/data_overlap_stats.json
 
 Workflow:
-    1. Load Study Universe from lmarena_models.json
-    2. Initialize df_master with LMArena ELO scores (from LMArena category cleaned_data.csv files)
-    3. For each benchmark (from metadata.json, entries without elo_column):
-       a. Load benchmark data using BenchmarkParser
-       b. Perform entity resolution using mapping.json
-       c. Left join benchmark scores and ranks onto df_master
+    1. Load Study Universe from LMArena-Overall
+    2. Initialize df_master with LMArena ELO columns
+    3. For each benchmark:
+       a. Parse benchmark data using BenchmarkParser
+       b. Check overlap count (N >= 6 required)
+       c. Left join to df_master
        d. Add {benchmark_id}_score and {benchmark_id}_rank columns
-    4. Calculate overlap statistics (sparsity matrix)
-    5. Save master table and overlap statistics
+    4. Calculate overlap statistics
+    5. Save master table and overlap stats
 """
 
 import json
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
+import logging
 import re
 
 import sys
 from pathlib import Path
 
-# Add project root to path for imports
-project_root = Path(__file__).parent.parent.parent
-sys.path.insert(0, str(project_root))
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
 
-from src.processing.parser_utils import BenchmarkParser
+from parser_utils import BenchmarkParser
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 
-def sanitize_benchmark_id(benchmark_name: str) -> str:
+def sanitize_column_name(benchmark_id: str) -> str:
     """
-    Sanitize benchmark name to create a valid column name (benchmark_id).
+    Sanitize benchmark_id for use as a column name in pandas DataFrame.
     
-    Converts benchmark name to lowercase, replaces spaces and special characters
-    with underscores, and removes consecutive underscores.
-    
-    Examples:
-        "HumanEval" -> "humaneval"
-        "MMLU-Pro" -> "mmlu_pro"
-        "SWE-bench (Verified)" -> "swe_bench_verified"
+    Replaces spaces and special characters with underscores while preserving
+    the original benchmark_id value in data structures.
     
     Args:
-        benchmark_name: Original benchmark name
-    
+        benchmark_id: Original benchmark identifier (e.g., "SWE-bench (Verified)")
+        
     Returns:
-        Sanitized benchmark ID suitable for use as column name
+        Sanitized column name (e.g., "SWE-bench__Verified_")
     """
-    # Convert to lowercase
-    sanitized = benchmark_name.lower()
-    # Replace spaces, hyphens, parentheses, and other special chars with underscores
-    sanitized = re.sub(r'[^a-z0-9]+', '_', sanitized)
+    # Replace spaces and special characters with underscores
+    # Keep parentheses as underscores for readability
+    sanitized = re.sub(r'[^\w\-]', '_', benchmark_id)
     # Remove consecutive underscores
     sanitized = re.sub(r'_+', '_', sanitized)
     # Remove leading/trailing underscores
@@ -93,219 +89,265 @@ def sanitize_benchmark_id(benchmark_name: str) -> str:
     return sanitized
 
 
-def load_lmarena_elo_scores(
-    data_dir: Path,
-    study_universe: set,
-    category_order: List[str]
-) -> pd.DataFrame:
+def load_lmarena_elo_scores(cleaned_data_dir: Path) -> pd.DataFrame:
     """
-    Load LMArena ELO scores for all categories and create initial master DataFrame.
+    Load all LMArena ELO scores from category cleaned_data.csv files.
     
     Args:
-        data_dir: Path to data/processed/cleaned directory
-        study_universe: Set of LMArena model IDs (Study Universe)
-        category_order: List of category names in standardized order
-    
+        cleaned_data_dir: Path to cleaned data directory
+        
     Returns:
-        DataFrame with LMArena model IDs as index and ELO columns
+        DataFrame with index=model_name, columns=elo_overall, elo_math, etc.
     """
-    # Map category names to column names
-    category_to_column = {
-        'Overall': 'elo_overall',
-        'Math': 'elo_math',
-        'Coding': 'elo_coding',
-        'Instruction Following': 'elo_instruction_following',
-        'Creative Writing': 'elo_creative_writing',
-        'Hard Prompts': 'elo_hard_prompts',
-        'Expert': 'elo_expert'
+    # LMArena category names and their corresponding ELO column names
+    # Ordered by standardized category order: Overall, Math, Coding, Instruction Following,
+    # Creative Writing, Hard Prompts, Expert
+    lmarena_categories = {
+        'LMArena-Overall': 'elo_overall',
+        'LMArena-Math': 'elo_math',
+        'LMArena-Coding': 'elo_coding',
+        'LMArena-Instruction Following': 'elo_instruction_following',
+        'LMArena-Creative Writing': 'elo_creative_writing',
+        'LMArena-Hard Prompts': 'elo_hard_prompts',
+        'LMArena-Expert': 'elo_expert'
     }
     
-    # Initialize DataFrame with Study Universe as index
-    df_master = pd.DataFrame(index=sorted(study_universe))
+    df_elo = None
     
-    # Load ELO scores for each category
-    for category in category_order:
-        category_folder = f"LMArena-{category}"
-        category_path = data_dir / category_folder / "cleaned_data.csv"
+    for category_name, elo_column in lmarena_categories.items():
+        category_dir = cleaned_data_dir / category_name
+        csv_path = category_dir / "cleaned_data.csv"
         
-        if not category_path.exists():
-            print(f"Warning: {category_path} not found. Skipping {category}.")
+        if not csv_path.exists():
+            logger.warning(f"LMArena category file not found: {csv_path}")
             continue
         
-        # Load category data
-        df_category = pd.read_csv(category_path)
+        df_category = pd.read_csv(csv_path)
         
-        # Use model_name as the key (LMArena categories don't need mapping)
+        # In LMArena cleaned_data.csv, model_name is the LMArena model ID
+        # and score is the ELO score
+        df_category = df_category[['model_name', 'score']].copy()
+        df_category = df_category.rename(columns={'score': elo_column})
         df_category = df_category.set_index('model_name')
         
-        # Map to column name
-        column_name = category_to_column[category]
-        
-        # Left join to preserve Study Universe
-        df_master[column_name] = df_category['score'].reindex(df_master.index)
+        if df_elo is None:
+            df_elo = df_category
+        else:
+            # Left join to preserve all models
+            df_elo = df_elo.join(df_category, how='outer')
     
-    return df_master
+    if df_elo is None:
+        raise ValueError("No LMArena category data found")
+    
+    logger.info(f"Loaded LMArena ELO scores for {len(df_elo)} models")
+    return df_elo
 
 
-def build_master_table(
-    data_dir: Path,
-    metadata_path: Path,
-    lmarena_models_path: Path,
-    output_dir: Path,
-    results_dir: Path
-) -> None:
+def get_benchmark_list(metadata_path: Path) -> List[Dict]:
     """
-    Build the master correlation matrix by merging all benchmark data with LMArena ELO scores.
-    
-    This function:
-    1. Loads Study Universe from lmarena_models.json
-    2. Initializes df_master with LMArena ELO scores
-    3. For each benchmark, loads data using BenchmarkParser and merges onto df_master
-    4. Calculates overlap statistics
-    5. Saves master table and overlap statistics
+    Load benchmark list from metadata.json, excluding LMArena categories.
     
     Args:
-        data_dir: Path to data/processed/cleaned directory
-        metadata_path: Path to data/metadata.json
-        lmarena_models_path: Path to data/processed/model_extraction/lmarena_models.json
-        output_dir: Path to data/processed/master_table directory (for output CSV)
-        results_dir: Path to results directory (for overlap stats JSON)
+        metadata_path: Path to metadata.json
+        
+    Returns:
+        List of benchmark metadata dictionaries (excluding LMArena entries)
     """
-    # Load metadata
     with open(metadata_path, 'r', encoding='utf-8') as f:
         metadata = json.load(f)
     
-    # Filter out meta_info entry and LMArena entries (entries with elo_column)
+    # Filter out meta_info and LMArena entries (entries with elo_column field)
     benchmarks = [
         entry for entry in metadata
-        if 'benchmark_name' in entry and 'elo_column' not in entry
+        if isinstance(entry, dict) and 'benchmark_name' in entry and 'elo_column' not in entry
     ]
     
+    logger.info(f"Found {len(benchmarks)} benchmarks in metadata")
+    return benchmarks
+
+
+def build_master_table(
+    cleaned_data_dir: Path,
+    metadata_path: Path,
+    output_dir: Path,
+    results_dir: Path,
+    min_overlap: int = 6
+) -> Tuple[pd.DataFrame, Dict]:
+    """
+    Build the master correlation matrix.
+    
+    Args:
+        cleaned_data_dir: Path to cleaned data directory
+        metadata_path: Path to metadata.json
+        output_dir: Directory to save master table
+        results_dir: Directory to save overlap statistics
+        min_overlap: Minimum overlap count required to include benchmark (default: 6)
+        
+    Returns:
+        Tuple of (master_table DataFrame, overlap_stats dictionary)
+    """
     # Load Study Universe
-    study_universe = BenchmarkParser.load_study_universe(lmarena_models_path)
-    print(f"Study Universe size: {len(study_universe)} models")
+    lmarena_overall_path = cleaned_data_dir / "LMArena-Overall" / "cleaned_data.csv"
+    study_universe = BenchmarkParser.load_study_universe(lmarena_overall_path, min_elo=1330.0)
+    
+    # Load LMArena ELO scores
+    df_elo = load_lmarena_elo_scores(cleaned_data_dir)
+    
+    # Filter ELO scores to Study Universe only
+    df_master = df_elo[df_elo.index.isin(study_universe)].copy()
+    
+    logger.info(f"Initialized master table with {len(df_master)} models from Study Universe")
     
     # Initialize parser
-    parser = BenchmarkParser(study_universe)
+    parser = BenchmarkParser(cleaned_data_dir, study_universe)
     
-    # Standardized category order for ELO columns
-    category_order = ['Overall', 'Math', 'Coding', 'Instruction Following',
-                      'Creative Writing', 'Hard Prompts', 'Expert']
+    # Get benchmark list
+    benchmarks = get_benchmark_list(metadata_path)
     
-    # Initialize master DataFrame with LMArena ELO scores
-    df_master = load_lmarena_elo_scores(data_dir, study_universe, category_order)
-    print(f"Initialized master table with {len(df_master)} models")
-    
-    # Overlap statistics
+    # Track overlap statistics
     overlap_stats = {}
+    study_universe_size = len(df_master)
     
-    # Process each benchmark
-    for benchmark_entry in benchmarks:
-        benchmark_name = benchmark_entry['benchmark_name']
-        benchmark_id = sanitize_benchmark_id(benchmark_name)
+    # Merge loop: For each benchmark
+    for benchmark_meta in benchmarks:
+        benchmark_id = benchmark_meta['benchmark_name']
         
-        print(f"\nProcessing benchmark: {benchmark_name} (ID: {benchmark_id})")
-        
-        # Paths
-        benchmark_folder = data_dir / benchmark_name
-        cleaned_data_path = benchmark_folder / "cleaned_data.csv"
-        mapping_path = benchmark_folder / "mapping.json"
-        
-        if not cleaned_data_path.exists():
-            print(f"  Warning: {cleaned_data_path} not found. Skipping.")
-            continue
-        
-        # Check if mapping file exists (benchmarks should have it, LMArena categories don't)
-        if not mapping_path.exists():
-            mapping_path = None
-        
-        # Parse benchmark data
         try:
-            parsed_data = parser.parse_benchmark(cleaned_data_path, mapping_path)
-            scores_dict = parsed_data['scores']
-            ranks_dict = parsed_data['ranks']
+            # Parse benchmark data
+            df_benchmark, overlap_count = parser.parse_benchmark(benchmark_id)
+            
+            # Check overlap count
+            if overlap_count < min_overlap:
+                logger.warning(
+                    f"Skipping benchmark {benchmark_id}: insufficient overlap "
+                    f"(N={overlap_count} < {min_overlap}) for reliable correlation analysis."
+                )
+                overlap_stats[benchmark_id] = {
+                    'overlap_count': overlap_count,
+                    'study_universe_size': study_universe_size,
+                    'overlap_percentage': (overlap_count / study_universe_size * 100) if study_universe_size > 0 else 0.0,
+                    'included': False
+                }
+                continue
+            
+            # Sanitize benchmark_id for column names
+            col_prefix = sanitize_column_name(benchmark_id)
+            
+            # Prepare benchmark data for merge
+            df_benchmark = df_benchmark.set_index('lmarena_model_id')
+            df_benchmark = df_benchmark.rename(columns={
+                'score': f'{col_prefix}_score',
+                'rank': f'{col_prefix}_rank'
+            })
+            
+            # Left join to df_master (preserve Study Universe)
+            df_master = df_master.join(df_benchmark, how='left')
+            
+            # Ensure data types
+            df_master[f'{col_prefix}_score'] = df_master[f'{col_prefix}_score'].astype('float64')
+            df_master[f'{col_prefix}_rank'] = df_master[f'{col_prefix}_rank'].astype('Int64')  # Nullable int
+            
+            # Record overlap statistics
+            overlap_stats[benchmark_id] = {
+                'overlap_count': overlap_count,
+                'study_universe_size': study_universe_size,
+                'overlap_percentage': (overlap_count / study_universe_size * 100) if study_universe_size > 0 else 0.0,
+                'included': True
+            }
+            
+            logger.info(
+                f"Added {benchmark_id}: {overlap_count} overlapping models "
+                f"({overlap_stats[benchmark_id]['overlap_percentage']:.1f}%)"
+            )
+            
         except Exception as e:
-            print(f"  Error parsing {benchmark_name}: {e}. Skipping.")
+            logger.error(f"Error processing benchmark {benchmark_id}: {e}", exc_info=True)
+            overlap_stats[benchmark_id] = {
+                'overlap_count': 0,
+                'study_universe_size': study_universe_size,
+                'overlap_percentage': 0.0,
+                'included': False,
+                'error': str(e)
+            }
             continue
-        
-        # Calculate overlap
-        overlap_count = len(scores_dict)
-        overlap_percentage = (overlap_count / len(study_universe)) * 100
-        
-        overlap_stats[benchmark_id] = {
-            'overlap_count': overlap_count,
-            'study_universe_size': len(study_universe),
-            'overlap_percentage': round(overlap_percentage, 2)
-        }
-        
-        print(f"  Overlap: {overlap_count} models ({overlap_percentage:.2f}%)")
-        
-        if overlap_count < 10:
-            print(f"  CRITICAL WARNING: Insufficient overlap (N={overlap_count}) for reliable correlation analysis!")
-        
-        # Create Series for scores and ranks
-        scores_series = pd.Series(scores_dict, name=f'{benchmark_id}_score', dtype='float64')
-        ranks_series = pd.Series(ranks_dict, name=f'{benchmark_id}_rank', dtype='Int64')  # Nullable int
-        
-        # Left join to preserve Study Universe (models without scores get NaN)
-        df_master[f'{benchmark_id}_score'] = scores_series.reindex(df_master.index)
-        df_master[f'{benchmark_id}_rank'] = ranks_series.reindex(df_master.index)
     
-    # Save overlap statistics
-    results_dir.mkdir(parents=True, exist_ok=True)
-    overlap_stats_path = results_dir / "data_overlap_stats.json"
+    # Check for benchmarks with N < 6
+    excluded_benchmarks = [
+        bid for bid, stats in overlap_stats.items()
+        if stats.get('overlap_count', 0) < min_overlap
+    ]
     
-    overlap_stats_json = {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "description": "Overlap statistics for each benchmark, indicating how many models from the Study Universe have scores in that benchmark",
-        **overlap_stats
-    }
+    if excluded_benchmarks:
+        logger.critical(
+            f"CRITICAL WARNING: {len(excluded_benchmarks)} benchmarks excluded due to "
+            f"insufficient overlap (N < {min_overlap}): {excluded_benchmarks}"
+        )
     
-    with open(overlap_stats_path, 'w', encoding='utf-8') as f:
-        json.dump(overlap_stats_json, f, indent=2, ensure_ascii=False)
+    # Reset index to make model_name a column
+    df_master = df_master.reset_index()
+    df_master = df_master.rename(columns={'index': 'model_name'})
     
-    print(f"\nSaved overlap statistics to {overlap_stats_path}")
-    
-    # Add model_name column for CSV output (index as column)
-    df_master_output = df_master.reset_index()
-    df_master_output.rename(columns={'index': 'model_name'}, inplace=True)
-    
-    # Ensure proper column order: model_name, then ELO columns, then benchmark columns
-    elo_columns = [col for col in df_master_output.columns if col.startswith('elo_')]
-    benchmark_columns = [col for col in df_master_output.columns 
-                        if col not in ['model_name'] + elo_columns]
-    
-    # Sort benchmark columns by benchmark_id (alphabetically)
-    benchmark_columns_sorted = sorted(benchmark_columns, key=lambda x: x.split('_')[0])
-    
-    column_order = ['model_name'] + elo_columns + benchmark_columns_sorted
-    df_master_output = df_master_output[column_order]
-    
-    # Save master table
-    output_dir.mkdir(parents=True, exist_ok=True)
-    master_table_path = output_dir / "master_correlation_matrix.csv"
-    df_master_output.to_csv(master_table_path, index=False, na_rep='NaN')
-    
-    print(f"Saved master table to {master_table_path}")
-    print(f"Master table shape: {df_master_output.shape}")
-    print(f"Columns: {len(df_master_output.columns)} (1 model_name + {len(elo_columns)} ELO + {len(benchmark_columns)} benchmark columns)")
+    return df_master, overlap_stats
 
 
-if __name__ == "__main__":
-    # Paths
+def main():
+    """Main execution function."""
+    # Define paths
     base_dir = Path(__file__).parent.parent.parent
-    data_dir = base_dir / "data" / "processed" / "cleaned"
+    cleaned_data_dir = base_dir / "data" / "processed" / "cleaned"
     metadata_path = base_dir / "data" / "metadata.json"
-    lmarena_models_path = base_dir / "data" / "processed" / "model_extraction" / "lmarena_models.json"
     output_dir = base_dir / "data" / "processed" / "master_table"
     results_dir = base_dir / "results"
     
-    build_master_table(
-        data_dir=data_dir,
+    # Create output directories
+    output_dir.mkdir(parents=True, exist_ok=True)
+    results_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Build master table
+    logger.info("Starting master table construction...")
+    df_master, overlap_stats = build_master_table(
+        cleaned_data_dir=cleaned_data_dir,
         metadata_path=metadata_path,
-        lmarena_models_path=lmarena_models_path,
         output_dir=output_dir,
-        results_dir=results_dir
+        results_dir=results_dir,
+        min_overlap=6
     )
+    
+    # Save master table
+    output_path = output_dir / "master_correlation_matrix.csv"
+    df_master.to_csv(output_path, index=False, na_rep='NaN')
+    logger.info(f"Saved master table to {output_path}")
+    logger.info(f"Master table shape: {df_master.shape}")
+    
+    # Save overlap statistics
+    stats_path = results_dir / "data_overlap_stats.json"
+    
+    # Add schema and format for JSON output
+    output_stats = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object",
+        "description": "Overlap statistics for each benchmark, indicating how many models from the Study Universe have scores in that benchmark",
+        "study_universe_size": overlap_stats[list(overlap_stats.keys())[0]]['study_universe_size'] if overlap_stats else 0,
+        "benchmarks": overlap_stats
+    }
+    
+    with open(stats_path, 'w', encoding='utf-8') as f:
+        json.dump(output_stats, f, indent=2, ensure_ascii=False)
+    
+    logger.info(f"Saved overlap statistics to {stats_path}")
+    
+    # Print summary
+    included_count = sum(1 for stats in overlap_stats.values() if stats.get('included', False))
+    excluded_count = len(overlap_stats) - included_count
+    
+    logger.info(f"\n=== Master Table Construction Summary ===")
+    logger.info(f"Total benchmarks processed: {len(overlap_stats)}")
+    logger.info(f"Benchmarks included (N >= 6): {included_count}")
+    logger.info(f"Benchmarks excluded (N < 6): {excluded_count}")
+    logger.info(f"Study Universe size: {overlap_stats[list(overlap_stats.keys())[0]]['study_universe_size'] if overlap_stats else 0}")
+    logger.info(f"Master table shape: {df_master.shape}")
+
+
+if __name__ == "__main__":
+    main()
 
