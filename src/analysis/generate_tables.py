@@ -124,11 +124,19 @@ def create_results_table_spearman(report: dict, output_path: Path):
         latex_str = df_table.to_latex(
             index=False,
             float_format='%.3f',
-            caption='Hypothesis Test Results (Spearman ρ)',
-            label='tab:results_spearman',
             column_format='lrrrrr',
-            escape=True
+            escape=True,
+            longtable=True
         )
+        # Remove caption and label lines
+        lines = latex_str.split('\n')
+        filtered_lines = []
+        for line in lines:
+            if '\\caption' not in line and '\\label' not in line:
+                filtered_lines.append(line)
+        latex_str = '\n'.join(filtered_lines)
+        # Add bottom rule before \end{longtable}
+        latex_str = latex_str.replace('\\end{longtable}', '\\bottomrule\n\\end{longtable}')
         f.write(latex_str)
     
     logger.info("Table saved successfully")
@@ -205,11 +213,19 @@ def create_results_table_kendall(report: dict, output_path: Path):
         latex_str = df_table.to_latex(
             index=False,
             float_format='%.3f',
-            caption='Hypothesis Test Results (Kendall τ)',
-            label='tab:results_kendall',
             column_format='lrrrrr',
-            escape=True
+            escape=True,
+            longtable=True
         )
+        # Remove caption and label lines
+        lines = latex_str.split('\n')
+        filtered_lines = []
+        for line in lines:
+            if '\\caption' not in line and '\\label' not in line:
+                filtered_lines.append(line)
+        latex_str = '\n'.join(filtered_lines)
+        # Add bottom rule before \end{longtable}
+        latex_str = latex_str.replace('\\end{longtable}', '\\bottomrule\n\\end{longtable}')
         f.write(latex_str)
     
     logger.info("Table saved successfully")
@@ -276,11 +292,19 @@ def create_results_table_rbo(report: dict, output_path: Path):
         latex_str = df_table.to_latex(
             index=False,
             float_format='%.3f',
-            caption='Hypothesis Test Results (RBO)',
-            label='tab:results_rbo',
             column_format='lrrrr',
-            escape=True
+            escape=True,
+            longtable=True
         )
+        # Remove caption and label lines
+        lines = latex_str.split('\n')
+        filtered_lines = []
+        for line in lines:
+            if '\\caption' not in line and '\\label' not in line:
+                filtered_lines.append(line)
+        latex_str = '\n'.join(filtered_lines)
+        # Add bottom rule before \end{longtable}
+        latex_str = latex_str.replace('\\end{longtable}', '\\bottomrule\n\\end{longtable}')
         f.write(latex_str)
     
     logger.info("Table saved successfully")
@@ -302,24 +326,16 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
                        'Spearman CI Lower', 'Spearman CI Upper',
                        'Kendall τ', 'Kendall p-value',
                        'Kendall CI Lower', 'Kendall CI Upper',
-                       'RBO', 'Sample Size (N)']
+                       'RBO', 'N']
     
-    # Format correlation coefficients
-    df_table['Spearman ρ'] = df_table['Spearman ρ'].apply(
-        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
-    )
-    df_table['Kendall τ'] = df_table['Kendall τ'].apply(
-        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
-    )
-    df_table['RBO'] = df_table['RBO'].apply(
-        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
-    )
+    # Simplify Category names
+    df_table['Category'] = df_table['Category'].replace({
+        'Instruction Following': 'IF',
+        'Hard Prompts': 'HP',
+        'Creative Writing': 'CW'
+    })
     
-    # Format p-values
-    df_table['Spearman p-value'] = df_table['Spearman p-value'].apply(format_pvalue)
-    df_table['Kendall p-value'] = df_table['Kendall p-value'].apply(format_pvalue)
-    
-    # Format CIs
+    # Format CIs before creating final dataframe
     df_table['Spearman CI'] = df_table.apply(
         lambda row: f"[{row['Spearman CI Lower']:.3f}, {row['Spearman CI Upper']:.3f}]"
         if pd.notna(row['Spearman CI Lower']) and pd.notna(row['Spearman CI Upper']) else "N/A",
@@ -331,22 +347,105 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
         axis=1
     )
     
-    # Select final columns (include Category after Benchmark ID)
+    # Select final columns (keep original numeric values for styling)
     df_final = df_table[['Benchmark ID', 'Category', 'Spearman ρ', 'Spearman CI', 'Spearman p-value',
                          'Kendall τ', 'Kendall CI', 'Kendall p-value',
-                         'RBO', 'Sample Size (N)']].copy()
+                         'RBO', 'N']].copy()
+    
+    # Create a function to bold minimum values
+    def bold_minimum(series):
+        """Return bold style for minimum value in series."""
+        # Filter out NaN values
+        numeric_values = pd.to_numeric(series, errors='coerce')
+        valid_mask = ~pd.isna(numeric_values)
+        if valid_mask.sum() == 0:
+            return [''] * len(series)
+        
+        min_val = numeric_values[valid_mask].min()
+        # Return CSS string for LaTeX conversion
+        return ['font-weight: bold;' if pd.notna(val) and val == min_val else '' 
+                for val in numeric_values]
+    
+    # Create a function to italicize non-significant p-values
+    def italicize_nonsignificant(series):
+        """Return italic style for non-significant p-values (p > 0.05)."""
+        numeric_values = pd.to_numeric(series, errors='coerce')
+        return ['font-style: italic;' if pd.notna(val) and val > 0.05 else '' 
+                for val in numeric_values]
+    
+    # Create a function to italicize benchmark names where both p-values are non-significant
+    def italicize_benchmark_name(series):
+        """Return italic style for benchmark names where both p-values are non-significant."""
+        # Get the corresponding p-values from df_final (same order as series)
+        spearman_pvals = df_final['Spearman p-value'].values
+        kendall_pvals = df_final['Kendall p-value'].values
+        
+        styles = []
+        for i in range(len(series)):
+            spearman_p = spearman_pvals[i] if i < len(spearman_pvals) else np.nan
+            kendall_p = kendall_pvals[i] if i < len(kendall_pvals) else np.nan
+            
+            # Check if both p-values are non-significant (p > 0.05)
+            # Both must be valid numbers and both > 0.05
+            both_nonsig = (
+                pd.notna(spearman_p) and spearman_p > 0.05 and
+                pd.notna(kendall_p) and kendall_p > 0.05
+            )
+            
+            styles.append('font-style: italic;' if both_nonsig else '')
+        return styles
+    
+    # Create Styler and apply formatting
+    styler = df_final.style.hide(axis='index')
+    
+    # Bold minimum values for Spearman ρ, Kendall τ, and RBO columns
+    styler = styler.apply(bold_minimum, subset=['Spearman ρ'], axis=0)
+    styler = styler.apply(bold_minimum, subset=['Kendall τ'], axis=0)
+    styler = styler.apply(bold_minimum, subset=['RBO'], axis=0)
+    
+    # Italicize non-significant p-values
+    styler = styler.apply(italicize_nonsignificant, subset=['Spearman p-value'], axis=0)
+    styler = styler.apply(italicize_nonsignificant, subset=['Kendall p-value'], axis=0)
+    
+    # Italicize benchmark names where both p-values are non-significant
+    styler = styler.apply(italicize_benchmark_name, subset=['Benchmark ID'], axis=0)
+    
+    # Format correlation coefficients
+    styler = styler.format({
+        'Spearman ρ': lambda x: f"{x:.3f}" if pd.notna(x) else "N/A",
+        'Kendall τ': lambda x: f"{x:.3f}" if pd.notna(x) else "N/A",
+        'RBO': lambda x: f"{x:.3f}" if pd.notna(x) else "N/A",
+        'Spearman p-value': format_pvalue,
+        'Kendall p-value': format_pvalue
+    })
     
     # Save to LaTeX
     logger.info(f"Saving table to {output_path}")
     with open(output_path, 'w', encoding='utf-8') as f:
-        latex_str = df_final.to_latex(
-            index=False,
-            caption='Correlation Summary for All Benchmarks',
-            label='tab:correlation_summary',
+        latex_str = styler.to_latex(
             column_format='llrrrrrrrr',
-            escape=True,
-            longtable=True
+            environment='longtable',
+            convert_css=True,
+            hrules=True
         )
+        # Remove caption and label lines
+        lines = latex_str.split('\n')
+        filtered_lines = []
+        for line in lines:
+            if '\\caption' not in line and '\\label' not in line:
+                filtered_lines.append(line)
+        latex_str = '\n'.join(filtered_lines)
+        # Simplify column headers: Spearman ρ -> ρ, Kendall τ -> τ
+        latex_str = latex_str.replace('Spearman ρ', '$\\rho$')
+        latex_str = latex_str.replace('Kendall τ', '$\\tau$')
+        latex_str = latex_str.replace('Spearman p-value', 'p-value')
+        latex_str = latex_str.replace('Kendall p-value', 'p-value')
+        latex_str = latex_str.replace('Spearman CI', 'Spearman CI')
+        latex_str = latex_str.replace('Kendall CI', 'Kendall CI')
+        # Center the table with slight left shift
+        latex_str = latex_str.replace('\\begin{longtable}', '\\setlength{\\LTleft}{-0.5cm}\n\\begin{longtable}')
+        # Add bottom rule before \end{longtable}
+        latex_str = latex_str.replace('\\end{longtable}', '\\bottomrule\n\\end{longtable}')
         f.write(latex_str)
     
     logger.info("Table saved successfully")

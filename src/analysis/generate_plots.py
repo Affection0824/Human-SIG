@@ -31,6 +31,7 @@ from datetime import datetime
 from scipy import stats
 from scipy.stats import pearsonr
 import logging
+import shutil
 try:
     from adjustText import adjust_text
     HAS_ADJUST_TEXT = True
@@ -66,6 +67,31 @@ def load_hypothesis_results(results_path: Path) -> dict:
     import json
     with open(results_path, 'r', encoding='utf-8') as f:
         return json.load(f)
+
+
+def get_metric_info(metric: str):
+    """Get metric information for plotting."""
+    metric_map = {
+        'spearman_rho': {
+            'column': 'spearman_rho',
+            'ylabel': 'Spearman ρ',
+            'metric_name': 'Spearman',
+            'metric_symbol': 'ρ'
+        },
+        'kendall_tau': {
+            'column': 'kendall_tau',
+            'ylabel': 'Kendall τ',
+            'metric_name': 'Kendall',
+            'metric_symbol': 'τ'
+        },
+        'rbo': {
+            'column': 'rbo',
+            'ylabel': 'RBO',
+            'metric_name': 'RBO',
+            'metric_symbol': 'RBO'
+        }
+    }
+    return metric_map.get(metric, metric_map['spearman_rho'])
 
 
 def figure_0_swe_bench_illustration(output_dir: Path):
@@ -206,10 +232,14 @@ def figure_0_swe_bench_illustration(output_dir: Path):
     logger.info(f"Saved Figure 0 to {output_path}")
 
 
-def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 1: Task Type Comparison (H1)."""
-    logger.info("Generating Figure 1: Spearman rho by Task Type")
-    print("Generating boxplot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+def figure_task_type(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 1):
+    """Generate Task Type Comparison (H1) for different metrics."""
+    metric_info = get_metric_info(metric)
+    metric_col = metric_info['column']
+    ylabel = metric_info['ylabel']
+    metric_name = metric_info['metric_name']
+    
+    logger.info(f"Generating Figure {figure_num}: {metric_name} by Task Type")
     
     # Filter out "Mixed" task types
     df_filtered = df[df['task_type'] != 'Mixed'].copy()
@@ -224,42 +254,33 @@ def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
     n_gen = len(df_filtered[df_filtered['task_type_grouped'] == 'Generative'])
     
     # Get medians
-    median_mcq = df_filtered[df_filtered['task_type_grouped'] == 'MCQ']['spearman_rho'].median()
-    median_gen = df_filtered[df_filtered['task_type_grouped'] == 'Generative']['spearman_rho'].median()
-    
-    # Print actual values
-    print("Generating boxplot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    print("  Data values (task_type_grouped, spearman_rho):")
-    for idx, row in df_filtered.iterrows():
-        print(f"    {row['task_type_grouped']}, {row['spearman_rho']:.4f}")
+    median_mcq = df_filtered[df_filtered['task_type_grouped'] == 'MCQ'][metric_col].median()
+    median_gen = df_filtered[df_filtered['task_type_grouped'] == 'Generative'][metric_col].median()
     
     fig, ax = plt.subplots(figsize=(10, 7))
     
     # Boxplot with different light colors for each category
     palette = {'MCQ': 'lightblue', 'Generative': 'lightgreen'}
-    sns.boxplot(data=df_filtered, x='task_type_grouped', y='spearman_rho', ax=ax, 
+    sns.boxplot(data=df_filtered, x='task_type_grouped', y=metric_col, ax=ax, 
                 order=['MCQ', 'Generative'], width=0.6, palette=palette)
     
     # Stripplot with matching colors for each category
-    # Create separate stripplots for each category with matching colors
     for task_type in ['MCQ', 'Generative']:
         data_subset = df_filtered[df_filtered['task_type_grouped'] == task_type]
         if len(data_subset) > 0:
             x_pos = 0 if task_type == 'MCQ' else 1
             x_coords = np.random.normal(x_pos, 0.1, len(data_subset))
-            ax.scatter(x_coords, data_subset['spearman_rho'], 
+            ax.scatter(x_coords, data_subset[metric_col], 
                       color=palette[task_type], alpha=0.7, s=80, edgecolors='black', linewidth=0.5, zorder=3)
     
     ax.set_xlabel('Task Type', fontsize=20)
-    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.set_ylabel(ylabel, fontsize=20)
     ax.tick_params(labelsize=18)
-    # NO TITLE (as per requirements)
     
-    # Add annotations OUTSIDE the plot area (below x-axis) to avoid overlapping with plot
+    # Add annotations OUTSIDE the plot area (below x-axis)
     y_min = ax.get_ylim()[0]
     y_range = ax.get_ylim()[1] - y_min
     
-    # Position annotations below the plot area
     ax.text(0, y_min - y_range * 0.15, f'Median: {median_mcq:.3f}\nN={n_mcq}', 
             ha='center', va='top', fontsize=16, 
             bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'))
@@ -267,114 +288,131 @@ def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
             ha='center', va='top', fontsize=16,
             bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'))
     
-    # Adjust ylim to accommodate annotations below
     ax.set_ylim(y_min - y_range * 0.25, ax.get_ylim()[1])
     
-    output_path = output_dir / "Figure_1_Task_Type.pdf"
+    # Determine output filename
+    if metric == 'spearman_rho':
+        filename = f"Figure_{figure_num}_Task_Type.pdf"
+    elif metric == 'kendall_tau':
+        filename = f"Figure_{figure_num}_Task_Type_Kendall.pdf"
+    else:  # rbo
+        filename = f"Figure_{figure_num}_Task_Type_RBO.pdf"
+    
+    output_path = output_dir / filename
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure 1 to {output_path}")
+    logger.info(f"Saved Figure {figure_num} to {output_path}")
 
 
-def figure_2_scale(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 2: Scale Effect (H2)."""
-    logger.info("Generating scatter plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 1: Task Type Comparison (H1) using Spearman rho."""
+    figure_task_type(df, output_dir, 'spearman_rho', 1)
+
+
+def figure_scale(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 2):
+    """Generate Scale Effect (H2) for different metrics."""
+    metric_info = get_metric_info(metric)
+    metric_col = metric_info['column']
+    ylabel = metric_info['ylabel']
+    metric_name = metric_info['metric_name']
+    
+    logger.info(f"Generating Figure {figure_num}: Scale Effect with {metric_name}")
     
     df_plot = df.copy()
     df_plot['log_question_count'] = np.log(df_plot['question_count'])
     
     # Calculate correlation
-    df_clean = df_plot[['log_question_count', 'spearman_rho']].dropna()
+    df_clean = df_plot[['log_question_count', metric_col]].dropna()
     if len(df_clean) > 0:
-        corr, p_val = pearsonr(df_clean['log_question_count'], df_clean['spearman_rho'])
+        corr, p_val = pearsonr(df_clean['log_question_count'], df_clean[metric_col])
     else:
         corr, p_val = np.nan, np.nan
     
-    # Print actual values
-    print("Generating scatter plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    print("  Data values (log_question_count, spearman_rho):")
-    for idx, row in df_clean.iterrows():
-        print(f"    {row['log_question_count']:.4f}, {row['spearman_rho']:.4f}")
-    
     fig, ax = plt.subplots(figsize=(8, 6))
     
-    # Regression line (draw first, lower zorder)
-    sns.regplot(data=df_plot, x='log_question_count', y='spearman_rho', ax=ax,
+    # Regression line
+    sns.regplot(data=df_plot, x='log_question_count', y=metric_col, ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
     
-    # Scatter plot - points on top (highest zorder)
-    ax.scatter(df_plot['log_question_count'], df_plot['spearman_rho'], 
+    # Scatter plot
+    ax.scatter(df_plot['log_question_count'], df_plot[metric_col], 
                alpha=0.6, s=60, edgecolors='black', linewidth=0.5, zorder=5)
     
-    # Add benchmark labels with larger font, using adjust_text to avoid overlap
-    # Text annotations with lower zorder so points are visible on top
+    # Add benchmark labels
     texts = []
     for idx, row in df_plot.iterrows():
-        if pd.notna(row['log_question_count']) and pd.notna(row['spearman_rho']):
+        if pd.notna(row['log_question_count']) and pd.notna(row[metric_col]):
             texts.append(ax.annotate(row['benchmark_id'], 
-                       (row['log_question_count'], row['spearman_rho']),
+                       (row['log_question_count'], row[metric_col]),
                        fontsize=12, alpha=0.7, zorder=4))
     
-    # Use adjust_text to avoid overlapping annotations
     if HAS_ADJUST_TEXT and texts:
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Scale (log-transformed question count)', fontsize=20)
-    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.set_ylabel(ylabel, fontsize=20)
     ax.tick_params(labelsize=18)
-    # NO TITLE (as per requirements)
     
-    # Add annotations with larger font in bottom left corner
+    # Add annotations
     n = len(df_clean)
     p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
     annotation_text = f'r = {corr:.3f}, p = {p_str}\nN = {n}'
     ax.text(0.05, 0.05, annotation_text, transform=ax.transAxes,
             fontsize=16, verticalalignment='bottom', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
-    output_path = output_dir / "Figure_2_Scale.pdf"
+    # Determine output filename
+    if metric == 'spearman_rho':
+        filename = f"Figure_{figure_num}_Scale.pdf"
+    elif metric == 'kendall_tau':
+        filename = f"Figure_{figure_num}_Scale_Kendall.pdf"
+    else:  # rbo
+        filename = f"Figure_{figure_num}_Scale_RBO.pdf"
+    
+    output_path = output_dir / filename
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure 2 to {output_path}")
+    logger.info(f"Saved Figure {figure_num} to {output_path}")
 
 
-def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 3: Complexity Categories (H3)."""
-    logger.info("Generating boxplot using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+def figure_2_scale(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 2: Scale Effect (H2) using Spearman rho."""
+    figure_scale(df, output_dir, 'spearman_rho', 2)
+
+
+def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 3):
+    """Generate Complexity Categories (H3) for different metrics."""
+    metric_info = get_metric_info(metric)
+    metric_col = metric_info['column']
+    ylabel = metric_info['ylabel']
+    metric_name = metric_info['metric_name']
     
-    # Order categories
+    logger.info(f"Generating Figure {figure_num}: Complexity Categories with {metric_name}")
+    
     category_order = ['Short', 'Medium', 'Long', 'Extreme']
-    
-    # Print actual values
-    print("Generating boxplot using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    print("  Data values (prompt_length, spearman_rho):")
-    for idx, row in df.iterrows():
-        if pd.notna(row['prompt_length']) and pd.notna(row['spearman_rho']):
-            print(f"    {row['prompt_length']}, {row['spearman_rho']:.4f}")
     
     fig, ax = plt.subplots(figsize=(10, 6))
     
-    # Boxplot with different light colors for each category
+    # Boxplot
     palette = {'Short': 'lightblue', 'Medium': 'lightgreen', 'Long': 'lightcoral', 'Extreme': 'lightyellow'}
-    sns.boxplot(data=df, x='prompt_length', y='spearman_rho', ax=ax, order=category_order, width=0.6, palette=palette)
+    sns.boxplot(data=df, x='prompt_length', y=metric_col, ax=ax, order=category_order, width=0.6, palette=palette)
     
-    # Stripplot with matching colors for each category
+    # Stripplot
     for i, cat in enumerate(category_order):
         data_subset = df[df['prompt_length'] == cat]
         if len(data_subset) > 0:
             x_coords = np.random.normal(i, 0.1, len(data_subset))
-            ax.scatter(x_coords, data_subset['spearman_rho'], 
+            ax.scatter(x_coords, data_subset[metric_col], 
                       color=palette[cat], alpha=0.7, s=80, edgecolors='black', linewidth=0.5, zorder=3)
     
     ax.set_xlabel('Prompt Length', fontsize=20)
-    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.set_ylabel(ylabel, fontsize=20)
     ax.tick_params(labelsize=18)
-    # NO TITLE (as per requirements)
     
-    # Add annotations for sample sizes and medians with larger font
+    # Add annotations
     for i, cat in enumerate(category_order):
-        cat_data = df[df['prompt_length'] == cat]['spearman_rho'].dropna()
+        cat_data = df[df['prompt_length'] == cat][metric_col].dropna()
         if len(cat_data) > 0:
             n = len(cat_data)
             median = cat_data.median()
@@ -382,18 +420,35 @@ def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
                    ha='center', va='top', fontsize=14, 
                    bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
     
-    output_path = output_dir / "Figure_3_Complexity_Categories.pdf"
+    # Determine output filename
+    if metric == 'spearman_rho':
+        filename = f"Figure_{figure_num}_Complexity_Categories.pdf"
+    elif metric == 'kendall_tau':
+        filename = f"Figure_{figure_num}_Complexity_Kendall.pdf"
+    else:  # rbo
+        filename = f"Figure_{figure_num}_Complexity_RBO.pdf"
+    
+    output_path = output_dir / filename
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure 3 to {output_path}")
+    logger.info(f"Saved Figure {figure_num} to {output_path}")
 
 
-def figure_4_recency(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 4: Recency Effect (H4)."""
-    logger.info("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 3: Complexity Categories (H3) using Spearman rho."""
+    figure_complexity(df, output_dir, 'spearman_rho', 3)
+
+
+def figure_recency(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 4):
+    """Generate Recency Effect (H4) for different metrics."""
+    metric_info = get_metric_info(metric)
+    metric_col = metric_info['column']
+    ylabel = metric_info['ylabel']
+    metric_name = metric_info['metric_name']
     
-    # Convert release_date to ordinal
+    logger.info(f"Generating Figure {figure_num}: Recency Effect with {metric_name}")
+    
     reference_date = datetime(2021, 1, 1)
     df_plot = df.copy()
     
@@ -407,129 +462,127 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     df_plot['release_date_ordinal'] = df_plot['release_date'].apply(date_to_ordinal)
     
     # Calculate correlation
-    df_clean = df_plot[['release_date_ordinal', 'spearman_rho']].dropna()
+    df_clean = df_plot[['release_date_ordinal', metric_col]].dropna()
     if len(df_clean) > 0:
-        corr, p_val = stats.spearmanr(df_clean['release_date_ordinal'], df_clean['spearman_rho'])
+        corr, p_val = stats.spearmanr(df_clean['release_date_ordinal'], df_clean[metric_col])
     else:
         corr, p_val = np.nan, np.nan
     
-    # Print actual values
-    print("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
-    print(f"  Data values (release_date_ordinal, spearman_rho):")
-    for idx, row in df_clean.iterrows():
-        print(f"    {row['release_date_ordinal']:.1f}, {row['spearman_rho']:.4f}")
-    
     fig, ax = plt.subplots(figsize=(10, 6))
     
-    # Regression line (draw first, lower zorder)
-    sns.regplot(data=df_plot, x='release_date_ordinal', y='spearman_rho', ax=ax,
+    # Regression line
+    sns.regplot(data=df_plot, x='release_date_ordinal', y=metric_col, ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
     
-    # Scatter plot - points on top (highest zorder)
-    ax.scatter(df_plot['release_date_ordinal'], df_plot['spearman_rho'], 
+    # Scatter plot
+    ax.scatter(df_plot['release_date_ordinal'], df_plot[metric_col], 
                alpha=0.6, s=60, edgecolors='black', linewidth=0.5, zorder=5)
     
-    # Add benchmark labels with larger font, using adjust_text to avoid overlap
-    # Text annotations with lower zorder so points are visible on top
+    # Add benchmark labels
     texts = []
     for idx, row in df_plot.iterrows():
-        if pd.notna(row['release_date_ordinal']) and pd.notna(row['spearman_rho']):
+        if pd.notna(row['release_date_ordinal']) and pd.notna(row[metric_col]):
             texts.append(ax.annotate(row['benchmark_id'], 
-                       (row['release_date_ordinal'], row['spearman_rho']),
+                       (row['release_date_ordinal'], row[metric_col]),
                        fontsize=12, alpha=0.7, zorder=4))
     
-    # Use adjust_text to avoid overlapping annotations
     if HAS_ADJUST_TEXT and texts:
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Recency (Days since 2021-01-01)', fontsize=20)
-    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.set_ylabel(ylabel, fontsize=20)
     ax.tick_params(labelsize=18)
-    # NO TITLE (as per requirements)
     
-    # Add annotations with larger font in bottom left corner
+    # Add annotations
     n = len(df_clean)
     p_str = f"{p_val:.4f}" if pd.notna(p_val) else "N/A"
     annotation_text = f'ρ = {corr:.3f}, p = {p_str}\nN = {n}'
     ax.text(0.02, 0.02, annotation_text, transform=ax.transAxes,
             fontsize=16, verticalalignment='bottom', ha='left', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
-    output_path = output_dir / "Figure_4_Recency.pdf"
+    # Determine output filename
+    if metric == 'spearman_rho':
+        filename = f"Figure_{figure_num}_Recency.pdf"
+    elif metric == 'kendall_tau':
+        filename = f"Figure_{figure_num}_Recency_Kendall.pdf"
+    else:  # rbo
+        filename = f"Figure_{figure_num}_Recency_RBO.pdf"
+    
+    output_path = output_dir / filename
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure 4 to {output_path}")
+    logger.info(f"Saved Figure {figure_num} to {output_path}")
 
 
-def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict):
-    """Generate Figure 5: Difficulty-Variance Joint Effect (H5/H6)."""
-    logger.info("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv), with CV encoded as point size and color")
+def figure_4_recency(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 4: Recency Effect (H4) using Spearman rho."""
+    figure_recency(df, output_dir, 'spearman_rho', 4)
+
+
+def figure_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict, 
+                                metric: str = 'spearman_rho', figure_num: int = 5):
+    """Generate Difficulty-Variance Joint Effect (H5/H6) for different metrics."""
+    metric_info = get_metric_info(metric)
+    metric_col = metric_info['column']
+    ylabel = metric_info['ylabel']
+    metric_name = metric_info['metric_name']
+    
+    logger.info(f"Generating Figure {figure_num}: Difficulty-Variance with {metric_name}")
     
     # Exclude Creative Writing v3
     df_plot = df[df['benchmark_id'] != 'Creative Writing v3'].copy()
-    df_plot = df_plot[df_plot['difficulty'].notna() & df_plot['cv'].notna() & df_plot['spearman_rho'].notna()].copy()
+    df_plot = df_plot[df_plot['difficulty'].notna() & df_plot['cv'].notna() & df_plot[metric_col].notna()].copy()
     
     # Get regression coefficients from hypothesis results
-    beta1_key = 'H6_Difficulty_Beta1_spearman_rho'
-    beta2_key = 'H5_Variance_Beta2_spearman_rho'
+    beta1_key = f'H6_Difficulty_Beta1_{metric_col}'
+    beta2_key = f'H5_Variance_Beta2_{metric_col}'
     beta1 = hypothesis_results.get(beta1_key, {}).get('coefficient', np.nan)
     beta2 = hypothesis_results.get(beta2_key, {}).get('coefficient', np.nan)
     p_beta1 = hypothesis_results.get(beta1_key, {}).get('p_raw', np.nan)
     p_beta2 = hypothesis_results.get(beta2_key, {}).get('p_raw', np.nan)
     
-    # Print actual values
-    print("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv), with CV as point size")
-    print("  Data values (difficulty, spearman_rho, cv):")
-    for idx, row in df_plot.iterrows():
-        print(f"    {row['difficulty']:.4f}, {row['spearman_rho']:.4f}, {row['cv']:.4f}")
-    
     fig, ax = plt.subplots(figsize=(10, 7))
     
-    # Regression line (draw first, lower zorder)
-    sns.regplot(data=df_plot, x='difficulty', y='spearman_rho', ax=ax,
+    # Regression line
+    sns.regplot(data=df_plot, x='difficulty', y=metric_col, ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
     
-    # Scatter plot with size and color encoding - points on top (highest zorder)
-    scatter = ax.scatter(df_plot['difficulty'], df_plot['spearman_rho'],
-                        s=df_plot['cv'] * 200,  # Scale CV for visibility
+    # Scatter plot with size and color encoding
+    scatter = ax.scatter(df_plot['difficulty'], df_plot[metric_col],
+                        s=df_plot['cv'] * 200,
                         c=df_plot['cv'], cmap='viridis', alpha=0.6,
                         edgecolors='black', linewidth=0.5, zorder=5)
     
-    # Add benchmark labels with larger font, using adjust_text to avoid overlap
-    # Text annotations with lower zorder so points are visible on top
+    # Add benchmark labels
     texts = []
     for idx, row in df_plot.iterrows():
         texts.append(ax.annotate(row['benchmark_id'], 
-                   (row['difficulty'], row['spearman_rho']),
+                   (row['difficulty'], row[metric_col]),
                    fontsize=12, alpha=0.7, zorder=4))
     
-    # Use adjust_text to avoid overlapping annotations
     if HAS_ADJUST_TEXT and texts:
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Difficulty (Easy → Hard)', fontsize=20)
-    ax.set_ylabel('Spearman ρ', fontsize=20)
+    ax.set_ylabel(ylabel, fontsize=20)
     ax.tick_params(labelsize=18)
-    # NO TITLE (as per requirements)
     
-    # Add colorbar with larger font
+    # Add colorbar
     cbar = plt.colorbar(scatter, ax=ax)
     cbar.set_label('Coefficient of Variation (CV)', fontsize=16)
     cbar.ax.tick_params(labelsize=16)
     
-    # Add size legend (approximate) with larger font, positioned in lower left area of plot
+    # Add size legend
     sizes = [df_plot['cv'].min(), df_plot['cv'].median(), df_plot['cv'].max()]
     legend_elements = [plt.scatter([], [], s=s*200, c='gray', alpha=0.6, edgecolors='black') 
                       for s in sizes]
     labels = [f'CV = {s:.2f}' for s in sizes]
-    # Position legend in lower left area of plot, within axes bounds
-    # bbox_to_anchor=(0.95, 0.35) positions it near right edge but lower, within plot area
-    # loc='center left' means the left edge of the legend box is at the anchor point
     legend = ax.legend(legend_elements, labels, title='Point Size (CV)', 
                       bbox_to_anchor=(0.75, 0.35), loc='center left', fontsize=14, title_fontsize=16)
-    legend.set_zorder(3)  # Set zorder after legend creation
+    legend.set_zorder(3)
     
-    # Add annotations with larger font in bottom right corner
+    # Add annotations
     n = len(df_plot)
     p_beta1_str = f"{p_beta1:.4f}" if pd.notna(p_beta1) else "N/A"
     p_beta2_str = f"{p_beta2:.4f}" if pd.notna(p_beta2) else "N/A"
@@ -539,11 +592,24 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     ax.text(0.98, 0.02, annotation_text, transform=ax.transAxes,
             fontsize=16, verticalalignment='bottom', ha='right', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
-    output_path = output_dir / "Figure_5_Difficulty_Variance.pdf"
+    # Determine output filename
+    if metric == 'spearman_rho':
+        filename = f"Figure_{figure_num}_Difficulty_Variance.pdf"
+    elif metric == 'kendall_tau':
+        filename = f"Figure_{figure_num}_Difficulty_Variance_Kendall.pdf"
+    else:  # rbo
+        filename = f"Figure_{figure_num}_Difficulty_Variance_RBO.pdf"
+    
+    output_path = output_dir / filename
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure 5 to {output_path}")
+    logger.info(f"Saved Figure {figure_num} to {output_path}")
+
+
+def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict):
+    """Generate Figure 5: Difficulty-Variance Joint Effect (H5/H6) using Spearman rho."""
+    figure_difficulty_variance(df, output_dir, hypothesis_results, 'spearman_rho', 5)
 
 
 def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
@@ -643,6 +709,10 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     logger.info(f"Saved Figure 6 to {output_path}")
 
 
+# ============================================================================
+# Additional figures for Kendall tau and RBO (Figures 7-16)
+# ============================================================================
+
 def main():
     """Main execution function."""
     base_dir = Path(__file__).parent.parent.parent  # Human-SIG/
@@ -664,6 +734,7 @@ def main():
     logger.info("Generating all figures...")
     logger.info("="*60)
     
+    # Original figures (Spearman rho)
     figure_0_swe_bench_illustration(output_dir)
     figure_1_task_type(df, output_dir)
     figure_2_scale(df, output_dir)
@@ -671,6 +742,26 @@ def main():
     figure_4_recency(df, output_dir)
     figure_5_difficulty_variance(df, output_dir, hypothesis_results)
     figure_6_confounder_heatmap(df, output_dir)
+    
+    # Kendall tau versions (Figures 7-11)
+    logger.info("\n" + "="*60)
+    logger.info("Generating Kendall tau versions (Figures 7-11)...")
+    logger.info("="*60)
+    figure_task_type(df, output_dir, 'kendall_tau', 7)
+    figure_scale(df, output_dir, 'kendall_tau', 8)
+    figure_complexity(df, output_dir, 'kendall_tau', 9)
+    figure_recency(df, output_dir, 'kendall_tau', 10)
+    figure_difficulty_variance(df, output_dir, hypothesis_results, 'kendall_tau', 11)
+    
+    # RBO versions (Figures 12-16)
+    logger.info("\n" + "="*60)
+    logger.info("Generating RBO versions (Figures 12-16)...")
+    logger.info("="*60)
+    figure_task_type(df, output_dir, 'rbo', 12)
+    figure_scale(df, output_dir, 'rbo', 13)
+    figure_complexity(df, output_dir, 'rbo', 14)
+    figure_recency(df, output_dir, 'rbo', 15)
+    figure_difficulty_variance(df, output_dir, hypothesis_results, 'rbo', 16)
     
     logger.info("\n" + "="*60)
     logger.info("All figures generated successfully!")
