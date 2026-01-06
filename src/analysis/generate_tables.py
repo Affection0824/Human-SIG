@@ -127,7 +127,7 @@ def create_results_table_spearman(report: dict, output_path: Path):
             caption='Hypothesis Test Results (Spearman ρ)',
             label='tab:results_spearman',
             column_format='lrrrrr',
-            escape=False
+            escape=True
         )
         f.write(latex_str)
     
@@ -208,7 +208,7 @@ def create_results_table_kendall(report: dict, output_path: Path):
             caption='Hypothesis Test Results (Kendall τ)',
             label='tab:results_kendall',
             column_format='lrrrrr',
-            escape=False
+            escape=True
         )
         f.write(latex_str)
     
@@ -279,7 +279,7 @@ def create_results_table_rbo(report: dict, output_path: Path):
             caption='Hypothesis Test Results (RBO)',
             label='tab:results_rbo',
             column_format='lrrrr',
-            escape=False
+            escape=True
         )
         f.write(latex_str)
     
@@ -290,15 +290,15 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
     """Create correlation summary table for each benchmark."""
     logger.info("Creating correlation summary table...")
     
-    # Select relevant columns
-    df_table = df[['benchmark_id', 'spearman_rho', 'spearman_pvalue', 
+    # Select relevant columns (include category)
+    df_table = df[['benchmark_id', 'category', 'spearman_rho', 'spearman_pvalue', 
                    'spearman_ci_lower', 'spearman_ci_upper',
                    'kendall_tau', 'kendall_pvalue',
                    'kendall_ci_lower', 'kendall_ci_upper',
                    'rbo', 'sample_size']].copy()
     
     # Rename columns to use spaces
-    df_table.columns = ['Benchmark ID', 'Spearman ρ', 'Spearman p-value',
+    df_table.columns = ['Benchmark ID', 'Category', 'Spearman ρ', 'Spearman p-value',
                        'Spearman CI Lower', 'Spearman CI Upper',
                        'Kendall τ', 'Kendall p-value',
                        'Kendall CI Lower', 'Kendall CI Upper',
@@ -331,8 +331,8 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
         axis=1
     )
     
-    # Select final columns
-    df_final = df_table[['Benchmark ID', 'Spearman ρ', 'Spearman CI', 'Spearman p-value',
+    # Select final columns (include Category after Benchmark ID)
+    df_final = df_table[['Benchmark ID', 'Category', 'Spearman ρ', 'Spearman CI', 'Spearman p-value',
                          'Kendall τ', 'Kendall CI', 'Kendall p-value',
                          'RBO', 'Sample Size (N)']].copy()
     
@@ -343,8 +343,8 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
             index=False,
             caption='Correlation Summary for All Benchmarks',
             label='tab:correlation_summary',
-            column_format='lrrrrrrrr',
-            escape=False,
+            column_format='llrrrrrrrr',
+            escape=True,
             longtable=True
         )
         f.write(latex_str)
@@ -373,10 +373,10 @@ def main():
     logger.info("Generating all tables...")
     logger.info("="*60)
     
+    create_correlation_summary_table(df, output_dir / "correlation_summary_table.tex")
     create_results_table_spearman(report, output_dir / "results_table_spearman.tex")
     create_results_table_kendall(report, output_dir / "appendix_results_table_kendall.tex")
     create_results_table_rbo(report, output_dir / "appendix_results_table_rbo.tex")
-    create_correlation_summary_table(df, output_dir / "correlation_summary_table.tex")
     
     logger.info("\n" + "="*60)
     logger.info("All tables generated successfully!")

@@ -68,9 +68,9 @@ def load_metadata(metadata_path: Path) -> Dict[str, Dict]:
     
     # Filter to benchmarks only (exclude meta_info and LMArena entries)
     benchmarks = {
-        entry['benchmark_name']: entry
+        entry['benchmark_id']: entry
         for entry in metadata
-        if isinstance(entry, dict) and 'benchmark_name' in entry and 'elo_column' not in entry
+        if isinstance(entry, dict) and 'benchmark_id' in entry and 'elo_column' not in entry
     }
     
     return benchmarks

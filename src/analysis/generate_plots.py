@@ -125,6 +125,11 @@ def figure_0_swe_bench_illustration(output_dir: Path):
     rank_df = rank_df.sort_values('lmarena_score', ascending=False)  # Higher score = better
     rank_df['lmarena_rank'] = range(1, len(rank_df) + 1)
     
+    # Print actual values
+    print("  Data values (swe_rank, lmarena_rank):")
+    for idx, row in rank_df.iterrows():
+        print(f"    {row['swe_rank']}, {row['lmarena_rank']}")
+    
     # Create scatter plot (wider/flatter)
     fig, ax = plt.subplots(figsize=(12, 7))
     
@@ -222,16 +227,20 @@ def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
     median_mcq = df_filtered[df_filtered['task_type_grouped'] == 'MCQ']['spearman_rho'].median()
     median_gen = df_filtered[df_filtered['task_type_grouped'] == 'Generative']['spearman_rho'].median()
     
+    # Print actual values
+    print("Generating boxplot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    print("  Data values (task_type_grouped, spearman_rho):")
+    for idx, row in df_filtered.iterrows():
+        print(f"    {row['task_type_grouped']}, {row['spearman_rho']:.4f}")
+    
     fig, ax = plt.subplots(figsize=(10, 7))
     
     # Boxplot with different light colors for each category
     palette = {'MCQ': 'lightblue', 'Generative': 'lightgreen'}
-    print("Generating boxplot using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     sns.boxplot(data=df_filtered, x='task_type_grouped', y='spearman_rho', ax=ax, 
                 order=['MCQ', 'Generative'], width=0.6, palette=palette)
     
     # Stripplot with matching colors for each category
-    print("Generating stripplot (overlaid) using data: Task Type (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     # Create separate stripplots for each category with matching colors
     for task_type in ['MCQ', 'Generative']:
         data_subset = df_filtered[df_filtered['task_type_grouped'] == task_type]
@@ -282,15 +291,19 @@ def figure_2_scale(df: pd.DataFrame, output_dir: Path):
     else:
         corr, p_val = np.nan, np.nan
     
+    # Print actual values
+    print("Generating scatter plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    print("  Data values (log_question_count, spearman_rho):")
+    for idx, row in df_clean.iterrows():
+        print(f"    {row['log_question_count']:.4f}, {row['spearman_rho']:.4f}")
+    
     fig, ax = plt.subplots(figsize=(8, 6))
     
     # Regression line (draw first, lower zorder)
-    print("Generating regression plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     sns.regplot(data=df_plot, x='log_question_count', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
     
     # Scatter plot - points on top (highest zorder)
-    print("Generating scatter plot using data: log(question_count) (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     ax.scatter(df_plot['log_question_count'], df_plot['spearman_rho'], 
                alpha=0.6, s=60, edgecolors='black', linewidth=0.5, zorder=5)
     
@@ -333,15 +346,20 @@ def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
     # Order categories
     category_order = ['Short', 'Medium', 'Long', 'Extreme']
     
+    # Print actual values
+    print("Generating boxplot using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    print("  Data values (prompt_length, spearman_rho):")
+    for idx, row in df.iterrows():
+        if pd.notna(row['prompt_length']) and pd.notna(row['spearman_rho']):
+            print(f"    {row['prompt_length']}, {row['spearman_rho']:.4f}")
+    
     fig, ax = plt.subplots(figsize=(10, 6))
     
     # Boxplot with different light colors for each category
     palette = {'Short': 'lightblue', 'Medium': 'lightgreen', 'Long': 'lightcoral', 'Extreme': 'lightyellow'}
-    print("Generating boxplot using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     sns.boxplot(data=df, x='prompt_length', y='spearman_rho', ax=ax, order=category_order, width=0.6, palette=palette)
     
     # Stripplot with matching colors for each category
-    print("Generating stripplot (overlaid) using data: Prompt Length (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     for i, cat in enumerate(category_order):
         data_subset = df[df['prompt_length'] == cat]
         if len(data_subset) > 0:
@@ -376,7 +394,7 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     logger.info("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     
     # Convert release_date to ordinal
-    reference_date = datetime(2020, 1, 1)
+    reference_date = datetime(2021, 1, 1)
     df_plot = df.copy()
     
     def date_to_ordinal(date_str):
@@ -395,15 +413,19 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     else:
         corr, p_val = np.nan, np.nan
     
+    # Print actual values
+    print("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
+    print(f"  Data values (release_date_ordinal, spearman_rho):")
+    for idx, row in df_clean.iterrows():
+        print(f"    {row['release_date_ordinal']:.1f}, {row['spearman_rho']:.4f}")
+    
     fig, ax = plt.subplots(figsize=(10, 6))
     
     # Regression line (draw first, lower zorder)
-    print("Generating regression plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     sns.regplot(data=df_plot, x='release_date_ordinal', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
     
     # Scatter plot - points on top (highest zorder)
-    print("Generating scatter plot using data: Release Date (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     ax.scatter(df_plot['release_date_ordinal'], df_plot['spearman_rho'], 
                alpha=0.6, s=60, edgecolors='black', linewidth=0.5, zorder=5)
     
@@ -420,7 +442,7 @@ def figure_4_recency(df: pd.DataFrame, output_dir: Path):
     if HAS_ADJUST_TEXT and texts:
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
-    ax.set_xlabel('Recency (Days since 2020-01-01)', fontsize=20)
+    ax.set_xlabel('Recency (Days since 2021-01-01)', fontsize=20)
     ax.set_ylabel('Spearman ρ', fontsize=20)
     ax.tick_params(labelsize=18)
     # NO TITLE (as per requirements)
@@ -455,15 +477,19 @@ def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_
     p_beta1 = hypothesis_results.get(beta1_key, {}).get('p_raw', np.nan)
     p_beta2 = hypothesis_results.get(beta2_key, {}).get('p_raw', np.nan)
     
+    # Print actual values
+    print("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv), with CV as point size")
+    print("  Data values (difficulty, spearman_rho, cv):")
+    for idx, row in df_plot.iterrows():
+        print(f"    {row['difficulty']:.4f}, {row['spearman_rho']:.4f}, {row['cv']:.4f}")
+    
     fig, ax = plt.subplots(figsize=(10, 7))
     
     # Regression line (draw first, lower zorder)
-    print("Generating regression plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv)")
     sns.regplot(data=df_plot, x='difficulty', y='spearman_rho', ax=ax,
                 scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
     
     # Scatter plot with size and color encoding - points on top (highest zorder)
-    print("Generating scatter plot using data: Difficulty (from analysis_ready_data.csv) vs Spearman rho (from analysis_ready_data.csv), with CV as point size")
     scatter = ax.scatter(df_plot['difficulty'], df_plot['spearman_rho'],
                         s=df_plot['cv'] * 200,  # Scale CV for visibility
                         c=df_plot['cv'], cmap='viridis', alpha=0.6,
@@ -528,7 +554,7 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     df_plot = df.copy()
     
     # Convert release_date to ordinal
-    reference_date = datetime(2020, 1, 1)
+    reference_date = datetime(2021, 1, 1)
     def date_to_ordinal(date_str):
         try:
             date_obj = datetime.strptime(date_str, '%Y-%m-%d')
@@ -568,13 +594,17 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     df_corr = pd.DataFrame(corr_data)
     corr_matrix = df_corr.corr()
     
+    # Print actual values
+    print("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
+    print("  Correlation matrix values:")
+    print(corr_matrix.to_string())
+    
     # Increase figure height and adjust width for better vertical label display
     # Add extra space at bottom for note text
     fig, ax = plt.subplots(figsize=(10, 10))
     fig.subplots_adjust(bottom=0.15)  # Add space at bottom for note text
     
     # Heatmap with larger font
-    print("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
     # Use cbar=False to avoid duplicate colorbar, then add it manually
     sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0,
                 square=True, linewidths=0.5, cbar=False, ax=ax,

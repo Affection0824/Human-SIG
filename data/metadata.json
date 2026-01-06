@@ -19,14 +19,14 @@
         "pandas_read_html": "Use pandas.read_html() to directly parse HTML tables from the URL. This method works for static HTML pages that contain <table> elements. Requires: pandas, html5lib, lxml (recommended).",
         "selenium": "Use Selenium WebDriver with Chrome (headless mode) to render JavaScript and extract table HTML, then parse with pandas.read_html(StringIO(html)). This method works for websites that dynamically load content via JavaScript. Requires: selenium, pandas, Chrome browser.",
         "artificial_analysis": "Extract data from Artificial Analysis unified leaderboard table (https://artificialanalysis.ai/leaderboards/models). The user must manually copy the <table> element HTML from the browser inspector, then use pandas.read_html() to parse it and extract individual benchmark columns. The extracted data is saved as CSV files. Requires: pandas, html5lib, lxml (recommended), browser developer tools for manual HTML table copying.",
-        "vals_ai_manual_json": "Load data from a manually copied JSON file from VALS.ai platform. The user must copy JSON data from the webpage source code (which may contain irrelevant information before and after the JSON data) and save it as {benchmark_name}_input.json in the benchmark folder. The script then converts this JSON input to CSV format, and the final output data file {name}_data.csv follows the same format as other benchmarks (model_name and score columns).",
-        "manual": "Load data from a manually downloaded CSV file. The file location is Human-SIG/data/raw/benchmarks_with_data/manual_direct/{benchmark_name}/{name}_data.csv. The user must download or export the CSV file manually from the webpage (e.g., from Kaggle, HuggingFace Spaces, or other platforms) and place it in this location before the agent can process it.",
-        "manual_source_code": "Load data from a manually extracted CSV file. The user must manually extract data from the webpage source code (e.g., by inspecting the HTML/JavaScript source code or using browser developer tools) and save it as {name}_data.csv. The file location is Human-SIG/data/raw/benchmarks_without_data/manual_source_code/{benchmark_name}/{name}_data.csv. This method is used for benchmarks where automated scraping is difficult or not feasible."
+        "vals_ai_manual_json": "Load data from a manually copied JSON file from VALS.ai platform. The user must copy JSON data from the webpage source code (which may contain irrelevant information before and after the JSON data) and save it as {benchmark_id}_input.json in the benchmark folder. The script then converts this JSON input to CSV format, and the final output data file {name}_data.csv follows the same format as other benchmarks (model_name and score columns).",
+        "manual": "Load data from a manually downloaded CSV file. The file location is Human-SIG/data/raw/benchmarks_with_data/manual_direct/{benchmark_id}/{name}_data.csv. The user must download or export the CSV file manually from the webpage (e.g., from Kaggle, HuggingFace Spaces, or other platforms) and place it in this location before the agent can process it.",
+        "manual_source_code": "Load data from a manually extracted CSV file. The user must manually extract data from the webpage source code (e.g., by inspecting the HTML/JavaScript source code or using browser developer tools) and save it as {name}_data.csv. The file location is Human-SIG/data/raw/benchmarks_without_data/manual_source_code/{benchmark_id}/{name}_data.csv. This method is used for benchmarks where automated scraping is difficult or not feasible."
       }
     }
   },
   {
-    "benchmark_name": "AIME",
+    "benchmark_id": "AIME",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Short",
     "question_count": 30,
@@ -37,7 +37,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "FrontierMath Tier 1-3",
+    "benchmark_id": "FrontierMath Tier 1-3",
     "leaderboard_url": "https://epoch.ai/frontiermath",
     "prompt_length": "Long",
     "question_count": 290,
@@ -48,7 +48,7 @@
     "scraping_method": "manual_source_code"
   },
   {
-    "benchmark_name": "FrontierMath Tier 4",
+    "benchmark_id": "FrontierMath Tier 4",
     "leaderboard_url": "https://epoch.ai/frontiermath",
     "prompt_length": "Long",
     "question_count": 48,
@@ -59,7 +59,7 @@
     "scraping_method": "manual_source_code"
   },
   {
-    "benchmark_name": "HMMT (Feb 2025)",
+    "benchmark_id": "HMMT (Feb 2025)",
     "leaderboard_url": "https://llm-stats.com/benchmarks/hmmt-2025",
     "prompt_length": "Short",
     "question_count": 50,
@@ -70,7 +70,7 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "MATH-500",
+    "benchmark_id": "MATH-500",
     "leaderboard_url": "https://www.vals.ai/benchmarks/math500",
     "prompt_length": "Short",
     "question_count": 500,
@@ -81,7 +81,7 @@
     "scraping_method": "vals_ai_manual_json"
   },
   {
-    "benchmark_name": "MGSM",
+    "benchmark_id": "MGSM",
     "leaderboard_url": "https://www.vals.ai/benchmarks/mgsm",
     "prompt_length": "Short",
     "question_count": 2500,
@@ -92,7 +92,7 @@
     "scraping_method": "vals_ai_manual_json"
   },
   {
-    "benchmark_name": "Aider Polyglot",
+    "benchmark_id": "Aider Polyglot",
     "leaderboard_url": "https://aider.chat/docs/leaderboards/",
     "prompt_length": "Extreme",
     "question_count": 225,
@@ -103,7 +103,7 @@
     "scraping_method": "pandas_read_html"
   },
   {
-    "benchmark_name": "HumanEval",
+    "benchmark_id": "HumanEval",
     "leaderboard_url": "https://llm-stats.com/benchmarks/humaneval",
     "prompt_length": "Short",
     "question_count": 164,
@@ -114,7 +114,7 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "IOI",
+    "benchmark_id": "IOI",
     "leaderboard_url": "https://www.vals.ai/benchmarks/ioi",
     "prompt_length": "Medium",
     "question_count": 6,
@@ -125,7 +125,7 @@
     "scraping_method": "vals_ai_manual_json"
   },
   {
-    "benchmark_name": "LiveCodeBench",
+    "benchmark_id": "LiveCodeBench",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Medium",
     "question_count": 454,
@@ -136,7 +136,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "SciCode",
+    "benchmark_id": "SciCode",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Medium",
     "question_count": 338,
@@ -147,7 +147,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "SWE-bench (Verified)",
+    "benchmark_id": "SWE-bench (Verified)",
     "leaderboard_url": "https://llm-stats.com/benchmarks/swe-bench-verified",
     "prompt_length": "Extreme",
     "question_count": 500,
@@ -158,7 +158,7 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "SWE-bench Bash Only",
+    "benchmark_id": "SWE-bench Bash Only",
     "leaderboard_url": "https://www.swebench.com/bash-only.html",
     "prompt_length": "Extreme",
     "question_count": 500,
@@ -169,7 +169,7 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "tau2-Bench Telecom",
+    "benchmark_id": "tau2-Bench Telecom",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Long",
     "question_count": 50,
@@ -180,7 +180,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "Terminal-Bench Hard",
+    "benchmark_id": "Terminal-Bench Hard",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Long",
     "question_count": 47,
@@ -191,7 +191,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "Terminal-Bench v2.0",
+    "benchmark_id": "Terminal-Bench v2.0",
     "leaderboard_url": "https://www.tbench.ai/leaderboard/terminal-bench/2.0?agents=Terminus+2",
     "prompt_length": "Medium",
     "question_count": 100,
@@ -202,7 +202,7 @@
     "scraping_method": "pandas_read_html"
   },
   {
-    "benchmark_name": "IFBench",
+    "benchmark_id": "IFBench",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Medium",
     "question_count": 300,
@@ -213,7 +213,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "IFEval",
+    "benchmark_id": "IFEval",
     "leaderboard_url": "https://llm-stats.com/benchmarks/ifeval",
     "prompt_length": "Medium",
     "question_count": 541,
@@ -224,7 +224,7 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "Creative Writing v3",
+    "benchmark_id": "Creative Writing v3",
     "leaderboard_url": "https://eqbench.com/creative_writing.html",
     "prompt_length": "Medium",
     "question_count": 96,
@@ -235,7 +235,7 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "WritingBench",
+    "benchmark_id": "WritingBench",
     "leaderboard_url": "https://huggingface.co/spaces/WritingBench/WritingBench",
     "prompt_length": "Medium",
     "question_count": 1239,
@@ -246,7 +246,7 @@
     "scraping_method": "manual"
   },
   {
-    "benchmark_name": "AA-LCR",
+    "benchmark_id": "AA-LCR",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Extreme",
     "question_count": 100,
@@ -257,7 +257,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "ARC-AGI-2",
+    "benchmark_id": "ARC-AGI-2",
     "leaderboard_url": "https://arcprize.org/leaderboard",
     "prompt_length": "Short",
     "question_count": 360,
@@ -267,19 +267,9 @@
     "task_type": "Generative",
     "scraping_method": "selenium"
   },
+
   {
-    "benchmark_name": "Arena-Hard (Auto v2.0)",
-    "leaderboard_url": "https://llm-stats.com/benchmarks/arena-hard-v2",
-    "prompt_length": "Medium",
-    "question_count": 750,
-    "question_type": "Open-ended complex queries",
-    "category": "Hard Prompts",
-    "release_date": "2025-04-23",
-    "task_type": "Generative",
-    "scraping_method": "selenium"
-  },
-  {
-    "benchmark_name": "FACTS",
+    "benchmark_id": "FACTS",
     "leaderboard_url": "https://www.kaggle.com/benchmarks/google/facts",
     "prompt_length": "Long",
     "question_count": 1719,
@@ -290,7 +280,7 @@
     "scraping_method": "manual"
   },
   {
-    "benchmark_name": "MMLU-Pro",
+    "benchmark_id": "MMLU-Pro",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Medium",
     "question_count": 12000,
@@ -301,7 +291,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "GPQA",
+    "benchmark_id": "GPQA",
     "leaderboard_url": "https://llm-stats.com/benchmarks/gpqa",
     "prompt_length": "Short",
     "question_count": 448,
@@ -312,7 +302,7 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "GPQA Diamond",
+    "benchmark_id": "GPQA Diamond",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Short",
     "question_count": 198,
@@ -323,7 +313,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "Humanity's Last Exam",
+    "benchmark_id": "Humanity's Last Exam",
     "leaderboard_url": "https://artificialanalysis.ai/leaderboards/models",
     "prompt_length": "Long",
     "question_count": 2500,
@@ -334,7 +324,7 @@
     "scraping_method": "artificial_analysis"
   },
   {
-    "benchmark_name": "SuperGPQA",
+    "benchmark_id": "SuperGPQA",
     "leaderboard_url": "https://supergpqa.github.io/",
     "prompt_length": "Short",
     "question_count": 26529,
@@ -345,49 +335,49 @@
     "scraping_method": "selenium"
   },
   {
-    "benchmark_name": "LMArena-Overall",
+    "benchmark_id": "LMArena-Overall",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text",
     "release_date": "2023-05-03",
     "category": "Overall",
     "elo_column": "elo_overall"
   },
   {
-    "benchmark_name": "LMArena-Math",
+    "benchmark_id": "LMArena-Math",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/math",
     "release_date": "2023-05-03",
     "category": "Math",
     "elo_column": "elo_math"
   },
   {
-    "benchmark_name": "LMArena-Coding",
+    "benchmark_id": "LMArena-Coding",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/coding",
     "release_date": "2023-05-03",
     "category": "Coding",
     "elo_column": "elo_coding"
   },
   {
-    "benchmark_name": "LMArena-Instruction Following",
+    "benchmark_id": "LMArena-Instruction Following",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/instruction-following",
     "release_date": "2023-05-03",
     "category": "Instruction Following",
     "elo_column": "elo_instruction_following"
   },
   {
-    "benchmark_name": "LMArena-Creative Writing",
+    "benchmark_id": "LMArena-Creative Writing",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/creative-writing",
     "release_date": "2023-05-03",
     "category": "Creative Writing",
     "elo_column": "elo_creative_writing"
   },
   {
-    "benchmark_name": "LMArena-Hard Prompts",
+    "benchmark_id": "LMArena-Hard Prompts",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/hard-prompts",
     "release_date": "2023-05-03",
     "category": "Hard Prompts",
     "elo_column": "elo_hard_prompts"
   },
   {
-    "benchmark_name": "LMArena-Expert",
+    "benchmark_id": "LMArena-Expert",
     "leaderboard_url": "https://lmarena.ai/zh/leaderboard/text/expert",
     "release_date": "2023-05-03",
     "category": "Expert",

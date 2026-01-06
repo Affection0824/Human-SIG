@@ -3,13 +3,13 @@ Small-N Hypothesis Testing Script
 
 Purpose:
     This script executes targeted statistical tests for each hypothesis (H1-H6) using
-    methods appropriate for small sample sizes (N=29 benchmarks). Instead of a single
+    methods appropriate for small sample sizes (N=28 benchmarks). Instead of a single
     multivariate regression which lacks statistical power, this script performs:
     - Bootstrapped Univariate Analysis for individual factors
     - Controlled Bivariate Robust Regression to disentangle confounding factors
 
 Why Small-N Protocols:
-    - N=29 is too small for a 6-variable regression (rule of thumb: 10 samples per variable)
+    - N=28 is too small for a 6-variable regression (rule of thumb: 10 samples per variable)
     - Multivariate regression would have insufficient statistical power
     - Targeted tests allow rigorous testing of individual hypotheses while maintaining power
 

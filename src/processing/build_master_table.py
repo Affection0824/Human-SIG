@@ -159,7 +159,7 @@ def get_benchmark_list(metadata_path: Path) -> List[Dict]:
     # Filter out meta_info and LMArena entries (entries with elo_column field)
     benchmarks = [
         entry for entry in metadata
-        if isinstance(entry, dict) and 'benchmark_name' in entry and 'elo_column' not in entry
+        if isinstance(entry, dict) and 'benchmark_id' in entry and 'elo_column' not in entry
     ]
     
     logger.info(f"Found {len(benchmarks)} benchmarks in metadata")
@@ -210,7 +210,7 @@ def build_master_table(
     
     # Merge loop: For each benchmark
     for benchmark_meta in benchmarks:
-        benchmark_id = benchmark_meta['benchmark_name']
+        benchmark_id = benchmark_meta['benchmark_id']
         
         try:
             # Parse benchmark data

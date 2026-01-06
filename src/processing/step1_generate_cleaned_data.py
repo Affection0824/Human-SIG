@@ -437,8 +437,7 @@ def process_benchmark(
         'HumanEval',
         'IFEval',
         'SuperGPQA',
-        'SWE-bench (Verified)',
-        'Arena-Hard (Auto v2.0)'
+        'SWE-bench (Verified)'
     ]
     
     # For FACTS benchmark, only extract rows where Task_Name == Average

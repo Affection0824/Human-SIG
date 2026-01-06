@@ -57,7 +57,7 @@
         "$comment": "Benchmark entry: contains metadata for benchmarks that will be analyzed. These entries do NOT have an 'elo_column' field.",
         "type": "object",
         "properties": {
-          "benchmark_name": {
+          "benchmark_id": {
             "type": "string",
             "$comment": "The name of the benchmark"
           },
@@ -101,14 +101,14 @@
             "$comment": "Data acquisition method. All output data files are named 'data.csv' and stored in the respective method directory under data/raw/. See meta_info.scraping_method_definitions for detailed descriptions."
           }
         },
-        "required": ["benchmark_name", "leaderboard_url", "release_date", "question_count", "question_type", "category", "task_type", "prompt_length", "scraping_method"],
+        "required": ["benchmark_id", "leaderboard_url", "release_date", "question_count", "question_type", "category", "task_type", "prompt_length", "scraping_method"],
         "additionalProperties": false
       },
       {
         "$comment": "LMArena entry: contains metadata for LMArena leaderboard categories (Overall, Coding, Math, etc.). These entries have an 'elo_column' field and are processed using the 'lmarena' method. They should NOT be processed as benchmarks.",
         "type": "object",
         "properties": {
-          "benchmark_name": {
+          "benchmark_id": {
             "type": "string",
             "$comment": "The name of the LMArena category (e.g., 'LMArena (Chatbot Arena) - Overall')"
           },
@@ -133,7 +133,7 @@
             "$comment": "The ELO column name in the master table that corresponds to this LMArena category. This field distinguishes LMArena entries from benchmark entries."
           }
         },
-        "required": ["benchmark_name", "leaderboard_url", "release_date", "category", "elo_column"],
+        "required": ["benchmark_id", "leaderboard_url", "release_date", "category", "elo_column"],
         "additionalProperties": false
       }
     ]

@@ -3,7 +3,7 @@ Advanced Statistical Utility Functions for Small-N Analysis
 
 Purpose:
     This module provides rigorous statistical functions specifically designed for small sample
-    size analysis (N=29 benchmarks). The methods implemented here are appropriate for small-N
+    size analysis (N=28 benchmarks). The methods implemented here are appropriate for small-N
     datasets where standard asymptotic approximations may not hold.
 
 Mathematical Foundations:
