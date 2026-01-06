@@ -19,7 +19,7 @@ This document details the directory structure, file formats, and data scraping w
 2.  **Verify Installation**
 
     ```bash
-    uv run python -c "import pandas, html5lib, lxml, selenium, webdriver_manager, scipy, statsmodels, seaborn, rbo; print('All dependencies installed successfully')"
+    uv run -c "import pandas, html5lib, lxml, selenium, webdriver_manager, scipy, statsmodels, seaborn, rbo; print('All dependencies installed successfully')"
     ```
 
 ## Directory Structure
@@ -276,7 +276,7 @@ The script is self-contained with all necessary utility functions and requires n
     *   Convert to float for ranking calculation
 
     *   **Special handling for FACTS benchmark**: Only extract rows where `Task_Name == "Average"`, use `Numerical_Result` column for scores
-    *   **Score normalization**: For benchmarks using 0-1 scale (FACTS, GPQA, HMMT (Feb 2025), HumanEval, IFEval, SuperGPQA, SWE-bench (Verified), Arena-Hard (Auto v2.0)), multiply scores by 100 to normalize to 0-100 scale
+    *   **Score normalization**: For benchmarks using 0-1 scale (FACTS, GPQA, HMMT (Feb 2025), HumanEval, IFEval, SuperGPQA, SWE-bench (Verified), multiply scores by 100 to normalize to 0-100 scale
 
 6.  **Calculate rankings**:
     *   Sort by score in descending order
@@ -898,7 +898,7 @@ Construct master correlation matrix by merging benchmark scores and ranks with L
 **Execution**:
 ```bash
 cd Human-SIG
-uv run python src/processing/build_master_table.py
+uv run src/processing/build_master_table.py
 ```
 
 ---
@@ -916,7 +916,7 @@ Calculate benchmark features (Difficulty, CV) and correlation metrics (Spearman 
 **Execution**:
 ```bash
 cd Human-SIG
-uv run python src/analysis/compute_features_robust.py
+uv run src/analysis/compute_features_robust.py
 ```
 
 ---
@@ -934,7 +934,7 @@ Execute statistical tests for H1-H6 using three correlation metrics (Spearman ρ
 **Execution**:
 ```bash
 cd Human-SIG
-uv run python src/analysis/small_n_hypothesis_test.py
+uv run src/analysis/small_n_hypothesis_test.py
 ```
 
 ---
@@ -952,45 +952,43 @@ Apply Holm-Bonferroni correction to control family-wise error rate.
 **Execution**:
 ```bash
 cd Human-SIG
-uv run python src/analysis/apply_correction.py
+uv run src/analysis/apply_correction.py
 ```
 
 ---
 
-## Step 8: Generate Figures
+## Step 8: Generate Figures and Tables
 
-**Script**: `src/analysis/generate_plots.py`
+**Script**: `src/analysis/generate_plots_tables.py`
 
-Generate 7 PDF figures for the manuscript. Logs data sources, plot types, and figure descriptions to console.
+Generate all PDF figures and LaTeX tables for the manuscript. This integrated script combines the functionality of generating both figures and tables in a single execution. Logs data sources, plot types, and figure descriptions to console.
 
-**Input**: Analysis-ready data, master table (for Figure 0), hypothesis test results (for Figure 5)
+**Input**: 
+*   Analysis-ready data
+*   Master table (for Figure 0)
+*   Hypothesis test results (for Figure 5)
+*   Statistical significance report (for tables)
 
-**Output**: 
+**Output Figures** (17 PDF files):
 *   `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf` - Comparison of large language model (LLM) ranking in SWE-bench (Verified) and the overall ranking in LMArena-Coding
-*   `../overleaf/images/Figure_1_Task_Type.pdf` - Spearman rho by Task Type (MCQ vs Generative)
-*   `../overleaf/images/Figure_2_Scale.pdf` - Scale effect: log(question_count) vs. Spearman rho
-*   `../overleaf/images/Figure_3_Complexity_Categories.pdf` - Spearman rho by Prompt Length categories (Short, Medium, Long, Extreme)
-*   `../overleaf/images/Figure_4_Recency.pdf` - Recency effect: Release Date vs. Spearman rho
-*   `../overleaf/images/Figure_5_Difficulty_Variance.pdf` - Difficulty-Variance joint effect: Difficulty vs. Spearman rho (with CV encoded as point size and color)
+*   `../overleaf/images/Figure_1_Task_Type.pdf` - Spearman ρ by Task Type (MCQ vs Generative)
+*   `../overleaf/images/Figure_2_Scale.pdf` - Scale effect: log(question_count) vs. Spearman ρ
+*   `../overleaf/images/Figure_3_Complexity_Categories.pdf` - Spearman ρ by Prompt Length categories (Short, Medium, Long, Extreme)
+*   `../overleaf/images/Figure_4_Recency.pdf` - Recency effect: Release Date vs. Spearman ρ
+*   `../overleaf/images/Figure_5_Difficulty_Variance.pdf` - Difficulty-Variance joint effect: Difficulty vs. Spearman ρ (with CV encoded as point size and color)
 *   `../overleaf/images/Figure_6_Confounder_Heatmap.pdf` - Correlation Matrix of Independent Variables
+*   `../overleaf/images/Figure_7_Task_Type_Kendall.pdf` - Kendall τ by Task Type (MCQ vs Generative)
+*   `../overleaf/images/Figure_8_Scale_Kendall.pdf` - Scale effect: log(question_count) vs. Kendall τ
+*   `../overleaf/images/Figure_9_Complexity_Kendall.pdf` - Kendall τ by Prompt Length categories (Short, Medium, Long, Extreme)
+*   `../overleaf/images/Figure_10_Recency_Kendall.pdf` - Recency effect: Release Date vs. Kendall τ
+*   `../overleaf/images/Figure_11_Difficulty_Variance_Kendall.pdf` - Difficulty-Variance joint effect: Difficulty vs. Kendall τ (with CV encoded as point size and color)
+*   `../overleaf/images/Figure_12_Task_Type_RBO.pdf` - RBO by Task Type (MCQ vs Generative)
+*   `../overleaf/images/Figure_13_Scale_RBO.pdf` - Scale effect: log(question_count) vs. RBO
+*   `../overleaf/images/Figure_14_Complexity_RBO.pdf` - RBO by Prompt Length categories (Short, Medium, Long, Extreme)
+*   `../overleaf/images/Figure_15_Recency_RBO.pdf` - Recency effect: Release Date vs. RBO
+*   `../overleaf/images/Figure_16_Difficulty_Variance_RBO.pdf` - Difficulty-Variance joint effect: Difficulty vs. RBO (with CV encoded as point size and color)
 
-**Execution**:
-```bash
-cd Human-SIG
-uv run python src/analysis/generate_plots.py
-```
-
----
-
-## Step 9: Generate Tables
-
-**Script**: `src/analysis/generate_tables.py`
-
-Generate LaTeX tables for the manuscript using `pandas.DataFrame.to_latex()`.
-
-**Input**: Statistical significance report, analysis-ready data (optional)
-
-**Output**:
+**Output Tables** (4 LaTeX files):
 *   `../overleaf/tables/results_table_spearman.tex` - Hypothesis test results summary (Spearman ρ only, for main text)
 *   `../overleaf/tables/appendix_results_table_kendall.tex` - Hypothesis test results summary (Kendall τ only, for appendix)
 *   `../overleaf/tables/appendix_results_table_rbo.tex` - Hypothesis test results summary (RBO only, for appendix)
@@ -999,8 +997,10 @@ Generate LaTeX tables for the manuscript using `pandas.DataFrame.to_latex()`.
 **Execution**:
 ```bash
 cd Human-SIG
-uv run python src/analysis/generate_tables.py
+uv run src/analysis/generate_plots_tables.py
 ```
+
+**Note**: This script generates both figures and tables in a single run, equivalent to running `generate_plots.py` and `generate_tables.py` sequentially.
 
 ---
 
@@ -1012,22 +1012,19 @@ Run all analysis steps in sequence:
 cd Human-SIG
 
 # Step 4: Build Master Table
-uv run python src/processing/build_master_table.py
+uv run src/processing/build_master_table.py
 
 # Step 5: Feature Engineering
-uv run python src/analysis/compute_features_robust.py
+uv run src/analysis/compute_features_robust.py
 
 # Step 6: Hypothesis Testing
-uv run python src/analysis/small_n_hypothesis_test.py
+uv run src/analysis/small_n_hypothesis_test.py
 
 # Step 7: Multiple Comparison Correction
-uv run python src/analysis/apply_correction.py
+uv run src/analysis/apply_correction.py
 
-# Step 8: Generate Figures
-uv run python src/analysis/generate_plots.py
-
-# Step 9: Generate Tables
-uv run python src/analysis/generate_tables.py
+# Step 8: Generate Figures and Tables
+uv run src/analysis/generate_plots_tables.py
 ```
 
 ---
@@ -1041,5 +1038,5 @@ uv run python src/analysis/generate_tables.py
 *   `statistical_significance_report.json` - Corrected results
 
 **Manuscript Files** (`../overleaf/`):
-*   `images/Figure_*.pdf` (7 figures)
+*   `images/Figure_*.pdf` (17 figures: Figure 0-6 for Spearman ρ, Figure 7-11 for Kendall τ, Figure 12-16 for RBO)
 *   `tables/*.tex` (4 tables)

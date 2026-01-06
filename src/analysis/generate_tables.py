@@ -125,8 +125,7 @@ def create_results_table_spearman(report: dict, output_path: Path):
             index=False,
             float_format='%.3f',
             column_format='lrrrrr',
-            escape=True,
-            longtable=True
+            escape=True
         )
         # Remove caption and label lines
         lines = latex_str.split('\n')
@@ -135,8 +134,9 @@ def create_results_table_spearman(report: dict, output_path: Path):
             if '\\caption' not in line and '\\label' not in line:
                 filtered_lines.append(line)
         latex_str = '\n'.join(filtered_lines)
-        # Add bottom rule before \end{longtable}
-        latex_str = latex_str.replace('\\end{longtable}', '\\bottomrule\n\\end{longtable}')
+        # Replace \end{tabular} with \bottomrule\n\end{tabular} if not already present
+        if '\\bottomrule' not in latex_str:
+            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
         f.write(latex_str)
     
     logger.info("Table saved successfully")
@@ -214,8 +214,7 @@ def create_results_table_kendall(report: dict, output_path: Path):
             index=False,
             float_format='%.3f',
             column_format='lrrrrr',
-            escape=True,
-            longtable=True
+            escape=True
         )
         # Remove caption and label lines
         lines = latex_str.split('\n')
@@ -224,8 +223,9 @@ def create_results_table_kendall(report: dict, output_path: Path):
             if '\\caption' not in line and '\\label' not in line:
                 filtered_lines.append(line)
         latex_str = '\n'.join(filtered_lines)
-        # Add bottom rule before \end{longtable}
-        latex_str = latex_str.replace('\\end{longtable}', '\\bottomrule\n\\end{longtable}')
+        # Replace \end{tabular} with \bottomrule\n\end{tabular} if not already present
+        if '\\bottomrule' not in latex_str:
+            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
         f.write(latex_str)
     
     logger.info("Table saved successfully")
@@ -293,8 +293,7 @@ def create_results_table_rbo(report: dict, output_path: Path):
             index=False,
             float_format='%.3f',
             column_format='lrrrr',
-            escape=True,
-            longtable=True
+            escape=True
         )
         # Remove caption and label lines
         lines = latex_str.split('\n')
@@ -303,8 +302,9 @@ def create_results_table_rbo(report: dict, output_path: Path):
             if '\\caption' not in line and '\\label' not in line:
                 filtered_lines.append(line)
         latex_str = '\n'.join(filtered_lines)
-        # Add bottom rule before \end{longtable}
-        latex_str = latex_str.replace('\\end{longtable}', '\\bottomrule\n\\end{longtable}')
+        # Replace \end{tabular} with \bottomrule\n\end{tabular} if not already present
+        if '\\bottomrule' not in latex_str:
+            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
         f.write(latex_str)
     
     logger.info("Table saved successfully")
@@ -424,7 +424,6 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
     with open(output_path, 'w', encoding='utf-8') as f:
         latex_str = styler.to_latex(
             column_format='llrrrrrrrr',
-            environment='longtable',
             convert_css=True,
             hrules=True
         )
@@ -442,10 +441,9 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
         latex_str = latex_str.replace('Kendall p-value', 'p-value')
         latex_str = latex_str.replace('Spearman CI', 'Spearman CI')
         latex_str = latex_str.replace('Kendall CI', 'Kendall CI')
-        # Center the table with slight left shift
-        latex_str = latex_str.replace('\\begin{longtable}', '\\setlength{\\LTleft}{-0.5cm}\n\\begin{longtable}')
-        # Add bottom rule before \end{longtable}
-        latex_str = latex_str.replace('\\end{longtable}', '\\bottomrule\n\\end{longtable}')
+        # Replace \end{tabular} with \bottomrule\n\end{tabular} if not already present
+        if '\\bottomrule' not in latex_str:
+            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
         f.write(latex_str)
     
     logger.info("Table saved successfully")
