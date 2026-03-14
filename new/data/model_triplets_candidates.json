@@ -1,0 +1,671 @@
+[
+  {
+    "models": [
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      }
+    ],
+    "shared_benchmark_count": 19,
+    "shared_benchmarks": [
+      "AIME",
+      "FrontierMath_Tier_1-3",
+      "FrontierMath_Tier_4",
+      "IOI",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "SWE-bench_Bash_Only",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "Terminal-Bench_v2_0",
+      "IFBench",
+      "Creative_Writing_v3",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "gpt-5.1",
+        "elo_overall": 1438.0
+      }
+    ],
+    "shared_benchmark_count": 16,
+    "shared_benchmarks": [
+      "AIME",
+      "IOI",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "Terminal-Bench_v2_0",
+      "IFBench",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "o3-2025-04-16",
+        "elo_overall": 1433.0
+      }
+    ],
+    "shared_benchmark_count": 16,
+    "shared_benchmarks": [
+      "AIME",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "Creative_Writing_v3",
+      "WritingBench",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      },
+      {
+        "name": "gpt-5.1",
+        "elo_overall": 1438.0
+      }
+    ],
+    "shared_benchmark_count": 16,
+    "shared_benchmarks": [
+      "AIME",
+      "MGSM",
+      "IOI",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "Terminal-Bench_v2_0",
+      "IFBench",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
+        "elo_overall": 1450.0
+      },
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      }
+    ],
+    "shared_benchmark_count": 15,
+    "shared_benchmarks": [
+      "AIME",
+      "FrontierMath_Tier_1-3",
+      "FrontierMath_Tier_4",
+      "IOI",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Bash_Only",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
+        "elo_overall": 1450.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      }
+    ],
+    "shared_benchmark_count": 15,
+    "shared_benchmarks": [
+      "AIME",
+      "FrontierMath_Tier_1-3",
+      "FrontierMath_Tier_4",
+      "MGSM",
+      "IOI",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Bash_Only",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      },
+      {
+        "name": "gpt-5.1",
+        "elo_overall": 1438.0
+      }
+    ],
+    "shared_benchmark_count": 15,
+    "shared_benchmarks": [
+      "AIME",
+      "IOI",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "Terminal-Bench_v2_0",
+      "IFBench",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      },
+      {
+        "name": "o3-2025-04-16",
+        "elo_overall": 1433.0
+      }
+    ],
+    "shared_benchmark_count": 15,
+    "shared_benchmarks": [
+      "AIME",
+      "MGSM",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "Creative_Writing_v3",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "gpt-5.1",
+        "elo_overall": 1438.0
+      },
+      {
+        "name": "o3-2025-04-16",
+        "elo_overall": 1433.0
+      }
+    ],
+    "shared_benchmark_count": 15,
+    "shared_benchmarks": [
+      "AIME",
+      "MGSM",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
+        "elo_overall": 1450.0
+      },
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      }
+    ],
+    "shared_benchmark_count": 14,
+    "shared_benchmarks": [
+      "AIME",
+      "FrontierMath_Tier_1-3",
+      "FrontierMath_Tier_4",
+      "IOI",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Bash_Only",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      },
+      {
+        "name": "o3-2025-04-16",
+        "elo_overall": 1433.0
+      }
+    ],
+    "shared_benchmark_count": 14,
+    "shared_benchmarks": [
+      "AIME",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "Creative_Writing_v3",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "gpt-5.1",
+        "elo_overall": 1438.0
+      },
+      {
+        "name": "o3-2025-04-16",
+        "elo_overall": 1433.0
+      }
+    ],
+    "shared_benchmark_count": 14,
+    "shared_benchmarks": [
+      "AIME",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      },
+      {
+        "name": "gpt-5.1",
+        "elo_overall": 1438.0
+      },
+      {
+        "name": "o3-2025-04-16",
+        "elo_overall": 1433.0
+      }
+    ],
+    "shared_benchmark_count": 14,
+    "shared_benchmarks": [
+      "AIME",
+      "MGSM",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Verified",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam",
+      "SuperGPQA"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-opus-4-1-20250805-thinking-16k",
+        "elo_overall": 1448.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "o3-2025-04-16",
+        "elo_overall": 1433.0
+      }
+    ],
+    "shared_benchmark_count": 13,
+    "shared_benchmarks": [
+      "AIME",
+      "MATH-500",
+      "MGSM",
+      "LiveCodeBench",
+      "SciCode",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-opus-4-5-20251101-thinking-32k",
+        "elo_overall": 1469.0
+      },
+      {
+        "name": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
+        "elo_overall": 1450.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      }
+    ],
+    "shared_benchmark_count": 13,
+    "shared_benchmarks": [
+      "AIME",
+      "MGSM",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Bash_Only",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-opus-4-5-20251101-thinking-32k",
+        "elo_overall": 1469.0
+      },
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      }
+    ],
+    "shared_benchmark_count": 13,
+    "shared_benchmarks": [
+      "AIME",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Bash_Only",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "Creative_Writing_v3",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-opus-4-5-20251101-thinking-32k",
+        "elo_overall": 1469.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "glm-4.6",
+        "elo_overall": 1424.0
+      }
+    ],
+    "shared_benchmark_count": 13,
+    "shared_benchmarks": [
+      "AIME",
+      "MGSM",
+      "LiveCodeBench",
+      "SciCode",
+      "SWE-bench_Bash_Only",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "Creative_Writing_v3",
+      "AA-LCR",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-opus-4-5-20251101-thinking-32k",
+        "elo_overall": 1469.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "o3-2025-04-16",
+        "elo_overall": 1433.0
+      }
+    ],
+    "shared_benchmark_count": 13,
+    "shared_benchmarks": [
+      "AIME",
+      "MGSM",
+      "LiveCodeBench",
+      "SciCode",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "Creative_Writing_v3",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
+        "elo_overall": 1450.0
+      },
+      {
+        "name": "gemini-2.5-pro",
+        "elo_overall": 1451.0
+      },
+      {
+        "name": "gpt-5-high",
+        "elo_overall": 1436.0
+      }
+    ],
+    "shared_benchmark_count": 13,
+    "shared_benchmarks": [
+      "AIME",
+      "FrontierMath_Tier_1-3",
+      "FrontierMath_Tier_4",
+      "LiveCodeBench",
+      "SciCode",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "ARC-AGI-2",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  },
+  {
+    "models": [
+      {
+        "name": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
+        "elo_overall": 1450.0
+      },
+      {
+        "name": "gemini-3-pro",
+        "elo_overall": 1490.0
+      },
+      {
+        "name": "gpt-5.1",
+        "elo_overall": 1438.0
+      }
+    ],
+    "shared_benchmark_count": 13,
+    "shared_benchmarks": [
+      "AIME",
+      "MGSM",
+      "IOI",
+      "LiveCodeBench",
+      "SciCode",
+      "tau2-Bench_Telecom",
+      "Terminal-Bench_Hard",
+      "IFBench",
+      "AA-LCR",
+      "FACTS",
+      "MMLU-Pro",
+      "GPQA_Diamond",
+      "Humanity_s_Last_Exam"
+    ]
+  }
+]
