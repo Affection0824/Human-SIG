@@ -428,7 +428,48 @@ def main():
         # Calculate correlations
         logger.info(f"  Calculating correlations for {benchmark_id}...")
         corr_results = calculate_correlations(df_master, benchmark_id, benchmark_meta)
-        logger.info(f"  Completed {benchmark_id}: Spearman ρ = {corr_results['spearman_rho']:.3f}, N = {corr_results['sample_size']}")
+    
+        # --- Experiment 2: Overall Correlation ---
+        # Calculate correlation with elo_overall (in addition to category elo)
+        # This allows comparing category-specific correlation vs general capability correlation
+        logger.debug(f"  Calculating overall correlations for {benchmark_id}...")
+        
+        # Initialize overall correlation variables
+        rho_ov, p_rho_ov = np.nan, np.nan
+        tau_ov, p_tau_ov = np.nan, np.nan
+        rbo_ov = np.nan
+        
+        elo_overall_col = 'elo_overall'
+        col_prefix = sanitize_benchmark_id(benchmark_id)
+        score_col = f"{col_prefix}_score"
+        rank_col = f"{col_prefix}_rank"
+        
+        if elo_overall_col in df_master.columns and score_col in df_master.columns:
+            df_paired_ov = df_master[[score_col, elo_overall_col]].dropna()
+            if len(df_paired_ov) >= 2:
+                bench_scores_ov = df_paired_ov[score_col].values
+                elo_scores_ov = df_paired_ov[elo_overall_col].values
+                
+                rho_ov, p_rho_ov = calculate_spearman_with_pvalue(bench_scores_ov, elo_scores_ov)
+                tau_ov, p_tau_ov = calculate_kendall_with_pvalue(bench_scores_ov, elo_scores_ov)
+                
+                # Calculate RBO with Overall Rank
+                if rank_col in df_master.columns:
+                    df_ranked_ov = df_master[[rank_col, elo_overall_col]].dropna()
+                    if len(df_ranked_ov) > 0:
+                        df_ranked_ov = df_ranked_ov.sort_values(rank_col)
+                        benchmark_ranked_ov = df_ranked_ov.index.tolist()
+                        
+                        df_elo_ranked_ov = df_master[[elo_overall_col]].dropna().sort_values(elo_overall_col, ascending=False)
+                        elo_ranked_ov = df_elo_ranked_ov.index.tolist()
+                        
+                        common_models_ov = set(benchmark_ranked_ov) & set(elo_ranked_ov)
+                        if len(common_models_ov) > 0:
+                            benchmark_ranked_filtered_ov = [m for m in benchmark_ranked_ov if m in common_models_ov]
+                            elo_ranked_filtered_ov = [m for m in elo_ranked_ov if m in common_models_ov]
+                            rbo_ov = calculate_rbo(benchmark_ranked_filtered_ov, elo_ranked_filtered_ov, p=0.9)
+
+        logger.info(f"  Completed {benchmark_id}: Spearman ρ = {corr_results['spearman_rho']:.3f}, Overall ρ = {rho_ov:.3f}, N = {corr_results['sample_size']}")
         
         # Combine results
         result_row = {
@@ -448,7 +489,13 @@ def main():
             'kendall_pvalue': corr_results['kendall_pvalue'],
             'kendall_ci_lower': corr_results['kendall_ci_lower'],
             'kendall_ci_upper': corr_results['kendall_ci_upper'],
-            'rbo': corr_results['rbo']
+            'rbo': corr_results['rbo'],
+            # Add Overall Correlation results
+            'spearman_rho_overall': rho_ov,
+            'spearman_pvalue_overall': p_rho_ov,
+            'kendall_tau_overall': tau_ov,
+            'kendall_pvalue_overall': p_tau_ov,
+            'rbo_overall': rbo_ov
         }
         
         # Add metadata columns

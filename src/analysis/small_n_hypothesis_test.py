@@ -226,65 +226,127 @@ def test_h3_complexity(df: pd.DataFrame) -> Dict:
     """
     Test H3: Prompt complexity categories.
     
-    Uses Kruskal-Wallis H-test to compare correlation distributions across
-    prompt_length categories: Short, Medium, Long, Extreme.
-    
-    Args:
-        df: Analysis-ready DataFrame
-        
-    Returns:
-        Dictionary with test results for Spearman, Kendall, and RBO
+    Uses Kruskal-Wallis H-test and Ordinal Linear Regression to compare 
+    correlation distributions across complexity levels: 
+    Applying, Analyzing, Evaluating, Creating.
     """
     logger.info("Testing H3: Prompt complexity")
     
+    # Define paths
+    base_dir = Path(__file__).parent.parent.parent
+    metadata_path = base_dir / "new" / "metadata_new.json"
+    correlation_results_path = base_dir / "new/results/correlation_results_overall.csv"
+    output_dir = base_dir.parent / "overleaf/images"
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    # 1. Load correct data (Overriding passed df for this specific test to ensure match with new/)
+    logger.info("  Loading data from new/results/correlation_results_overall.csv for H3...")
+    try:
+        df_corr = pd.read_csv(correlation_results_path)
+    except FileNotFoundError:
+        logger.error(f"  Could not find {correlation_results_path}, falling back to passed df")
+        df_corr = df.copy()
+
+    # 2. Load metadata
+    complexity_map = {}
+    if metadata_path.exists():
+        try:
+            with open(metadata_path, 'r', encoding='utf-8') as f:
+                metadata = json.load(f)
+            for entry in metadata:
+                if 'benchmark_id' in entry and 'complexity' in entry:
+                    complexity_map[entry['benchmark_id']] = entry['complexity']
+    
+        except Exception as e:
+            logger.error(f"Error loading metadata: {e}")
+    else:
+        logger.warning(f"Metadata file not found at {metadata_path}")
+        
+    # 3. Map complexity
+    df_test = df_corr.copy()
+    df_test['complexity'] = df_test['benchmark_id'].map(complexity_map)
+    
+    # Filter out benchmarks without complexity
+    df_test = df_test.dropna(subset=['complexity'])
+    logger.info(f"  Analyzed {len(df_test)} benchmarks with complexity data")
+
+    complexity_order = ['Applying', 'Analyzing', 'Evaluating', 'Creating']
+    complexity_val = {c: i+1 for i, c in enumerate(complexity_order)}
+    df_test['complexity_val'] = df_test['complexity'].map(complexity_val)
+    
     results = {}
     
+    # Exact metric definition from new/src/analyze_complexity.py
+    metrics = {
+        'Spearman': 'spearman_rho', 
+        'Kendall': 'kendall_tau', 
+        'RBO': 'rbo'
+    }
+    
+    # Set style (matched to analyze_complexity.py)
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    sns.set_theme(style="whitegrid")
+    plt.rcParams['font.family'] = 'DejaVu Sans'
+
     # Test for each correlation metric
-    for metric in ['spearman_rho', 'kendall_tau', 'rbo']:
-        if metric not in df.columns:
+    for metric_name, metric_col in metrics.items():
+        if metric_col not in df_test.columns:
+             logger.warning(f"  Metric {metric_col} not found in data")
+             continue
+        
+        # 1. Kruskal-Wallis Test
+        groups = [df_test[df_test['complexity'] == c][metric_col].values for c in complexity_order]
+        clean_groups = [g for g in groups if len(g) > 0]
+        
+        if len(clean_groups) < 2:
+            logger.warning(f"  Insufficient groups for {metric_name}")
             continue
+            
+        kw_stat, kw_p = stats.kruskal(*clean_groups)
         
-        # Group by prompt_length
-        groups = []
-        group_labels = []
+        # 2. Linear Regression (Ordinal)
+        df_metric = df_test.dropna(subset=['complexity_val', metric_col])
+        slope, intercept, r_value, p_value, std_err = stats.linregress(df_metric['complexity_val'], df_metric[metric_col])
         
-        for category in ['Short', 'Medium', 'Long', 'Extreme']:
-            group_data = df[df['prompt_length'] == category][metric].dropna().values
-            if len(group_data) > 0:
-                groups.append(group_data)
-                group_labels.append(category)
-                logger.info(f"  {category}: N={len(group_data)}")
-        
-        if len(groups) < 2:
-            logger.warning(f"  Insufficient groups for {metric}")
-            results[f'H3_{metric}'] = {
-                'test_statistic': np.nan,
-                'p_raw': np.nan,
-                'effect_size': np.nan,
-                'effect_size_type': 'median_difference',
-                'n_groups': len(groups)
-            }
-            continue
-        
-        # Kruskal-Wallis H-test
-        statistic, p_value = kruskal(*groups)
-        
-        # Calculate effect size (eta-squared approximation)
-        # eta^2 = (H - k + 1) / (N - k), where k is number of groups, N is total sample size
-        total_n = sum(len(g) for g in groups)
-        k = len(groups)
-        eta_squared = (statistic - k + 1) / (total_n - k) if total_n > k else np.nan
-        
-        results[f'H3_{metric}'] = {
-            'test_statistic': statistic,
-            'p_raw': p_value,
-            'effect_size': eta_squared,
-            'effect_size_type': 'eta_squared',
-            'n_groups': k,
-            'total_n': total_n
+        results[f'H3_{metric_col}'] = {
+            'test_statistic': kw_stat,
+            'p_raw': kw_p,
+            'regression_p_value': p_value,
+            'regression_slope': slope,
+            'regression_r2': r_value**2,
+            'effect_size': r_value**2,
+            'effect_size_type': 'r_squared'
         }
         
-        logger.info(f"  {metric}: H={statistic:.2f}, p={p_value:.4f}, eta^2={eta_squared:.3f}")
+        # 3. Plot (EXACT REPLICATION OF new/src/analyze_complexity.py)
+        plt.figure(figsize=(10, 6))
+        
+        # Boxplot
+        sns.boxplot(x='complexity', y=metric_col, data=df_test, order=complexity_order, palette="Set2", showfliers=False)
+        
+        # Stripplot
+        sns.stripplot(x='complexity', y=metric_col, data=df_test, order=complexity_order, color=".25", alpha=0.6)
+        
+        # Add regression line
+        # Create x-values for regression line (0 to 3 for plotting, but regression used 1 to 4)
+        x_vals = np.array([0, 3])
+        y_vals = intercept + slope * (x_vals + 1) # +1 because complexity_val is 1-based
+        
+        plt.plot(x_vals, y_vals, color='red', linestyle='--', linewidth=2, label=f'Regression (p={p_value:.3f})')
+        
+        plt.title(f'{metric_name} Correlation by Complexity Level', fontsize=14)
+        plt.xlabel('Complexity Level', fontsize=12)
+        plt.ylabel(f'{metric_name} Correlation', fontsize=12)
+        plt.legend()
+        
+        # Save plot - DISABLED to avoid redundancy
+        # plot_path = output_dir / f'complexity_{metric_name.lower()}.png'
+        # plt.savefig(plot_path, dpi=300, bbox_inches='tight')
+        plt.close()
+        
+        logger.info(f"  {metric_name}: KW p={kw_p:.4f}, Reg p={p_value:.4f}, Slope={slope:.4f}")
+        # logger.info(f"  Saved plot to {plot_path}")
     
     return results
 

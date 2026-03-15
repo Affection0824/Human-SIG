@@ -107,6 +107,10 @@ def get_metric_info(metric: str):
     return metric_map.get(metric, metric_map['spearman_rho'])
 
 
+
+
+
+
 def figure_0_swe_bench_illustration(output_dir: Path):
     """Generate Figure 0: SWE-bench Illustration."""
     logger.info("Generating Figure 0: SWE-bench (Verified) Illustration")
@@ -403,29 +407,73 @@ def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearma
     
     logger.info(f"Generating Figure {figure_num}: Complexity Categories with {metric_name}")
     
-    category_order = ['Short', 'Medium', 'Long', 'Extreme']
+    # Load metadata to get complexity
+    base_dir = Path(__file__).parent.parent.parent
+    metadata_path = base_dir / "new" / "metadata_new.json"
+    correlation_results_path = base_dir / "new/results/correlation_results_overall.csv"
+    
+    # Use correlation_results_overall.csv as the primary data source for complexity analysis
+    # This matches the logic in small_n_hypothesis_test.py
+    try:
+        if correlation_results_path.exists():
+            df_plot = pd.read_csv(correlation_results_path)
+            logger.info(f"Loaded {len(df_plot)} benchmarks from correlation_results_overall.csv for Figure {figure_num}")
+        else:
+            logger.warning(f"{correlation_results_path} not found, falling back to passed df")
+            df_plot = df.copy()
+    except Exception as e:
+        logger.error(f"Error loading correlation results: {e}")
+        df_plot = df.copy()
+    
+    complexity_map = {}
+    if metadata_path.exists():
+        try:
+            with open(metadata_path, 'r', encoding='utf-8') as f:
+                metadata = json.load(f)
+            for entry in metadata:
+                if 'benchmark_id' in entry and 'complexity' in entry:
+                    complexity_map[entry['benchmark_id']] = entry['complexity']
+        except Exception as e:
+            logger.error(f"Error loading metadata: {e}")
+            
+    df_plot['complexity'] = df_plot['benchmark_id'].map(complexity_map)
+    
+    category_order = ['Applying', 'Analyzing', 'Evaluating', 'Creating']
+    complexity_val = {c: i+1 for i, c in enumerate(category_order)}
+    df_plot['complexity_val'] = df_plot['complexity'].map(complexity_val)
+    
+    # Filter out missing values
+    df_plot = df_plot.dropna(subset=['complexity', metric_col])
     
     fig, ax = plt.subplots(figsize=(10, 6))
     
     # Boxplot
-    palette = {'Short': 'lightblue', 'Medium': 'lightgreen', 'Long': 'lightcoral', 'Extreme': 'lightyellow'}
-    sns.boxplot(data=df, x='prompt_length', y=metric_col, ax=ax, order=category_order, width=0.6, palette=palette)
+    palette = {'Applying': 'lightblue', 'Analyzing': 'lightgreen', 'Evaluating': 'lightcoral', 'Creating': 'lightyellow'}
+    sns.boxplot(data=df_plot, x='complexity', y=metric_col, ax=ax, order=category_order, width=0.6, palette=palette, showfliers=False)
     
     # Stripplot
     for i, cat in enumerate(category_order):
-        data_subset = df[df['prompt_length'] == cat]
+        data_subset = df_plot[df_plot['complexity'] == cat]
         if len(data_subset) > 0:
             x_coords = np.random.normal(i, 0.1, len(data_subset))
             ax.scatter(x_coords, data_subset[metric_col], 
                       color=palette[cat], alpha=0.7, s=80, edgecolors='black', linewidth=0.5, zorder=3)
+            
+    # Add regression line
+    if len(df_plot) > 0:
+        slope, intercept, r_value, p_value, std_err = stats.linregress(df_plot['complexity_val'], df_plot[metric_col])
+        x_vals = np.array([0, 3])
+        y_vals = intercept + slope * (x_vals + 1) # +1 because complexity_val is 1-based
+        ax.plot(x_vals, y_vals, color='red', linestyle='--', linewidth=2, label=f'Regression (p={p_value:.3f})', zorder=4)
+        ax.legend(fontsize=14, loc='upper left')
     
-    ax.set_xlabel('Prompt Length', fontsize=20)
+    ax.set_xlabel('Complexity Level', fontsize=20)
     ax.set_ylabel(ylabel, fontsize=20)
     ax.tick_params(labelsize=18)
     
     # Add annotations
     for i, cat in enumerate(category_order):
-        cat_data = df[df['prompt_length'] == cat][metric_col].dropna()
+        cat_data = df_plot[df_plot['complexity'] == cat][metric_col].dropna()
         if len(cat_data) > 0:
             n = len(cat_data)
             median = cat_data.median()
@@ -742,60 +790,6 @@ def format_pvalue(p_val):
         return f"{p_val:.2e}"
     else:
         return f"{p_val:.4f}"
-
-
-
-
-
-
-
-#--------------------------------------------------
-
-
-
-
-
-
-
-"""
-Generate Tables for Manuscript
-
-Purpose:
-    This script generates experimental results tables for the manuscript using
-    pandas.DataFrame.to_latex() method. All tables are saved directly to
-    ../overleaf/tables/ directory (relative to Human-SIG/) as .tex files.
-    CRITICAL: overleaf/ is a separate Git repository at the same level as Human-SIG/, NOT inside it.
-
-Tables Generated:
-    - Results Summary Table (Spearman only, for main text)
-    - Results Summary Table (Kendall only, for appendix)
-    - Results Summary Table (RBO only, for appendix)
-    - Correlation Summary Table (optional, for each benchmark)
-"""
-
-
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-
-
-def format_pvalue(p_val):
-    """
-    Format p-value with scientific notation when p < 0.001.
-    
-    Args:
-        p_val: P-value (float or NaN)
-        
-    Returns:
-        Formatted string (e.g., "1.23e-3" or "0.0123")
-    """
-    if pd.isna(p_val):
-        return "N/A"
-    if p_val < 0.001:
-        return f"{p_val:.2e}"
-    else:
-        return f"{p_val:.4f}"
-
-
 
 
 def create_results_table_spearman(report: dict, output_path: Path):
@@ -1194,6 +1188,146 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
     logger.info("Table saved successfully")
 
 
+def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
+    """Experiment 1: Reference Difficulty Comparison Table."""
+    csv_path = base_dir.parent / "overleaf" / "tables" / "triplet_difficulty_comparison.csv"
+    
+    if not csv_path.exists():
+        logger.warning(f"Experiment 1 data not found. Skipping table.")
+        return
+        
+    df = pd.read_csv(csv_path)
+    
+    # We only want Benchmark Name, Original Difficulty, Reference Difficulty
+    # The columns in the csv are: Benchmark_Name,Original_Difficulty,Triplet_Difficulty,Triplet_Avg_Score
+    if 'Triplet_Avg_Score' in df.columns:
+        df = df.drop(columns=['Triplet_Avg_Score'])
+        
+    df.columns = ['Benchmark Name', 'Original Difficulty', 'Reference Difficulty']
+    
+    # Calculate Pearson correlation
+    # Drop rows with NaN for correlation calculation
+    df_clean = df.dropna(subset=['Original Difficulty', 'Reference Difficulty'])
+    from scipy import stats
+    if len(df_clean) > 2:
+        r, p_value = stats.pearsonr(df_clean['Original Difficulty'], df_clean['Reference Difficulty'])
+        # Calculate 95% CI for Pearson r
+        z = np.arctanh(r)
+        sigma = 1.0 / np.sqrt(len(df_clean) - 3)
+        ci_lower = np.tanh(z - 1.96 * sigma)
+        ci_upper = np.tanh(z + 1.96 * sigma)
+        
+        stats_rows = [
+            {'Benchmark Name': 'Pearson r', 'Original Difficulty': '', 'Reference Difficulty': f"{r:.4f}"},
+            {'Benchmark Name': '95% CI', 'Original Difficulty': '', 'Reference Difficulty': f"[{ci_lower:.4f}, {ci_upper:.4f}]"},
+            {'Benchmark Name': 'p-value', 'Original Difficulty': '', 'Reference Difficulty': f"{p_value:.4e}"}
+        ]
+        df_stats = pd.DataFrame(stats_rows)
+        df_combined = pd.concat([df, df_stats], ignore_index=True)
+    else:
+        df_combined = df
+    
+    with open(output_path, 'w', encoding='utf-8') as f:
+        latex_str = df_combined.to_latex(index=False, float_format="%.2f", escape=True)
+        # Add a midrule before the stats
+        latex_str = latex_str.replace('Pearson r', '\\midrule\nPearson r')
+        lines = latex_str.split('\n')
+        filtered_lines = [line for line in lines if '\\caption' not in line and '\\label' not in line]
+        latex_str = '\n'.join(filtered_lines)
+        if '\\bottomrule' not in latex_str:
+            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
+        f.write(latex_str)
+    logger.info(f"Saved Exp 1 table to {output_path}")
+
+def create_exp2_overall_correlation_table(df: pd.DataFrame, output_path: Path):
+    """Experiment 2: Compare Category Spearman with Overall Spearman."""
+    if 'spearman_rho_overall' not in df.columns:
+        logger.warning("Experiment 2 overall correlation data not found. Skipping table.")
+        return
+        
+    df_table = df[['benchmark_id', 'spearman_rho', 'spearman_pvalue', 'spearman_rho_overall', 'spearman_pvalue_overall']].copy()
+    df_table = df_table.dropna(subset=['spearman_rho_overall'])
+    
+    df_table.columns = ['Benchmark ID', 'Category $\\rho$', 'Category p-value', 'Overall $\\rho$', 'Overall p-value']
+    
+    df_table['Category p-value'] = df_table['Category p-value'].apply(format_pvalue)
+    df_table['Overall p-value'] = df_table['Overall p-value'].apply(format_pvalue)
+    
+    with open(output_path, 'w', encoding='utf-8') as f:
+        latex_str = df_table.to_latex(index=False, float_format="%.3f", escape=False)
+        lines = latex_str.split('\n')
+        filtered_lines = [line for line in lines if '\\caption' not in line and '\\label' not in line]
+        latex_str = '\n'.join(filtered_lines)
+        if '\\bottomrule' not in latex_str:
+            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
+        f.write(latex_str)
+    logger.info(f"Saved Exp 2 table to {output_path}")
+
+def create_exp3_uncertainty_table(base_dir: Path, output_path: Path):
+    """Experiment 3: Uncertainty Propagation Table."""
+    csv_path = base_dir / "results" / "uncertainty_simulation_results.csv"
+    if not csv_path.exists():
+        logger.warning(f"Experiment 3 data not found at {csv_path}. Skipping table.")
+        return
+        
+    df = pd.read_csv(csv_path)
+    
+    df_table = pd.DataFrame({
+        'Benchmark': df['Benchmark'],
+        'N Models': df['N_Samples'],
+        'N Questions': df['N_Questions'],
+        'Original $\\rho$': df['Orig_Spearman'].apply(lambda x: f"{x:.4f}" if pd.notna(x) else "N/A"),
+        'Simulated $\\rho$': df['Simulated_Rho'].apply(lambda x: f"{x:.4f}" if pd.notna(x) else "N/A"),
+        'Simulated 95\\% CI': df.apply(lambda row: f"[{row['Simulated_95_CI_Lower']:.3f}, {row['Simulated_95_CI_Upper']:.3f}]" if pd.notna(row['Simulated_95_CI_Lower']) else "N/A", axis=1),
+        'Simulated p-value': df['Simulated_P_Value'].apply(lambda x: f"{x:.4f}" if pd.notna(x) else "N/A")
+    })
+    
+    # Sort by Original Rho descending to match markdown
+    df_table = df_table.sort_values(by='Original $\\rho$', ascending=False)
+    
+    with open(output_path, 'w', encoding='utf-8') as f:
+        latex_str = df_table.to_latex(index=False, escape=False)
+        lines = latex_str.split('\n')
+        filtered_lines = [line for line in lines if '\\caption' not in line and '\\label' not in line]
+        latex_str = '\n'.join(filtered_lines)
+        if '\\bottomrule' not in latex_str:
+            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
+        f.write(latex_str)
+    logger.info(f"Saved Exp 3 table to {output_path}")
+
+def copy_exp4_regression_images(base_dir: Path, images_output_dir: Path):
+    """Experiment 4: Copy univariate regression images to Overleaf with new numbers (17-22)."""
+    figures_dir = base_dir / "results" / "figures"
+    if not figures_dir.exists():
+        logger.warning(f"Experiment 4 figures dir not found at {figures_dir}. Skipping.")
+        return
+        
+    # The regression script creates files like univariate_{x}_vs_{y}.png
+    # We want to map them to Figure_17 through Figure_22
+    # dependent_vars = ['spearman_rho', 'kendall_tau']
+    # independent_vars = ['difficulty', 'cv', 'sample_size']
+    
+    dependent_vars = ['spearman_rho', 'kendall_tau']
+    independent_vars = ['difficulty', 'cv', 'sample_size']
+    
+    fig_num = 17
+    for y in dependent_vars:
+        for x in independent_vars:
+            src_file = figures_dir / f"Figure_{fig_num}_Regression_{x}_vs_{y}.pdf"
+            if src_file.exists():
+                dst_file = images_output_dir / f"Figure_{fig_num}_Regression_{x}_vs_{y}.pdf"
+                shutil.copy2(src_file, dst_file)
+                logger.info(f"Copied {src_file.name} to {dst_file.name}")
+            else:
+                # Fallback to check if png exists (though we should have generated pdf)
+                src_file_png = figures_dir / f"Figure_{fig_num}_Regression_{x}_vs_{y}.png"
+                if src_file_png.exists():
+                     logger.warning(f"Found PNG instead of PDF for Figure {fig_num}: {src_file_png}")
+                else:
+                     logger.warning(f"Source file not found: {src_file}")
+            fig_num += 1
+
+
 # ============================================================================
 # Main Execution Function
 # ============================================================================
@@ -1236,6 +1370,11 @@ def main():
     create_results_table_kendall(report, tables_output_dir / "appendix_results_table_kendall.tex")
     create_results_table_rbo(report, tables_output_dir / "appendix_results_table_rbo.tex")
     
+    # New tables for experiments 1, 2, 3
+    create_exp1_reference_difficulty_table(base_dir, tables_output_dir / "reference_difficulty_table.tex")
+    create_exp2_overall_correlation_table(df, tables_output_dir / "overall_correlation_table.tex")
+    create_exp3_uncertainty_table(base_dir, tables_output_dir / "uncertainty_table.tex")
+    
     logger.info("\n" + "="*60)
     logger.info("All tables generated successfully!")
     logger.info(f"Tables saved to: {tables_output_dir}")
@@ -1276,6 +1415,10 @@ def main():
     figure_complexity(df, images_output_dir, 'rbo', 14)
     figure_recency(df, images_output_dir, 'rbo', 15)
     figure_difficulty_variance(df, images_output_dir, hypothesis_results, 'rbo', 16)
+    
+    # New figures for experiment 4
+    # copy_exp4_regression_images(base_dir, images_output_dir)
+    logger.info("Skipping copy_exp4_regression_images as regression_analysis.py generates them directly.")
     
     logger.info("\n" + "="*60)
     logger.info("All figures generated successfully!")
