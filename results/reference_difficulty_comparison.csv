@@ -1,4 +1,4 @@
-Benchmark_Name,Original_Difficulty,Triplet_Difficulty,Triplet_Avg_Score
+Benchmark_Name,Original_Difficulty,Reference_Difficulty,Reference_Avg_Score
 Humanity's Last Exam,89.47368421052632,80.33333333333333,19.666666666666668
 IOI,89.46758333333334,73.7778,26.2222
 Terminal-Bench Hard,80.2,69.0,31.0

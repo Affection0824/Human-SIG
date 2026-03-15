@@ -16,14 +16,14 @@ def sanitize_benchmark_id(benchmark_id: str) -> str:
     sanitized = re.sub(r'_+', '_', sanitized)
     return sanitized.strip('_')
 
-def calculate_triplet_difficulty():
+def calculate_reference_difficulty():
     # Define paths
     base_dir = Path(r"D:\桌面 2026.1.13\科研\Human-SIG\Human-SIG")
     master_table_path = base_dir / "data/processed/master_table/master_correlation_matrix.csv"
     original_data_path = base_dir / "results/analysis_ready_data.csv"
     
-    # Output to Overleaf tables
-    output_path = Path(r"D:\桌面 2026.1.13\科研\Human-SIG\overleaf\tables\triplet_difficulty_comparison.csv")
+    # Output to results directory
+    output_path = base_dir / "results/reference_difficulty_comparison.csv"
     output_path.parent.mkdir(parents=True, exist_ok=True)
     
     # Define the 3 models (Group 20)
@@ -44,27 +44,27 @@ def calculate_triplet_difficulty():
         return
         
     # Filter for target models
-    df_triplet = df_master[df_master['model_name'].isin(target_models)].copy()
+    df_reference = df_master[df_master['model_name'].isin(target_models)].copy()
     
-    if len(df_triplet) != 3:
-        logger.error(f"Found {len(df_triplet)} models, expected 3. Missing models?")
-        logger.info(f"Found models: {df_triplet['model_name'].tolist()}")
-        if len(df_triplet) == 0:
+    if len(df_reference) != 3:
+        logger.error(f"Found {len(df_reference)} models, expected 3. Missing models?")
+        logger.info(f"Found models: {df_reference['model_name'].tolist()}")
+        if len(df_reference) == 0:
             return
 
     # Set model_name as index for easier lookup
-    df_triplet.set_index('model_name', inplace=True)
+    df_reference.set_index('model_name', inplace=True)
     
     # Identify benchmark columns (ending with _score, not starting with elo_)
     benchmark_cols = [col for col in df_master.columns if col.endswith('_score') and not col.startswith('elo_')]
     
-    triplet_results = []
+    reference_results = []
     
     for col in benchmark_cols:
         benchmark_id_sanitized = col.replace('_score', '')
         
         # Get scores for the 3 models
-        scores = df_triplet[col]
+        scores = df_reference[col]
         
         # Check if all 3 are not NaN
         if scores.notna().all():
@@ -75,15 +75,15 @@ def calculate_triplet_difficulty():
             # Store scores for each model for display
             model_scores = {name: score for name, score in scores.items()}
             
-            triplet_results.append({
+            reference_results.append({
                 'sanitized_id': benchmark_id_sanitized,
-                'Triplet_Difficulty': difficulty,
-                'Triplet_Avg_Score': avg_score,
+                'Reference_Difficulty': difficulty,
+                'Reference_Avg_Score': avg_score,
                 'Model_Scores': str(model_scores)
             })
             
-    df_triplet_diff = pd.DataFrame(triplet_results)
-    logger.info(f"Calculated triplet difficulty for {len(df_triplet_diff)} benchmarks.")
+    df_reference_diff = pd.DataFrame(reference_results)
+    logger.info(f"Calculated reference difficulty for {len(df_reference_diff)} benchmarks.")
     
     # Load original difficulty
     logger.info(f"Loading original data from {original_data_path}...")
@@ -91,8 +91,8 @@ def calculate_triplet_difficulty():
         df_original = pd.read_csv(original_data_path)
     except FileNotFoundError:
         logger.error(f"Could not find {original_data_path}")
-        # Proceed with just triplet difficulty if original not found
-        df_final = df_triplet_diff
+        # Proceed with just reference difficulty if original not found
+        df_final = df_reference_diff
     else:
         # Prepare original data for merge
         df_original_subset = df_original[['benchmark_id', 'difficulty']].copy()
@@ -103,7 +103,7 @@ def calculate_triplet_difficulty():
         
         # Merge
         df_merged = pd.merge(
-            df_triplet_diff, 
+            df_reference_diff, 
             df_original_subset, 
             on='sanitized_id',
             how='left'
@@ -113,24 +113,24 @@ def calculate_triplet_difficulty():
         df_merged['Benchmark_Name'] = df_merged['Original_Benchmark_ID'].fillna(df_merged['sanitized_id'])
         
         # Select final columns
-        final_cols = ['Benchmark_Name', 'Original_Difficulty', 'Triplet_Difficulty', 'Triplet_Avg_Score']
+        final_cols = ['Benchmark_Name', 'Original_Difficulty', 'Reference_Difficulty', 'Reference_Avg_Score']
         df_final = df_merged[final_cols].copy()
     
-    # Sort by Triplet Difficulty Descending
-    if 'Triplet_Difficulty' in df_final.columns:
-        df_final.sort_values('Triplet_Difficulty', ascending=False, inplace=True)
+    # Sort by Reference Difficulty Descending
+    if 'Reference_Difficulty' in df_final.columns:
+        df_final.sort_values('Reference_Difficulty', ascending=False, inplace=True)
     
     # Save
     logger.info(f"Saving comparison to {output_path}...")
     df_final.to_csv(output_path, index=False)
     
     # Print table
-    print("\nDifficulty Comparison (Triplet vs Original):")
+    print("\nDifficulty Comparison (Reference vs Original):")
     # Format float columns
     print(df_final.to_string(index=False, float_format="%.2f"))
     
-    print("\nNote: Triplet Difficulty = 100 - Average Score of the 3 specified models.")
+    print("\nNote: Reference Difficulty = 100 - Average Score of the 3 specified models.")
     print(f"Models used: {target_models}")
 
 if __name__ == "__main__":
-    calculate_triplet_difficulty()
+    calculate_reference_difficulty()

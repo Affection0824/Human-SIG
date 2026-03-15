@@ -499,7 +499,7 @@ def main():
         }
         
         # Add metadata columns
-        for key in ['category', 'release_date', 'task_type', 'prompt_length', 'question_count']:
+        for key in ['category', 'release_date', 'task_type', 'complexity', 'question_count']:
             result_row[key] = benchmark_meta.get(key, np.nan)
         
         results.append(result_row)

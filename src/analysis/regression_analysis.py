@@ -119,7 +119,6 @@ def perform_univariate_regression_and_plot(df: pd.DataFrame, x_col: str, y_metri
 def main():
     # Define paths - use absolute paths
     base_dir = Path(__file__).parent.parent.parent
-    correlation_results_path = base_dir / "new/results/correlation_results_overall.csv"
     analysis_ready_data_path = base_dir / "results/analysis_ready_data.csv"
     output_dir = base_dir.parent / "overleaf/images"
     stats_output_path = base_dir.parent / "overleaf/tables/regression_analysis_stats.tex"
@@ -129,28 +128,19 @@ def main():
     
     logger.info("Loading data...")
     try:
-        df_corr = pd.read_csv(correlation_results_path)
-        # Read analysis_ready_data.csv, handling potential encoding issues if any
-        df_features = pd.read_csv(analysis_ready_data_path)
+        # Read analysis_ready_data.csv directly, it contains all needed features and correlations
+        df_merged = pd.read_csv(analysis_ready_data_path)
     except FileNotFoundError as e:
         logger.error(f"Error loading data: {e}")
         return
 
     # Check column names
-    logger.info(f"Correlation columns: {df_corr.columns.tolist()}")
-    logger.info(f"Features columns: {df_features.columns.tolist()}")
+    logger.info(f"Features columns: {df_merged.columns.tolist()}")
     
-    # Ensure benchmark_id is string and strip whitespace for cleaner merging
-    df_corr['benchmark_id'] = df_corr['benchmark_id'].astype(str).str.strip()
-    df_features['benchmark_id'] = df_features['benchmark_id'].astype(str).str.strip()
+    # Ensure benchmark_id is string and strip whitespace
+    df_merged['benchmark_id'] = df_merged['benchmark_id'].astype(str).str.strip()
     
-    # Merge
-    # We want to attach 'difficulty' and 'cv' to our correlation results
-    # Use left join on df_corr to keep all benchmarks we analyzed
-    df_merged = pd.merge(df_corr, df_features[['benchmark_id', 'difficulty', 'cv']], 
-                         on='benchmark_id', how='left')
-    
-    logger.info(f"Merged DataFrame shape: {df_merged.shape}")
+    logger.info(f"DataFrame shape: {df_merged.shape}")
     
     # Check for missing values in difficulty/cv
     missing_features = df_merged[df_merged['difficulty'].isna() | df_merged['cv'].isna()]

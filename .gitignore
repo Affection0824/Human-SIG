@@ -1,4 +1,51 @@
-.DS_Store
-.python-version
-uv.lock
+# Python specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
+# Virtual Environment
+venv/
+.venv/
+env/
+.env/
+
+# IDE specific
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+# Ignore raw data if it's too large, but keep it if it's manageable.
+# Assuming raw data is important and not too huge for now.
+# data/raw/ 
+
+# Ignore intermediate processing files if desired, but often useful to keep.
+# data/processed/
+
+# Ignore local configuration or secrets (if any)
+config_local.py
+secrets.py
+
+# Logs
+*.log

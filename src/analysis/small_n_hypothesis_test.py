@@ -16,7 +16,7 @@ Why Small-N Protocols:
 Statistical Methods:
     - H1: Mann-Whitney U test (categorical comparison: Generative vs MCQ)
     - H2: Pearson correlation (Scale: log(question_count) vs correlation metrics)
-    - H3: Kruskal-Wallis H-test (Complexity: prompt_length categories)
+    - H3: Kruskal-Wallis H-test (Complexity: complexity categories)
     - H4: Spearman correlation (Recency: release_date vs correlation metrics)
     - H5/H6: Bivariate Robust Regression (Difficulty + CV vs correlation metrics)
 
@@ -224,29 +224,21 @@ def test_h2_scale(df: pd.DataFrame) -> Dict:
 
 def test_h3_complexity(df: pd.DataFrame) -> Dict:
     """
-    Test H3: Prompt complexity categories.
+    Test H3: High-complexity tasks (Evaluating, Creating) show lower correlation 
+    than low-complexity tasks (Applying, Analyzing).
     
-    Uses Kruskal-Wallis H-test and Ordinal Linear Regression to compare 
-    correlation distributions across complexity levels: 
-    Applying, Analyzing, Evaluating, Creating.
+    Uses Kruskal-Wallis H-test for overall difference and 
+    ordinal linear regression for the trend.
     """
-    logger.info("Testing H3: Prompt complexity")
+    logger.info("Testing H3: Complexity Categories")
     
-    # Define paths
     base_dir = Path(__file__).parent.parent.parent
-    metadata_path = base_dir / "new" / "metadata_new.json"
-    correlation_results_path = base_dir / "new/results/correlation_results_overall.csv"
-    output_dir = base_dir.parent / "overleaf/images"
-    output_dir.mkdir(parents=True, exist_ok=True)
-
-    # 1. Load correct data (Overriding passed df for this specific test to ensure match with new/)
-    logger.info("  Loading data from new/results/correlation_results_overall.csv for H3...")
-    try:
-        df_corr = pd.read_csv(correlation_results_path)
-    except FileNotFoundError:
-        logger.error(f"  Could not find {correlation_results_path}, falling back to passed df")
-        df_corr = df.copy()
-
+    metadata_path = base_dir / "data" / "metadata.json"
+    
+    # 1. Load data
+    # Use the passed dataframe directly
+    df_corr = df.copy()
+    
     # 2. Load metadata
     complexity_map = {}
     if metadata_path.exists():
@@ -276,7 +268,7 @@ def test_h3_complexity(df: pd.DataFrame) -> Dict:
     
     results = {}
     
-    # Exact metric definition from new/src/analyze_complexity.py
+    # Exact metric definition
     metrics = {
         'Spearman': 'spearman_rho', 
         'Kendall': 'kendall_tau', 
@@ -319,7 +311,7 @@ def test_h3_complexity(df: pd.DataFrame) -> Dict:
             'effect_size_type': 'r_squared'
         }
         
-        # 3. Plot (EXACT REPLICATION OF new/src/analyze_complexity.py)
+        # 3. Plot
         plt.figure(figsize=(10, 6))
         
         # Boxplot

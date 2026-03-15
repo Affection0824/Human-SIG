@@ -134,7 +134,6 @@ def run_simulation():
     
     # Output paths
     output_csv = base_dir / "results/uncertainty_simulation_results.csv"
-    output_report = base_dir / "results/uncertainty_simulation_report.md"
     
     results = []
     print(f"Starting Monte Carlo simulation ({N_SIMULATIONS} runs per benchmark)...")
@@ -263,59 +262,6 @@ def run_simulation():
         output_csv.parent.mkdir(parents=True, exist_ok=True)
         df_results.to_csv(output_csv, index=False)
         print(f"Saved results to {output_csv}")
-    
-        # Generate Report
-        with open(output_report, 'w', encoding='utf-8') as f:
-            f.write("# 不确定性传播相关性分析报告\n\n")
-            
-            # Methodology Section
-            f.write("## 1. 实验方法论\n\n")
-            f.write("本实验旨在评估 Benchmark 分数与 LMArena Elo 分数之间相关性的稳健性，通过蒙特卡洛模拟传播测量不确定性。\n\n")
-            
-            f.write("### 1.1 数据来源与处理\n")
-            f.write("- **LMArena 数据**：使用 `data/raw/lmarena` 目录下对应 Category（如 Math, Coding）的 `data.csv` 文件。\n")
-            f.write("  - **Elo 值**：使用文件中的 Elo 得分（或 Score）作为均值。\n")
-            f.write("  - **不确定性 (Sigma)**：利用文件中提供的 95% 置信区间 (CI) 推导标准差，公式为 `sigma = CI / 1.96`。\n")
-            f.write("- **Benchmark 数据**：使用各 Benchmark 的原始得分。\n")
-            f.write("  - **不确定性**：假设 Benchmark 得分服从二项分布，标准差由题目数量决定：`sigma = sqrt(p(1-p)/N) * 100` (其中 p 为得分/100，N 为题目数)。\n\n")
-            
-            f.write("### 1.2 模拟过程\n")
-            f.write(f"- **模拟次数**：对每个 Benchmark 进行 N={N_SIMULATIONS} 次蒙特卡洛模拟。\n")
-            f.write("- **得分扰动**：\n")
-            f.write("  - LMArena Elo：从 `N(Elo, Sigma_Elo)` 中采样。\n")
-            f.write("  - Benchmark Score：从 `N(Score, Sigma_Score)` 中采样。\n")
-            f.write("- **相关性计算**：在每次模拟中，计算采样后的 Elo 与 Score 之间的 Spearman 秩相关系数 (Rho)。\n\n")
-            
-            f.write("### 1.3 统计量定义\n")
-            f.write("- **Simulated Rho**：10000 次模拟相关系数的平均值。\n")
-            f.write("- **Simulated 95% CI**：10000 次模拟相关系数分布的第 2.5 百分位和第 97.5 百分位。\n")
-            f.write("- **Simulated P-value**：模拟相关系数小于等于 0 的频率（单尾检验）。\n\n")
-            
-            # Results Table Section
-            f.write("## 2. 实验结果汇总\n\n")
-            f.write("下表展示了所有 Benchmark 的不确定性分析结果，按原始 Rho 降序排列。\n\n")
-            
-            # Prepare formatted table data
-            table_rows = []
-            for _, row in df_results.sort_values('Orig_Spearman', ascending=False).iterrows():
-                # Format CI string
-                ci_str = f"[{row['Simulated_95_CI_Lower']:.3f}, {row['Simulated_95_CI_Upper']:.3f}]"
-                
-                table_rows.append({
-                    'Benchmark': row['Benchmark'],
-                    '模型数': row['N_Samples'],
-                    '题目数': row['N_Questions'],
-                    '原始 Rho': f"{row['Orig_Spearman']:.4f}",
-                    '模拟 Rho': f"{row['Simulated_Rho']:.4f}",
-                    '模拟 95% CI': ci_str,
-                    '模拟 P值': f"{row['Simulated_P_Value']:.4f}"
-                })
-            
-            df_table = pd.DataFrame(table_rows)
-            f.write(df_table.to_markdown(index=False))
-            f.write("\n\n")
-    
-        print(f"Saved report to {output_report}")
     else:
         print("No results generated. Check warnings above.")
 

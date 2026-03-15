@@ -319,23 +319,6 @@ def main():
     logger.info(f"Saved master table to {output_path}")
     logger.info(f"Master table shape: {df_master.shape}")
     
-    # Save overlap statistics
-    stats_path = results_dir / "data_overlap_stats.json"
-    
-    # Add schema and format for JSON output
-    output_stats = {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "description": "Overlap statistics for each benchmark, indicating how many models from the Study Universe have scores in that benchmark",
-        "study_universe_size": overlap_stats[list(overlap_stats.keys())[0]]['study_universe_size'] if overlap_stats else 0,
-        "benchmarks": overlap_stats
-    }
-    
-    with open(stats_path, 'w', encoding='utf-8') as f:
-        json.dump(output_stats, f, indent=2, ensure_ascii=False)
-    
-    logger.info(f"Saved overlap statistics to {stats_path}")
-    
     # Print summary
     included_count = sum(1 for stats in overlap_stats.values() if stats.get('included', False))
     excluded_count = len(overlap_stats) - included_count

@@ -921,7 +921,25 @@ uv run src/analysis/compute_features_robust.py
 
 ---
 
-## Step 6: Hypothesis Testing
+## Step 6: Difficulty Validation
+
+**Script**: `src/analysis/calculate_reference_difficulty.py`
+
+Validates the difficulty definition using a set of 3 reference models (Claude 3.5 Sonnet, Gemini 3 Pro, GPT-5.1).
+
+**Input**: Master table, metadata
+
+**Output**: `results/reference_difficulty_comparison.csv`
+
+**Execution**:
+```bash
+cd Human-SIG
+uv run src/analysis/calculate_reference_difficulty.py
+```
+
+---
+
+## Step 7: Hypothesis Testing
 
 **Script**: `src/analysis/small_n_hypothesis_test.py`
 
@@ -939,7 +957,7 @@ uv run src/analysis/small_n_hypothesis_test.py
 
 ---
 
-## Step 7: Multiple Comparison Correction
+## Step 8: Multiple Comparison Correction
 
 **Script**: `src/analysis/apply_correction.py`
 
@@ -957,7 +975,7 @@ uv run src/analysis/apply_correction.py
 
 ---
 
-## Step 8: Generate Figures and Tables
+## Step 9: Generate Figures and Tables
 
 **Script**: `src/analysis/generate_plots_tables.py`
 
@@ -988,11 +1006,14 @@ Generate all PDF figures and LaTeX tables for the manuscript. This integrated sc
 *   `../overleaf/images/Figure_15_Recency_RBO.pdf` - Recency effect: Release Date vs. RBO
 *   `../overleaf/images/Figure_16_Difficulty_Variance_RBO.pdf` - Difficulty-Variance joint effect: Difficulty vs. RBO (with CV encoded as point size and color)
 
-**Output Tables** (4 LaTeX files):
+**Output Tables** (7 LaTeX files):
 *   `../overleaf/tables/results_table_spearman.tex` - Hypothesis test results summary (Spearman ρ only, for main text)
 *   `../overleaf/tables/appendix_results_table_kendall.tex` - Hypothesis test results summary (Kendall τ only, for appendix)
 *   `../overleaf/tables/appendix_results_table_rbo.tex` - Hypothesis test results summary (RBO only, for appendix)
 *   `../overleaf/tables/correlation_summary_table.tex` - Correlation summary for all benchmarks
+*   `../overleaf/tables/exp1_reference_difficulty_table.tex` - Reference Difficulty Validation
+*   `../overleaf/tables/exp2_overall_correlation_table.tex` - Category vs Overall Correlation
+*   `../overleaf/tables/exp3_uncertainty_table.tex` - Uncertainty Propagation Analysis
 
 **Execution**:
 ```bash
@@ -1014,16 +1035,25 @@ cd Human-SIG
 # Step 4: Build Master Table
 uv run src/processing/build_master_table.py
 
-# Step 5: Feature Engineering
+# Step 5: Feature Engineering (includes Experiment 2: Overall Correlation)
 uv run src/analysis/compute_features_robust.py
 
-# Step 6: Hypothesis Testing
+# Step 6: Difficulty Validation (Experiment 1)
+uv run src/analysis/calculate_reference_difficulty.py
+
+# Step 7: Hypothesis Testing (includes Experiment 5: Complexity Classification)
 uv run src/analysis/small_n_hypothesis_test.py
 
-# Step 7: Multiple Comparison Correction
+# Step 8: Multiple Comparison Correction
 uv run src/analysis/apply_correction.py
 
-# Step 8: Generate Figures and Tables
+# Step 9: Uncertainty Propagation Analysis (Experiment 3)
+uv run src/analysis/uncertainty_propagation_analysis.py
+
+# Step 10: Regression Analysis (Experiment 4)
+uv run src/analysis/regression_analysis.py
+
+# Step 11: Generate Figures and Tables (includes all Overleaf outputs)
 uv run src/analysis/generate_plots_tables.py
 ```
 
