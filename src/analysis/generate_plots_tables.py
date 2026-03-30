@@ -456,7 +456,7 @@ def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearma
         ax.plot(x_vals, y_vals, color='red', linestyle='--', linewidth=2, label=f'Regression (p={p_value:.3f})', zorder=4)
         ax.legend(fontsize=14, loc='upper left')
     
-    ax.set_xlabel('Complexity Level', fontsize=20)
+    ax.set_xlabel('Prompt Complexity', fontsize=20)
     ax.set_ylabel(ylabel, fontsize=20)
     ax.tick_params(labelsize=18)
     
@@ -1240,7 +1240,8 @@ def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
     
     with open(output_path, 'w', encoding='utf-8') as f:
         print("DEBUG: Generating LaTeX...", flush=True)
-        latex_str = df_combined.to_latex(index=False, float_format="%.2f", escape=True)
+        # Use to_latex with column_format='lrr' for right alignment of numeric columns
+        latex_str = df_combined.to_latex(index=False, float_format="%.2f", escape=True, column_format='lrr')
         # Add a midrule before the stats
         latex_str = latex_str.replace('Pearson r', '\\midrule\nPearson r')
         lines = latex_str.split('\n')
@@ -1263,11 +1264,33 @@ def create_exp2_overall_correlation_table(df: pd.DataFrame, output_path: Path):
     
     df_table.columns = ['Benchmark ID', 'Category $\\rho$', 'Category p-value', 'Overall $\\rho$', 'Overall p-value']
     
-    df_table['Category p-value'] = df_table['Category p-value'].apply(format_pvalue)
-    df_table['Overall p-value'] = df_table['Overall p-value'].apply(format_pvalue)
+    # Custom formatting functions
+    def format_p_custom(p):
+        val_str = format_pvalue(p)
+        if not pd.isna(p) and p > 0.05:
+            return f"\\itshape {val_str}"
+        return val_str
+
+    def format_rho_custom(rho):
+        if pd.isna(rho):
+            return "N/A"
+        val_str = f"{rho:.3f}"
+        if rho < 0:
+            return f"\\bfseries {val_str}"
+        return val_str
+    
+    # Apply formatting
+    df_table['Category p-value'] = df_table['Category p-value'].apply(format_p_custom)
+    df_table['Overall p-value'] = df_table['Overall p-value'].apply(format_p_custom)
+    
+    df_table['Category $\\rho$'] = df_table['Category $\\rho$'].apply(format_rho_custom)
+    df_table['Overall $\\rho$'] = df_table['Overall $\\rho$'].apply(format_rho_custom)
     
     with open(output_path, 'w', encoding='utf-8') as f:
-        latex_str = df_table.to_latex(index=False, float_format="%.3f", escape=False)
+        # User requested: "All numeric parts (including two rho cols and two p-value cols) all RIGHT aligned"
+        # Columns are: 'Benchmark ID', 'Category $\rho$', 'Category p-value', 'Overall $\rho$', 'Overall p-value'
+        # Format: lrrrr
+        latex_str = df_table.to_latex(index=False, escape=False, column_format='lrrrr')
         lines = latex_str.split('\n')
         filtered_lines = [line for line in lines if '\\caption' not in line and '\\label' not in line]
         latex_str = '\n'.join(filtered_lines)
@@ -1285,21 +1308,46 @@ def create_exp3_uncertainty_table(base_dir: Path, output_path: Path):
         
     df = pd.read_csv(csv_path)
     
+    # Filter out Creative Writing v3
+    df = df[df['Benchmark'] != 'Creative Writing v3']
+
+    # Custom formatting functions
+    def format_rho_custom(rho):
+        if pd.isna(rho):
+            return "N/A"
+        val_str = f"{rho:.4f}"
+        if rho < 0:
+            return f"\\bfseries {val_str}"
+        return val_str
+
+    def format_p_custom(p):
+        if pd.isna(p):
+            return "N/A"
+        val_str = f"{p:.4f}"
+        if p > 0.05:
+            return f"\\itshape {val_str}"
+        return val_str
+
     df_table = pd.DataFrame({
         'Benchmark': df['Benchmark'],
-        'N Models': df['N_Samples'],
-        'N Questions': df['N_Questions'],
-        'Original $\\rho$': df['Orig_Spearman'].apply(lambda x: f"{x:.4f}" if pd.notna(x) else "N/A"),
-        'Simulated $\\rho$': df['Simulated_Rho'].apply(lambda x: f"{x:.4f}" if pd.notna(x) else "N/A"),
+        'Models': df['N_Samples'],
+        'Questions': df['N_Questions'],
+        'Original $\\rho$': df['Orig_Spearman'].apply(format_rho_custom),
+        'Simulated $\\rho$': df['Simulated_Rho'].apply(format_rho_custom),
         'Simulated 95\\% CI': df.apply(lambda row: f"[{row['Simulated_95_CI_Lower']:.3f}, {row['Simulated_95_CI_Upper']:.3f}]" if pd.notna(row['Simulated_95_CI_Lower']) else "N/A", axis=1),
-        'Simulated p-value': df['Simulated_P_Value'].apply(lambda x: f"{x:.4f}" if pd.notna(x) else "N/A")
+        'Simulated p-value': df['Simulated_P_Value'].apply(format_p_custom)
     })
     
-    # Sort by Original Rho descending to match markdown
-    df_table = df_table.sort_values(by='Original $\\rho$', ascending=False)
+    # Sort by Original Rho descending to match markdown (using raw values for sorting would be better but this maintains current logic order)
+    # Re-sort based on original values in df since df_table has formatted strings
+    df_table['sort_key'] = df['Orig_Spearman']
+    df_table = df_table.sort_values(by='sort_key', ascending=False).drop(columns=['sort_key'])
     
     with open(output_path, 'w', encoding='utf-8') as f:
-        latex_str = df_table.to_latex(index=False, escape=False)
+        # Column alignment: First column left (l), rest right (r)
+        # Columns: Benchmark, Models, Questions, Original rho, Simulated rho, CI, p-value
+        # Total 7 columns -> lrrrrrr
+        latex_str = df_table.to_latex(index=False, escape=False, column_format='lrrrrrr')
         lines = latex_str.split('\n')
         filtered_lines = [line for line in lines if '\\caption' not in line and '\\label' not in line]
         latex_str = '\n'.join(filtered_lines)
@@ -1490,10 +1538,34 @@ def generate_regression_figures_and_tables(df: pd.DataFrame, images_output_dir: 
     if results:
         df_results = pd.DataFrame(results)
         
-        # Save to LaTeX
+        # 1. Rename metric names
+        metric_map = {
+            'spearman_rho': r'Spearman $\rho$',
+            'kendall_tau': r'Kendall $\tau$',
+            'rbo': 'RBO'
+        }
+        df_results['y_metric'] = df_results['y_metric'].map(metric_map)
+
+        # 2. Select and rename columns
+        # Restore columns as requested: x_variable, y_metric, slope, intercept, r_value, p_value, std_err
+        # Keep 'n' and 'Figure' removed as per previous instruction, but restore others.
+        # Wait, user said: "Original header contained x_variable & y_metric & slope & intercept & r_value & p_value & std_err & n & Figure ... I only asked to remove the LAST TWO columns, why did you remove so many?"
+        # So I should keep: x_variable, y_metric, slope, intercept, r_value, p_value, std_err
+        # And remove: n, Figure
+        
+        cols_to_keep = ['x_variable', 'y_metric', 'slope', 'intercept', 'r_value', 'p_value', 'std_err']
+        df_results = df_results[cols_to_keep]
+        
+        # Rename columns as requested. 'r-value' and 'p-value' should be lowercase.
+        df_results.columns = ['Variable', 'Metric', 'Slope', 'Intercept', 'r-value', 'p-value', 'Std Err']
+        
+        # 3. Save to LaTeX with custom alignment
         stats_output_path = tables_output_dir / "regression_analysis_stats.tex"
         with open(stats_output_path, 'w', encoding='utf-8') as f:
-            latex_str = df_results.to_latex(index=False, float_format="%.4f", escape=True)
+            # column_format='lllllll' -> First two left aligned, others left aligned as requested
+            # Columns: Variable, Metric, Slope, Intercept, R-value, p-value, Std Err (Total 7)
+            latex_str = df_results.to_latex(index=False, float_format="%.4f", escape=False, column_format='lllllll')
+            
             # Add midrule after header
             lines = latex_str.split('\n')
             filtered_lines = [line for line in lines if '\\caption' not in line and '\\label' not in line]
