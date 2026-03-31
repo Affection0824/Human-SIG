@@ -201,22 +201,17 @@ def test_h2_scale(df: pd.DataFrame) -> Dict:
         y = df_paired[metric].values
         
         # Pearson correlation
-        if metric == 'rbo':
-            # RBO doesn't have p-value, only correlation
-            correlation, p_value = pearsonr(x, y)
-            # For RBO, we still report correlation but note that p-value is not meaningful
-        else:
-            correlation, p_value = pearsonr(x, y)
+        correlation, p_value = pearsonr(x, y)
         
         results[f'H2_{metric}'] = {
             'correlation': correlation,
-            'p_raw': p_value if metric != 'rbo' else np.nan,
+            'p_raw': p_value,
             'effect_size': correlation,
             'effect_size_type': 'pearson_r',
             'sample_size': len(df_paired)
         }
         
-        p_str = f"{p_value:.4f}" if pd.notna(p_value) and metric != 'rbo' else 'N/A'
+        p_str = f"{p_value:.4f}" if pd.notna(p_value) else 'N/A'
         logger.info(f"  {metric}: r={correlation:.3f}, p={p_str}")
     
     return results
@@ -395,12 +390,7 @@ def test_h4_recency(df: pd.DataFrame) -> Dict:
         y = df_paired[metric].values
         
         # Spearman correlation
-        if metric == 'rbo':
-            # For RBO, use Pearson correlation (RBO doesn't have rank-based p-value)
-            correlation, p_value = pearsonr(x, y)
-            p_value = np.nan  # RBO doesn't have p-value
-        else:
-            correlation, p_value = stats.spearmanr(x, y)
+        correlation, p_value = stats.spearmanr(x, y)
         
         # Calculate bootstrap CI
         def spearman_func(x_data, y_data):

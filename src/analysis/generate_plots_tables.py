@@ -794,17 +794,17 @@ def create_results_table_spearman(report: dict, output_path: Path):
         if isinstance(result, dict):
             # Extract hypothesis name
             if key.startswith('H1_'):
-                hypothesis = 'H1 (Generative)'
+                continue  # Skip H1 as requested
             elif key.startswith('H2_'):
-                hypothesis = 'H2 (Scale)'
+                hypothesis = 'H1 (Scale)'
             elif key.startswith('H3_'):
-                hypothesis = 'H3 (Complexity)'
+                hypothesis = 'H2 (Complexity)'
             elif key.startswith('H4_'):
-                hypothesis = 'H4 (Recency)'
+                hypothesis = 'H3 (Recency)'
             elif 'H6_Difficulty_Beta1' in key:
-                hypothesis = 'H6 (Difficulty)'
+                hypothesis = 'H5 (Difficulty)'
             elif 'H5_Variance_Beta2' in key:
-                hypothesis = 'H5 (Variance)'
+                hypothesis = 'H4 (Variance)'
             else:
                 hypothesis = key
             
@@ -883,17 +883,17 @@ def create_results_table_kendall(report: dict, output_path: Path):
         if isinstance(result, dict):
             # Extract hypothesis name
             if key.startswith('H1_'):
-                hypothesis = 'H1 (Generative)'
+                continue  # Skip H1 as requested
             elif key.startswith('H2_'):
-                hypothesis = 'H2 (Scale)'
+                hypothesis = 'H1 (Scale)'
             elif key.startswith('H3_'):
-                hypothesis = 'H3 (Complexity)'
+                hypothesis = 'H2 (Complexity)'
             elif key.startswith('H4_'):
-                hypothesis = 'H4 (Recency)'
+                hypothesis = 'H3 (Recency)'
             elif 'H6_Difficulty_Beta1' in key:
-                hypothesis = 'H6 (Difficulty)'
+                hypothesis = 'H5 (Difficulty)'
             elif 'H5_Variance_Beta2' in key:
-                hypothesis = 'H5 (Variance)'
+                hypothesis = 'H4 (Variance)'
             else:
                 hypothesis = key
             
@@ -972,17 +972,17 @@ def create_results_table_rbo(report: dict, output_path: Path):
         if isinstance(result, dict):
             # Extract hypothesis name
             if key.startswith('H1_'):
-                hypothesis = 'H1 (Generative)'
+                continue  # Skip H1 as requested
             elif key.startswith('H2_'):
-                hypothesis = 'H2 (Scale)'
+                hypothesis = 'H1 (Scale)'
             elif key.startswith('H3_'):
-                hypothesis = 'H3 (Complexity)'
+                hypothesis = 'H2 (Complexity)'
             elif key.startswith('H4_'):
-                hypothesis = 'H4 (Recency)'
+                hypothesis = 'H3 (Recency)'
             elif 'H6_Difficulty_Beta1' in key:
-                hypothesis = 'H6 (Difficulty)'
+                hypothesis = 'H5 (Difficulty)'
             elif 'H5_Variance_Beta2' in key:
-                hypothesis = 'H5 (Variance)'
+                hypothesis = 'H4 (Variance)'
             else:
                 hypothesis = key
             
@@ -1150,8 +1150,11 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
     # Save to LaTeX
     logger.info(f"Saving table to {output_path}")
     with open(output_path, 'w', encoding='utf-8') as f:
+        # User requested to add a vertical line after the two p-value columns.
+        # The columns are: Benchmark ID (l), Category (l), Spearman ρ (r), Spearman CI (r), Spearman p-value (r), Kendall τ (r), Kendall CI (r), Kendall p-value (r), RBO (r), N (r)
+        # So format: llrrr|rrr|rr
         latex_str = styler.to_latex(
-            column_format='llrrrrrrrr',
+            column_format='llrrr|rrr|rr',
             convert_css=True,
             hrules=True
         )
@@ -1259,18 +1262,11 @@ def create_exp2_overall_correlation_table(df: pd.DataFrame, output_path: Path):
         logger.warning("Experiment 2 overall correlation data not found. Skipping table.")
         return
         
-    df_table = df[['benchmark_id', 'spearman_rho', 'spearman_pvalue', 'spearman_rho_overall', 'spearman_pvalue_overall']].copy()
+    df_table = df[['benchmark_id', 'spearman_rho', 'spearman_rho_overall']].copy()
     df_table = df_table.dropna(subset=['spearman_rho_overall'])
     
-    df_table.columns = ['Benchmark ID', 'Category $\\rho$', 'Category p-value', 'Overall $\\rho$', 'Overall p-value']
+    df_table.columns = ['Benchmark ID', 'Category $\\rho$', 'Overall $\\rho$']
     
-    # Custom formatting functions
-    def format_p_custom(p):
-        val_str = format_pvalue(p)
-        if not pd.isna(p) and p > 0.05:
-            return f"\\itshape {val_str}"
-        return val_str
-
     def format_rho_custom(rho):
         if pd.isna(rho):
             return "N/A"
@@ -1280,17 +1276,14 @@ def create_exp2_overall_correlation_table(df: pd.DataFrame, output_path: Path):
         return val_str
     
     # Apply formatting
-    df_table['Category p-value'] = df_table['Category p-value'].apply(format_p_custom)
-    df_table['Overall p-value'] = df_table['Overall p-value'].apply(format_p_custom)
-    
     df_table['Category $\\rho$'] = df_table['Category $\\rho$'].apply(format_rho_custom)
     df_table['Overall $\\rho$'] = df_table['Overall $\\rho$'].apply(format_rho_custom)
     
     with open(output_path, 'w', encoding='utf-8') as f:
-        # User requested: "All numeric parts (including two rho cols and two p-value cols) all RIGHT aligned"
-        # Columns are: 'Benchmark ID', 'Category $\rho$', 'Category p-value', 'Overall $\rho$', 'Overall p-value'
-        # Format: lrrrr
-        latex_str = df_table.to_latex(index=False, escape=False, column_format='lrrrr')
+        # User requested: "All numeric parts (including two rho cols) all RIGHT aligned"
+        # Columns are: 'Benchmark ID', 'Category $\rho$', 'Overall $\rho$'
+        # Format: lrr
+        latex_str = df_table.to_latex(index=False, escape=False, column_format='lrr')
         lines = latex_str.split('\n')
         filtered_lines = [line for line in lines if '\\caption' not in line and '\\label' not in line]
         latex_str = '\n'.join(filtered_lines)
