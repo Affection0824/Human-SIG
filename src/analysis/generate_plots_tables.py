@@ -1152,9 +1152,9 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
     with open(output_path, 'w', encoding='utf-8') as f:
         # User requested to add a vertical line after the two p-value columns.
         # The columns are: Benchmark ID (l), Category (l), Spearman ρ (r), Spearman CI (r), Spearman p-value (r), Kendall τ (r), Kendall CI (r), Kendall p-value (r), RBO (r), N (r)
-        # So format: llrrr|rrr|rr|
+        # So format: llrrr|rrr|r|r
         latex_str = styler.to_latex(
-            column_format='llrrr|rrr|rr|',
+            column_format='llrrr|rrr|r|r',
             convert_css=True,
             hrules=True
         )
