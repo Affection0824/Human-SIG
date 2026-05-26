@@ -26,6 +26,7 @@ Requirements:
     - Save as PDF format
 """
 import sys
+import argparse
 import json
 import pandas as pd
 import numpy as np
@@ -1574,6 +1575,11 @@ def generate_regression_figures_and_tables(df: pd.DataFrame, images_output_dir: 
 
 def main():
     """Main execution function - generates both tables and figures."""
+    parser = argparse.ArgumentParser(description="Generate Figures and Tables")
+    parser.add_argument('--figures', type=int, nargs='*', help='List of figure numbers to generate (e.g., 1 3 4 5 6). If not provided, all are generated.')
+    parser.add_argument('--tables', type=int, nargs='*', help='List of table numbers to generate (e.g., 1 2 5 6 7). If not provided, all are generated.')
+    args = parser.parse_args()
+
     base_dir = Path(__file__).parent.parent.parent  # Human-SIG/
     
     # Data paths
@@ -1602,21 +1608,28 @@ def main():
     # Generate Tables
     # ========================================================================
     logger.info("\n" + "="*60)
-    logger.info("Generating all tables...")
+    logger.info("Generating selected tables...")
     logger.info("="*60)
     
-    create_correlation_summary_table(df, tables_output_dir / "correlation_summary_table.tex")
-    create_results_table_spearman(report, tables_output_dir / "results_table_spearman.tex")
-    create_results_table_kendall(report, tables_output_dir / "appendix_results_table_kendall.tex")
-    create_results_table_rbo(report, tables_output_dir / "appendix_results_table_rbo.tex")
+    if args.tables is None or 1 in args.tables:
+        create_correlation_summary_table(df, tables_output_dir / "correlation_summary_table.tex")
+    if args.tables is None or 2 in args.tables:
+        create_results_table_spearman(report, tables_output_dir / "results_table_spearman.tex")
+    if args.tables is None or 3 in args.tables:
+        create_results_table_kendall(report, tables_output_dir / "appendix_results_table_kendall.tex")
+    if args.tables is None or 4 in args.tables:
+        create_results_table_rbo(report, tables_output_dir / "appendix_results_table_rbo.tex")
     
     # New tables for experiments 1, 2, 3
-    create_exp1_reference_difficulty_table(base_dir, tables_output_dir / "reference_difficulty_table.tex")
-    create_exp2_overall_correlation_table(df, tables_output_dir / "overall_correlation_table.tex")
-    create_exp3_uncertainty_table(base_dir, tables_output_dir / "uncertainty_table.tex")
+    if args.tables is None or 5 in args.tables:
+        create_exp1_reference_difficulty_table(base_dir, tables_output_dir / "reference_difficulty_table.tex")
+    if args.tables is None or 6 in args.tables:
+        create_exp2_overall_correlation_table(df, tables_output_dir / "overall_correlation_table.tex")
+    if args.tables is None or 7 in args.tables:
+        create_exp3_uncertainty_table(base_dir, tables_output_dir / "uncertainty_table.tex")
     
     logger.info("\n" + "="*60)
-    logger.info("All tables generated successfully!")
+    logger.info("Selected tables generated successfully!")
     logger.info(f"Tables saved to: {tables_output_dir}")
     logger.info("="*60)
     
@@ -1624,49 +1637,69 @@ def main():
     # Generate Figures
     # ========================================================================
     logger.info("\n" + "="*60)
-    logger.info("Generating all figures...")
+    logger.info("Generating selected figures...")
     logger.info("="*60)
     
     # Original figures (Spearman rho)
-    figure_0_swe_bench_illustration(images_output_dir)
-    figure_1_task_type(df, images_output_dir)
-    figure_2_scale(df, images_output_dir)
-    figure_3_complexity(df, images_output_dir)
-    figure_4_recency(df, images_output_dir)
-    figure_5_difficulty_variance(df, images_output_dir, hypothesis_results)
-    figure_6_confounder_heatmap(df, images_output_dir)
+    if args.figures is None or 0 in args.figures:
+        figure_0_swe_bench_illustration(images_output_dir)
+    if args.figures is None or 1 in args.figures:
+        figure_1_task_type(df, images_output_dir)
+    if args.figures is None or 2 in args.figures:
+        figure_2_scale(df, images_output_dir)
+    if args.figures is None or 3 in args.figures:
+        figure_3_complexity(df, images_output_dir)
+    if args.figures is None or 4 in args.figures:
+        figure_4_recency(df, images_output_dir)
+    if args.figures is None or 5 in args.figures:
+        figure_5_difficulty_variance(df, images_output_dir, hypothesis_results)
+    if args.figures is None or 6 in args.figures:
+        figure_6_confounder_heatmap(df, images_output_dir)
     
     # Kendall tau versions (Figures 7-11)
-    logger.info("\n" + "="*60)
-    logger.info("Generating Kendall tau versions (Figures 7-11)...")
-    logger.info("="*60)
-    figure_task_type(df, images_output_dir, 'kendall_tau', 7)
-    figure_scale(df, images_output_dir, 'kendall_tau', 8)
-    figure_complexity(df, images_output_dir, 'kendall_tau', 9)
-    figure_recency(df, images_output_dir, 'kendall_tau', 10)
-    figure_difficulty_variance(df, images_output_dir, hypothesis_results, 'kendall_tau', 11)
+    if args.figures is None or any(f in args.figures for f in range(7, 12)):
+        logger.info("\n" + "="*60)
+        logger.info("Generating selected Kendall tau versions (Figures 7-11)...")
+        logger.info("="*60)
+        if args.figures is None or 7 in args.figures:
+            figure_task_type(df, images_output_dir, 'kendall_tau', 7)
+        if args.figures is None or 8 in args.figures:
+            figure_scale(df, images_output_dir, 'kendall_tau', 8)
+        if args.figures is None or 9 in args.figures:
+            figure_complexity(df, images_output_dir, 'kendall_tau', 9)
+        if args.figures is None or 10 in args.figures:
+            figure_recency(df, images_output_dir, 'kendall_tau', 10)
+        if args.figures is None or 11 in args.figures:
+            figure_difficulty_variance(df, images_output_dir, hypothesis_results, 'kendall_tau', 11)
     
     # RBO versions (Figures 12-16)
-    logger.info("\n" + "="*60)
-    logger.info("Generating RBO versions (Figures 12-16)...")
-    logger.info("="*60)
-    figure_task_type(df, images_output_dir, 'rbo', 12)
-    figure_scale(df, images_output_dir, 'rbo', 13)
-    figure_complexity(df, images_output_dir, 'rbo', 14)
-    figure_recency(df, images_output_dir, 'rbo', 15)
-    figure_difficulty_variance(df, images_output_dir, hypothesis_results, 'rbo', 16)
+    if args.figures is None or any(f in args.figures for f in range(12, 17)):
+        logger.info("\n" + "="*60)
+        logger.info("Generating selected RBO versions (Figures 12-16)...")
+        logger.info("="*60)
+        if args.figures is None or 12 in args.figures:
+            figure_task_type(df, images_output_dir, 'rbo', 12)
+        if args.figures is None or 13 in args.figures:
+            figure_scale(df, images_output_dir, 'rbo', 13)
+        if args.figures is None or 14 in args.figures:
+            figure_complexity(df, images_output_dir, 'rbo', 14)
+        if args.figures is None or 15 in args.figures:
+            figure_recency(df, images_output_dir, 'rbo', 15)
+        if args.figures is None or 16 in args.figures:
+            figure_difficulty_variance(df, images_output_dir, hypothesis_results, 'rbo', 16)
     
     # New figures for experiment 4 (Regression)
-    generate_regression_figures_and_tables(df, images_output_dir, tables_output_dir)
+    if args.figures is None or any(f in args.figures for f in range(17, 23)) or (args.tables is None or 8 in args.tables):
+        generate_regression_figures_and_tables(df, images_output_dir, tables_output_dir)
     
     logger.info("\n" + "="*60)
-    logger.info("All figures generated successfully!")
+    logger.info("Selected figures generated successfully!")
     logger.info(f"Figures saved to: {images_output_dir}")
     logger.info("="*60)
     
     # Final summary
     logger.info("\n" + "="*60)
-    logger.info("ALL TABLES AND FIGURES GENERATED SUCCESSFULLY!")
+    logger.info("SELECTED TABLES AND FIGURES GENERATED SUCCESSFULLY!")
     logger.info("="*60)
 
 

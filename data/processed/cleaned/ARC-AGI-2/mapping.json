@@ -1,10 +1,12 @@
 {
+  "Gemini 3 Pro (Refine.)": "gemini-3-pro",
   "GPT-5.2 (High)": "gpt-5.2-high",
   "Grok 4 (Thinking)": "grok-4-0709",
   "Claude Sonnet 4.5 (Thinking 32K)": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
   "GPT-5 (High)": "gpt-5-high",
   "Claude Opus 4 (Thinking 16K)": "Anthropicclaude-opus-4-20250514-thinking-16k",
   "o4-mini (High)": "o4-mini-2025-04-16",
+  "Claude Sonnet 4 (Thinking 16K)": "Anthropicclaude-sonnet-4-20250514-thinking-32k",
   "Grok 4 (Fast Reasoning)": "grok-4-fast-reasoning",
   "Gemini 2.5 Pro (Thinking 32K)": "gemini-2.5-pro",
   "GPT-5 Mini (High)": "gpt-5-mini-high",

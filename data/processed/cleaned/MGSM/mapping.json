@@ -4,7 +4,9 @@
   "claude-sonnet-4-5-20250929-thinking": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
   "gpt-5.2-2025-12-11": "gpt-5.2",
   "gemini-3-pro-preview": "gemini-3-pro",
+  "claude-opus-4-20250514": "Anthropicclaude-opus-4-20250514-thinking-16k",
   "o4-mini-2025-04-16": "o4-mini-2025-04-16",
+  "claude-sonnet-4-20250514": "Anthropicclaude-sonnet-4-20250514-thinking-32k",
   "claude-3-7-sonnet-20250219-thinking": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k",
   "gpt-5.1-2025-11-13": "gpt-5.1",
   "gpt-5-mini-2025-08-07": "gpt-5-mini-high",
@@ -13,6 +15,7 @@
   "deepseek-r1": "deepseek-r1-0528",
   "qwen3-max-preview": "qwen3-max-preview",
   "deepseek-v3": "deepseek-v3-0324",
+  "claude-haiku-4-5-20251001-thinking": "Anthropicclaude-haiku-4-5-20251001",
   "gpt-oss-120b": "gpt-oss-120b",
   "qwen3-max": "qwen3-max-2025-09-23",
   "o3-2025-04-16": "o3-2025-04-16",
@@ -34,5 +37,7 @@
   "gemini-2.0-flash-001": "gemini-2.0-flash-001",
   "gpt-4.1-mini-2025-04-14": "gpt-4.1-mini-2025-04-14",
   "gpt-4.1-2025-04-14": "gpt-4.1-2025-04-14",
-  "command-a-03-2025": "Coherecommand-a-03-2025"
+  "grok-2-1212": "grok-2-2024-08-13",
+  "command-a-03-2025": "Coherecommand-a-03-2025",
+  "mistral-small-2503": "mistral-small-2506"
 }

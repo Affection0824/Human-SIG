@@ -26,5 +26,6 @@
   "gemini-2.0-flash-001": "gemini-2.0-flash-001",
   "gpt-oss-120b": "gpt-oss-120b",
   "llama-3.1-405b-instruct": "Metallama-3.1-405b-instruct-bf16",
+  "Mistral-Small-24B-Instruct-2501": "mistral-small-2506",
   "gpt-5-nano-2025-08-07": "gpt-5-nano-high"
 }
