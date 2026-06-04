@@ -32,7 +32,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "qwen3-235b-a22b-thinking-2507": {
@@ -102,7 +102,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-235b-a22b-thinking-2507"
   },
   "kimi-k2-instruct": {
@@ -145,8 +145,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "MoonshotAIkimi-k2-0711-preview"
   },
   "claude-sonnet-4-5-20250929": {
     "benchmark_info": {
@@ -182,8 +182,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929"
   },
   "o3-2025-04-16": {
     "benchmark_info": {
@@ -228,7 +228,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-2025-04-16"
   },
   "qwen3-235b-a22b-instruct-2507": {
@@ -298,7 +298,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-235b-a22b-instruct-2507"
   },
   "qwen3-max": {
@@ -332,7 +332,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-max-2025-09-23"
   },
   "claude-opus-4-5-20251101": {
@@ -369,8 +369,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101"
   },
   "doubao-seed-1-6-thinking-250715": {
     "benchmark_info": {
@@ -389,7 +389,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-2.5-pro": {
@@ -412,7 +412,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-2.5-pro"
   },
   "nanbeige4-3b-thinking-2511": {
@@ -432,7 +432,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "deepseek-r1-0528": {
@@ -470,7 +470,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-r1-0528"
   },
   "doubao-seed-1-6-thinking-250615": {
@@ -490,7 +490,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-3-pro-preview": {
@@ -515,7 +515,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-3-pro"
   },
   "doubao-seed-1-6-250615": {
@@ -534,7 +534,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "claude-haiku-4-5-20251001": {
@@ -559,7 +559,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-haiku-4-5-20251001"
   },
   "claude-opus-4-1-20250805": {
@@ -596,8 +596,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-1-20250805-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-1-20250805"
   },
   "claude-opus-4-20250514-thinking": {
     "benchmark_info": {
@@ -635,8 +635,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "qwen3-235b-a22b-thinking": {
     "benchmark_info": {
@@ -705,8 +705,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "qwen3-235b-a22b-thinking-2507"
+    "untrusted": 0,
+    "selected_lmarena_model": "qwen3-235b-a22b"
   },
   "grok-4-0709": {
     "benchmark_info": {
@@ -728,7 +728,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "grok-4-0709"
   },
   "claude-opus-4-20250514": {
@@ -765,8 +765,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514"
   },
   "claude-sonnet-4-20250514": {
     "benchmark_info": {
@@ -802,8 +802,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514"
   },
   "claude-sonnet-4-20250514-thinking": {
     "benchmark_info": {
@@ -841,8 +841,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "claude-3-7-sonnet-20250219-thinking": {
     "benchmark_info": {
@@ -880,8 +880,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "chatgpt-4o-latest": {
     "benchmark_info": {
@@ -909,7 +909,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "chatgpt-4o-latest-20250326"
   },
   "o4-mini-2025-04-16": {
@@ -936,7 +936,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o4-mini-2025-04-16"
   },
   "claude-3-7-sonnet-20250219": {
@@ -973,8 +973,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219"
   },
   "qwen3-235b-a22b-nothinking": {
     "benchmark_info": {
@@ -1043,8 +1043,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "qwen3-235b-a22b"
+    "untrusted": 0,
+    "selected_lmarena_model": "qwen3-235b-a22b-no-thinking"
   },
   "qwq-32b": {
     "benchmark_info": {
@@ -1066,7 +1066,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwq-32b"
   },
   "deepseek-r1": {
@@ -1104,8 +1104,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "deepseek-r1-0528"
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-r1"
   },
   "grok-3": {
     "benchmark_info": {
@@ -1129,8 +1129,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-3-preview-02-24"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gpt-4.1-2025-04-14": {
     "benchmark_info": {
@@ -1152,7 +1152,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-2025-04-14"
   },
   "deepseek-v3-250324": {
@@ -1186,8 +1186,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-v3-0324"
   },
   "o3-mini": {
     "benchmark_info": {
@@ -1234,7 +1234,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-mini"
   },
   "gpt-4.5-preview": {
@@ -1261,7 +1261,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.5-preview-2025-02-27"
   },
   "gemini-2.0-flash": {
@@ -1286,8 +1286,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.0-flash-001"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "qwen-max": {
     "benchmark_info": {
@@ -1303,7 +1303,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o1-preview-2024-09-12": {
@@ -1350,7 +1350,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o1-preview"
   },
   "deepseek-v3": {
@@ -1382,8 +1382,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "deepseek-v3-0324"
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-v3"
   },
   "gemini-1.5-pro": {
     "benchmark_info": {
@@ -1407,8 +1407,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-1.5-pro-002"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "qwen-2.5-72b-instruct": {
     "benchmark_info": {
@@ -1426,7 +1426,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4o-mini": {
@@ -1445,7 +1445,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "mistral-large-instruct-2411": {
@@ -1462,7 +1462,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "claude-3-5-sonnet-20241022": {
@@ -1498,7 +1498,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-3-5-sonnet-20241022"
   },
   "llama-4-maverick-17b-128e": {
@@ -1517,7 +1517,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "llama-4-scout-17b-16e-instruct": {
@@ -1537,7 +1537,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "qwen-2.5-7b-instruct": {
@@ -1556,7 +1556,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "claude-3-5-haiku-20241022": {
@@ -1573,7 +1573,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "llama-3.3-70b-instruct": {
@@ -1592,7 +1592,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "qwen3-0.6b-thinking": {
@@ -1611,7 +1611,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "qwen3-0.6b-nothinking": {
@@ -1630,7 +1630,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "llama-3.1-8b-instruct": {
@@ -1649,7 +1649,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "llama-3.2-3b-instruct": {
@@ -1668,7 +1668,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "llama-3.2-1b-instruct": {
@@ -1687,7 +1687,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   }
 }

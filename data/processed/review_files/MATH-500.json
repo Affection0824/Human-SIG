@@ -21,7 +21,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-3-pro"
   },
   "grok-4-0709": {
@@ -44,7 +44,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "grok-4-0709"
   },
   "gpt-5-2025-08-07": {
@@ -80,8 +80,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "gpt-5-high"
   },
   "claude-opus-4-1-20250805-thinking": {
     "benchmark_info": {
@@ -119,8 +119,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-1-20250805-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gemini-2.5-pro-exp-03-25": {
     "benchmark_info": {
@@ -136,7 +136,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-oss-120b": {
@@ -159,7 +159,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-oss-120b"
   },
   "gpt-5-mini-2025-08-07": {
@@ -184,7 +184,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5-mini-high"
   },
   "qwen3-235b-a22b": {
@@ -253,7 +253,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-235b-a22b"
   },
   "o3-2025-04-16": {
@@ -299,7 +299,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-2025-04-16"
   },
   "moonshotai/Kimi-K2-Instruct": {
@@ -320,7 +320,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-oss-20b": {
@@ -337,7 +337,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "grok-3-mini-fast-high-reasoning": {
@@ -357,7 +357,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o4-mini-2025-04-16": {
@@ -384,7 +384,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o4-mini-2025-04-16"
   },
   "glm-4.5": {
@@ -418,7 +418,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "glm-4.5"
   },
   "claude-sonnet-4-20250514-thinking": {
@@ -457,8 +457,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gpt-5-nano-2025-08-07": {
     "benchmark_info": {
@@ -482,7 +482,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5-nano-high"
   },
   "claude-opus-4-1-20250805": {
@@ -519,8 +519,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-1-20250805-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-1-20250805"
   },
   "deepseek-r1": {
     "benchmark_info": {
@@ -557,8 +557,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "deepseek-r1-0528"
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-r1"
   },
   "gemini-2.5-flash-preview-04-17-thinking": {
     "benchmark_info": {
@@ -594,8 +594,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.5-flash-preview-09-2025"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "o3-mini-2025-01-31": {
     "benchmark_info": {
@@ -642,8 +642,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "o3-mini"
+    "untrusted": 0,
+    "selected_lmarena_model": "o3-mini-high"
   },
   "claude-3-7-sonnet-20250219-thinking": {
     "benchmark_info": {
@@ -681,8 +681,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gemini-2.5-flash-preview-04-17": {
     "benchmark_info": {
@@ -717,8 +717,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.5-flash-preview-09-2025"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "langston/nim/nvidia/llama-3.3-nemotron-super-49b-v1-42e84561-thinking": {
     "benchmark_info": {
@@ -749,8 +749,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Nvidianvidia-llama-3.3-nemotron-super-49b-v1.5"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "o1-2024-12-17": {
     "benchmark_info": {
@@ -794,7 +794,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o1-2024-12-17"
   },
   "claude-opus-4-20250514": {
@@ -831,8 +831,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514"
   },
   "claude-sonnet-4-20250514": {
     "benchmark_info": {
@@ -868,8 +868,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514"
   },
   "grok-3": {
     "benchmark_info": {
@@ -893,8 +893,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-3-preview-02-24"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "MiniMax-M2.1": {
     "benchmark_info": {
@@ -912,7 +912,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-2.0-flash-exp": {
@@ -929,7 +929,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "deepseek-v3-0324": {
@@ -961,7 +961,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-v3-0324"
   },
   "gpt-4.1-mini-2025-04-14": {
@@ -984,7 +984,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-mini-2025-04-14"
   },
   "gemini-2.0-flash-001": {
@@ -1011,7 +1011,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-2.0-flash-001"
   },
   "gpt-4.1-2025-04-14": {
@@ -1034,7 +1034,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-2025-04-14"
   },
   "mistral-medium-2505": {
@@ -1066,7 +1066,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "mistral-medium-2505"
   },
   "llama4-maverick-instruct-basic": {
@@ -1086,7 +1086,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-2.0-flash-thinking-exp-01-21": {
@@ -1105,7 +1105,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-1.5-pro-002": {
@@ -1132,7 +1132,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-1.5-pro-002"
   },
   "deepseek-v3": {
@@ -1164,8 +1164,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "deepseek-v3-0324"
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-v3"
   },
   "gpt-4.1-nano-2025-04-14": {
     "benchmark_info": {
@@ -1181,7 +1181,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "meta-llama/Llama-4-Scout-17B-16E-Instruct": {
@@ -1203,7 +1203,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-1.5-flash-002": {
@@ -1222,7 +1222,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "grok-2-1212": {
@@ -1245,8 +1245,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-2-2024-08-13"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "claude-3-7-sonnet-20250219": {
     "benchmark_info": {
@@ -1282,8 +1282,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219"
   },
   "command-a-03-2025": {
     "benchmark_info": {
@@ -1307,7 +1307,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Coherecommand-a-03-2025"
   },
   "gpt-4o-2024-08-06": {
@@ -1345,7 +1345,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4o-2024-08-06"
   },
   "mistral-large-2411": {
@@ -1362,7 +1362,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4o-2024-11-20": {
@@ -1400,8 +1400,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-4o-2024-05-13"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "meta-llama/Llama-3.3-70B-Instruct-Turbo": {
     "benchmark_info": {
@@ -1421,7 +1421,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4o-mini-2024-07-18": {
@@ -1440,7 +1440,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "claude-3-5-sonnet-20241022": {
@@ -1476,7 +1476,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-3-5-sonnet-20241022"
   },
   "meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo": {
@@ -1498,7 +1498,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "langston/nim/nvidia/llama-3.3-nemotron-super-49b-v1-42e84561": {
@@ -1529,8 +1529,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Nvidianvidia-llama-3.3-nemotron-super-49b-v1.5"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "mistral-small-2402": {
     "benchmark_info": {
@@ -1552,8 +1552,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "mistral-small-2506"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "grok-3-mini-fast-low-reasoning": {
     "benchmark_info": {
@@ -1572,7 +1572,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "mistral-small-2503": {
@@ -1595,8 +1595,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "mistral-small-2506"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo": {
     "benchmark_info": {
@@ -1617,7 +1617,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "claude-3-5-haiku-20241022": {
@@ -1634,7 +1634,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "jamba-large-1.6": {
@@ -1654,7 +1654,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo": {
@@ -1676,7 +1676,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "jamba-mini-1.6": {
@@ -1696,7 +1696,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   }
 }

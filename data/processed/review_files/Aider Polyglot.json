@@ -34,7 +34,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5-high"
   },
   "gpt-5 (medium)": {
@@ -72,7 +72,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o3-pro (high)": {
@@ -121,7 +121,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-2.5-pro-preview-06-05 (32k think)": {
@@ -147,8 +147,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.5-pro"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gpt-5 (low)": {
     "benchmark_info": {
@@ -185,7 +185,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o3 (high)": {
@@ -205,7 +205,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "grok-4 (high)": {
@@ -230,8 +230,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-4-0709"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gemini-2.5-pro-preview-06-05 (default think)": {
     "benchmark_info": {
@@ -257,8 +257,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.5-pro"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "o3 (high) + gpt-4.1": {
     "benchmark_info": {
@@ -280,7 +280,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o3": {
@@ -326,7 +326,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-2025-04-16"
   },
   "Gemini 2.5 Pro Preview 05-06": {
@@ -351,8 +351,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.5-pro"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "DeepSeek-V3.2-Exp (Reasoner)": {
     "benchmark_info": {
@@ -387,8 +387,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-v3.2-exp-thinking"
   },
   "Gemini 2.5 Pro Preview 03-25": {
     "benchmark_info": {
@@ -412,8 +412,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.5-pro"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "claude-opus-4-20250514 (32k thinking)": {
     "benchmark_info": {
@@ -451,8 +451,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "o4-mini (high)": {
     "benchmark_info": {
@@ -479,8 +479,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "o4-mini-2025-04-16"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "DeepSeek R1 (0528)": {
     "benchmark_info": {
@@ -518,7 +518,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-r1-0528"
   },
   "claude-opus-4-20250514 (no think)": {
@@ -558,8 +558,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514"
   },
   "DeepSeek-V3.2-Exp (Chat)": {
     "benchmark_info": {
@@ -594,7 +594,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "claude-3-7-sonnet-20250219 (32k thinking tokens)": {
@@ -634,7 +634,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
   },
   "DeepSeek R1 + claude-3-5-sonnet-20241022": {
@@ -657,7 +657,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o1-2024-12-17 (high)": {
@@ -704,8 +704,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "o1-2024-12-17"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "claude-sonnet-4-20250514 (32k thinking)": {
     "benchmark_info": {
@@ -743,7 +743,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514-thinking-32k"
   },
   "claude-3-7-sonnet-20250219 (no thinking)": {
@@ -783,8 +783,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219"
   },
   "o3-mini (high)": {
     "benchmark_info": {
@@ -832,7 +832,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-mini-high"
   },
   "Qwen3 235B A22B diff, no think, Alibaba API": {
@@ -906,7 +906,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-235b-a22b-no-thinking"
   },
   "Kimi K2": {
@@ -948,7 +948,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "MoonshotAIkimi-k2-0905-preview"
   },
   "DeepSeek R1": {
@@ -986,8 +986,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "deepseek-r1-0528"
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-r1"
   },
   "claude-sonnet-4-20250514 (no thinking)": {
     "benchmark_info": {
@@ -1026,8 +1026,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514"
   },
   "gemini-2.5-flash-preview-05-20 (24k think)": {
     "benchmark_info": {
@@ -1064,7 +1064,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "DeepSeek V3 (0324)": {
@@ -1098,8 +1098,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-v3-0324"
   },
   "Quasar Alpha": {
     "benchmark_info": {
@@ -1118,7 +1118,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o3-mini (medium)": {
@@ -1167,7 +1167,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-mini"
   },
   "Grok 3 Beta": {
@@ -1194,8 +1194,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-3-preview-02-24"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Optimus Alpha": {
     "benchmark_info": {
@@ -1214,7 +1214,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4.1": {
@@ -1237,7 +1237,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-2025-04-14"
   },
   "claude-3-5-sonnet-20241022": {
@@ -1273,7 +1273,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-3-5-sonnet-20241022"
   },
   "Grok 3 Mini Beta (high)": {
@@ -1312,7 +1312,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "grok-3-mini-high"
   },
   "DeepSeek Chat V3 (prev)": {
@@ -1331,7 +1331,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-2.5-flash-preview-04-17 (default)": {
@@ -1368,8 +1368,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.5-flash-preview-09-2025"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "chatgpt-4o-latest (2025-03-29)": {
     "benchmark_info": {
@@ -1400,8 +1400,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "chatgpt-4o-latest-20250326"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gpt-4.5-preview": {
     "benchmark_info": {
@@ -1427,7 +1427,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.5-preview-2025-02-27"
   },
   "gemini-2.5-flash-preview-05-20 (no think)": {
@@ -1465,7 +1465,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-oss-120b (high)": {
@@ -1490,8 +1490,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-oss-120b"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Qwen3 32B": {
     "benchmark_info": {
@@ -1517,7 +1517,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-32b"
   },
   "gemini-exp-1206": {
@@ -1534,7 +1534,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Gemini 2.0 Pro exp-02-05": {
@@ -1551,7 +1551,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Grok 3 Mini Beta (low)": {
@@ -1590,8 +1590,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-3-mini-beta"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "o1-mini-2024-09-12": {
     "benchmark_info": {
@@ -1637,7 +1637,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o1-mini"
   },
   "gpt-4.1-mini": {
@@ -1660,7 +1660,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-mini-2025-04-14"
   },
   "claude-3-5-haiku-20241022": {
@@ -1677,7 +1677,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "chatgpt-4o-latest (2025-02-15)": {
@@ -1709,8 +1709,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "chatgpt-4o-latest-20250326"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "QwQ-32B + Qwen 2.5 Coder Instruct": {
     "benchmark_info": {
@@ -1731,7 +1731,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4o-2024-08-06": {
@@ -1769,7 +1769,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4o-2024-08-06"
   },
   "gemini-2.0-flash-exp": {
@@ -1786,7 +1786,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "qwen-max-2025-01-25": {
@@ -1803,7 +1803,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "QwQ-32B": {
@@ -1826,7 +1826,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwq-32b"
   },
   "gemini-2.0-flash-thinking-exp-01-21": {
@@ -1845,7 +1845,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4o-2024-11-20": {
@@ -1883,8 +1883,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-4o-2024-05-13"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "DeepSeek Chat V2.5": {
     "benchmark_info": {
@@ -1900,7 +1900,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen2.5-Coder-32B-Instruct": {
@@ -1919,7 +1919,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Llama 4 Maverick": {
@@ -1936,7 +1936,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "yi-lightning": {
@@ -1953,7 +1953,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "command-a-03-2025-quality": {
@@ -1980,7 +1980,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Coherecommand-a-03-2025"
   },
   "Codestral 25.01": {
@@ -1999,7 +1999,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "openhands-lm-32b-v0.1": {
@@ -2020,7 +2020,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4.1-nano": {
@@ -2037,7 +2037,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemma-3-27b-it": {
@@ -2064,7 +2064,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemma-3-27b-it"
   },
   "gpt-4o-mini-2024-07-18": {
@@ -2083,7 +2083,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   }
 }

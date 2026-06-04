@@ -1211,6 +1211,12 @@ def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
     # Drop rows with NaN for correlation calculation
     df_clean = df.dropna(subset=['Original Difficulty', 'Reference Difficulty'])
     
+    # NEW CODE: Handle the case where values are in 'Reference_Avg_Score' instead of 'Reference Difficulty'
+    # if 'Reference_Avg_Score' was dropped, 'Reference Difficulty' should have the values.
+    # Let's inspect the data to make sure we're getting all valid rows
+    print(f"DEBUG: Data before dropna:\n{df.head()}", flush=True)
+    print(f"DEBUG: df_clean shape: {df_clean.shape}", flush=True)
+    
     if len(df_clean) > 2:
         print("DEBUG: Calculating Pearson r using scipy...", flush=True)
         x = df_clean['Original Difficulty']

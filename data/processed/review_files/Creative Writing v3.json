@@ -36,8 +36,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101"
   },
   "Kimi-K2-Instruct": {
     "benchmark_info": {
@@ -79,8 +79,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "MoonshotAIkimi-k2-0711-preview"
   },
   "🆕 gpt-5.2": {
     "benchmark_info": {
@@ -116,8 +116,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "gpt-5.2"
   },
   "o3": {
     "benchmark_info": {
@@ -162,7 +162,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-2025-04-16"
   },
   "claude-sonnet-4.5": {
@@ -199,8 +199,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929"
   },
   "Kimi-K2-Thinking": {
     "benchmark_info": {
@@ -242,7 +242,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "horizon-alpha": {
@@ -262,7 +262,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "horizon-beta": {
@@ -282,7 +282,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "claude-opus-4": {
@@ -319,8 +319,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514"
   },
   "gpt-5-2025-08-07": {
     "benchmark_info": {
@@ -355,7 +355,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "DeepSeek-R1": {
@@ -393,8 +393,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "deepseek-r1-0528"
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-r1"
   },
   "🆕 DeepSeek-V3.2": {
     "benchmark_info": {
@@ -430,8 +430,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-v3.2"
   },
   "chatgpt-4o-latest-2025-03-27": {
     "benchmark_info": {
@@ -459,8 +459,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "chatgpt-4o-latest-20250326"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "claude-sonnet-4": {
     "benchmark_info": {
@@ -496,8 +496,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514"
   },
   "gemini-3-pro-preview": {
     "benchmark_info": {
@@ -521,7 +521,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-3-pro"
   },
   "claude-3-5-sonnet-20241022": {
@@ -557,7 +557,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-3-5-sonnet-20241022"
   },
   "gpt-4.1": {
@@ -580,7 +580,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-2025-04-14"
   },
   "DeepSeek-V3-0324": {
@@ -612,7 +612,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-v3-0324"
   },
   "optimus-alpha": {
@@ -632,7 +632,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-2.5-pro-preview-06-05": {
@@ -657,7 +657,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-2.5-pro"
   },
   "mistral-medium-3.1": {
@@ -674,7 +674,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "DeepSeek-V3.1": {
@@ -708,7 +708,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-v3.1"
   },
   "claude-3-7-sonnet-20250219": {
@@ -745,8 +745,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219"
   },
   "DeepSeek-R1-0528": {
     "benchmark_info": {
@@ -783,7 +783,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-r1-0528"
   },
   "gemini-2.5-pro-exp-03-25": {
@@ -800,7 +800,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Hermes-4-405B": {
@@ -820,7 +820,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "🆕 Mistral-Large-3-675B-Instruct-2512": {
@@ -847,7 +847,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "mistral-large-3"
   },
   "GLM-4.6": {
@@ -870,7 +870,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "glm-4.6"
   },
   "chatgpt-4o-latest-2025-01-29": {
@@ -899,8 +899,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "chatgpt-4o-latest-20250326"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "quasar-alpha": {
     "benchmark_info": {
@@ -919,7 +919,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "🆕 mistral-small-creative": {
@@ -941,7 +941,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "grok-4.1-fast": {
@@ -966,8 +966,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-4-1-fast-reasoning"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "sherlock-dash-alpha": {
     "benchmark_info": {
@@ -987,7 +987,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "qwen3-235b-a22b:thinking": {
@@ -1056,7 +1056,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-235b-a22b"
   },
   "GLM-4.5": {
@@ -1090,7 +1090,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "glm-4.5"
   },
   "gpt-5-mini-2025-08-07": {
@@ -1115,8 +1115,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5-mini-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "🆕 DeepSeek-V3.2-Speciale": {
     "benchmark_info": {
@@ -1135,7 +1135,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemma-3-27b-it": {
@@ -1162,7 +1162,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemma-3-27b-it"
   },
   "Mistral-Small-3.2-24B-Instruct-2506": {
@@ -1181,7 +1181,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "grok-3-beta": {
@@ -1208,8 +1208,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-3-preview-02-24"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gpt-4.5-preview": {
     "benchmark_info": {
@@ -1235,7 +1235,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.5-preview-2025-02-27"
   },
   "reka-flash-3": {
@@ -1252,7 +1252,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "qwq-32b": {
@@ -1275,7 +1275,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwq-32b"
   },
   "claude-3.5-haiku-20241022": {
@@ -1292,7 +1292,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemini-2.5-flash-preview": {
@@ -1328,8 +1328,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.5-flash-preview-09-2025"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gemma-3-4b-it": {
     "benchmark_info": {
@@ -1347,7 +1347,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4.1-mini": {
@@ -1370,7 +1370,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-mini-2025-04-14"
   },
   "c4ai-command-a-03-2025": {
@@ -1390,7 +1390,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemma-3-12b-it": {
@@ -1417,7 +1417,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemma-3-12b-it"
   },
   "gemini-2.0-flash-001": {
@@ -1444,7 +1444,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-2.0-flash-001"
   },
   "Gemma-3-Glitter-12B": {
@@ -1471,8 +1471,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemma-3-12b-it"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "GLM-4-32B-0414": {
     "benchmark_info": {
@@ -1488,7 +1488,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "mistral-large-2411": {
@@ -1505,7 +1505,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Darkest-muse-v1": {
@@ -1525,7 +1525,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Pixtral-Large-Instruct-2411": {
@@ -1546,7 +1546,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-oss-120b": {
@@ -1569,7 +1569,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-oss-120b"
   },
   "llama-3.1-405b-instruct": {
@@ -1611,7 +1611,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Metallama-3.1-405b-instruct-bf16"
   },
   "gpt-4.1-nano": {
@@ -1628,7 +1628,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "🆕 Nanbeige4-3B-Thinking-2511": {
@@ -1649,7 +1649,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Gemma-3-Starshine-12B": {
@@ -1676,8 +1676,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemma-3-12b-it"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Llama-4-Maverick-17B-128E-Instruct": {
     "benchmark_info": {
@@ -1696,7 +1696,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemma-2-Ifable-9B": {
@@ -1715,7 +1715,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4o-mini": {
@@ -1734,7 +1734,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Mistral-Nemo-Instruct-2407": {
@@ -1751,7 +1751,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "model_name": {
@@ -1771,7 +1771,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gemma-2-9b-it": {
@@ -1790,7 +1790,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "llama-3.1-70b-instruct": {
@@ -1809,7 +1809,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "claude-3-haiku": {
@@ -1826,7 +1826,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "cypher-alpha": {
@@ -1846,7 +1846,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "mistral-small-3.1-24b-instruct-2503": {
@@ -1865,7 +1865,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Llama-4-Scout-17B-16E-Instruct": {
@@ -1885,7 +1885,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-4-0314": {
@@ -1921,7 +1921,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Mistral-Small-24B-Instruct-2501": {
@@ -1946,8 +1946,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "mistral-small-2506"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "gpt-5-nano-2025-08-07": {
     "benchmark_info": {
@@ -1971,8 +1971,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5-nano-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "llama-3.1-8b-instruct": {
     "benchmark_info": {
@@ -1990,7 +1990,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "lfm-7b": {
@@ -2009,7 +2009,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-oss-20b": {
@@ -2026,7 +2026,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "llama-3.2-3b-instruct": {
@@ -2045,7 +2045,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "gpt-3.5-turbo-0613": {
@@ -2062,7 +2062,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "llama-3.2-1b-instruct": {
@@ -2081,7 +2081,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   }
 }

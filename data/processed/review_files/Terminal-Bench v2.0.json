@@ -33,8 +33,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101"
   },
   "Gemini 3 Pro": {
     "benchmark_info": {
@@ -56,7 +56,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-3-pro"
   },
   "GPT-5.2": {
@@ -90,7 +90,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5.2"
   },
   "GPT-5.1": {
@@ -124,7 +124,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5.1"
   },
   "GPT-5-Codex": {
@@ -141,7 +141,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Claude Sonnet 4.5": {
@@ -178,8 +178,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929"
   },
   "Claude Opus 4.1": {
     "benchmark_info": {
@@ -215,8 +215,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-1-20250805"
   },
   "GPT-5.1-Codex": {
     "benchmark_info": {
@@ -232,7 +232,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Kimi K2 Thinking": {
@@ -275,7 +275,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-5": {
@@ -311,7 +311,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Gemini 2.5 Pro": {
@@ -334,7 +334,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-2.5-pro"
   },
   "MiniMax M2": {
@@ -362,7 +362,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Minimaxminimax-m2"
   },
   "Claude Haiku 4.5": {
@@ -387,7 +387,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-haiku-4-5-20251001"
   },
   "Kimi K2 Instruct": {
@@ -430,8 +430,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "MoonshotAIkimi-k2-0711-preview"
   },
   "GLM 4.6": {
     "benchmark_info": {
@@ -453,7 +453,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "glm-4.6"
   },
   "GPT-5-Mini": {
@@ -478,8 +478,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5-mini-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Qwen 3 Coder 480B": {
     "benchmark_info": {
@@ -504,7 +504,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-coder-480b-a35b-instruct"
   },
   "Grok 4": {
@@ -527,7 +527,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "grok-4-0709"
   },
   "GPT-OSS-120B": {
@@ -550,7 +550,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-oss-120b"
   },
   "Gemini 2.5 Flash": {
@@ -584,7 +584,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-2.5-flash"
   },
   "Grok Code Fast 1": {
@@ -601,7 +601,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-5-Nano": {
@@ -626,8 +626,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5-nano-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "GPT-OSS-20B": {
     "benchmark_info": {
@@ -643,7 +643,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   }
 }

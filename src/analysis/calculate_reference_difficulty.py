@@ -17,8 +17,9 @@ def sanitize_benchmark_id(benchmark_id: str) -> str:
     return sanitized.strip('_')
 
 def calculate_reference_difficulty():
-    # Define paths
-    base_dir = Path(r"D:\桌面 2026.1.13\科研\Human-SIG\Human-SIG")
+    # Define paths dynamically based on script location
+    # Script is in src/analysis/, so base_dir is 3 levels up
+    base_dir = Path(__file__).resolve().parent.parent.parent
     master_table_path = base_dir / "data/processed/master_table/master_correlation_matrix.csv"
     original_data_path = base_dir / "results/analysis_ready_data.csv"
     
@@ -28,8 +29,8 @@ def calculate_reference_difficulty():
     
     # Define the 3 models (Group 20)
     target_models = [
-        "Anthropicclaude-sonnet-4-5-20250929-thinking-32k",
-        "gemini-3-pro",
+        "Anthropicclaude-opus-4-5-20251101",
+        "gemini-2.5-pro",
         "gpt-5.1"
     ]
     

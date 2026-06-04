@@ -13,7 +13,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-5.2": {
@@ -47,7 +47,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5.2"
   },
   "DeepSeek-V3.2-Speciale": {
@@ -64,7 +64,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Kimi K2-Thinking-0905": {
@@ -107,7 +107,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "MoonshotAIkimi-k2-0905-preview"
   },
   "Grok 4 Fast": {
@@ -143,7 +143,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-5": {
@@ -179,7 +179,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "DeepSeek-V3.2 (Thinking)": {
@@ -215,7 +215,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-v3.2-thinking"
   },
   "GPT-5 mini": {
@@ -240,8 +240,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5-mini-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "MiMo-V2-Flash": {
     "benchmark_info": {
@@ -265,7 +265,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "mimo-v2-flash (non-thinking)"
   },
   "DeepSeek-V3.2-Exp": {
@@ -299,7 +299,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-v3.2-exp"
   },
   "DeepSeek-R1-0528": {
@@ -337,7 +337,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-r1-0528"
   },
   "GPT-5 nano": {
@@ -362,8 +362,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5-nano-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Kimi K2 Instruct": {
     "benchmark_info": {
@@ -405,8 +405,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "MoonshotAIkimi-k2-0711-preview"
   },
   "Kimi K2-Instruct-0905": {
     "benchmark_info": {
@@ -448,7 +448,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "MoonshotAIkimi-k2-0905-preview"
   },
   "GPT-4.1 mini": {
@@ -471,7 +471,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-mini-2025-04-14"
   },
   "DeepSeek-V3.1": {
@@ -505,7 +505,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-v3.1"
   },
   "GPT-4.1": {
@@ -528,7 +528,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-2025-04-14"
   }
 }

@@ -44,7 +44,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-mini"
   },
   "Claude 3.7 Sonnet": {
@@ -81,8 +81,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219"
   },
   "Nova Pro": {
     "benchmark_info": {
@@ -98,7 +98,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Llama 3.3 70B Instruct": {
@@ -117,7 +117,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Gemma 3 27B": {
@@ -142,7 +142,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemma-3-27b-it"
   },
   "Nemotron Nano 9B v2": {
@@ -162,7 +162,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Gemma 3 4B": {
@@ -179,7 +179,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Kimi K2 Instruct": {
@@ -222,8 +222,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "MoonshotAIkimi-k2-0711-preview"
   },
   "Kimi K2-Instruct-0905": {
     "benchmark_info": {
@@ -265,7 +265,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "MoonshotAIkimi-k2-0905-preview"
   },
   "Nova Lite": {
@@ -282,7 +282,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Llama 3.1 Nemotron Ultra 253B v1": {
@@ -310,7 +310,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Nvidiallama-3.1-nemotron-ultra-253b-v1"
   },
   "Gemma 3 12B": {
@@ -335,7 +335,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemma-3-12b-it"
   },
   "Qwen3-Next-80B-A3B-Thinking": {
@@ -376,7 +376,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-next-80b-a3b-thinking"
   },
   "Qwen3-235B-A22B-Instruct-2507": {
@@ -446,7 +446,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-235b-a22b-instruct-2507"
   },
   "Llama 3.1 405B Instruct": {
@@ -488,7 +488,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Metallama-3.1-405b-instruct-bf16"
   },
   "GPT-4.5": {
@@ -513,7 +513,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.5-preview-2025-02-27"
   },
   "Qwen3 VL 235B A22B Thinking": {
@@ -557,7 +557,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-vl-235b-a22b-thinking"
   },
   "Qwen3 VL 235B A22B Instruct": {
@@ -601,7 +601,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-vl-235b-a22b-instruct"
   },
   "Qwen3-235B-A22B-Thinking-2507": {
@@ -671,7 +671,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-235b-a22b-thinking-2507"
   },
   "Qwen3 VL 32B Thinking": {
@@ -691,7 +691,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen3-Next-80B-A3B-Instruct": {
@@ -732,7 +732,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-next-80b-a3b-instruct"
   },
   "Llama 3.1 70B Instruct": {
@@ -751,7 +751,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-4.1": {
@@ -774,7 +774,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-2025-04-14"
   },
   "Kimi-k1.5": {
@@ -793,7 +793,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Nova Micro": {
@@ -810,7 +810,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "DeepSeek-V3": {
@@ -842,8 +842,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "deepseek-v3-0324"
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-v3"
   },
   "Qwen3 VL 30B A3B Instruct": {
     "benchmark_info": {
@@ -863,7 +863,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Phi 4 Reasoning PlusMicrosoft": {
@@ -883,7 +883,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen3 VL 32B Instruct": {
@@ -903,7 +903,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-4.1 mini": {
@@ -926,7 +926,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-mini-2025-04-14"
   },
   "Qwen2.5 72B Instruct": {
@@ -945,7 +945,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "QwQ-32B": {
@@ -968,7 +968,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwq-32b"
   },
   "Qwen3 VL 8B Instruct": {
@@ -987,7 +987,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Phi 4 ReasoningMicrosoft": {
@@ -1006,7 +1006,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen3 VL 8B Thinking": {
@@ -1025,7 +1025,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Mistral Small 3 24B Instruct": {
@@ -1044,7 +1044,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen3 VL 4B Thinking": {
@@ -1063,7 +1063,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen3 VL 4B Instruct": {
@@ -1082,7 +1082,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen3 VL 30B A3B Thinking": {
@@ -1103,7 +1103,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-4o": {
@@ -1141,8 +1141,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-4o-2024-05-13"
+    "untrusted": 0,
+    "selected_lmarena_model": "gpt-4o-2024-08-06"
   },
   "Llama 3.1 8B Instruct": {
     "benchmark_info": {
@@ -1160,7 +1160,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Gemma 3 1B": {
@@ -1177,7 +1177,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Llama 3.1 Nemotron Nano 8B V1": {
@@ -1196,7 +1196,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Llama 3.2 3B Instruct": {
@@ -1215,7 +1215,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Granite 3.3 8B Base": {
@@ -1234,7 +1234,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Granite 3.3 8B Instruct": {
@@ -1253,7 +1253,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-4.1 nano": {
@@ -1270,7 +1270,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen2.5 7B Instruct": {
@@ -1289,7 +1289,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Phi 4Microsoft": {
@@ -1308,7 +1308,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "IBM Granite 4.0 Tiny Preview": {
@@ -1330,7 +1330,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   }
 }

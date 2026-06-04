@@ -32,7 +32,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-5.2 (high)": {
@@ -68,7 +68,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5.2-high"
   },
   "Gemini 3 Pro Preview": {
@@ -93,7 +93,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-3-pro"
   },
   "GPT-5.2 (medium)": {
@@ -129,8 +129,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "gpt-5.2"
   },
   "Gemini 3 Flash": {
     "benchmark_info": {
@@ -164,7 +164,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-3-flash"
   },
   "GPT-5 (high)": {
@@ -202,7 +202,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5-high"
   },
   "GPT-5.1 (high)": {
@@ -238,7 +238,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5.1-high"
   },
   "Gemini 2.5 Deep Think": {
@@ -257,7 +257,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-5 mini (high)": {
@@ -284,7 +284,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5-mini-high"
   },
   "GPT-5 (medium)": {
@@ -322,7 +322,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-5.1 (medium)": {
@@ -358,8 +358,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "gpt-5.1"
   },
   "GPT-5.2 (low)": {
     "benchmark_info": {
@@ -394,7 +394,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o4-mini (high)": {
@@ -422,8 +422,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "o4-mini-2025-04-16"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "DeepSeek-V3.2": {
     "benchmark_info": {
@@ -456,7 +456,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "deepseek-v3.2"
   },
   "Kimi K2 Thinking": {
@@ -499,7 +499,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Claude Opus 4.5 (no thinking)": {
@@ -539,8 +539,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101"
   },
   "Claude Opus 4.5 (32k thinking)": {
     "benchmark_info": {
@@ -578,7 +578,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101-thinking-32k"
   },
   "Claude Opus 4.5 (16k thinking)": {
@@ -617,8 +617,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-5-20251101-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "GPT-5 mini (medium)": {
     "benchmark_info": {
@@ -644,8 +644,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5-mini-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Grok 4": {
     "benchmark_info": {
@@ -667,7 +667,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "grok-4-0709"
   },
   "o4-mini (medium)": {
@@ -695,7 +695,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o4-mini-2025-04-16"
   },
   "o3 (high)": {
@@ -715,7 +715,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-5.1 (low)": {
@@ -751,7 +751,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "o3 (medium)": {
@@ -771,7 +771,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Claude Sonnet 4.5 (32k thinking)": {
@@ -810,7 +810,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k"
   },
   "Gemini 2.5 Pro (Jun 2025)": {
@@ -836,7 +836,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-2.5-pro"
   },
   "Claude Sonnet 4.5 (59k thinking)": {
@@ -876,8 +876,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "o3-mini (high)": {
     "benchmark_info": {
@@ -925,7 +925,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-mini-high"
   },
   "o4-mini (low)": {
@@ -953,8 +953,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "o4-mini-2025-04-16"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Gemini 2.5 Pro (Preview)": {
     "benchmark_info": {
@@ -978,7 +978,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gemini-2.5-pro"
   },
   "o3 (low)": {
@@ -998,7 +998,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Claude Sonnet 4.5 (no thinking)": {
@@ -1038,8 +1038,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-5-20250929"
   },
   "o1 (high)": {
     "benchmark_info": {
@@ -1058,7 +1058,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen3-235B-A22B-Thinking-2507": {
@@ -1128,7 +1128,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen3-235b-a22b-thinking-2507"
   },
   "GPT-5 nano (high)": {
@@ -1155,7 +1155,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-5-nano-high"
   },
   "o3-mini (medium)": {
@@ -1204,7 +1204,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o3-mini"
   },
   "GPT-5 nano (medium)": {
@@ -1231,8 +1231,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5-nano-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Claude Opus 4.1 (27K thinking)": {
     "benchmark_info": {
@@ -1271,8 +1271,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-1-20250805-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Claude Haiku 4.5 (32K thinking)": {
     "benchmark_info": {
@@ -1298,8 +1298,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-haiku-4-5-20251001"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Claude Opus 4.1": {
     "benchmark_info": {
@@ -1335,8 +1335,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model":"Anthropicclaude-opus-4-1-20250805"
   },
   "Grok-3 mini beta high": {
     "benchmark_info": {
@@ -1374,8 +1374,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-3-mini-high"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "GPT-4.1": {
     "benchmark_info": {
@@ -1397,7 +1397,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-2025-04-14"
   },
   "Gemini 2.5 Flash (Jun 2025)": {
@@ -1434,8 +1434,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "gemini-2.5-flash"
   },
   "Claude Opus 4": {
     "benchmark_info": {
@@ -1471,8 +1471,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514"
   },
   "GPT-4.1 mini": {
     "benchmark_info": {
@@ -1494,7 +1494,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "gpt-4.1-mini-2025-04-14"
   },
   "Claude Haiku 4.5": {
@@ -1519,7 +1519,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-haiku-4-5-20251001"
   },
   "Claude Opus 4 (27K thinking)": {
@@ -1559,8 +1559,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-opus-4-20250514-thinking-16k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Claude Sonnet 4": {
     "benchmark_info": {
@@ -1596,8 +1596,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-sonnet-4-20250514"
   },
   "Claude 3.7 Sonnet (16k thinking)": {
     "benchmark_info": {
@@ -1635,8 +1635,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "GLM 4.6": {
     "benchmark_info": {
@@ -1658,7 +1658,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "glm-4.6"
   },
   "Grok 3": {
@@ -1683,8 +1683,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-3-preview-02-24"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Claude 3.7 Sonnet (32k thinking)": {
     "benchmark_info": {
@@ -1722,7 +1722,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
   },
   "Claude 3.7 Sonnet (64k thinking)": {
@@ -1762,8 +1762,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219-thinking-32k"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "Claude 3.7 Sonnet": {
     "benchmark_info": {
@@ -1799,8 +1799,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-3-7-sonnet-20250219"
   },
   "Grok-3 mini beta low": {
     "benchmark_info": {
@@ -1838,8 +1838,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "grok-3-mini-beta"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "GPT-5.1 (no thinking)": {
     "benchmark_info": {
@@ -1875,7 +1875,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Claude 3.5 Sonnet (Oct 2024)": {
@@ -1914,8 +1914,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-3-5-sonnet-20241022"
   },
   "Qwen Plus": {
     "benchmark_info": {
@@ -1937,7 +1937,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen-plus-0125"
   },
   "Gemini 2.0 Flash (Feb 2025)": {
@@ -1965,8 +1965,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gemini-2.0-flash-001"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "DeepSeek-V3": {
     "benchmark_info": {
@@ -1997,8 +1997,8 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "deepseek-v3-0324"
+    "untrusted": 0,
+    "selected_lmarena_model": "deepseek-v3"
   },
   "o1-mini (medium)": {
     "benchmark_info": {
@@ -2045,7 +2045,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "o1-mini"
   },
   "o1-mini (high)": {
@@ -2093,8 +2093,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": "o1-mini"
+    "untrusted": 0,
+    "selected_lmarena_model": 0
   },
   "GPT-4.1 nano": {
     "benchmark_info": {
@@ -2110,7 +2110,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Qwen2.5-Max": {
@@ -2133,7 +2133,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "qwen2.5-max"
   },
   "Claude 3.5 Sonnet (Jun 2024)": {
@@ -2172,8 +2172,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "Anthropicclaude-3-5-sonnet-20240620"
   },
   "Llama 4 Maverick (FP8)": {
     "benchmark_info": {
@@ -2191,7 +2191,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Grok-2": {
@@ -2214,7 +2214,7 @@
         "other_info": null
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": "grok-2-2024-08-13"
   },
   "Mistral Medium 3": {
@@ -2231,7 +2231,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-4o (Aug 2024)": {
@@ -2271,8 +2271,8 @@
         ]
       }
     ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
+    "untrusted": 0,
+    "selected_lmarena_model": "gpt-4o-2024-08-06"
   },
   "Claude 3.5 Haiku (Oct 2024)": {
     "benchmark_info": {
@@ -2291,7 +2291,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Mistral Large 2": {
@@ -2308,7 +2308,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "GPT-4o (Nov 2024)": {
@@ -2348,7 +2348,7 @@
         ]
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Llama 4 Scout": {
@@ -2365,7 +2365,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   },
   "Gemini 1.5 Flash (Sep 2024)": {
@@ -2385,7 +2385,7 @@
         "lmarena_model": "NO_MATCH_FOUND"
       }
     ],
-    "untrusted": 1,
+    "untrusted": 0,
     "selected_lmarena_model": 0
   }
 }
