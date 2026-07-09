@@ -68,6 +68,7 @@ Human-SIG/
 │       └── review_files/       # Step 2 output: review files
 │           ├── {benchmark_id}.json
 │           └── artificial_analysis.json  # Unified review file for all 10 benchmarks
+│   └── figure_0_swe_bench_labels.csv  # Editable labels/ranks for Figure 0
 ├── src/
 │   ├── scrapers/              # Scraping logic
 │   │   ├── selenium_scraper.py
@@ -1022,6 +1023,29 @@ uv run src/analysis/generate_plots_tables.py
 ```
 
 **Note**: This script generates both figures and tables in a single run, equivalent to running `generate_plots.py` and `generate_tables.py` sequentially.
+
+### Figure 0 Label Patch
+
+Figure 0 now uses an editable CSV file at `data/figure_0_swe_bench_labels.csv`.
+
+**Default pipeline behavior**:
+*   Running `uv run src/analysis/generate_plots_tables.py` with Figure 0 enabled will first check whether `data/figure_0_swe_bench_labels.csv` already exists.
+*   If the CSV already exists, the script will **skip regeneration** and directly use that file to render `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf`.
+*   If the CSV does not exist, the script will export a new CSV with the default model names/ranks and then render Figure 0.
+*   This means the default CSV used by the pipeline becomes the one already stored in the project.
+
+**Manual label editing workflow**:
+*   Export the current Figure 0 label/rank file:
+    ```bash
+    uv run src/analysis/export_figure_0_swe_bench_data.py
+    ```
+*   Edit the `display_name` column in `data/figure_0_swe_bench_labels.csv`.
+*   Re-render only Figure 0:
+    ```bash
+    uv run src/analysis/render_figure_0_swe_bench.py
+    ```
+*   After a full pipeline run, you can modify the CSV again and rerun `src/analysis/render_figure_0_swe_bench.py` to update only the Figure 0 model names without changing anything else.
+*   If you want to go back to the original model names, delete `data/figure_0_swe_bench_labels.csv` and rerun the pipeline or rerun the export script so the default CSV is generated again.
 
 ---
 

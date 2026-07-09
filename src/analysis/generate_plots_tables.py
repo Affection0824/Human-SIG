@@ -39,6 +39,8 @@ from datetime import datetime
 import logging
 import shutil
 
+from figure_0_swe_bench import ensure_figure_0_label_data, render_figure_0_from_file
+
 # Initialize logging first
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -115,139 +117,10 @@ def get_metric_info(metric: str):
 def figure_0_swe_bench_illustration(output_dir: Path):
     """Generate Figure 0: SWE-bench Illustration."""
     logger.info("Generating Figure 0: SWE-bench (Verified) Illustration")
-    print("Generating scatter plot using data: SWE-bench (Verified) ranks vs LMArena-Coding ranks (from cleaned_data.csv files)")
-    
     base_dir = Path(__file__).parent.parent.parent
-    swe_bench_path = base_dir / "data" / "processed" / "cleaned" / "SWE-bench (Verified)"
-    lmarena_coding_path = base_dir / "data" / "processed" / "cleaned" / "LMArena-Coding"
-    
-    # Load data
-    swe_bench_df = pd.read_csv(swe_bench_path / "cleaned_data.csv")
-    lmarena_coding_df = pd.read_csv(lmarena_coding_path / "cleaned_data.csv")
-    
-    # Load mapping
-    import json
-    with open(swe_bench_path / "mapping.json", 'r', encoding='utf-8') as f:
-        mapping = json.load(f)
-    
-    # Get intersection of models (models in mapping.json)
-    intersection_models = list(mapping.keys())
-    
-    # Extract ranks for intersection models
-    rank_pairs = []
-    model_names = []
-    
-    for swe_model_name in intersection_models:
-        if swe_model_name not in swe_bench_df['model_name'].values:
-            continue
-        
-        lmarena_model_id = mapping[swe_model_name]
-        if lmarena_model_id not in lmarena_coding_df['model_name'].values:
-            continue
-        
-        # Get original ranks
-        swe_rank_orig = swe_bench_df[swe_bench_df['model_name'] == swe_model_name]['rank'].values[0]
-        lmarena_rank_orig = lmarena_coding_df[lmarena_coding_df['model_name'] == lmarena_model_id]['rank'].values[0]
-        
-        rank_pairs.append({
-            'swe_rank_orig': swe_rank_orig,
-            'lmarena_rank_orig': lmarena_rank_orig,
-            'swe_score': swe_bench_df[swe_bench_df['model_name'] == swe_model_name]['score'].values[0],
-            'lmarena_score': lmarena_coding_df[lmarena_coding_df['model_name'] == lmarena_model_id]['score'].values[0],
-            'model_name': lmarena_model_id
-        })
-        model_names.append(lmarena_model_id)
-    
-    # Re-rank within intersection subset
-    rank_df = pd.DataFrame(rank_pairs)
-    
-    # Re-rank SWE-bench within intersection (lower rank = better, based on score)
-    rank_df = rank_df.sort_values('swe_score', ascending=False)  # Higher score = better
-    rank_df['swe_rank'] = range(1, len(rank_df) + 1)
-    
-    # Re-rank LMArena-Coding within intersection (lower rank = better, based on score)
-    rank_df = rank_df.sort_values('lmarena_score', ascending=False)  # Higher score = better
-    rank_df['lmarena_rank'] = range(1, len(rank_df) + 1)
-    
-    # Print actual values
-    print("  Data values (swe_rank, lmarena_rank):")
-    for idx, row in rank_df.iterrows():
-        print(f"    {row['swe_rank']}, {row['lmarena_rank']}")
-    
-    # Create scatter plot (wider/flatter)
-    fig, ax = plt.subplots(figsize=(12, 7))
-    
-    # Reference line y=x (red dashed) - draw first (lower zorder)
-    max_rank = max(rank_df['swe_rank'].max(), rank_df['lmarena_rank'].max())
-    ax.plot([1, max_rank], [1, max_rank], 'r--', linewidth=2, zorder=1)
-    
-    # Scatter plot - points on top (highest zorder)
-    ax.scatter(rank_df['swe_rank'], rank_df['lmarena_rank'], 
-               alpha=0.7, s=100, edgecolors='black', linewidth=1.5, zorder=5)
-    
-    # Annotate model names with larger font, using adjust_text to avoid overlap
-    # Text annotations with lower zorder so points are visible on top
-    texts = []
-    for idx, row in rank_df.iterrows():
-        texts.append(ax.annotate(row['model_name'], 
-                   (row['swe_rank'], row['lmarena_rank']),
-                   fontsize=16, alpha=0.8, zorder=4,
-                   bbox=dict(boxstyle='round,pad=0.3', facecolor='white', alpha=0.7, edgecolor='none')))
-    
-    # Use adjust_text to avoid overlapping annotations
-    if HAS_ADJUST_TEXT:
-        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
-    
-    # Calculate Spearman correlation coefficient
-    from scipy.stats import spearmanr
-    spearman_rho, spearman_p = spearmanr(rank_df['swe_rank'], rank_df['lmarena_rank'])
-    
-    # Add Spearman correlation annotation in top left corner
-    ax.text(0.02, 0.98, f'Spearman ρ = {spearman_rho:.3f}', fontsize=18, transform=ax.transAxes,
-            ha='left', va='top', bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'), zorder=3)
-    
-    # y=x legend in bottom right corner with red dashed line example
-    from matplotlib.lines import Line2D
-    legend_elements = [Line2D([0], [0], color='red', linestyle='--', linewidth=2, label='y=x')]
-    legend = ax.legend(legend_elements, ['y=x'], loc='lower right', fontsize=18, 
-                      framealpha=0.9, fancybox=True, shadow=False)
-    legend.set_zorder(3)
-    
-    # Axis labels (larger font)
-    ax.set_xlabel('Rank in SWE-bench (Verified) (Weak → Strong)', fontsize=20)
-    ax.set_ylabel('Rank in LMArena-Coding (Weak → Strong)', fontsize=20)
-    
-    # Axis configuration: origin = weak (high rank), far end = strong (low rank)
-    # Keep normal axis direction (1 at origin, max_rank at far end)
-    # But labels indicate Weak -> Strong, meaning origin (rank 1) = weak, far end (max_rank) = strong
-    # Actually, wait - if rank 1 is best (strong), then origin should show rank 1, and far end shows max_rank (weak)
-    # But user says "横纵坐标靠近原点的一端都是排名大（就是表现差）的模型，远端是排名小（表现好）的模型"
-    # This means: origin = high rank (weak/bad), far end = low rank (strong/good)
-    # So we need to reverse the axis: set xlim to (max_rank, 1) and ylim to (max_rank, 1)
-    ax.set_xlim(max_rank + 0.5, 0.5)  # Reversed: high rank (weak) at origin, low rank (strong) at far end
-    ax.set_ylim(max_rank + 0.5, 0.5)  # Reversed: high rank (weak) at origin, low rank (strong) at far end
-    
-    # Tick marks: every 5 ranks starting from 1
-    tick_positions = list(range(1, max_rank + 1, 5))
-    ax.set_xticks(tick_positions)
-    ax.set_yticks(tick_positions)
-    ax.set_xticklabels(tick_positions, fontsize=18)
-    ax.set_yticklabels(tick_positions, fontsize=18)
-    
-    # Grid lines: light gray
-    ax.grid(True, color='lightgray', linestyle='-', linewidth=0.5, alpha=0.5, zorder=1)
-    
-    # Remove top and right borders
-    ax.spines['top'].set_visible(False)
-    ax.spines['right'].set_visible(False)
-    
-    # NO TITLE (as per requirements)
-    
+    label_data_path = ensure_figure_0_label_data(base_dir)
     output_path = output_dir / "Figure_0_SWE_Bench_Illustration.pdf"
-    plt.tight_layout()
-    plt.savefig(output_path, format='pdf', bbox_inches='tight')
-    plt.close()
-    logger.info(f"Saved Figure 0 to {output_path}")
+    render_figure_0_from_file(label_data_path, output_path)
 
 
 def figure_task_type(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 1):
