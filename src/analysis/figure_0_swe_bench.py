@@ -127,11 +127,7 @@ def render_figure_0_from_file(data_path: Path, output_path: Path) -> Path:
     """Render Figure 0 from the editable label/rank data file."""
     configure_figure_style()
     rank_df = load_figure_0_label_data(data_path)
-
-    print(f"Generating scatter plot using data file: {data_path}")
-    print("  Data values (swe_rank, lmarena_rank):")
-    for _, row in rank_df.iterrows():
-        print(f"    {int(row['swe_rank'])}, {int(row['lmarena_rank'])}")
+    logger.info("Rendering Figure 0 from %s with %d labeled points", data_path, len(rank_df))
 
     fig, ax = plt.subplots(figsize=(12, 7))
 

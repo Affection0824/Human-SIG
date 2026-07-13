@@ -152,8 +152,19 @@ def figure_task_type(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman
     
     # Boxplot with different light colors for each category
     palette = {'MCQ': 'lightblue', 'Generative': 'lightgreen'}
-    sns.boxplot(data=df_filtered, x='task_type_grouped', y=metric_col, ax=ax, 
-                order=['MCQ', 'Generative'], width=0.6, palette=palette)
+    sns.boxplot(
+        data=df_filtered,
+        x='task_type_grouped',
+        y=metric_col,
+        hue='task_type_grouped',
+        ax=ax,
+        order=['MCQ', 'Generative'],
+        hue_order=['MCQ', 'Generative'],
+        width=0.6,
+        palette=palette,
+        dodge=False,
+        legend=False,
+    )
     
     # Stripplot with matching colors for each category
     for task_type in ['MCQ', 'Generative']:
@@ -312,7 +323,20 @@ def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearma
     
     # Boxplot
     palette = {'Applying': 'lightblue', 'Analyzing': 'lightgreen', 'Evaluating': 'lightcoral', 'Creating': 'lightyellow'}
-    sns.boxplot(data=df_plot, x='complexity', y=metric_col, ax=ax, order=category_order, width=0.6, palette=palette, showfliers=False)
+    sns.boxplot(
+        data=df_plot,
+        x='complexity',
+        y=metric_col,
+        hue='complexity',
+        ax=ax,
+        order=category_order,
+        hue_order=category_order,
+        width=0.6,
+        palette=palette,
+        showfliers=False,
+        dodge=False,
+        legend=False,
+    )
     
     # Stripplot
     for i, cat in enumerate(category_order):
@@ -584,10 +608,12 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     df_corr = pd.DataFrame(corr_data)
     corr_matrix = df_corr.corr()
     
-    # Print actual values
-    print("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
-    print("  Correlation matrix values:")
-    print(corr_matrix.to_string())
+    logger.info(
+        "Generating heatmap from analysis_ready_data.csv using a %dx%d correlation matrix",
+        corr_matrix.shape[0],
+        corr_matrix.shape[1],
+    )
+    logger.debug("Heatmap correlation matrix:\n%s", corr_matrix.to_string())
     
     # Increase figure height and adjust width for better vertical label display
     # Add extra space at bottom for note text
@@ -1057,20 +1083,16 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
 def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
     """Experiment 1: Reference Difficulty Comparison Table."""
     csv_path = base_dir / "results" / "reference_difficulty_comparison.csv"
-    print(f"DEBUG: Checking for CSV at {csv_path}")
-    print(f"DEBUG: Output path is {output_path}")
+    logger.info("Creating Exp 1 reference difficulty table from %s", csv_path)
     
     if not csv_path.exists():
-        print(f"DEBUG: CSV NOT FOUND at {csv_path}")
         logger.warning(f"Experiment 1 data not found at {csv_path}. Skipping table.")
         return
     
-    print("DEBUG: Reading CSV...", flush=True)
     try:
         df = pd.read_csv(csv_path)
-        print(f"DEBUG: CSV read successfully. Shape: {df.shape}", flush=True)
     except Exception as e:
-        print(f"DEBUG: Error reading CSV: {e}", flush=True)
+        logger.error("Failed to read Exp 1 CSV %s: %s", csv_path, e)
         return
 
     # We only want Benchmark Name, Original Difficulty, Reference Difficulty
@@ -1084,14 +1106,10 @@ def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
     # Drop rows with NaN for correlation calculation
     df_clean = df.dropna(subset=['Original Difficulty', 'Reference Difficulty'])
     
-    # NEW CODE: Handle the case where values are in 'Reference_Avg_Score' instead of 'Reference Difficulty'
-    # if 'Reference_Avg_Score' was dropped, 'Reference Difficulty' should have the values.
-    # Let's inspect the data to make sure we're getting all valid rows
-    print(f"DEBUG: Data before dropna:\n{df.head()}", flush=True)
-    print(f"DEBUG: df_clean shape: {df_clean.shape}", flush=True)
+    logger.debug("Exp 1 table preview before dropna:\n%s", df.head())
+    logger.debug("Exp 1 clean table shape: %s", df_clean.shape)
     
     if len(df_clean) > 2:
-        print("DEBUG: Calculating Pearson r using scipy...", flush=True)
         x = df_clean['Original Difficulty']
         y = df_clean['Reference Difficulty']
         r, p_val = pearsonr(x, y)
@@ -1122,7 +1140,6 @@ def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
         df_combined = df
     
     with open(output_path, 'w', encoding='utf-8') as f:
-        print("DEBUG: Generating LaTeX...", flush=True)
         # Use to_latex with column_format='lrr' for right alignment of numeric columns
         latex_str = df_combined.to_latex(index=False, float_format="%.2f", escape=True, column_format='lrr')
         # Add a midrule before the stats
@@ -1133,7 +1150,6 @@ def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
         if '\\bottomrule' not in latex_str:
             latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
         f.write(latex_str)
-    print(f"DEBUG: Saved Exp 1 table to {output_path}", flush=True)
     logger.info(f"Saved Exp 1 table to {output_path}")
 
 def create_exp2_overall_correlation_table(df: pd.DataFrame, output_path: Path):

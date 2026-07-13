@@ -32,3 +32,6 @@ scraping = [
     "selenium",
     "webdriver-manager",
 ]
+
+[tool.uv.sources]
+rbo = { path = "vendor/rbo" }

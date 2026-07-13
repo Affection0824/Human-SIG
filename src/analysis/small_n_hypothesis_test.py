@@ -310,7 +310,18 @@ def test_h3_complexity(df: pd.DataFrame) -> Dict:
         plt.figure(figsize=(10, 6))
         
         # Boxplot
-        sns.boxplot(x='complexity', y=metric_col, data=df_test, order=complexity_order, palette="Set2", showfliers=False)
+        sns.boxplot(
+            x='complexity',
+            y=metric_col,
+            hue='complexity',
+            data=df_test,
+            order=complexity_order,
+            hue_order=complexity_order,
+            palette="Set2",
+            showfliers=False,
+            dodge=False,
+            legend=False,
+        )
         
         # Stripplot
         sns.stripplot(x='complexity', y=metric_col, data=df_test, order=complexity_order, color=".25", alpha=0.6)

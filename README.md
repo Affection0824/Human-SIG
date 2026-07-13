@@ -11,36 +11,59 @@ This document details the directory structure, file formats, and data scraping w
     Run in the project root `Human-SIG/`:
 
     ```bash
-    # Base analysis pipeline (no plotting, no scraping)
+    # Base processing + analysis environment
     uv sync
     ```
 
-    **Optional dependency groups**:
+    **Recommended environment presets**:
 
     ```bash
-    # Add plotting dependencies (needed for Step 9 and Figure 0 re-rendering)
+    # Final analysis / manuscript environment
+    # Required for Step 7, Step 9, Step 10, Figure 0 helpers, and regression_analysis.py
     uv sync --group plotting
 
-    # Add scraping dependencies
+    # Scraping environment
     uv sync --group scraping
 
-    # Full environment
+    # Full environment (scraping + analysis + plotting)
     uv sync --group plotting --group scraping
     ```
 
-    **Note**: The project uses `uv` for package management. `uv sync` installs the base dependencies from `pyproject.toml`, and `--group` adds optional dependency groups as needed.
+    **Environment notes**:
+    *   Python requirement: `>=3.14`
+    *   `uv` manages the project-local virtual environment at `.venv/`
+    *   Re-running `uv sync` without groups syncs back to the base environment and may remove optional plotting/scraping packages
+    *   For the full analysis workflow that ends with the five manuscript figures and five tables, use `uv sync --group plotting`
+    *   The project keeps a local compatibility build of `rbo` in `vendor/rbo/`, exposed through `[tool.uv.sources]`, so `import rbo` remains available on Python 3.14 without inheriting the upstream package's `numpy<2` constraint
 
 2.  **Verify Installation**
 
     ```bash
-    uv run -c "import pandas, numpy, scipy, statsmodels, rbo, tqdm; print('Base dependencies installed successfully')"
+    uv run -- python -c "import pandas, numpy, scipy, statsmodels, rbo, tqdm; print('Base dependencies installed successfully')"
     ```
 
     If you installed the plotting group, you can also verify it with:
 
     ```bash
-    uv run --group plotting -c "import matplotlib, seaborn, adjustText; print('Plotting dependencies installed successfully')"
+    uv run --group plotting -- python -c "import matplotlib, seaborn, adjustText; print('Plotting dependencies installed successfully')"
     ```
+
+3.  **Execution Model**
+
+    **Environment mapping**:
+    *   Steps 1-6 and Step 8: base environment (`uv sync`)
+    *   Step 7 (`small_n_hypothesis_test.py`), Step 9 (`uncertainty_propagation_analysis.py`), Step 10 (`generate_plots_tables.py`): plotting environment
+    *   `src/analysis/export_figure_0_swe_bench_data.py`, `src/analysis/render_figure_0_swe_bench.py`, and `src/analysis/regression_analysis.py`: plotting environment
+
+    **What is automated**:
+    *   The processing and analysis pipeline is reproducible once `data/raw/*/data.csv` and reviewed `data/processed/review_files/*.json` already exist.
+    *   A verified end-to-end reproduction path for this case is provided below in [Verified Reproduction Workflow](#verified-reproduction-workflow).
+
+    **What is still manual**:
+    *   Raw input preparation for scraping (`input.txt`, copied HTML, JSON, or provided CSV files)
+    *   Artificial Analysis model-name disambiguation before its downstream scraper is run
+    *   Manual Review 1 for duplicate model names in `cleaned_data.csv`
+    *   Manual Review 2 for `review_files/*.json` before Step 3 if rigorous mappings are required
 
 ## Directory Structure
 
@@ -964,7 +987,7 @@ uv run src/analysis/calculate_reference_difficulty.py
 
 **Script**: `src/analysis/small_n_hypothesis_test.py`
 
-Execute statistical tests for H1-H6 using three correlation metrics (Spearman ρ, Kendall τ, RBO). Includes stratified analysis for H5 by task type.
+Execute statistical tests for H1-H6 using three correlation metrics (Spearman ρ, Kendall τ, RBO).
 
 **Input**: Analysis-ready data, metadata
 
@@ -973,8 +996,10 @@ Execute statistical tests for H1-H6 using three correlation metrics (Spearman ρ
 **Execution**:
 ```bash
 cd Human-SIG
-uv run src/analysis/small_n_hypothesis_test.py
+uv run --group plotting src/analysis/small_n_hypothesis_test.py
 ```
+
+**Note**: Requires the `plotting` dependency group.
 
 ---
 
@@ -996,7 +1021,30 @@ uv run src/analysis/apply_correction.py
 
 ---
 
-## Step 9: Generate Figures and Tables
+## Step 9: Uncertainty Propagation Analysis
+
+**Script**: `src/analysis/uncertainty_propagation_analysis.py`
+
+Run the Monte Carlo uncertainty simulation used to build `uncertainty_table.tex`.
+
+**Input**:
+*   `data/processed/master_table/master_correlation_matrix.csv`
+*   `results/analysis_ready_data.csv`
+*   `data/raw/lmarena/LMArena-{category}/data.csv`
+
+**Output**: `results/uncertainty_simulation_results.csv`
+
+**Execution**:
+```bash
+cd Human-SIG
+uv run --group plotting src/analysis/uncertainty_propagation_analysis.py
+```
+
+**Note**: Requires the `plotting` dependency group.
+
+---
+
+## Step 10: Generate Figures and Tables
 
 **Script**: `src/analysis/generate_plots_tables.py`
 
@@ -1015,7 +1063,7 @@ Generate all PDF figures and LaTeX tables for the manuscript. This integrated sc
 **Final Output Figures** (5 PDF files):
 *   `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf` - SWE-bench (Verified) vs. LMArena-Coding ranking comparison
 *   `../overleaf/images/Figure_2_Scale.pdf` - Scale effect: log(question_count) vs. Spearman ρ
-*   `../overleaf/images/Figure_3_Complexity_Categories.pdf` - Spearman ρ by Prompt Length categories
+*   `../overleaf/images/Figure_3_Complexity_Categories.pdf` - Spearman ρ by Complexity categories
 *   `../overleaf/images/Figure_4_Recency.pdf` - Recency effect: Release Date vs. Spearman ρ
 *   `../overleaf/images/Figure_5_Difficulty_Variance.pdf` - Difficulty-Variance joint effect: Difficulty vs. Spearman ρ
 
@@ -1033,6 +1081,14 @@ uv run --group plotting src/analysis/generate_plots_tables.py --figures 0 2 3 4 
 ```
 
 **Note**: This command generates exactly the five PDF figures and five LaTeX tables currently used in `../overleaf/`.
+
+**Optional appendix / robustness outputs**:
+*   The same script can also generate the RBO robustness figures (`Figures 12-16`) and the appendix RBO summary table (`appendix_results_table_rbo.tex`).
+*   Example:
+    ```bash
+    uv run --group plotting src/analysis/generate_plots_tables.py --figures 12 13 14 15 16 --tables 4
+    ```
+*   These RBO outputs use the internally computed `rbo` column from `analysis_ready_data.csv`; they do not depend on the external PyPI `rbo` package at runtime.
 
 ### Figure 0 Label Patch
 
@@ -1060,15 +1116,24 @@ Figure 0 now uses an editable CSV file at `data/figure_0_swe_bench_labels.csv`.
 
 ---
 
-## Complete Workflow
+## Verified Reproduction Workflow
 
-Run all analysis steps in sequence:
+Use this workflow when the repository already contains:
+
+*   prepared `data/raw/*/data.csv` files,
+*   reviewed `data/processed/review_files/*.json`, and
+*   the required metadata files.
+
+This path has been verified in the current workspace and regenerates the final manuscript outputs from Step 3 onward:
 
 ```bash
 cd Human-SIG
 
 # Install dependencies for the final manuscript outputs
 uv sync --group plotting
+
+# Step 3: Generate mapping files from reviewed review_files
+uv run src/processing/step3_generate_mapping.py
 
 # Step 4: Build Master Table
 uv run src/processing/build_master_table.py
@@ -1080,13 +1145,13 @@ uv run src/analysis/compute_features_robust.py
 uv run src/analysis/calculate_reference_difficulty.py
 
 # Step 7: Hypothesis Testing (includes Experiment 5: Complexity Classification)
-uv run src/analysis/small_n_hypothesis_test.py
+uv run --group plotting src/analysis/small_n_hypothesis_test.py
 
 # Step 8: Multiple Comparison Correction
 uv run src/analysis/apply_correction.py
 
 # Step 9: Uncertainty Propagation Analysis (Experiment 3)
-uv run src/analysis/uncertainty_propagation_analysis.py
+uv run --group plotting src/analysis/uncertainty_propagation_analysis.py
 
 # Optional: Regression Analysis (Experiment 4, not needed for the final 5 figures + 5 tables)
 # uv run --group plotting src/analysis/regression_analysis.py
