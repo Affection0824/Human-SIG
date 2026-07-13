@@ -11,23 +11,43 @@ This document details the directory structure, file formats, and data scraping w
     Run in the project root `Human-SIG/`:
 
     ```bash
+    # Base analysis pipeline (no plotting, no scraping)
     uv sync
     ```
 
-    **Note**: The project uses `uv` for package management. `uv sync` automatically installs dependencies from `pyproject.toml`.
+    **Optional dependency groups**:
+
+    ```bash
+    # Add plotting dependencies (needed for Step 9 and Figure 0 re-rendering)
+    uv sync --group plotting
+
+    # Add scraping dependencies
+    uv sync --group scraping
+
+    # Full environment
+    uv sync --group plotting --group scraping
+    ```
+
+    **Note**: The project uses `uv` for package management. `uv sync` installs the base dependencies from `pyproject.toml`, and `--group` adds optional dependency groups as needed.
 
 2.  **Verify Installation**
 
     ```bash
-    uv run -c "import pandas, html5lib, lxml, selenium, webdriver_manager, scipy, statsmodels, seaborn, rbo; print('All dependencies installed successfully')"
+    uv run -c "import pandas, numpy, scipy, statsmodels, rbo, tqdm; print('Base dependencies installed successfully')"
+    ```
+
+    If you installed the plotting group, you can also verify it with:
+
+    ```bash
+    uv run --group plotting -c "import matplotlib, seaborn, adjustText; print('Plotting dependencies installed successfully')"
     ```
 
 ## Directory Structure
 
 ```
 Human-SIG/
-├── config/                    # Metadata and configuration
 ├── data/
+│   ├── metadata.json          # Benchmark metadata
 │   ├── raw/                   # Raw data
 │   │   ├── lmarena/           # LMArena data
 │   │   │   └── {category}/    # e.g., LMArena-Overall, LMArena-Coding, etc.
@@ -69,6 +89,7 @@ Human-SIG/
 │           ├── {benchmark_id}.json
 │           └── artificial_analysis.json  # Unified review file for all 10 benchmarks
 │   └── figure_0_swe_bench_labels.csv  # Editable labels/ranks for Figure 0
+├── results/                   # Analysis outputs
 ├── src/
 │   ├── scrapers/              # Scraping logic
 │   │   ├── selenium_scraper.py
@@ -194,8 +215,8 @@ cleaned_data.csv (data/processed/cleaned/{benchmark_id}/cleaned_data.csv)
     ├─ Parse model information from cleaned_data.csv and match
     └─ [Special] For artificial_analysis: Generate unified review file
     ↓
-review_files (data/processed/review_files/{benchmark_id}_review.json)
-    ├─ [Special] artificial_analysis_review.json (unified for all 10 benchmarks)
+review_files (data/processed/review_files/{benchmark_id}.json)
+    ├─ [Special] artificial_analysis.json (unified for all 10 benchmarks)
     └─ Other benchmarks: individual review files
     ↓
 [Manual Review 2] Manually edit review_files (modify untrusted and selected_lmarena_model)
@@ -218,13 +239,13 @@ mapping.json (data/processed/cleaned/{benchmark_id}/mapping.json)
 
 All output file paths use this `benchmark_id`:
 *   `data/processed/cleaned/{benchmark_id}/cleaned_data.csv`
-*   `data/processed/review_files/{benchmark_id}_review.json`
+*   `data/processed/review_files/{benchmark_id}.json`
 *   `data/processed/cleaned/{benchmark_id}/mapping.json`
 
 **Special handling for artificial_analysis**:
 *   The 10 artificial_analysis benchmarks (AA-LCR, AIME, GPQA_Diamond, etc.) share a unified model list and review file:
     *   Unified model list: `data/processed/cleaned/artificial_analysis/cleaned_data.csv`
-    *   Unified review file: `data/processed/review_files/artificial_analysis_review.json`
+    *   Unified review file: `data/processed/review_files/artificial_analysis.json`
     *   Individual mapping files: `data/processed/cleaned/{benchmark_id}/mapping.json` (filtered by each benchmark's cleaned_data.csv)
 
 ---
@@ -248,12 +269,12 @@ Extract model names and scores from raw CSV files, calculate rankings, and gener
 **Execution**:
 ```bash
 cd Human-SIG
-python src/processing/step1_generate_cleaned_data.py
+uv run src/processing/step1_generate_cleaned_data.py
 ```
 
 ### Processing Logic
 
-The script is self-contained with all necessary utility functions and requires no external module imports.
+The script is self-contained in project code structure and does not rely on importing helper modules from other project files.
 
 1.  **Traverse all raw data**: Read all `data.csv` files from `data/raw/` directory
 2.  **Identify column names**:
@@ -511,12 +532,12 @@ Read model names from `cleaned_data.csv`, parse model information, match LMArena
 **Execution**:
 ```bash
 cd Human-SIG
-python src/processing/step2_generate_review_files.py
+uv run src/processing/step2_generate_review_files.py
 ```
 
 ### Processing Logic
 
-The script is self-contained with all necessary utility functions (model parsing, matchers, etc.) and requires no external module imports.
+The script is self-contained in project code structure and includes its model parsing and matching logic in a single file.
 
 1.  **Generate LMArena model information**:
     *   **Unified design**: Only one `lmarena_models.json` file exists, generated from `data/raw/lmarena/LMArena-Overall/data.csv`
@@ -632,12 +653,12 @@ The script is self-contained with all necessary utility functions (model parsing
 
 **LMArena skip**:
 *   All `LMArena-*` benchmarks are automatically skipped (e.g., `LMArena-Overall`, `LMArena-Coding`, etc.)
-*   Because LMArena models can match internally, no need to generate review_file
+*   Because LMArena models can match internally, no need to generate review files
 
 **Artificial Analysis (Special Handling)**:
 *   The 10 artificial_analysis benchmarks (AA-LCR, AIME, GPQA_Diamond, etc.) are processed as a unified list
 *   Use the unified model list from `data/processed/cleaned/artificial_analysis/cleaned_data.csv` (generated in step 1)
-*   Generate a single review file: `artificial_analysis_review.json` instead of 10 separate files
+*   Generate a single review file: `artificial_analysis.json` instead of 10 separate files
 *   This avoids duplicate review work since many models appear in multiple artificial_analysis benchmarks
 
 ---
@@ -785,7 +806,7 @@ Read review results from `review_files`, extract `selected_lmarena_model` field,
 **Execution**:
 ```bash
 cd Human-SIG
-python src/processing/step3_generate_mapping.py
+uv run src/processing/step3_generate_mapping.py
 ```
 
 ### Processing Logic
@@ -889,7 +910,6 @@ Construct master correlation matrix by merging benchmark scores and ranks with L
 
 **Output**: 
 *   `data/processed/master_table/master_correlation_matrix.csv` - Master table with benchmark scores and ranks (only benchmarks with N ≥ 6 overlapping models)
-*   `results/data_overlap_stats.json` - Overlap statistics for each benchmark
 
 **Filtering Logic**:
 *   **Critical Filter**: Before adding a benchmark to the master table, the script calculates the number of overlapping models ($N$) between the benchmark and the LMArena Study Universe.
@@ -984,65 +1004,56 @@ Generate all PDF figures and LaTeX tables for the manuscript. This integrated sc
 
 **Input**: 
 *   Analysis-ready data
-*   Master table (for Figure 0)
+*   `data/processed/cleaned/SWE-bench (Verified)/cleaned_data.csv`
+*   `data/processed/cleaned/SWE-bench (Verified)/mapping.json`
+*   `data/processed/cleaned/LMArena-Coding/cleaned_data.csv`
 *   Hypothesis test results (for Figure 5)
 *   Statistical significance report (for tables)
+*   `results/reference_difficulty_comparison.csv` (for `reference_difficulty_table.tex`)
+*   `results/uncertainty_simulation_results.csv` (for `uncertainty_table.tex`)
 
-**Output Figures** (17 PDF files):
-*   `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf` - Comparison of large language model (LLM) ranking in SWE-bench (Verified) and the overall ranking in LMArena-Coding
-*   `../overleaf/images/Figure_1_Task_Type.pdf` - Spearman ρ by Task Type (MCQ vs Generative)
+**Final Output Figures** (5 PDF files):
+*   `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf` - SWE-bench (Verified) vs. LMArena-Coding ranking comparison
 *   `../overleaf/images/Figure_2_Scale.pdf` - Scale effect: log(question_count) vs. Spearman ρ
-*   `../overleaf/images/Figure_3_Complexity_Categories.pdf` - Spearman ρ by Prompt Length categories (Short, Medium, Long, Extreme)
+*   `../overleaf/images/Figure_3_Complexity_Categories.pdf` - Spearman ρ by Prompt Length categories
 *   `../overleaf/images/Figure_4_Recency.pdf` - Recency effect: Release Date vs. Spearman ρ
-*   `../overleaf/images/Figure_5_Difficulty_Variance.pdf` - Difficulty-Variance joint effect: Difficulty vs. Spearman ρ (with CV encoded as point size and color)
-*   `../overleaf/images/Figure_6_Confounder_Heatmap.pdf` - Correlation Matrix of Independent Variables
-*   `../overleaf/images/Figure_7_Task_Type_Kendall.pdf` - Kendall τ by Task Type (MCQ vs Generative)
-*   `../overleaf/images/Figure_8_Scale_Kendall.pdf` - Scale effect: log(question_count) vs. Kendall τ
-*   `../overleaf/images/Figure_9_Complexity_Kendall.pdf` - Kendall τ by Prompt Length categories (Short, Medium, Long, Extreme)
-*   `../overleaf/images/Figure_10_Recency_Kendall.pdf` - Recency effect: Release Date vs. Kendall τ
-*   `../overleaf/images/Figure_11_Difficulty_Variance_Kendall.pdf` - Difficulty-Variance joint effect: Difficulty vs. Kendall τ (with CV encoded as point size and color)
-*   `../overleaf/images/Figure_12_Task_Type_RBO.pdf` - RBO by Task Type (MCQ vs Generative)
-*   `../overleaf/images/Figure_13_Scale_RBO.pdf` - Scale effect: log(question_count) vs. RBO
-*   `../overleaf/images/Figure_14_Complexity_RBO.pdf` - RBO by Prompt Length categories (Short, Medium, Long, Extreme)
-*   `../overleaf/images/Figure_15_Recency_RBO.pdf` - Recency effect: Release Date vs. RBO
-*   `../overleaf/images/Figure_16_Difficulty_Variance_RBO.pdf` - Difficulty-Variance joint effect: Difficulty vs. RBO (with CV encoded as point size and color)
+*   `../overleaf/images/Figure_5_Difficulty_Variance.pdf` - Difficulty-Variance joint effect: Difficulty vs. Spearman ρ
 
-**Output Tables** (7 LaTeX files):
-*   `../overleaf/tables/results_table_spearman.tex` - Hypothesis test results summary (Spearman ρ only, for main text)
-*   `../overleaf/tables/appendix_results_table_kendall.tex` - Hypothesis test results summary (Kendall τ only, for appendix)
-*   `../overleaf/tables/appendix_results_table_rbo.tex` - Hypothesis test results summary (RBO only, for appendix)
+**Final Output Tables** (5 LaTeX files):
 *   `../overleaf/tables/correlation_summary_table.tex` - Correlation summary for all benchmarks
-*   `../overleaf/tables/exp1_reference_difficulty_table.tex` - Reference Difficulty Validation
-*   `../overleaf/tables/exp2_overall_correlation_table.tex` - Category vs Overall Correlation
-*   `../overleaf/tables/exp3_uncertainty_table.tex` - Uncertainty Propagation Analysis
+*   `../overleaf/tables/results_table_spearman.tex` - Hypothesis test results summary (Spearman ρ only, for main text)
+*   `../overleaf/tables/reference_difficulty_table.tex` - Reference Difficulty Validation
+*   `../overleaf/tables/overall_correlation_table.tex` - Category vs Overall Correlation
+*   `../overleaf/tables/uncertainty_table.tex` - Uncertainty Propagation Analysis
 
 **Execution**:
 ```bash
 cd Human-SIG
-uv run src/analysis/generate_plots_tables.py
+uv run --group plotting src/analysis/generate_plots_tables.py --figures 0 2 3 4 5 --tables 1 2 5 6 7
 ```
 
-**Note**: This script generates both figures and tables in a single run, equivalent to running `generate_plots.py` and `generate_tables.py` sequentially.
+**Note**: This command generates exactly the five PDF figures and five LaTeX tables currently used in `../overleaf/`.
 
 ### Figure 0 Label Patch
 
 Figure 0 now uses an editable CSV file at `data/figure_0_swe_bench_labels.csv`.
 
 **Default pipeline behavior**:
-*   Running `uv run src/analysis/generate_plots_tables.py` with Figure 0 enabled will first check whether `data/figure_0_swe_bench_labels.csv` already exists.
+*   Running `uv run --group plotting src/analysis/generate_plots_tables.py` with Figure 0 enabled will first check whether `data/figure_0_swe_bench_labels.csv` already exists.
 *   If the CSV already exists, the script will **skip regeneration** and directly use that file to render `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf`.
 *   If the CSV does not exist, the script will export a new CSV with the default model names/ranks and then render Figure 0.
 *   This means the default CSV used by the pipeline becomes the one already stored in the project.
+*   Figure 0 now **always** uses `adjustText` for label adjustment. If the plotting dependency group is not installed correctly, the script will fail instead of silently falling back to a non-adjusted layout.
 
 **Manual label editing workflow**:
 *   Export the current Figure 0 label/rank file:
     ```bash
-    uv run src/analysis/export_figure_0_swe_bench_data.py
+    uv run --group plotting src/analysis/export_figure_0_swe_bench_data.py
     ```
 *   Edit the `display_name` column in `data/figure_0_swe_bench_labels.csv`.
 *   Re-render only Figure 0:
     ```bash
-    uv run src/analysis/render_figure_0_swe_bench.py
+    uv run --group plotting src/analysis/render_figure_0_swe_bench.py
     ```
 *   After a full pipeline run, you can modify the CSV again and rerun `src/analysis/render_figure_0_swe_bench.py` to update only the Figure 0 model names without changing anything else.
 *   If you want to go back to the original model names, delete `data/figure_0_swe_bench_labels.csv` and rerun the pipeline or rerun the export script so the default CSV is generated again.
@@ -1055,6 +1066,9 @@ Run all analysis steps in sequence:
 
 ```bash
 cd Human-SIG
+
+# Install dependencies for the final manuscript outputs
+uv sync --group plotting
 
 # Step 4: Build Master Table
 uv run src/processing/build_master_table.py
@@ -1074,11 +1088,11 @@ uv run src/analysis/apply_correction.py
 # Step 9: Uncertainty Propagation Analysis (Experiment 3)
 uv run src/analysis/uncertainty_propagation_analysis.py
 
-# Step 10: Regression Analysis (Experiment 4)
-uv run src/analysis/regression_analysis.py
+# Optional: Regression Analysis (Experiment 4, not needed for the final 5 figures + 5 tables)
+# uv run --group plotting src/analysis/regression_analysis.py
 
-# Step 11: Generate Figures and Tables (includes all Overleaf outputs)
-uv run src/analysis/generate_plots_tables.py
+# Step 10: Generate the final Overleaf figures and tables
+uv run --group plotting src/analysis/generate_plots_tables.py --figures 0 2 3 4 5 --tables 1 2 5 6 7
 ```
 
 ---
@@ -1086,11 +1100,20 @@ uv run src/analysis/generate_plots_tables.py
 ## Output Files
 
 **Data Files** (`results/`):
-*   `data_overlap_stats.json` - Overlap statistics
 *   `analysis_ready_data.csv` - Feature-engineered dataset
 *   `hypothesis_test_results.json` - Raw test results
+*   `reference_difficulty_comparison.csv` - Reference difficulty comparison used by `reference_difficulty_table.tex`
 *   `statistical_significance_report.json` - Corrected results
+*   `uncertainty_simulation_results.csv` - Monte Carlo uncertainty results used by `uncertainty_table.tex`
 
 **Manuscript Files** (`../overleaf/`):
-*   `images/Figure_*.pdf` (17 figures: Figure 0-6 for Spearman ρ, Figure 7-11 for Kendall τ, Figure 12-16 for RBO)
-*   `tables/*.tex` (4 tables)
+*   `images/Figure_0_SWE_Bench_Illustration.pdf`
+*   `images/Figure_2_Scale.pdf`
+*   `images/Figure_3_Complexity_Categories.pdf`
+*   `images/Figure_4_Recency.pdf`
+*   `images/Figure_5_Difficulty_Variance.pdf`
+*   `tables/correlation_summary_table.tex`
+*   `tables/results_table_spearman.tex`
+*   `tables/reference_difficulty_table.tex`
+*   `tables/overall_correlation_table.tex`
+*   `tables/uncertainty_table.tex`

@@ -11,17 +11,11 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+from adjustText import adjust_text
 from matplotlib.lines import Line2D
 from scipy.stats import spearmanr
 
 logger = logging.getLogger(__name__)
-
-try:
-    from adjustText import adjust_text
-
-    HAS_ADJUST_TEXT = True
-except ImportError:
-    HAS_ADJUST_TEXT = False
 
 
 def configure_figure_style() -> None:
@@ -172,8 +166,7 @@ def render_figure_0_from_file(data_path: Path, output_path: Path) -> Path:
             )
         )
 
-    if HAS_ADJUST_TEXT:
-        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="->", color="gray", lw=0.5))
+    adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="->", color="gray", lw=0.5))
 
     spearman_rho, _ = spearmanr(rank_df["swe_rank"], rank_df["lmarena_rank"])
     ax.text(
