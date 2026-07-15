@@ -313,13 +313,22 @@ def calculate_correlations(
         # Get ranked lists (top models by rank)
         df_ranked = df_master[[rank_col, elo_col]].dropna()
         if len(df_ranked) > 0:
-            # Sort by rank (ascending: rank 1 is best)
-            df_ranked = df_ranked.sort_values(rank_col)
+            # Sort by rank (ascending: rank 1 is best), resolving ties by model ID
+            df_ranked = df_ranked.assign(_model_id=df_ranked.index.astype(str))
+            df_ranked = df_ranked.sort_values(
+                [rank_col, '_model_id'], ascending=[True, True]
+            )
             # Use model names (index) as the ranked list
             benchmark_ranked = df_ranked.index.tolist()
             
-            # Sort LMArena by ELO (descending: higher ELO is better)
-            df_elo_ranked = df_master[[elo_col]].dropna().sort_values(elo_col, ascending=False)
+            # Sort LMArena by ELO, resolving ties lexicographically by model ID
+            df_elo_ranked = df_master[[elo_col]].dropna()
+            df_elo_ranked = df_elo_ranked.assign(
+                _model_id=df_elo_ranked.index.astype(str)
+            )
+            df_elo_ranked = df_elo_ranked.sort_values(
+                [elo_col, '_model_id'], ascending=[False, True]
+            )
             elo_ranked = df_elo_ranked.index.tolist()
             
             # Calculate RBO (only use models that appear in both lists)
@@ -457,10 +466,21 @@ def main():
                 if rank_col in df_master.columns:
                     df_ranked_ov = df_master[[rank_col, elo_overall_col]].dropna()
                     if len(df_ranked_ov) > 0:
-                        df_ranked_ov = df_ranked_ov.sort_values(rank_col)
+                        df_ranked_ov = df_ranked_ov.assign(
+                            _model_id=df_ranked_ov.index.astype(str)
+                        )
+                        df_ranked_ov = df_ranked_ov.sort_values(
+                            [rank_col, '_model_id'], ascending=[True, True]
+                        )
                         benchmark_ranked_ov = df_ranked_ov.index.tolist()
                         
-                        df_elo_ranked_ov = df_master[[elo_overall_col]].dropna().sort_values(elo_overall_col, ascending=False)
+                        df_elo_ranked_ov = df_master[[elo_overall_col]].dropna()
+                        df_elo_ranked_ov = df_elo_ranked_ov.assign(
+                            _model_id=df_elo_ranked_ov.index.astype(str)
+                        )
+                        df_elo_ranked_ov = df_elo_ranked_ov.sort_values(
+                            [elo_overall_col, '_model_id'], ascending=[False, True]
+                        )
                         elo_ranked_ov = df_elo_ranked_ov.index.tolist()
                         
                         common_models_ov = set(benchmark_ranked_ov) & set(elo_ranked_ov)

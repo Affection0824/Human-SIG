@@ -73,70 +73,107 @@ def fisher_z_transform(r: float) -> float:
 
 def calculate_rbo(list1: List, list2: List, p: float = 0.9) -> float:
     """
-    Calculate Rank-Biased Overlap (RBO) between two ranked lists.
-    
-    RBO measures ranking similarity with emphasis on top-ranked items.
-    The parameter p (0 < p < 1) controls the weight decay: smaller p gives more
-    weight to top-ranked items. p=0.9 is a standard choice that focuses on top 10 items.
-    
-    Formula: RBO = (1 - p) * sum(p^(d-1) * A_d) for d=1 to infinity
-    where A_d is the agreement at depth d (proportion of items in both lists up to depth d)
-    
+    Calculate extrapolated Rank-Biased Overlap for finite ranked lists.
+
+    Agreement at depth d is the common-prefix overlap divided by d. The
+    observed geometrically weighted sum is extrapolated beyond the finite list
+    endpoints, following the finite-list RBO_EXT definition. In this workflow,
+    both inputs contain the same common-model universe and therefore have equal
+    length; the extrapolation reduces to adding ``A_k * p**k`` to the observed
+    sum.
+
     Args:
         list1: First ranked list (list of items, ordered by rank)
         list2: Second ranked list (list of items, ordered by rank)
-        p: Weight decay parameter (default: 0.9). Must be in (0, 1).
-           Smaller p = more weight on top items. p=0.9 focuses on top ~10 items.
-        
+        p: Persistence parameter in (0, 1); smaller values put more weight on
+           the top of the rankings.
+
     Returns:
-        RBO score in range [0, 1], where 1 indicates identical rankings
-        and 0 indicates no overlap
-        
+        RBO_EXT score in [0, 1].
+
     Raises:
-        ValueError: If p is not in valid range (0, 1)
+        ValueError: If p is invalid or either list contains duplicate items.
     """
     if not (0 < p < 1):
         raise ValueError(f"Parameter p must be in range (0, 1), got {p}")
-    
+
+    if len(list1) != len(set(list1)) or len(list2) != len(set(list2)):
+        raise ValueError("RBO input rankings must not contain duplicate items")
+
     if len(list1) == 0 and len(list2) == 0:
         return 1.0
     if len(list1) == 0 or len(list2) == 0:
         return 0.0
-    
-    # Convert to sets for faster lookup, but preserve order
-    set1 = set(list1)
-    set2 = set(list2)
-    
-    # Calculate RBO
-    rbo_sum = 0.0
-    seen1 = set()
-    seen2 = set()
-    
-    max_depth = max(len(list1), len(list2))
-    
-    for d in range(1, max_depth + 1):
-        # Add items at depth d
-        if d <= len(list1):
-            seen1.add(list1[d - 1])
-        if d <= len(list2):
-            seen2.add(list2[d - 1])
-        
-        # Calculate agreement at depth d
-        intersection = seen1 & seen2
-        union = seen1 | seen2
-        
-        if len(union) == 0:
-            agreement = 0.0
+
+    if len(list1) > len(list2):
+        long_list, short_list = list1, list2
+    else:
+        short_list, long_list = list1, list2
+
+    short_length = len(short_list)
+    long_length = len(long_list)
+    overlap = [0.0] * long_length
+    agreement = [0.0] * long_length
+    weighted_sum = [0.0] * long_length
+
+    short_seen = {short_list[0]}
+    long_seen = {long_list[0]}
+    overlap[0] = 1.0 if short_list[0] == long_list[0] else 0.0
+    agreement[0] = overlap[0]
+    weighted_sum[0] = (1.0 - p) * agreement[0]
+    disjoint_tail = 0.0
+    extrapolation = agreement[0] * p
+
+    for index in range(1, long_length):
+        if index < short_length:
+            short_seen.add(short_list[index])
+            long_seen.add(long_list[index])
+            overlap_increment = 0.0
+            if short_list[index] == long_list[index]:
+                overlap_increment += 1.0
+            else:
+                if short_list[index] in long_seen:
+                    overlap_increment += 1.0
+                if long_list[index] in short_seen:
+                    overlap_increment += 1.0
+
+            overlap[index] = overlap[index - 1] + overlap_increment
+            agreement[index] = (
+                2.0 * overlap[index] / (len(short_seen) + len(long_seen))
+            )
+            weighted_sum[index] = (
+                weighted_sum[index - 1]
+                + (1.0 - p) * p**index * agreement[index]
+            )
+            extrapolation = agreement[index] * p ** (index + 1)
         else:
-            agreement = len(intersection) / len(union)
-        
-        # Weight by p^(d-1)
-        rbo_sum += (p ** (d - 1)) * agreement
-    
-    # Normalize by (1 - p)
-    rbo = (1 - p) * rbo_sum
-    
-    return rbo
+            long_seen.add(long_list[index])
+            overlap_increment = 1.0 if long_list[index] in short_seen else 0.0
+            overlap[index] = overlap[index - 1] + overlap_increment
+            agreement[index] = overlap[index] / (index + 1)
+            weighted_sum[index] = (
+                weighted_sum[index - 1]
+                + (1.0 - p) * p**index * agreement[index]
+            )
+
+            overlap_at_short_end = overlap[short_length - 1]
+            disjoint_tail += (
+                (1.0 - p)
+                * p**index
+                * (
+                    overlap_at_short_end
+                    * (index + 1 - short_length)
+                    / (index + 1)
+                    / short_length
+                )
+            )
+            extrapolation = (
+                (overlap[index] - overlap_at_short_end) / (index + 1)
+                + overlap_at_short_end / short_length
+            ) * p ** (index + 1)
+
+    result = weighted_sum[-1] + disjoint_tail + extrapolation
+    return float(min(1.0, max(0.0, result)))
 
 
 def bootstrap_ci(

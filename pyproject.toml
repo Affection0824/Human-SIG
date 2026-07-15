@@ -5,12 +5,9 @@ description = "Benchmark data scraping, processing, and statistical analysis pip
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
-    "fuzzywuzzy",
     "jinja2",
     "numpy",
     "pandas",
-    "python-levenshtein",
-    "rbo",
     "scikit-learn",
     "scipy",
     "statsmodels",
@@ -32,6 +29,3 @@ scraping = [
     "selenium",
     "webdriver-manager",
 ]
-
-[tool.uv.sources]
-rbo = { path = "vendor/rbo" }

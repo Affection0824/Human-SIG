@@ -1,1184 +1,344 @@
-# Benchmark Data Preparation and Scraping Guide
+# Human-SIG
 
-This document details the directory structure, file formats, and data scraping workflow for the Human-SIG project.
+Human-SIG converts public benchmark leaderboards into a common model identity space, compares benchmark rankings with LMArena preferences, and generates the figures and tables used by the manuscript.
 
-## Environment Configuration
+This repository supports three workflows:
 
-### Quick Start
+1. **Reproduce the manuscript from Step 3** using the prepared data and reviewed model matches already in the repository.
+2. **Rebuild model matching from Step 1** after changing raw benchmark data.
+3. **Update raw data** with one of the supported scraping methods.
 
-1.  **Install Dependencies**
+All commands below are run from the repository root (`Human-SIG/`).
 
-    Run in the project root `Human-SIG/`:
+## Requirements and environments
 
-    ```bash
-    # Base processing + analysis environment
-    uv sync
-    ```
+- [`uv`](https://docs.astral.sh/uv/getting-started/installation/)
+- Python `>=3.14`
+- Chrome for the Selenium scraper only; ChromeDriver is managed automatically
+- Write access to `../overleaf/` when generating manuscript files
 
-    **Recommended environment presets**:
+`uv` creates the project environment at `.venv/`. Choose the dependency group for the work you are doing:
 
-    ```bash
-    # Final analysis / manuscript environment
-    # Required for Step 7, Step 9, Step 10, Figure 0 helpers, and regression_analysis.py
-    uv sync --group plotting
+| Task | Command |
+|---|---|
+| Processing and non-plotting analysis | `uv sync` |
+| Reproduce final figures and tables | `uv sync --group plotting` |
+| Acquire or scrape raw data | `uv sync --group scraping` |
+| Install everything | `uv sync --group plotting --group scraping` |
 
-    # Scraping environment
-    uv sync --group scraping
+Running `uv sync` again without a group may remove packages from previously installed optional groups.
 
-    # Full environment (scraping + analysis + plotting)
-    uv sync --group plotting --group scraping
-    ```
+## Reproduce the manuscript from Step 3
 
-    **Environment notes**:
-    *   Python requirement: `>=3.14`
-    *   `uv` manages the project-local virtual environment at `.venv/`
-    *   Re-running `uv sync` without groups syncs back to the base environment and may remove optional plotting/scraping packages
-    *   For the full analysis workflow that ends with the five manuscript figures and five tables, use `uv sync --group plotting`
-    *   The project keeps a local compatibility build of `rbo` in `vendor/rbo/`, exposed through `[tool.uv.sources]`, so `import rbo` remains available on Python 3.14 without inheriting the upstream package's `numpy<2` constraint
+Use this route for the current repository snapshot. It does not rerun scraping, cleaned-data generation, or model-match generation.
 
-2.  **Verify Installation**
+### Required inputs
 
-    ```bash
-    uv run -- python -c "import pandas, numpy, scipy, statsmodels, rbo, tqdm; print('Base dependencies installed successfully')"
-    ```
+The repository must already contain:
 
-    If you installed the plotting group, you can also verify it with:
+- `data/processed/cleaned/*/cleaned_data.csv`
+- `data/processed/review_files/*.json`
+- `data/metadata.json`
+- the prepared LMArena raw data under `data/raw/lmarena/`
 
-    ```bash
-    uv run --group plotting -- python -c "import matplotlib, seaborn, adjustText; print('Plotting dependencies installed successfully')"
-    ```
+Step 3 reads `selected_lmarena_model` from the existing review files. The `untrusted` field is review metadata and is not used by the mapping script.
 
-3.  **Execution Model**
+### Run Steps 3–10
 
-    **Environment mapping**:
-    *   Steps 1-6 and Step 8: base environment (`uv sync`)
-    *   Step 7 (`small_n_hypothesis_test.py`), Step 9 (`uncertainty_propagation_analysis.py`), Step 10 (`generate_plots_tables.py`): plotting environment
-    *   `src/analysis/export_figure_0_swe_bench_data.py`, `src/analysis/render_figure_0_swe_bench.py`, and `src/analysis/regression_analysis.py`: plotting environment
+```bash
+# Install the environment required by the complete final workflow
+uv sync --group plotting
 
-    **What is automated**:
-    *   The processing and analysis pipeline is reproducible once `data/raw/*/data.csv` and reviewed `data/processed/review_files/*.json` already exist.
-    *   A verified end-to-end reproduction path for this case is provided below in [Verified Reproduction Workflow](#verified-reproduction-workflow).
+# Step 3: build benchmark-to-LMArena mappings
+uv run src/processing/step3_generate_mapping.py
 
-    **What is still manual**:
-    *   Raw input preparation for scraping (`input.txt`, copied HTML, JSON, or provided CSV files)
-    *   Artificial Analysis model-name disambiguation before its downstream scraper is run
-    *   Manual Review 1 for duplicate model names in `cleaned_data.csv`
-    *   Manual Review 2 for `review_files/*.json` before Step 3 if rigorous mappings are required
+# Step 4: build the master table
+uv run src/processing/build_master_table.py
 
-## Directory Structure
+# Step 5: calculate benchmark features and correlations
+uv run src/analysis/compute_features_robust.py
 
+# Step 6: calculate the reference-model difficulty comparison
+uv run src/analysis/calculate_reference_difficulty.py
+
+# Step 7: test H1–H5
+uv run --group plotting src/analysis/small_n_hypothesis_test.py
+
+# Step 8: apply Holm–Bonferroni correction
+uv run src/analysis/apply_correction.py
+
+# Step 9: propagate score and LMArena uncertainty
+uv run --group plotting src/analysis/uncertainty_propagation_analysis.py
+
+# Step 10: generate the five manuscript figures and five manuscript tables
+uv run --group plotting src/analysis/generate_plots_tables.py --figures 0 2 3 4 5 --tables 1 2 5 6 7
+
+# Step 10: generate the RBO robustness figures and table
+uv run --group plotting src/analysis/generate_plots_tables.py --figures 12 13 14 15 16 --tables 4
 ```
+
+## Scope and reproducibility notes
+
+### Creative Writing v3
+
+Creative Writing v3 is retained in general correlation analyses, but it is deliberately excluded from the difficulty-based evaluation because a defensible difficulty scale cannot be identified for its leaderboard score.
+
+Consequently:
+
+- Step 7 excludes it from the difficulty–variance regression.
+- Step 9 keeps a row for it, but its Monte Carlo fields are unavailable.
+- Step 10 excludes it from `uncertainty_table.tex`.
+
+The current Step 9 implementation may emit `RuntimeWarning: invalid value encountered in sqrt` while it encounters this non-percentage score. This warning is expected for Creative Writing v3 and does not invalidate the simulations for the included benchmarks.
+
+### Reference difficulty models
+
+Step 6 follows the model identifiers in `calculate_reference_difficulty.py`:
+
+- Claude Opus 4.5: `Anthropicclaude-opus-4-5-20251101`
+- Gemini 2.5 Pro: `gemini-2.5-pro`
+- GPT-5.1: `gpt-5.1`
+
+Reference difficulty is `100 - mean score` across these three models. A benchmark is included only when the required scores are available.
+
+### Exact reproducibility
+
+Steps 3–8 are deterministic or use fixed random seeds. Step 9 performs 10,000 Monte Carlo simulations without a fixed seed, so its simulated means, confidence intervals, p-values, and `uncertainty_table.tex` can vary slightly between runs. PDF files may also differ byte-for-byte because of rendering metadata even when their visual content is unchanged. The workflow is reproducible at the analysis level, but its generated files are not all bit-for-bit reproducible.
+
+### RBO calculation
+
+Step 5 calculates RBO using the manuscript definition. At depth `d`, agreement is the overlap between the two ranking prefixes divided by `d`:
+
+```text
+A_d = |S[:d] intersect T[:d]| / d
+RBO = (1 - p) * sum(d=1..infinity, p^(d-1) * A_d)
+```
+
+The workflow uses `p=0.9`, restricts both rankings to their shared Study Universe models, and applies the standard finite-list extrapolation for the unobserved tail. Ties in benchmark rank and LMArena Elo are resolved lexicographically by model ID. Each benchmark is compared with both its matching LMArena category (`rbo`) and LMArena Overall (`rbo_overall`). The calculation is implemented internally and does not require an external RBO package.
+
+### Output location
+
+Step 10 writes outside this repository to the sibling directory:
+
+```text
 Human-SIG/
-├── data/
-│   ├── metadata.json          # Benchmark metadata
-│   ├── raw/                   # Raw data
-│   │   ├── lmarena/           # LMArena data
-│   │   │   └── {category}/    # e.g., LMArena-Overall, LMArena-Coding, etc.
-│   │   │       ├── input.txt  # Source HTML
-│   │   │       └── data.csv   # Extracted data
-│   │   ├── artificial_analysis/
-│   │   │   ├── input.txt      # Unified table HTML
-│   │   │   └── {benchmark}/
-│   │   │       └── data.csv
-│   │   ├── frontiermath/
-│   │   │   └── {tier}/          # e.g., FrontierMath_Tier_1-3, FrontierMath_Tier_4
-│   │   │       ├── input.txt
-│   │   │       └── data.csv
-│   │   ├── manual_direct/
-│   │   │   └── {benchmark}/
-│   │   │       └── data.csv   # Directly provided file
-│   │   ├── pandas_read_html/
-│   │   │   └── {benchmark}/
-│   │   │       ├── input.txt  # URL
-│   │   │       └── data.csv
-│   │   ├── selenium/
-│   │   │   └── {benchmark}/
-│   │   │       ├── input.txt  # URL
-│   │   │       └── data.csv
-│   │   └── vals_ai/
-│   │       └── {benchmark}/
-│   │           ├── input.txt  # JSON/HTML source
-│   │           └── data.csv
-│   └── processed/             # Processed data
-│       ├── model_extraction/   # LMArena model information (auto-generated)
-│       │   └── lmarena_models.json
-│       ├── cleaned/           # Step 1 output: cleaned data
-│       │   ├── {benchmark_id}/
-│       │   │   ├── cleaned_data.csv
-│       │   │   └── mapping.json  # Step 3 output
-│       │   └── artificial_analysis/  # Step 1 output: unified model list
-│       │       └── cleaned_data.csv  # Unified list for all 10 benchmarks
-│       └── review_files/       # Step 2 output: review files
-│           ├── {benchmark_id}.json
-│           └── artificial_analysis.json  # Unified review file for all 10 benchmarks
-│   └── figure_0_swe_bench_labels.csv  # Editable labels/ranks for Figure 0
-├── results/                   # Analysis outputs
-├── src/
-│   ├── scrapers/              # Scraping logic
-│   │   ├── selenium_scraper.py
-│   │   ├── lmarena_scraper.py
-│   │   ├── ...
-│   ├── main.py                # Unified CLI entry point
-│   ├── processing/            # Data processing scripts
-│   └── analysis/              # Analysis scripts
+overleaf/
+├── images/
+└── tables/
 ```
 
-## Workflow Overview
+The script creates `images/` and `tables/` if necessary and overwrites files with matching names.
 
-The project uses a unified CLI for data acquisition.
+## What each processing and analysis step does
 
-1.  **Preparation**: Place the required source content (URL, HTML, or JSON) into `input.txt` within the appropriate benchmark directory in `data/raw/`.
-2.  **Execution**: Run the centralized scraper via `src/main.py`.
-3.  **Result**: The script generates `data.csv` in the respective benchmark folders.
+| Step | Script | Main input | Main output |
+|---|---|---|---|
+| 1 | `src/processing/step1_generate_cleaned_data.py` | `data/raw/*/data.csv` | `data/processed/cleaned/*/cleaned_data.csv` |
+| 2 | `src/processing/step2_generate_review_files.py` | cleaned data and LMArena Overall | `data/processed/review_files/*.json` and `lmarena_models.json` |
+| 3 | `src/processing/step3_generate_mapping.py` | reviewed `selected_lmarena_model` values | benchmark-level `mapping.json` files |
+| 4 | `src/processing/build_master_table.py` | cleaned data, mappings, metadata, Study Universe | `data/processed/master_table/master_correlation_matrix.csv` |
+| 5 | `src/analysis/compute_features_robust.py` | master table and metadata | `results/analysis_ready_data.csv` |
+| 6 | `src/analysis/calculate_reference_difficulty.py` | master table and analysis-ready data | `results/reference_difficulty_comparison.csv` |
+| 7 | `src/analysis/small_n_hypothesis_test.py` | analysis-ready data and metadata | `results/hypothesis_test_results.json` |
+| 8 | `src/analysis/apply_correction.py` | raw hypothesis-test results | `results/statistical_significance_report.json` |
+| 9 | `src/analysis/uncertainty_propagation_analysis.py` | master table, analysis-ready data, raw LMArena data | `results/uncertainty_simulation_results.csv` |
+| 10 | `src/analysis/generate_plots_tables.py` | result files and Figure 0 labels | manuscript PDFs and LaTeX tables |
 
-## Detailed Instructions by Method
+Step 4 excludes a benchmark when fewer than six Study Universe models overlap with it. Step 5 calculates Difficulty, coefficient of variation, and rank correlations with p-values and bootstrap confidence intervals. For the current snapshot, HumanEval and FACTS have fewer than five models in the common subset used for the preferred difficulty calculation, so Step 5 logs a warning and uses its fallback difficulty method.
 
-### Universal Command
+## Rebuild cleaned data and model matching
 
-To run all scrapers:
+Run this route only after changing raw data or when you intentionally want to regenerate the review files.
+
+```text
+raw data
+  -> Step 1: cleaned data
+  -> manual duplicate review
+  -> Step 2: heuristic model matches
+  -> manual match review
+  -> Step 3: mappings
+```
+
+### Step 1: generate cleaned data
+
 ```bash
-uv run src/main.py scrape --method all
-```
-
-To run a specific method:
-```bash
-uv run src/main.py scrape --method <method_name>
-```
-
-### 1. manual_direct
-*   **Location**: `data/raw/manual_direct/{benchmark_name}/`
-*   **Preparation**: Directly place your data file as `data.csv`.
-*   **Execution**: No script execution required.
-
-### 2. pandas_read_html
-*   **Location**: `data/raw/pandas_read_html/`
-*   **Preparation**: Create `input.txt` in the benchmark folder containing a single line with the Leaderboard URL.
-*   **Execution**:
-    ```bash
-    uv run src/main.py scrape --method pandas_read_html
-    ```
-
-### 3. selenium
-*   **Location**: `data/raw/selenium/`
-*   **Preparation**: Create `input.txt` in the benchmark folder containing a single line with the Leaderboard URL.
-*   **Execution**:
-    ```bash
-    uv run src/main.py scrape --method selenium
-    ```
-    *Note*: Requires Chrome and ChromeDriver (managed automatically).
-
-### 4. artificial_analysis
-*   **Location**: `data/raw/artificial_analysis/`
-*   **Preparation**: Copy the full table HTML from the Artificial Analysis website into `data/raw/artificial_analysis/input.txt`. As there are models appear more than once (mostly because "Thinking" and "Non-Thinking" are ommitted on this platform), it is necessary to firstly run `src/scrapers/artificial_analysis_first_processer.py` to process the data into a .csv file, with all the benchmark scores, and the order of the benchmarks is in the dictionary order of model names. Then, add the -Thinking and -Non-Thinking suffix to the repeated models, and some of them, which has four same names in a row, need to add -Preview to half of them. Please click 'Model' in the leaderboard website to check the detailed information of each model. Scraping the data into raw data needs the correct `data/raw/artificial_analysis/combined_all_benchmarks.csv`.
-*   **Execution**:
-*   If you want to update the data and manually process the model names, update the `input.txt` first and run:
-    ```bash
-    uv run src/scrapers/artificial_analysis_first_processer.py
-    ```
-*   After processing the model names manually, run the below script to apply them into raw data:
-    ```bash
-    uv run src/main.py scrape --method artificial_analysis
-    ```
-
-### 5. vals_ai
-*   **Location**: `data/raw/vals_ai/`
-*   **Preparation**: Copy the page source or JSON data containing the `benchmarkView` structure into `input.txt` in each benchmark folder.
-*   **Execution**:
-    ```bash
-    uv run src/main.py scrape --method vals_ai
-    ```
-
-### 6. lmarena
-*   **Location**: `data/raw/lmarena/`
-*   **Preparation**: For each category (e.g., `LMArena-Overall`, `LMArena-Coding`, `LMArena-Math`, `LMArena-Hard Prompts`, `LMArena-Creative Writing`, `LMArena-Instruction Following`, `LMArena-Expert`), copy the table HTML into the corresponding `input.txt`.
-*   **Execution**:
-    ```bash
-    uv run src/main.py scrape --method lmarena
-    ```
-
-### 7. frontiermath
-*   **Location**: `data/raw/frontiermath/`
-*   **Preparation**: Copy the table HTML into `input.txt` for each tier folder.
-*   **Execution**:
-    ```bash
-    uv run src/main.py scrape --method frontiermath
-    ```
-
----
-
-## Data Processing Pipeline
-
-After scraping raw data, the project uses a three-step processing pipeline to extract model names, parse model information, match models with LMArena models, and generate final mappings. The pipeline consists of three automated steps and two manual review steps.
-
-### Workflow Overview
-
-```
-Raw Data (data/raw/*/data.csv)
-    ↓
-[Step 1] step1_generate_cleaned_data.py (deterministic)
-    ├─ Extract model names and scores
-    ├─ Detect duplicate model names
-    ├─ Add (2), (3) suffixes to duplicates
-    └─ [Special] For artificial_analysis: Generate unified model list
-    ↓
-cleaned_data.csv (data/processed/cleaned/{benchmark_id}/cleaned_data.csv)
-    ├─ May contain suffixed model names (e.g., "Model Name(2)")
-    └─ Requires human review to confirm duplicates
-    ↓
-[Special] artificial_analysis unified list (data/processed/cleaned/artificial_analysis/cleaned_data.csv)
-    └─ Contains all models with at least one non-empty score across 10 benchmarks
-    ↓
-[Manual Review 1] Review and handle duplicate model names in cleaned_data.csv
-    ├─ Confirm if duplicates are real different model instances
-    ├─ If data duplicates, delete or merge
-    └─ If real different models, keep suffixed names
-    ↓
-[Step 2] step2_generate_review_files.py (non-deterministic)
-    ├─ Auto-generate model_extraction/lmarena_models.json (regenerated every run)
-    ├─ Parse model information from cleaned_data.csv and match
-    └─ [Special] For artificial_analysis: Generate unified review file
-    ↓
-review_files (data/processed/review_files/{benchmark_id}.json)
-    ├─ [Special] artificial_analysis.json (unified for all 10 benchmarks)
-    └─ Other benchmarks: individual review files
-    ↓
-[Manual Review 2] Manually edit review_files (modify untrusted and selected_lmarena_model)
-    ↓
-[Step 3] step3_generate_mapping.py (deterministic)
-    ├─ [Special] For artificial_analysis: Generate mapping.json for each benchmark
-    │   └─ Filter by each benchmark's cleaned_data.csv
-    └─ Other benchmarks: Generate mapping.json from individual review files
-    ↓
-mapping.json (data/processed/cleaned/{benchmark_id}/mapping.json)
-```
-
-### Benchmark ID Naming Convention
-
-**Important**: The `benchmark_id` directly uses the folder name from raw data, without any source prefix.
-
-*   `data/raw/artificial_analysis/AA-LCR/data.csv` → benchmark_id: `AA-LCR`
-*   `data/raw/selenium/HumanEval/data.csv` → benchmark_id: `HumanEval`
-*   `data/raw/lmarena/LMArena-Overall/data.csv` → benchmark_id: `LMArena-Overall`
-
-All output file paths use this `benchmark_id`:
-*   `data/processed/cleaned/{benchmark_id}/cleaned_data.csv`
-*   `data/processed/review_files/{benchmark_id}.json`
-*   `data/processed/cleaned/{benchmark_id}/mapping.json`
-
-**Special handling for artificial_analysis**:
-*   The 10 artificial_analysis benchmarks (AA-LCR, AIME, GPQA_Diamond, etc.) share a unified model list and review file:
-    *   Unified model list: `data/processed/cleaned/artificial_analysis/cleaned_data.csv`
-    *   Unified review file: `data/processed/review_files/artificial_analysis.json`
-    *   Individual mapping files: `data/processed/cleaned/{benchmark_id}/mapping.json` (filtered by each benchmark's cleaned_data.csv)
-
----
-
-## Step 1: Generate Cleaned Data (Deterministic)
-
-### Overview
-
-Extract model names and scores from raw CSV files, calculate rankings, and generate standardized `cleaned_data.csv` files.
-
-**Input**: `data/raw/*/data.csv` (all raw data files)
-
-**Output**: 
-*   `data/processed/cleaned/{benchmark_id}/cleaned_data.csv` (for each benchmark)
-*   `data/processed/cleaned/artificial_analysis/cleaned_data.csv` (unified model list for artificial_analysis benchmarks)
-
-### Script Location
-
-**Script**: `src/processing/step1_generate_cleaned_data.py`
-
-**Execution**:
-```bash
-cd Human-SIG
+uv sync
 uv run src/processing/step1_generate_cleaned_data.py
 ```
 
-### Processing Logic
+Step 1:
 
-The script is self-contained in project code structure and does not rely on importing helper modules from other project files.
+- discovers every `data/raw/*/data.csv` file;
+- detects model and score columns;
+- parses percentages, decimals, and values with `±` errors;
+- normalizes known 0–1 benchmarks to 0–100;
+- assigns competition ranks such as `1, 2, 2, 4`;
+- adds numeric suffixes such as `(2)` and `(3)` to repeated model names; and
+- creates one unified Artificial Analysis model list at `data/processed/cleaned/artificial_analysis/cleaned_data.csv`.
 
-1.  **Traverse all raw data**: Read all `data.csv` files from `data/raw/` directory
-2.  **Identify column names**:
-    *   Model name column: Auto-detect "Model", "model", "Model Name", "AI System", "model_name", "name", "Agent", etc.
-    *   Score column: Auto-detect based on benchmark type (e.g., "Score", "Intelligence AA-LCR", "score_value", "Numerical_Result", "accuracy", etc.)
-3.  **Extract data**:
-    *   Extract model names and scores from CSV
-    *   Process all models in CSV without any filtering
-4.  **Handle duplicate model names**:
-    *   Detect duplicate model names within the same benchmark
-    *   If duplicates found, add suffixes to subsequent occurrences:
-        *   First occurrence remains unchanged (e.g., "Model Name")
-        *   Second occurrence marked as "Model Name(2)"
-        *   Third occurrence marked as "Model Name(3)"
-        *   And so on
-    *   **Important**: These suffixed model names require human review
-5.  **Process score formats**:
-    *   Remove ± error parts (e.g., "1490 ±6" → 1490.0)
-    *   Handle percentage format (e.g., "71%" → 71.0)
-    *   Handle decimal format (e.g., "0.945" → 0.945)
-    *   Convert to float for ranking calculation
+Review numeric duplicate suffixes before Step 2. A different score alone is not proof that two rows are different model variants; confirm against the source data. If rows are removed or merged, ensure that the remaining ranks are still consistent.
 
-    *   **Special handling for FACTS benchmark**: Only extract rows where `Task_Name == "Average"`, use `Numerical_Result` column for scores
-    *   **Score normalization**: For benchmarks using 0-1 scale (FACTS, GPQA, HMMT (Feb 2025), HumanEval, IFEval, SuperGPQA, SWE-bench (Verified), multiply scores by 100 to normalize to 0-100 scale
+### Step 2: generate review files
 
-6.  **Calculate rankings**:
-    *   Sort by score in descending order
-    *   Tied scores: Models with same score get same rank
-    *   Next rank skips tied count (e.g., scores [99, 98, 98, 97] → ranks [1, 2, 2, 4])
-7.  **Special handling for artificial_analysis**:
-    *   After processing all benchmarks, generate a unified model list for artificial_analysis
-    *   Collect all models that have at least one non-empty score (not "--") across the 10 artificial_analysis benchmarks
-    *   Generate `data/processed/cleaned/artificial_analysis/cleaned_data.csv` containing only model names (no scores/ranks)
-    *   This unified list is used in step 2 to generate a single review file instead of 10 separate files
-
-### Output File
-
-**Output directory**: `data/processed/cleaned/{benchmark_id}/`
-
-**File format**: `cleaned_data.csv`
-
-Contains three columns:
-*   `model_name`: Model name (exactly as in raw CSV)
-*   `score`: Score (float)
-*   `rank`: Rank (integer, tied scores share rank)
-
-**Example**:
-```csv
-model_name,score,rank
-GPT-5 (high),76.0,1
-GPT-5.1 (high),75.0,2
-Claude Opus 4.5,74.0,3
-KAT-Coder-Pro V1,74.0,3
-GPT-5.2 (xhigh),73.0,5
-```
-
-### Duplicate Model Name Handling
-
-**Automatic processing**:
-*   Script automatically detects duplicate model names within the same benchmark
-*   Adds `(2)`, `(3)`, `(4)` suffixes to duplicate names
-*   Ensures each model name in `cleaned_data.csv` is unique
-
-**Example**:
-```csv
-model_name,score,rank
-GPT-5,76.0,1
-GPT-5(2),75.0,2
-Claude Opus 4.5,74.0,3
-Claude Opus 4.5(2),73.0,4
-```
-
-**Human review requirements**:
-*   All model names with `(2)`, `(3)` suffixes require manual review
-*   Need to confirm if duplicates are:
-    *   **Real different model instances**: Keep suffixed names (e.g., different versions, configurations)
-    *   **Data duplicates**: Delete duplicate entries or merge data
-
-### Notes
-
-*   Script automatically handles multiple encodings (UTF-8, GBK, Latin-1, CP1252)
-*   Each benchmark corresponds to an independent folder and `cleaned_data.csv` file
-*   **Important**: Before running step 2, must review and handle duplicate model names in `cleaned_data.csv`
-
----
-
-## Manual Review 1: Review Duplicate Model Names
-
-### Why Review Duplicates?
-
-In step 1, the script automatically adds `(2)`, `(3)` suffixes to duplicate model names, but these duplicates may be:
-1.  **Real different model instances**: e.g., different versions, configurations, or release dates of the same model
-2.  **Data duplicates**: Errors in raw data where the same model was recorded multiple times
-
-Before proceeding to step 2 (model parsing and matching), need to confirm the nature of these duplicates to avoid bringing duplicate data into subsequent steps.
-
-### How to Identify Duplicates for Review
-
-**Method 1: Check cleaned_data.csv**
-*   Open `data/processed/cleaned/{benchmark_id}/cleaned_data.csv`
-*   Search for model names containing `(` and `)` (e.g., `Model Name(2)`)
-
-**Method 2: Use check script**
-Run the following Python code to quickly find all duplicates:
-```python
-import csv
-import re
-from pathlib import Path
-
-base_dir = Path('data/processed/cleaned')
-for csv_file in base_dir.rglob('cleaned_data.csv'):
-    benchmark_id = csv_file.parent.name
-    with open(csv_file, 'r', encoding='utf-8') as f:
-        reader = csv.DictReader(f)
-        rows = list(reader)
-    
-    duplicates = [r for r in rows if re.search(r'\((\d+)\)$', r['model_name'])]
-    if duplicates:
-        print(f"{benchmark_id}: {len(duplicates)} duplicate models")
-        for dup in duplicates[:5]:  # Show first 5
-            print(f"  - {dup['model_name']}")
-```
-
-### Review Steps
-
-#### Step 1: Open cleaned_data.csv
-
-Use Excel, VS Code, or any CSV viewer to open:
-```
-data/processed/cleaned/{benchmark_id}/cleaned_data.csv
-```
-
-#### Step 2: Check Each Duplicate Model
-
-For each model name with `(2)`, `(3)` suffixes:
-
-**Case 1: Real different model instances**
-
-Example:
-```csv
-model_name,score,rank
-GPT-5,76.0,1
-GPT-5(2),75.0,2
-```
-
-**Criteria**:
-*   Two models have different scores
-*   May be different versions, configurations, or test dates of the same model
-*   Two different entries exist in raw data
-
-**Action**:
-*   **Keep both entries**, suffixed name remains unchanged
-*   In subsequent step 2, these two models will be parsed and matched separately
-
-**Case 2: Data duplicates**
-
-Example:
-```csv
-model_name,score,rank
-Claude Opus 4.5,74.0,3
-Claude Opus 4.5(2),74.0,3
-```
-
-**Criteria**:
-*   Two models have same score (or very close)
-*   May be the same model recorded twice in raw data
-*   No obvious differences (version, configuration, date, etc.)
-
-**Action**:
-*   **Delete duplicate entry**: Remove the suffixed row from `cleaned_data.csv`
-*   Or if scores differ slightly, keep the one with higher score
-
-#### Step 3: Modify cleaned_data.csv
-
-**Using Excel**:
-1.  Open CSV file
-2.  Find duplicate rows to delete
-3.  Delete entire row
-4.  Save file (ensure saved as CSV format)
-
-**Using text editor**:
-1.  Open CSV file
-2.  Find duplicate row to delete
-3.  Delete the row (including newline)
-4.  Save file
-
-**Using Python script**:
-```python
-import csv
-import re
-from pathlib import Path
-
-csv_file = Path('data/processed/cleaned/{benchmark_id}/cleaned_data.csv')
-rows_to_keep = []
-
-with open(csv_file, 'r', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    for row in reader:
-        # Check if this is a duplicate to delete (adjust logic as needed)
-        if re.search(r'\(2\)$', row['model_name']):
-            # Check if duplicate of previous entry (adjust logic as needed)
-            continue
-        rows_to_keep.append(row)
-
-# Write back to file
-with open(csv_file, 'w', encoding='utf-8', newline='') as f:
-    writer = csv.DictWriter(f, fieldnames=['model_name', 'score', 'rank'])
-    writer.writeheader()
-    writer.writerows(rows_to_keep)
-```
-
-### Review Checklist
-
-For each suffixed model name, check:
-*   [ ] Is it a real different model instance?
-    *   [ ] If yes, keep the suffixed name
-*   [ ] Is it a data duplicate?
-    *   [ ] If yes, delete the duplicate entry
-*   [ ] Is the modified `cleaned_data.csv` correctly formatted?
-*   [ ] Are changes saved?
-
-### Notes
-
-*   **Must complete review before running step 2**: If `cleaned_data.csv` contains unprocessed duplicates, they will be carried into subsequent steps
-*   **Keep real different models**: If two suffixed models are indeed different instances (e.g., different versions), must keep them
-*   **Delete data duplicates**: If confirmed as data errors, must delete them
-*   **Recalculate rankings**: If duplicate entries are deleted, rankings may be affected (usually minimal impact)
-
----
-
-## Step 2: Generate Review Files (Non-Deterministic)
-
-### Overview
-
-Read model names from `cleaned_data.csv`, parse model information, match LMArena candidates, automatically select best match, and generate `review_files`.
-
-**Input**:
-*   `data/processed/cleaned/{benchmark_id}/cleaned_data.csv`
-*   `data/raw/lmarena/LMArena-Overall/data.csv` (LMArena raw data, used to generate unified `lmarena_models.json` file)
-
-**Output**: 
-*   `data/processed/review_files/{benchmark_id}.json` (for each benchmark)
-*   `data/processed/review_files/artificial_analysis.json` (unified review file for all 10 artificial_analysis benchmarks)
-
-**Notes**:
-*   LMArena benchmarks are skipped (because LMArena models can match internally)
-*   Script automatically generates unified `lmarena_models.json` from `LMArena-Overall` raw data (regenerated every run to ensure latest data)
-*   The `lmarena_models.json` file contains all LMArena models with Score >= 1330 (Study Universe), used for matching all other benchmarks
-*   Other benchmarks don't need separate extraction files, directly read model names from `cleaned_data.csv` and parse
-
-### Script Location
-
-**Script**: `src/processing/step2_generate_review_files.py`
-
-**Execution**:
 ```bash
-cd Human-SIG
 uv run src/processing/step2_generate_review_files.py
 ```
 
-### Processing Logic
+Step 2 is a deterministic heuristic matcher, not a trusted final review. It:
 
-The script is self-contained in project code structure and includes its model parsing and matching logic in a single file.
+- rebuilds `data/processed/model_extraction/lmarena_models.json` from LMArena Overall;
+- defines the Study Universe as models with Overall score `>= 1330`;
+- parses model family, subfamily, version, date, parameters, and other qualifiers;
+- proposes LMArena candidates; and
+- writes review entries with `untrusted: 1`.
 
-1.  **Generate LMArena model information**:
-    *   **Unified design**: Only one `lmarena_models.json` file exists, generated from `data/raw/lmarena/LMArena-Overall/data.csv`
-    *   **Regenerated every run**: Ensures data is latest (doesn't check if file exists, regenerates every time)
-    *   Only keeps models with Score >= 1330 (Study Universe)
-    *   This unified file is used for matching all other benchmarks with LMArena models in step 2
-    *   This design facilitates review and subsequent analysis
-2.  **Read model names**: Read all model names from `cleaned_data.csv`
-3.  **Parse model information**: Use built-in model parsing functions to parse each model name, extract:
-    *   `family` (family)
-    *   `subfamily` (subfamily)
-    *   `version` (version)
-    *   `date` (date)
-    *   `parameters` (parameter count)
-    *   `other_info` (other information)
-4.  **Match candidates**: Use structured matching algorithm to find all possible LMArena candidates for each benchmark model:
-    *   Family, subfamily, version must match exactly
-    *   If parameters exist in both and don't match, exclude match
-    *   Date doesn't participate in filtering
-5.  **Automatically select best match**:
-    *   Single candidate and not NO_MATCH_FOUND: Use directly
-    *   Multiple candidates: Use similarity algorithm to select best match (considers other_info, date, parameters, subfamily)
-    *   No candidates or only NO_MATCH_FOUND: Set to `0`
-6.  **Generate review_file**: Contains structured information and candidate list for all models
+LMArena benchmarks are skipped because they already use LMArena model identities. The ten Artificial Analysis benchmarks share `data/processed/review_files/artificial_analysis.json`.
 
-### Output File
+For each review entry:
 
-**Output directory**: `data/processed/review_files/`
+- set `selected_lmarena_model` to the correct LMArena model identifier, or `0` when no corresponding model exists;
+- set `untrusted` to `0` after the decision is reviewed; and
+- keep the JSON syntactically valid.
 
-**File format**: `{benchmark_id}.json`
+### Step 3: generate mappings
 
-**File structure**:
-```json
-{
-  "GPT-5.2 (xhigh)": {
-    "benchmark_info": {
-      "family": "gpt",
-      "subfamily": null,
-      "version": "5.2",
-      "date": null,
-      "parameters": null,
-      "other_info": ["5.2", "xhigh"]
-    },
-    "candidates": [
-      {
-        "lmarena_model": "gpt-5.2",
-        "family": "gpt",
-        "subfamily": null,
-        "version": "5.2",
-        "date": null,
-        "parameters": null,
-        "other_info": ["5.2"]
-      }
-    ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5.2"
-  },
-  "o3": {
-    "benchmark_info": {
-      "family": "gpt",
-      "subfamily": "o3",
-      "version": "3.0",
-      "date": null,
-      "parameters": null,
-      "other_info": null
-    },
-    "candidates": [
-      {
-        "lmarena_model": "o3-2025-04-16",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3.0",
-        "date": "2025-04-16",
-        "parameters": null,
-        "other_info": null
-      },
-      {
-        "lmarena_model": "o3-mini-high",
-        "family": "gpt",
-        "subfamily": "o3",
-        "version": "3.0",
-        "date": null,
-        "parameters": null,
-        "other_info": ["mini", "high"]
-      }
-    ],
-    "untrusted": 1,
-    "selected_lmarena_model": "o3-2025-04-16"
-  }
-}
-```
-
-### Field Descriptions
-
-**`benchmark_info`**:
-*   Structured information parsed from model name (family, subfamily, version, date, parameters, other information)
-
-**`candidates`**:
-*   List of all possible matching LMArena models
-*   If no candidates, contains one `{"lmarena_model": "NO_MATCH_FOUND"}` entry
-
-**`untrusted`**:
-*   **Default value**: `1` (indicates completed by agent, not trusted)
-*   **After human review**: Change to `0` (indicates data is rigorous, but doesn't affect subsequent generation)
-*   **Note**: Subsequent code doesn't read this field, it's only used to mark data rigor
-
-**`selected_lmarena_model`**:
-*   **Model name (string)**: Automatically selected or unique candidate LMArena model name
-*   `0`: Automatically determined no corresponding model
-*   `-1`: Human review confirmed no corresponding model (requires manual setting)
-
-### Special Handling
-
-**LMArena skip**:
-*   All `LMArena-*` benchmarks are automatically skipped (e.g., `LMArena-Overall`, `LMArena-Coding`, etc.)
-*   Because LMArena models can match internally, no need to generate review files
-
-**Artificial Analysis (Special Handling)**:
-*   The 10 artificial_analysis benchmarks (AA-LCR, AIME, GPQA_Diamond, etc.) are processed as a unified list
-*   Use the unified model list from `data/processed/cleaned/artificial_analysis/cleaned_data.csv` (generated in step 1)
-*   Generate a single review file: `artificial_analysis.json` instead of 10 separate files
-*   This avoids duplicate review work since many models appear in multiple artificial_analysis benchmarks
-
----
-
-## Manual Review 2: Review Model Matching Results
-
-### Review File Location
-
-**Review file directory**: `data/processed/review_files/`
-
-**File format**: JSON (`.json` extension)
-
-### How to Identify Entries Needing Review
-
-**Method 1: Use `untrusted` field**
-*   Search in JSON file: `"untrusted": 1`
-*   These entries are all automatically reviewed by agent and require human confirmation
-
-**Method 2: Check `selected_lmarena_model`**
-*   `selected_lmarena_model: 0` indicates automatically determined no match, needs confirmation
-*   `selected_lmarena_model` is string but `untrusted: 1` indicates automatic selection, needs confirmation
-
-### Review Steps
-
-#### Step 1: Open Review File
-
-Use one of the following tools to open JSON file:
-*   **VS Code** (recommended): Auto-formatting, syntax highlighting, JSON validation
-*   **Notepad++**: Lightweight editor
-*   **Online JSON viewer**: e.g., https://jsonviewer.stack.hu/
-
-#### Step 2: Review Each Model
-
-For each model entry:
-
-**Case 1: `untrusted: 1` with multiple candidates**
-
-Example:
-```json
-{
-  "o3": {
-    "benchmark_info": {...},
-    "candidates": [
-      {"lmarena_model": "o3-2025-04-16", ...},
-      {"lmarena_model": "o3-mini-high", ...},
-      {"lmarena_model": "o3-mini", ...}
-    ],
-    "untrusted": 1,
-    "selected_lmarena_model": "o3-2025-04-16"
-  }
-}
-```
-
-**Actions**:
-1.  Check if `selected_lmarena_model` value is correct
-2.  If incorrect, modify to correct candidate model name
-3.  If confirmed correct, change `untrusted` to `0`
-4.  If confirmed no match, change `selected_lmarena_model` to `-1`, `untrusted` to `0`
-
-**Case 2: `untrusted: 1` with single candidate**
-
-Example:
-```json
-{
-  "GPT-5.2 (xhigh)": {
-    "benchmark_info": {...},
-    "candidates": [
-      {"lmarena_model": "gpt-5.2", ...}
-    ],
-    "untrusted": 1,
-    "selected_lmarena_model": "gpt-5.2"
-  }
-}
-```
-
-**Actions**:
-1.  Check if automatic selection result is correct
-2.  If correct, change `untrusted` to `0`
-3.  If incorrect, modify `selected_lmarena_model` to correct value, then set `untrusted: 0`
-
-**Case 3: `selected_lmarena_model: 0` (no match)**
-
-Example:
-```json
-{
-  "Gemini 3 Pro Preview (high)": {
-    "benchmark_info": {...},
-    "candidates": [
-      {"lmarena_model": "NO_MATCH_FOUND"}
-    ],
-    "untrusted": 1,
-    "selected_lmarena_model": 0
-  }
-}
-```
-
-**Actions**:
-1.  Check if there really is no matching model
-2.  If confirmed no match, change `selected_lmarena_model` to `-1`, `untrusted` to `0`
-3.  If match exists but algorithm didn't find it, manually add candidate to `candidates` array, then modify `selected_lmarena_model`
-
-#### Step 3: Save Changes
-
-*   Ensure JSON format is valid (VS Code auto-detects)
-*   Save file (Ctrl+S)
-
-### Review Checklist
-
-For each model, check:
-*   [ ] Is `selected_lmarena_model` value correct?
-*   [ ] If correct, is `untrusted` set to `0`?
-*   [ ] If no match, is `selected_lmarena_model` `-1` and `untrusted` `0`?
-*   [ ] Is JSON format correct (no syntax errors)?
-
-### Special Handling: artificial_analysis
-
-**Important**: The 10 `artificial_analysis` benchmarks share a unified review file:
-*   `artificial_analysis.json` (contains all models from the unified list)
-
-**Review process**:
-*   Review the unified `artificial_analysis.json` file
-*   This file contains all models that appear in at least one of the 10 artificial_analysis benchmarks
-*   After review, step 3 will automatically generate individual `mapping.json` files for each benchmark, filtered by each benchmark's `cleaned_data.csv`
-
----
-
-## Step 3: Generate Mapping.json (Deterministic)
-
-### Overview
-
-Read review results from `review_files`, extract `selected_lmarena_model` field, and generate `mapping.json` file for each benchmark.
-
-**Input**: 
-*   `data/processed/review_files/{benchmark_id}.json` (for each benchmark)
-*   `data/processed/review_files/artificial_analysis.json` (unified review file for artificial_analysis)
-
-**Output**: `data/processed/cleaned/{benchmark_id}/mapping.json`
-
-**Note**: The script is self-contained with all necessary utility functions and requires no external module imports.
-
-### Script Location
-
-**Script**: `src/processing/step3_generate_mapping.py`
-
-**Execution**:
 ```bash
-cd Human-SIG
 uv run src/processing/step3_generate_mapping.py
 ```
 
-### Processing Logic
+Step 3 includes non-empty string-valued `selected_lmarena_model` entries; numeric sentinel values such as `0` and `-1` are ignored. If multiple benchmark names select the same LMArena model, the first entry is retained. Artificial Analysis uses its unified review file and creates a filtered mapping for each of its ten benchmarks.
 
-The script is self-contained with all necessary utility functions and requires no external module imports.
+## Update raw benchmark data
 
-1.  **Read all review_files**: Read all `*.json` files from `data/processed/review_files/` (excluding `artificial_analysis.json` which is handled separately)
-2.  **Special handling for artificial_analysis**:
-    *   If `artificial_analysis.json` exists, process it separately
-    *   For each of the 10 artificial_analysis benchmarks:
-        *   Load the benchmark's `cleaned_data.csv` to get the list of models in that benchmark
-        *   Filter the unified review file to only include models present in that benchmark
-        *   Extract mappings and generate `mapping.json` for that benchmark
-3.  **Extract final mappings** (for other benchmarks):
-    *   For each model, read `selected_lmarena_model` field
-    *   If value is model name (string), create mapping
-    *   If value is `0` or `-1`, skip (don't create mapping)
-4.  **Deduplication**: If multiple benchmark models map to same LMArena model, only keep first mapping (subsequent duplicates automatically skipped)
-5.  **Generate mapping.json**: Write mappings to `cleaned/{benchmark_id}/mapping.json`
-
-### Output File
-
-**Output file**: `data/processed/cleaned/{benchmark_id}/mapping.json`
-
-**File format**:
-```json
-{
-  "GPT-5.2 (xhigh)": "gpt-5.2",
-  "Gemini 3 Flash": "gemini-3-flash",
-  "o3": "o3-2025-04-16",
-  "DeepSeek V3.2": "deepseek-v3.2",
-  ...
-}
-```
-
-**Important features**:
-*   Only contains valid mappings (`selected_lmarena_model` is string)
-*   Each LMArena model appears at most once in the benchmark (duplicate mappings automatically removed, only first kept)
-*   Model names exactly match naming in `cleaned_data.csv`
-
-### Notes
-
-*   Only entries where `selected_lmarena_model` is model name (string) are added to mapping table
-*   Entries where `selected_lmarena_model` is `0` or `-1` are skipped
-*   `untrusted` field is not read and doesn't affect mapping generation
-
----
-
-## Field Reference
-
-### Review File Field Descriptions
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `benchmark_info` | Object | Structured information of model in benchmark |
-| `candidates` | Array | List of possible matching LMArena models |
-| `untrusted` | Number | 1=untrusted (agent completed), 0=trusted (human reviewed) |
-| `selected_lmarena_model` | String/Number | Model name/0/-1 |
-
-### `selected_lmarena_model` Value Descriptions
-
-| Value | Type | Description |
-|-------|------|-------------|
-| `"model-name"` | String | LMArena model name |
-| `0` | Number | Automatically determined no corresponding model |
-| `-1` | Number | Human confirmed no corresponding model |
-
-### Quick Reference
-
-| Situation | Action |
-|-----------|--------|
-| Automatic selection correct | Change `untrusted` to `0` |
-| Automatic selection incorrect | Modify `selected_lmarena_model`, then set `untrusted: 0` |
-| Confirm no match | Change `selected_lmarena_model` to `-1`, `untrusted` to `0` |
-| Need to add candidate | Add to `candidates`, then modify `selected_lmarena_model` |
-
----
-
-## Statistical Analysis Pipeline
-
-After completing the data processing pipeline (Steps 1-3), the following steps perform statistical analysis and generate results for the manuscript.
-
-### Prerequisites
-
-Ensure the following files are ready:
-*   Cleaned data: `data/processed/cleaned/{benchmark_id}/cleaned_data.csv` (all benchmarks)
-*   Mapping files: `data/processed/cleaned/{benchmark_id}/mapping.json` (all benchmarks)
-*   LMArena data: `data/processed/cleaned/LMArena-{category}/cleaned_data.csv` (all LMArena categories)
-*   Metadata: `data/metadata.json`
-*   Study Universe: `data/processed/model_extraction/lmarena_models.json`
-
----
-
-## Step 4: Master Table Construction
-
-**Script**: `src/processing/build_master_table.py`
-
-Construct master correlation matrix by merging benchmark scores and ranks with LMArena ELO scores.
-
-**Input**: Cleaned data files, mapping files, LMArena data, metadata, Study Universe
-
-**Output**: 
-*   `data/processed/master_table/master_correlation_matrix.csv` - Master table with benchmark scores and ranks (only benchmarks with N ≥ 6 overlapping models)
-
-**Filtering Logic**:
-*   **Critical Filter**: Before adding a benchmark to the master table, the script calculates the number of overlapping models ($N$) between the benchmark and the LMArena Study Universe.
-*   **Exclusion Rule**: If $N < 6$ (insufficient for reliable Spearman correlation analysis), the benchmark is **automatically excluded** from the master table. A warning message is logged: "Skipping benchmark {benchmark_id}: insufficient overlap (N={N} < 6) for reliable correlation analysis."
-*   **Inclusion Rule**: Only benchmarks with $N \geq 6$ overlapping models are included in the master table. This ensures that all benchmarks in the final master table have sufficient sample size for reliable correlation analysis.
-
-**Execution**:
-```bash
-cd Human-SIG
-uv run src/processing/build_master_table.py
-```
-
----
-
-## Step 5: Feature Engineering
-
-**Script**: `src/analysis/compute_features_robust.py`
-
-Calculate benchmark features (Difficulty, CV) and correlation metrics (Spearman ρ, Kendall τ, RBO) with bootstrap confidence intervals.
-
-**Input**: Master table, metadata
-
-**Output**: `results/analysis_ready_data.csv` - Dataset with all features and correlation metrics
-
-**Execution**:
-```bash
-cd Human-SIG
-uv run src/analysis/compute_features_robust.py
-```
-
----
-
-## Step 6: Difficulty Validation
-
-**Script**: `src/analysis/calculate_reference_difficulty.py`
-
-Validates the difficulty definition using a set of 3 reference models (Claude 3.5 Sonnet, Gemini 3 Pro, GPT-5.1).
-
-**Input**: Master table, metadata
-
-**Output**: `results/reference_difficulty_comparison.csv`
-
-**Execution**:
-```bash
-cd Human-SIG
-uv run src/analysis/calculate_reference_difficulty.py
-```
-
----
-
-## Step 7: Hypothesis Testing
-
-**Script**: `src/analysis/small_n_hypothesis_test.py`
-
-Execute statistical tests for H1-H6 using three correlation metrics (Spearman ρ, Kendall τ, RBO).
-
-**Input**: Analysis-ready data, metadata
-
-**Output**: `results/hypothesis_test_results.json` - Raw test results with p-values and effect sizes
-
-**Execution**:
-```bash
-cd Human-SIG
-uv run --group plotting src/analysis/small_n_hypothesis_test.py
-```
-
-**Note**: Requires the `plotting` dependency group.
-
----
-
-## Step 8: Multiple Comparison Correction
-
-**Script**: `src/analysis/apply_correction.py`
-
-Apply Holm-Bonferroni correction to control family-wise error rate.
-
-**Input**: Hypothesis test results
-
-**Output**: `results/statistical_significance_report.json` - Corrected p-values and significance flags
-
-**Execution**:
-```bash
-cd Human-SIG
-uv run src/analysis/apply_correction.py
-```
-
----
-
-## Step 9: Uncertainty Propagation Analysis
-
-**Script**: `src/analysis/uncertainty_propagation_analysis.py`
-
-Run the Monte Carlo uncertainty simulation used to build `uncertainty_table.tex`.
-
-**Input**:
-*   `data/processed/master_table/master_correlation_matrix.csv`
-*   `results/analysis_ready_data.csv`
-*   `data/raw/lmarena/LMArena-{category}/data.csv`
-
-**Output**: `results/uncertainty_simulation_results.csv`
-
-**Execution**:
-```bash
-cd Human-SIG
-uv run --group plotting src/analysis/uncertainty_propagation_analysis.py
-```
-
-**Note**: Requires the `plotting` dependency group.
-
----
-
-## Step 10: Generate Figures and Tables
-
-**Script**: `src/analysis/generate_plots_tables.py`
-
-Generate all PDF figures and LaTeX tables for the manuscript. This integrated script combines the functionality of generating both figures and tables in a single execution. Logs data sources, plot types, and figure descriptions to console.
-
-**Input**: 
-*   Analysis-ready data
-*   `data/processed/cleaned/SWE-bench (Verified)/cleaned_data.csv`
-*   `data/processed/cleaned/SWE-bench (Verified)/mapping.json`
-*   `data/processed/cleaned/LMArena-Coding/cleaned_data.csv`
-*   Hypothesis test results (for Figure 5)
-*   Statistical significance report (for tables)
-*   `results/reference_difficulty_comparison.csv` (for `reference_difficulty_table.tex`)
-*   `results/uncertainty_simulation_results.csv` (for `uncertainty_table.tex`)
-
-**Final Output Figures** (5 PDF files):
-*   `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf` - SWE-bench (Verified) vs. LMArena-Coding ranking comparison
-*   `../overleaf/images/Figure_2_Scale.pdf` - Scale effect: log(question_count) vs. Spearman ρ
-*   `../overleaf/images/Figure_3_Complexity_Categories.pdf` - Spearman ρ by Complexity categories
-*   `../overleaf/images/Figure_4_Recency.pdf` - Recency effect: Release Date vs. Spearman ρ
-*   `../overleaf/images/Figure_5_Difficulty_Variance.pdf` - Difficulty-Variance joint effect: Difficulty vs. Spearman ρ
-
-**Final Output Tables** (5 LaTeX files):
-*   `../overleaf/tables/correlation_summary_table.tex` - Correlation summary for all benchmarks
-*   `../overleaf/tables/results_table_spearman.tex` - Hypothesis test results summary (Spearman ρ only, for main text)
-*   `../overleaf/tables/reference_difficulty_table.tex` - Reference Difficulty Validation
-*   `../overleaf/tables/overall_correlation_table.tex` - Category vs Overall Correlation
-*   `../overleaf/tables/uncertainty_table.tex` - Uncertainty Propagation Analysis
-
-**Execution**:
-```bash
-cd Human-SIG
-uv run --group plotting src/analysis/generate_plots_tables.py --figures 0 2 3 4 5 --tables 1 2 5 6 7
-```
-
-**Note**: This command generates exactly the five PDF figures and five LaTeX tables currently used in `../overleaf/`.
-
-**Optional appendix / robustness outputs**:
-*   The same script can also generate the RBO robustness figures (`Figures 12-16`) and the appendix RBO summary table (`appendix_results_table_rbo.tex`).
-*   Example:
-    ```bash
-    uv run --group plotting src/analysis/generate_plots_tables.py --figures 12 13 14 15 16 --tables 4
-    ```
-*   These RBO outputs use the internally computed `rbo` column from `analysis_ready_data.csv`; they do not depend on the external PyPI `rbo` package at runtime.
-
-### Figure 0 Label Patch
-
-Figure 0 now uses an editable CSV file at `data/figure_0_swe_bench_labels.csv`.
-
-**Default pipeline behavior**:
-*   Running `uv run --group plotting src/analysis/generate_plots_tables.py` with Figure 0 enabled will first check whether `data/figure_0_swe_bench_labels.csv` already exists.
-*   If the CSV already exists, the script will **skip regeneration** and directly use that file to render `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf`.
-*   If the CSV does not exist, the script will export a new CSV with the default model names/ranks and then render Figure 0.
-*   This means the default CSV used by the pipeline becomes the one already stored in the project.
-*   Figure 0 now **always** uses `adjustText` for label adjustment. If the plotting dependency group is not installed correctly, the script will fail instead of silently falling back to a non-adjusted layout.
-
-**Manual label editing workflow**:
-*   Export the current Figure 0 label/rank file:
-    ```bash
-    uv run --group plotting src/analysis/export_figure_0_swe_bench_data.py
-    ```
-*   Edit the `display_name` column in `data/figure_0_swe_bench_labels.csv`.
-*   Re-render only Figure 0:
-    ```bash
-    uv run --group plotting src/analysis/render_figure_0_swe_bench.py
-    ```
-*   After a full pipeline run, you can modify the CSV again and rerun `src/analysis/render_figure_0_swe_bench.py` to update only the Figure 0 model names without changing anything else.
-*   If you want to go back to the original model names, delete `data/figure_0_swe_bench_labels.csv` and rerun the pipeline or rerun the export script so the default CSV is generated again.
-
----
-
-## Verified Reproduction Workflow
-
-Use this workflow when the repository already contains:
-
-*   prepared `data/raw/*/data.csv` files,
-*   reviewed `data/processed/review_files/*.json`, and
-*   the required metadata files.
-
-This path has been verified in the current workspace and regenerates the final manuscript outputs from Step 3 onward:
+Install the scraping environment first:
 
 ```bash
-cd Human-SIG
-
-# Install dependencies for the final manuscript outputs
-uv sync --group plotting
-
-# Step 3: Generate mapping files from reviewed review_files
-uv run src/processing/step3_generate_mapping.py
-
-# Step 4: Build Master Table
-uv run src/processing/build_master_table.py
-
-# Step 5: Feature Engineering (includes Experiment 2: Overall Correlation)
-uv run src/analysis/compute_features_robust.py
-
-# Step 6: Difficulty Validation (Experiment 1)
-uv run src/analysis/calculate_reference_difficulty.py
-
-# Step 7: Hypothesis Testing (includes Experiment 5: Complexity Classification)
-uv run --group plotting src/analysis/small_n_hypothesis_test.py
-
-# Step 8: Multiple Comparison Correction
-uv run src/analysis/apply_correction.py
-
-# Step 9: Uncertainty Propagation Analysis (Experiment 3)
-uv run --group plotting src/analysis/uncertainty_propagation_analysis.py
-
-# Optional: Regression Analysis (Experiment 4, not needed for the final 5 figures + 5 tables)
-# uv run --group plotting src/analysis/regression_analysis.py
-
-# Step 10: Generate the final Overleaf figures and tables
-uv run --group plotting src/analysis/generate_plots_tables.py --figures 0 2 3 4 5 --tables 1 2 5 6 7
+uv sync --group scraping
 ```
 
----
+The unified CLI accepts the following methods:
 
-## Output Files
+| Method | Input location and format | Command |
+|---|---|---|
+| `manual_direct` | Place the supplied file at `data/raw/manual_direct/{benchmark}/data.csv`; no command is needed | — |
+| `pandas_read_html` | Put one leaderboard URL in `data/raw/pandas_read_html/{benchmark}/input.txt` | `uv run --group scraping src/main.py scrape --method pandas_read_html` |
+| `selenium` | Put one leaderboard URL in `data/raw/selenium/{benchmark}/input.txt` | `uv run --group scraping src/main.py scrape --method selenium` |
+| `vals_ai` | Put page source or JSON containing `benchmarkView` in `data/raw/vals_ai/{benchmark}/input.txt` | `uv run --group scraping src/main.py scrape --method vals_ai` |
+| `lmarena` | Put table HTML in each `data/raw/lmarena/LMArena-{category}/input.txt` | `uv run --group scraping src/main.py scrape --method lmarena` |
+| `frontiermath` | Put table HTML in each tier directory under `data/raw/frontiermath/` | `uv run --group scraping src/main.py scrape --method frontiermath` |
+| `artificial_analysis` | Follow the separate workflow below | `uv run --group scraping src/main.py scrape --method artificial_analysis` |
 
-**Data Files** (`results/`):
-*   `analysis_ready_data.csv` - Feature-engineered dataset
-*   `hypothesis_test_results.json` - Raw test results
-*   `reference_difficulty_comparison.csv` - Reference difficulty comparison used by `reference_difficulty_table.tex`
-*   `statistical_significance_report.json` - Corrected results
-*   `uncertainty_simulation_results.csv` - Monte Carlo uncertainty results used by `uncertainty_table.tex`
+Run every registered scripted method with:
 
-**Manuscript Files** (`../overleaf/`):
-*   `images/Figure_0_SWE_Bench_Illustration.pdf`
-*   `images/Figure_2_Scale.pdf`
-*   `images/Figure_3_Complexity_Categories.pdf`
-*   `images/Figure_4_Recency.pdf`
-*   `images/Figure_5_Difficulty_Variance.pdf`
-*   `tables/correlation_summary_table.tex`
-*   `tables/results_table_spearman.tex`
-*   `tables/reference_difficulty_table.tex`
-*   `tables/overall_correlation_table.tex`
-*   `tables/uncertainty_table.tex`
+```bash
+uv run --group scraping src/main.py scrape --method all
+```
+
+`manual_direct` is not a scripted method. After acquisition, verify that every expected benchmark directory contains a non-empty `data.csv`; the current CLI prints scraper errors but does not aggregate them into a failing process exit code.
+
+### Artificial Analysis workflow
+
+Artificial Analysis requires one manual disambiguation step because the public table can repeat a display name for Thinking, Non-Thinking, and Preview variants.
+
+1. Copy the complete table HTML to `data/raw/artificial_analysis/input.txt`.
+2. Generate the combined editable CSV:
+
+   ```bash
+   uv run --group scraping src/scrapers/artificial_analysis_first_processer.py
+   ```
+
+3. Review `data/raw/artificial_analysis/combined_all_benchmarks.csv`. Use the model detail page to label repeated rows with the correct `-Thinking`, `-Non-Thinking`, and, where applicable, `-Preview` suffixes. Do not assign suffixes from row order alone.
+4. Generate benchmark-level raw files:
+
+   ```bash
+   uv run --group scraping src/main.py scrape --method artificial_analysis
+   ```
+
+## Manuscript outputs and selector IDs
+
+The main Step 10 command selects these outputs:
+
+| Selector | Output |
+|---|---|
+| Figure `0` | `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf` |
+| Figure `2` | `../overleaf/images/Figure_2_Scale.pdf` |
+| Figure `3` | `../overleaf/images/Figure_3_Complexity_Categories.pdf` |
+| Figure `4` | `../overleaf/images/Figure_4_Recency.pdf` |
+| Figure `5` | `../overleaf/images/Figure_5_Difficulty_Variance.pdf` |
+| Table `1` | `../overleaf/tables/correlation_summary_table.tex` |
+| Table `2` | `../overleaf/tables/results_table_spearman.tex` |
+| Table `5` | `../overleaf/tables/reference_difficulty_table.tex` |
+| Table `6` | `../overleaf/tables/overall_correlation_table.tex` |
+| Table `7` | `../overleaf/tables/uncertainty_table.tex` |
+
+RBO robustness outputs are generated separately:
+
+```bash
+uv run --group plotting src/analysis/generate_plots_tables.py --figures 12 13 14 15 16 --tables 4
+```
+
+Optional regression analysis is separate from the five-figure/five-table manuscript workflow:
+
+```bash
+uv run --group plotting src/analysis/regression_analysis.py
+```
+
+## Figure 0 labels
+
+Figure 0 uses `data/figure_0_swe_bench_labels.csv` as an editable label and rank source. Step 10 reuses this file when it exists.
+
+Export or refresh the default data:
+
+```bash
+uv run --group plotting src/analysis/export_figure_0_swe_bench_data.py
+```
+
+Edit the `display_name` column, then render only Figure 0:
+
+```bash
+uv run --group plotting src/analysis/render_figure_0_swe_bench.py
+```
+
+`adjustText` is required; rendering fails instead of falling back to an unadjusted layout when the plotting group is missing.
+
+## Repository layout
+
+```text
+Human-SIG/
+├── data/
+│   ├── metadata.json
+│   ├── figure_0_swe_bench_labels.csv
+│   ├── raw/
+│   │   ├── artificial_analysis/
+│   │   ├── frontiermath/
+│   │   ├── lmarena/
+│   │   ├── manual_direct/
+│   │   ├── pandas_read_html/
+│   │   ├── selenium/
+│   │   └── vals_ai/
+│   └── processed/
+│       ├── cleaned/{benchmark_id}/
+│       │   ├── cleaned_data.csv
+│       │   └── mapping.json
+│       ├── model_extraction/lmarena_models.json
+│       ├── review_files/
+│       └── master_table/master_correlation_matrix.csv
+├── results/
+├── src/
+│   ├── analysis/
+│   ├── processing/
+│   ├── scrapers/
+│   └── main.py
+├── pyproject.toml
+├── uv.lock
+└── README.md
+```
+
+Step 1 derives `benchmark_id` directly from the raw benchmark directory name and preserves its case. Keep raw directory names aligned with the identifiers used by metadata and review files, especially on case-sensitive systems.
+
+## Troubleshooting
+
+- **A plotting import is missing:** rerun `uv sync --group plotting` or include `--group plotting` in the `uv run` command.
+- **A scraper import is missing:** rerun `uv sync --group scraping` or include `--group scraping` in the `uv run` command.
+- **Step 10 cannot write files:** confirm that the repository has a writable sibling path at `../overleaf/`, or allow the script to create it.
+- **Unicode symbols or a non-ASCII path look corrupted on Windows:** enable UTF-8 before running commands, for example `$env:PYTHONUTF8="1"` in PowerShell.

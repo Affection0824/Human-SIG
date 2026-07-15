@@ -33,16 +33,16 @@
   "H1_rbo": {
     "test_statistic": 17.0,
     "p_raw": 0.33588698327934785,
-    "effect_size": 0.11825788589681219,
+    "effect_size": 0.10591123077083942,
     "effect_size_type": "median_difference",
     "rank_biserial": 0.41666666666666663,
     "n_a": 6,
     "n_b": 4,
-    "median_a": 0.4906424058632629,
-    "median_b": 0.3723845199664507,
+    "median_a": 0.6344573374552823,
+    "median_b": 0.5285461066844429,
     "p_corrected": 1.0,
     "significant_strict": false,
-    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Median difference = 0.118."
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Median difference = 0.106."
   },
   "H2_spearman_rho": {
     "correlation": -0.13436720298186142,
@@ -65,14 +65,14 @@
     "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = -0.155."
   },
   "H2_rbo": {
-    "correlation": -0.029821220487227074,
-    "p_raw": 0.8802614007768477,
-    "effect_size": -0.029821220487227074,
+    "correlation": -0.07998024378636741,
+    "p_raw": 0.6857939546709808,
+    "effect_size": -0.07998024378636741,
     "effect_size_type": "pearson_r",
     "sample_size": 28,
     "p_corrected": 1.0,
     "significant_strict": false,
-    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = -0.030."
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = -0.080."
   },
   "H3_spearman_rho": {
     "test_statistic": 1.3010832583786391,
@@ -99,16 +99,16 @@
     "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size = 0.004."
   },
   "H3_rbo": {
-    "test_statistic": 1.3017871807907415,
-    "p_raw": 0.7287087362728746,
-    "regression_p_value": 0.9179638198356566,
-    "regression_slope": -0.002563943145542124,
-    "regression_r2": 0.00041586390660344725,
-    "effect_size": 0.00041586390660344725,
+    "test_statistic": 1.0680849399710661,
+    "p_raw": 0.7847835484787213,
+    "regression_p_value": 0.7088586350533016,
+    "regression_slope": -0.012997320514442329,
+    "regression_r2": 0.005451425568839061,
+    "effect_size": 0.005451425568839061,
     "effect_size_type": "r_squared",
     "p_corrected": 1.0,
     "significant_strict": false,
-    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size = 0.000."
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size = 0.005."
   },
   "H4_spearman_rho": {
     "correlation": 0.03791923375707463,
@@ -135,16 +135,16 @@
     "conclusion": "Not statistically significant after correction (p_corrected = 0.9586). Correlation (r) = 0.010."
   },
   "H4_rbo": {
-    "correlation": -0.07049965842921818,
-    "p_raw": 0.7214773432044194,
-    "effect_size": -0.07049965842921818,
+    "correlation": 0.03162217688766874,
+    "p_raw": 0.8730862243163269,
+    "effect_size": 0.03162217688766874,
     "effect_size_type": "spearman_rho",
-    "ci_lower": -0.47029176268217787,
-    "ci_upper": 0.317720129588318,
+    "ci_lower": -0.415829126715145,
+    "ci_upper": 0.4735329481101348,
     "sample_size": 28,
     "p_corrected": 1.0,
     "significant_strict": false,
-    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = -0.070."
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Correlation (r) = 0.032."
   },
   "H6_Difficulty_Beta1_spearman_rho": {
     "coefficient": 0.0016236965546010862,
@@ -195,27 +195,27 @@
     "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = 0.033."
   },
   "H6_Difficulty_Beta1_rbo": {
-    "coefficient": -0.0003896751588328369,
-    "p_raw": 0.8587501862239882,
-    "effect_size": -0.0003896751588328369,
+    "coefficient": -0.0006356164566541941,
+    "p_raw": 0.8311066483046465,
+    "effect_size": -0.0006356164566541941,
     "effect_size_type": "beta_coefficient",
-    "ci_lower": -0.0044615978328164324,
-    "ci_upper": 0.004253117074723019,
+    "ci_lower": -0.006962034442812034,
+    "ci_upper": 0.006922395753715063,
     "sample_size": 27,
     "p_corrected": 1.0,
     "significant_strict": false,
-    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = -0.000."
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = -0.001."
   },
   "H5_Variance_Beta2_rbo": {
-    "coefficient": 0.14591627137158508,
-    "p_raw": 0.42600348094537355,
-    "effect_size": 0.14591627137158508,
+    "coefficient": 0.17541809421614332,
+    "p_raw": 0.4819725255714089,
+    "effect_size": 0.17541809421614332,
     "effect_size_type": "beta_coefficient",
-    "ci_lower": -0.22613175651295966,
-    "ci_upper": 0.4372157700570801,
+    "ci_lower": -0.407462716770109,
+    "ci_upper": 0.6536228329542582,
     "sample_size": 27,
     "p_corrected": 1.0,
     "significant_strict": false,
-    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = 0.146."
+    "conclusion": "Not statistically significant after correction (p_corrected = 1.0000). Effect size (β) = 0.175."
   }
 }

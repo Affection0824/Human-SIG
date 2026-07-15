@@ -48,7 +48,10 @@ def format_conclusion(result: Dict, hypothesis_key: str) -> str:
     """
     p_raw = result.get('p_raw', np.nan)
     p_corrected = result.get('p_corrected', np.nan)
-    significant = result.get('is_significant', False)
+    significant = result.get(
+        'significant_strict',
+        result.get('is_significant', False),
+    )
     effect_size = result.get('effect_size', np.nan)
     effect_type = result.get('effect_size_type', 'unknown')
     
