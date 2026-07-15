@@ -1,59 +1,26 @@
 {
   "H1_spearman_rho": {
-    "test_statistic": 14.0,
-    "p_raw": 0.7483812122920345,
-    "effect_size": 0.04875830890125665,
-    "effect_size_type": "median_difference",
-    "rank_biserial": 0.16666666666666663,
-    "n_a": 6,
-    "n_b": 4,
-    "median_a": 0.6542843262711204,
-    "median_b": 0.6055260173698638
-  },
-  "H1_kendall_tau": {
-    "test_statistic": 14.0,
-    "p_raw": 0.7483812122920345,
-    "effect_size": 0.054834832230330366,
-    "effect_size_type": "median_difference",
-    "rank_biserial": 0.16666666666666663,
-    "n_a": 6,
-    "n_b": 4,
-    "median_a": 0.5102099398525494,
-    "median_b": 0.455375107622219
-  },
-  "H1_rbo": {
-    "test_statistic": 17.0,
-    "p_raw": 0.33588698327934785,
-    "effect_size": 0.10591123077083942,
-    "effect_size_type": "median_difference",
-    "rank_biserial": 0.41666666666666663,
-    "n_a": 6,
-    "n_b": 4,
-    "median_a": 0.6344573374552823,
-    "median_b": 0.5285461066844429
-  },
-  "H2_spearman_rho": {
     "correlation": -0.13436720298186142,
     "p_raw": 0.4954352292005418,
     "effect_size": -0.13436720298186142,
     "effect_size_type": "pearson_r",
     "sample_size": 28
   },
-  "H2_kendall_tau": {
+  "H1_kendall_tau": {
     "correlation": -0.1551201035233965,
     "p_raw": 0.4305890850991316,
     "effect_size": -0.1551201035233965,
     "effect_size_type": "pearson_r",
     "sample_size": 28
   },
-  "H2_rbo": {
+  "H1_rbo": {
     "correlation": -0.07998024378636741,
     "p_raw": 0.6857939546709808,
     "effect_size": -0.07998024378636741,
     "effect_size_type": "pearson_r",
     "sample_size": 28
   },
-  "H3_spearman_rho": {
+  "H2_spearman_rho": {
     "test_statistic": 1.3010832583786391,
     "p_raw": 0.7288758619064539,
     "regression_p_value": 0.9777292312956388,
@@ -62,7 +29,7 @@
     "effect_size": 3.055433655166171e-05,
     "effect_size_type": "r_squared"
   },
-  "H3_kendall_tau": {
+  "H2_kendall_tau": {
     "test_statistic": 1.7256657932814523,
     "p_raw": 0.6312428583314813,
     "regression_p_value": 0.7545404941329622,
@@ -71,7 +38,7 @@
     "effect_size": 0.0038254350063458473,
     "effect_size_type": "r_squared"
   },
-  "H3_rbo": {
+  "H2_rbo": {
     "test_statistic": 1.0680849399710661,
     "p_raw": 0.7847835484787213,
     "regression_p_value": 0.7088586350533016,
@@ -80,7 +47,7 @@
     "effect_size": 0.005451425568839061,
     "effect_size_type": "r_squared"
   },
-  "H4_spearman_rho": {
+  "H3_spearman_rho": {
     "correlation": 0.03791923375707463,
     "p_raw": 0.8480788484723396,
     "effect_size": 0.03791923375707463,
@@ -89,7 +56,7 @@
     "ci_upper": 0.4387298435781973,
     "sample_size": 28
   },
-  "H4_kendall_tau": {
+  "H3_kendall_tau": {
     "correlation": 0.010266940547944395,
     "p_raw": 0.9586467343806069,
     "effect_size": 0.010266940547944395,
@@ -98,7 +65,7 @@
     "ci_upper": 0.41709374745035815,
     "sample_size": 28
   },
-  "H4_rbo": {
+  "H3_rbo": {
     "correlation": 0.03162217688766874,
     "p_raw": 0.8730862243163269,
     "effect_size": 0.03162217688766874,
@@ -107,16 +74,7 @@
     "ci_upper": 0.4735329481101348,
     "sample_size": 28
   },
-  "H6_Difficulty_Beta1_spearman_rho": {
-    "coefficient": 0.0016236965546010862,
-    "p_raw": 0.5156351429105572,
-    "effect_size": 0.0016236965546010862,
-    "effect_size_type": "beta_coefficient",
-    "ci_lower": -0.0032427165480039075,
-    "ci_upper": 0.006543163476793658,
-    "sample_size": 27
-  },
-  "H5_Variance_Beta2_spearman_rho": {
+  "H4_Variance_Beta2_spearman_rho": {
     "coefficient": 0.025482055162824452,
     "p_raw": 0.9030000690288952,
     "effect_size": 0.025482055162824452,
@@ -125,16 +83,16 @@
     "ci_upper": 0.4248397340991986,
     "sample_size": 27
   },
-  "H6_Difficulty_Beta1_kendall_tau": {
-    "coefficient": 0.001282848782647576,
-    "p_raw": 0.5660995895300982,
-    "effect_size": 0.001282848782647576,
+  "H5_Difficulty_Beta1_spearman_rho": {
+    "coefficient": 0.0016236965546010862,
+    "p_raw": 0.5156351429105572,
+    "effect_size": 0.0016236965546010862,
     "effect_size_type": "beta_coefficient",
-    "ci_lower": -0.003416524669071786,
-    "ci_upper": 0.005891660557738164,
+    "ci_lower": -0.0032427165480039075,
+    "ci_upper": 0.006543163476793658,
     "sample_size": 27
   },
-  "H5_Variance_Beta2_kendall_tau": {
+  "H4_Variance_Beta2_kendall_tau": {
     "coefficient": 0.03260132567474186,
     "p_raw": 0.8617147229516339,
     "effect_size": 0.03260132567474186,
@@ -143,22 +101,31 @@
     "ci_upper": 0.4184278643814452,
     "sample_size": 27
   },
-  "H6_Difficulty_Beta1_rbo": {
-    "coefficient": -0.0006356164566541941,
-    "p_raw": 0.8311066483046465,
-    "effect_size": -0.0006356164566541941,
+  "H5_Difficulty_Beta1_kendall_tau": {
+    "coefficient": 0.001282848782647576,
+    "p_raw": 0.5660995895300982,
+    "effect_size": 0.001282848782647576,
     "effect_size_type": "beta_coefficient",
-    "ci_lower": -0.006962034442812034,
-    "ci_upper": 0.006922395753715063,
+    "ci_lower": -0.003416524669071786,
+    "ci_upper": 0.005891660557738164,
     "sample_size": 27
   },
-  "H5_Variance_Beta2_rbo": {
+  "H4_Variance_Beta2_rbo": {
     "coefficient": 0.17541809421614332,
     "p_raw": 0.4819725255714089,
     "effect_size": 0.17541809421614332,
     "effect_size_type": "beta_coefficient",
     "ci_lower": -0.407462716770109,
     "ci_upper": 0.6536228329542582,
+    "sample_size": 27
+  },
+  "H5_Difficulty_Beta1_rbo": {
+    "coefficient": -0.0006356164566541941,
+    "p_raw": 0.8311066483046465,
+    "effect_size": -0.0006356164566541941,
+    "effect_size_type": "beta_coefficient",
+    "ci_lower": -0.006962034442812034,
+    "ci_upper": 0.006922395753715063,
     "sample_size": 27
   }
 }

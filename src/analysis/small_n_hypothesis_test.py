@@ -2,40 +2,39 @@
 Small-N Hypothesis Testing Script
 
 Purpose:
-    This script executes targeted statistical tests for each hypothesis (H1-H6) using
+    This script executes targeted statistical tests for each hypothesis (H1-H5) using
     methods appropriate for small sample sizes (N=28 benchmarks). Instead of a single
     multivariate regression which lacks statistical power, this script performs:
     - Bootstrapped Univariate Analysis for individual factors
     - Controlled Bivariate Robust Regression to disentangle confounding factors
 
 Why Small-N Protocols:
-    - N=28 is too small for a 6-variable regression (rule of thumb: 10 samples per variable)
+    - N=28 is too small for a full multivariable regression
     - Multivariate regression would have insufficient statistical power
     - Targeted tests allow rigorous testing of individual hypotheses while maintaining power
 
 Statistical Methods:
-    - H1: Mann-Whitney U test (categorical comparison: Generative vs MCQ)
-    - H2: Pearson correlation (Scale: log(question_count) vs correlation metrics)
-    - H3: Kruskal-Wallis H-test (Complexity: complexity categories)
-    - H4: Spearman correlation (Recency: release_date vs correlation metrics)
-    - H5/H6: Bivariate Robust Regression (Difficulty + CV vs correlation metrics)
+    - H1: Pearson correlation (Scale: log(question_count) vs correlation metrics)
+    - H2: Kruskal-Wallis H-test (Complexity: complexity categories)
+    - H3: Spearman correlation (Recency: release_date vs correlation metrics)
+    - H4/H5: Bivariate Robust Regression (Difficulty + CV vs correlation metrics)
 
 Input:
     - analysis_ready_data.csv: Contains features and correlation coefficients for all benchmarks
     - metadata.json: Contains benchmark metadata
 
 Output:
-    - Statistical test results for all hypotheses (H1-H6)
-    - Results stored in dictionary format for Step 4.4 (Holm-Bonferroni correction)
+    - Statistical test results for all hypotheses (H1-H5)
+    - Results stored in dictionary format for Step 8 (Holm-Bonferroni correction)
 """
 
 import json
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict
 from scipy import stats
-from scipy.stats import mannwhitneyu, kruskal, pearsonr
+from scipy.stats import pearsonr
 import logging
 import sys
 from datetime import datetime
@@ -45,7 +44,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from stats_utils import (
     bootstrap_ci,
-    huber_loss_regression
+    bootstrap_vector_ci,
+    huber_loss_regression,
 )
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -53,7 +53,6 @@ logger = logging.getLogger(__name__)
 
 # Global settings
 N_BOOTSTRAPS = 5000
-ALPHA = 0.05
 
 
 def load_analysis_data(data_path: Path) -> pd.DataFrame:
@@ -71,96 +70,9 @@ def load_analysis_data(data_path: Path) -> pd.DataFrame:
     return df
 
 
-def test_h1_generative(df: pd.DataFrame) -> Dict:
+def test_h1_scale(df: pd.DataFrame) -> Dict:
     """
-    Test H1: Generative vs MCQ task types.
-    
-    Uses Mann-Whitney U test to compare correlation distributions between:
-    - Group A (Generative): task_type == "Generation" or "Agentic"
-    - Group B (MCQ): task_type == "MCQ"
-    
-    Excludes "Mixed" task types.
-    
-    Args:
-        df: Analysis-ready DataFrame
-        
-    Returns:
-        Dictionary with test results for Spearman, Kendall, and RBO
-    """
-    logger.info("Testing H1: Generative vs MCQ")
-    
-    # Filter out "Mixed" task types
-    df_filtered = df[df['task_type'] != 'Mixed'].copy()
-    
-    # Group A: Generative (includes both "Generation" and "Agentic")
-    group_a = df_filtered[df_filtered['task_type'].isin(['Generation', 'Agentic'])].copy()
-    
-    # Group B: MCQ
-    group_b = df_filtered[df_filtered['task_type'] == 'MCQ'].copy()
-    
-    n_a = len(group_a)
-    n_b = len(group_b)
-    
-    logger.info(f"  Group A (Generative): N={n_a}")
-    logger.info(f"  Group B (MCQ): N={n_b}")
-    logger.info(f"  Excluded (Mixed): N={len(df) - n_a - n_b}")
-    
-    results = {}
-    
-    # Test for each correlation metric
-    for metric in ['spearman_rho', 'kendall_tau', 'rbo']:
-        if metric not in df_filtered.columns:
-            continue
-        
-        group_a_values = group_a[metric].dropna().values
-        group_b_values = group_b[metric].dropna().values
-        
-        if len(group_a_values) < 2 or len(group_b_values) < 2:
-            logger.warning(f"  Insufficient data for {metric}")
-            results[f'H1_{metric}'] = {
-                'test_statistic': np.nan,
-                'p_raw': np.nan,
-                'effect_size': np.nan,
-                'effect_size_type': 'median_difference',
-                'n_a': len(group_a_values),
-                'n_b': len(group_b_values)
-            }
-            continue
-        
-        # Mann-Whitney U test
-        statistic, p_value = mannwhitneyu(
-            group_a_values, group_b_values,
-            alternative='two-sided'
-        )
-        
-        # Effect size: median difference
-        median_diff = np.median(group_a_values) - np.median(group_b_values)
-        
-        # Calculate rank-biserial correlation (effect size for Mann-Whitney)
-        # r = 1 - (2U) / (n1 * n2), where U is the test statistic
-        u_stat = min(statistic, n_a * n_b - statistic)
-        rank_biserial = 1 - (2 * u_stat) / (n_a * n_b)
-        
-        results[f'H1_{metric}'] = {
-            'test_statistic': statistic,
-            'p_raw': p_value,
-            'effect_size': median_diff,
-            'effect_size_type': 'median_difference',
-            'rank_biserial': rank_biserial,
-            'n_a': n_a,
-            'n_b': n_b,
-            'median_a': np.median(group_a_values),
-            'median_b': np.median(group_b_values)
-        }
-        
-        logger.info(f"  {metric}: U={statistic:.2f}, p={p_value:.4f}, median_diff={median_diff:.3f}")
-    
-    return results
-
-
-def test_h2_scale(df: pd.DataFrame) -> Dict:
-    """
-    Test H2: Scale effect (log(question_count) vs correlation metrics).
+    Test H1: Scale effect (log(question_count) vs correlation metrics).
     
     Uses Pearson correlation between log(question_count) and correlation metrics.
     
@@ -170,7 +82,7 @@ def test_h2_scale(df: pd.DataFrame) -> Dict:
     Returns:
         Dictionary with test results for Spearman, Kendall, and RBO
     """
-    logger.info("Testing H2: Scale effect")
+    logger.info("Testing H1: Scale effect")
     
     # Calculate log(question_count)
     df_test = df.copy()
@@ -188,7 +100,7 @@ def test_h2_scale(df: pd.DataFrame) -> Dict:
         
         if len(df_paired) < 3:
             logger.warning(f"  Insufficient data for {metric}")
-            results[f'H2_{metric}'] = {
+            results[f'H1_{metric}'] = {
                 'correlation': np.nan,
                 'p_raw': np.nan,
                 'effect_size': np.nan,
@@ -203,7 +115,7 @@ def test_h2_scale(df: pd.DataFrame) -> Dict:
         # Pearson correlation
         correlation, p_value = pearsonr(x, y)
         
-        results[f'H2_{metric}'] = {
+        results[f'H1_{metric}'] = {
             'correlation': correlation,
             'p_raw': p_value,
             'effect_size': correlation,
@@ -217,15 +129,15 @@ def test_h2_scale(df: pd.DataFrame) -> Dict:
     return results
 
 
-def test_h3_complexity(df: pd.DataFrame) -> Dict:
+def test_h2_complexity(df: pd.DataFrame) -> Dict:
     """
-    Test H3: High-complexity tasks (Evaluating, Creating) show lower correlation 
+    Test H2: High-complexity tasks (Evaluating, Creating) show lower correlation
     than low-complexity tasks (Applying, Analyzing).
     
     Uses Kruskal-Wallis H-test for overall difference and 
     ordinal linear regression for the trend.
     """
-    logger.info("Testing H3: Complexity Categories")
+    logger.info("Testing H2: Complexity Categories")
     
     base_dir = Path(__file__).parent.parent.parent
     metadata_path = base_dir / "data" / "metadata.json"
@@ -296,7 +208,7 @@ def test_h3_complexity(df: pd.DataFrame) -> Dict:
         df_metric = df_test.dropna(subset=['complexity_val', metric_col])
         slope, intercept, r_value, p_value, std_err = stats.linregress(df_metric['complexity_val'], df_metric[metric_col])
         
-        results[f'H3_{metric_col}'] = {
+        results[f'H2_{metric_col}'] = {
             'test_statistic': kw_stat,
             'p_raw': kw_p,
             'regression_p_value': p_value,
@@ -349,9 +261,9 @@ def test_h3_complexity(df: pd.DataFrame) -> Dict:
     return results
 
 
-def test_h4_recency(df: pd.DataFrame) -> Dict:
+def test_h3_recency(df: pd.DataFrame) -> Dict:
     """
-    Test H4: Recency effect (release_date vs correlation metrics).
+    Test H3: Recency effect (release_date vs correlation metrics).
     
     Uses Spearman correlation between release_date (ordinal) and correlation metrics.
     
@@ -361,7 +273,7 @@ def test_h4_recency(df: pd.DataFrame) -> Dict:
     Returns:
         Dictionary with test results for Spearman, Kendall, and RBO
     """
-    logger.info("Testing H4: Recency effect")
+    logger.info("Testing H3: Recency effect")
     
     # Convert release_date to ordinal (days since reference date)
     df_test = df.copy()
@@ -388,7 +300,7 @@ def test_h4_recency(df: pd.DataFrame) -> Dict:
         
         if len(df_paired) < 3:
             logger.warning(f"  Insufficient data for {metric}")
-            results[f'H4_{metric}'] = {
+            results[f'H3_{metric}'] = {
                 'correlation': np.nan,
                 'p_raw': np.nan,
                 'effect_size': np.nan,
@@ -407,9 +319,14 @@ def test_h4_recency(df: pd.DataFrame) -> Dict:
         def spearman_func(x_data, y_data):
             return stats.spearmanr(x_data, y_data)[0]
         
-        ci_lower, ci_upper = bootstrap_ci(x, y, spearman_func, n_boot=5000)
+        ci_lower, ci_upper = bootstrap_ci(
+            x,
+            y,
+            spearman_func,
+            n_boot=N_BOOTSTRAPS,
+        )
         
-        results[f'H4_{metric}'] = {
+        results[f'H3_{metric}'] = {
             'correlation': correlation,
             'p_raw': p_value,
             'effect_size': correlation,
@@ -419,20 +336,20 @@ def test_h4_recency(df: pd.DataFrame) -> Dict:
             'sample_size': len(df_paired)
         }
         
-        p_str = f"{p_value:.4f}" if pd.notna(p_value) and metric != 'rbo' else 'N/A'
+        p_str = f"{p_value:.4f}" if pd.notna(p_value) else 'N/A'
         logger.info(f"  {metric}: ρ={correlation:.3f}, p={p_str}")
     
     return results
 
 
-def test_h5_h6_difficulty_variance(df: pd.DataFrame) -> Dict:
+def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
     """
-    Test H5 (Variance) and H6 (Difficulty) using bivariate robust regression.
+    Test H4 (Variance) and H5 (Difficulty) using bivariate robust regression.
     
     Model: correlation_metric ~ β₁ * Difficulty + β₂ * CV + ε
     
-    H5 is supported if β₂ (CV coefficient) is significant and positive.
-    H6 is supported if β₁ (Difficulty coefficient) is significant and negative.
+    H4 is supported if β₂ (CV coefficient) is significant and positive.
+    H5 is supported if β₁ (Difficulty coefficient) is significant and negative.
     
     Args:
         df: Analysis-ready DataFrame
@@ -440,7 +357,7 @@ def test_h5_h6_difficulty_variance(df: pd.DataFrame) -> Dict:
     Returns:
         Dictionary with test results for Spearman, Kendall, and RBO
     """
-    logger.info("Testing H5/H6: Difficulty-Variance joint effect")
+    logger.info("Testing H4/H5: Difficulty-Variance joint effect")
     
     # Exclude Creative Writing v3 from Difficulty calculation
     df_test = df[df['benchmark_id'] != 'Creative Writing v3'].copy()
@@ -474,13 +391,13 @@ def test_h5_h6_difficulty_variance(df: pd.DataFrame) -> Dict:
         
         if len(y_filtered) < 3:
             logger.warning(f"  Insufficient data for {metric}")
-            results[f'H6_Difficulty_Beta1_{metric}'] = {
+            results[f'H4_Variance_Beta2_{metric}'] = {
                 'coefficient': np.nan,
                 'p_raw': np.nan,
                 'effect_size': np.nan,
                 'effect_size_type': 'beta_coefficient'
             }
-            results[f'H5_Variance_Beta2_{metric}'] = {
+            results[f'H5_Difficulty_Beta1_{metric}'] = {
                 'coefficient': np.nan,
                 'p_raw': np.nan,
                 'effect_size': np.nan,
@@ -501,35 +418,39 @@ def test_h5_h6_difficulty_variance(df: pd.DataFrame) -> Dict:
             p_beta1 = pvalues[1] if len(pvalues) > 1 else np.nan
             p_beta2 = pvalues[2] if len(pvalues) > 2 else np.nan
             
-            # Calculate bootstrap CI for coefficients
-            # Bootstrap by resampling rows
-            # Use 5000 iterations for robust CI estimation
-            logger.info(f"    Computing bootstrap CI for {metric} (this may take several minutes with 5000 iterations)...")
-            np.random.seed(42)
-            beta1_boot = []
-            beta2_boot = []
-            
-            n_boot = 5000  # Full bootstrap for robust CI
-            for i in range(n_boot):
-                if (i + 1) % 100 == 0:
-                    logger.info(f"      Bootstrap progress: {i+1}/{n_boot}")
-                indices = np.random.choice(len(X_filtered), size=len(X_filtered), replace=True)
-                X_boot = X_filtered[indices]
-                y_boot = y_filtered[indices]
-                try:
-                    coefs, _ = huber_loss_regression(X_boot, y_boot)
-                    if len(coefs) > 1 and np.isfinite(coefs[1]):
-                        beta1_boot.append(coefs[1])
-                    if len(coefs) > 2 and np.isfinite(coefs[2]):
-                        beta2_boot.append(coefs[2])
-                except Exception as e:
-                    # Silently continue on errors
-                    continue
-            
-            beta1_ci_lower = np.percentile(beta1_boot, 2.5) if len(beta1_boot) > 0 else np.nan
-            beta1_ci_upper = np.percentile(beta1_boot, 97.5) if len(beta1_boot) > 0 else np.nan
-            beta2_ci_lower = np.percentile(beta2_boot, 2.5) if len(beta2_boot) > 0 else np.nan
-            beta2_ci_upper = np.percentile(beta2_boot, 97.5) if len(beta2_boot) > 0 else np.nan
+            # Calculate both coefficient CIs from the same bootstrap samples.
+            logger.info(
+                "    Computing bootstrap CI for %s "
+                "(this may take several minutes with %d iterations)...",
+                metric,
+                N_BOOTSTRAPS,
+            )
+
+            def coefficient_func(X_boot, y_boot):
+                coefs, _ = huber_loss_regression(X_boot, y_boot)
+                return np.array([
+                    coefs[1] if len(coefs) > 1 else np.nan,
+                    coefs[2] if len(coefs) > 2 else np.nan,
+                ])
+
+            def log_bootstrap_progress(completed, total):
+                if completed % 100 == 0:
+                    logger.info(
+                        "      Bootstrap progress: %d/%d",
+                        completed,
+                        total,
+                    )
+
+            ci_lower, ci_upper = bootstrap_vector_ci(
+                X_filtered,
+                y_filtered,
+                coefficient_func,
+                n_boot=N_BOOTSTRAPS,
+                n_statistics=2,
+                progress_callback=log_bootstrap_progress,
+            )
+            beta1_ci_lower, beta2_ci_lower = ci_lower
+            beta1_ci_upper, beta2_ci_upper = ci_upper
             logger.info(f"    Completed bootstrap CI for {metric}")
             
         except Exception as e:
@@ -541,25 +462,25 @@ def test_h5_h6_difficulty_variance(df: pd.DataFrame) -> Dict:
             beta1_ci_lower = beta1_ci_upper = np.nan
             beta2_ci_lower = beta2_ci_upper = np.nan
         
-        # H6: Difficulty coefficient (β₁)
-        results[f'H6_Difficulty_Beta1_{metric}'] = {
-            'coefficient': beta1,
-            'p_raw': p_beta1,
-            'effect_size': beta1,
-            'effect_size_type': 'beta_coefficient',
-            'ci_lower': beta1_ci_lower,
-            'ci_upper': beta1_ci_upper,
-            'sample_size': len(y_filtered)
-        }
-        
-        # H5: Variance coefficient (β₂)
-        results[f'H5_Variance_Beta2_{metric}'] = {
+        # H4: Variance coefficient (β₂)
+        results[f'H4_Variance_Beta2_{metric}'] = {
             'coefficient': beta2,
             'p_raw': p_beta2,
             'effect_size': beta2,
             'effect_size_type': 'beta_coefficient',
             'ci_lower': beta2_ci_lower,
             'ci_upper': beta2_ci_upper,
+            'sample_size': len(y_filtered)
+        }
+
+        # H5: Difficulty coefficient (β₁)
+        results[f'H5_Difficulty_Beta1_{metric}'] = {
+            'coefficient': beta1,
+            'p_raw': p_beta1,
+            'effect_size': beta1,
+            'effect_size_type': 'beta_coefficient',
+            'ci_lower': beta1_ci_lower,
+            'ci_upper': beta1_ci_upper,
             'sample_size': len(y_filtered)
         }
         
@@ -581,33 +502,28 @@ def main():
     logger.info("Loading analysis-ready data...")
     df = load_analysis_data(data_path)
     
-    # Execute tests in order: H1, H2, H3, H4, H5/H6
+    # Execute tests in order: H1, H2, H3, H4/H5
     all_results = {}
-    
-    # H1: Generative vs MCQ
+
+    # H1: Scale
     logger.info("\n" + "="*60)
-    h1_results = test_h1_generative(df)
+    h1_results = test_h1_scale(df)
     all_results.update(h1_results)
-    
-    # H2: Scale
+
+    # H2: Complexity
     logger.info("\n" + "="*60)
-    h2_results = test_h2_scale(df)
+    h2_results = test_h2_complexity(df)
     all_results.update(h2_results)
-    
-    # H3: Complexity
+
+    # H3: Recency
     logger.info("\n" + "="*60)
-    h3_results = test_h3_complexity(df)
+    h3_results = test_h3_recency(df)
     all_results.update(h3_results)
-    
-    # H4: Recency
+
+    # H4/H5: Difficulty-Variance
     logger.info("\n" + "="*60)
-    h4_results = test_h4_recency(df)
-    all_results.update(h4_results)
-    
-    # H5/H6: Difficulty-Variance
-    logger.info("\n" + "="*60)
-    h5_h6_results = test_h5_h6_difficulty_variance(df)
-    all_results.update(h5_h6_results)
+    h4_h5_results = test_h4_h5_difficulty_variance(df)
+    all_results.update(h4_h5_results)
     
     # Print summary
     logger.info("\n" + "="*60)
@@ -621,7 +537,7 @@ def main():
         effect_str = f"{effect:.3f}" if pd.notna(effect) else 'N/A'
         logger.info(f"{key}: effect={effect_str}, p={p_str}")
     
-    # Save results (will be used in Step 4.4 for Holm-Bonferroni correction)
+    # Save results for Step 8 Holm-Bonferroni correction
     output_path = base_dir / "results" / "hypothesis_test_results.json"
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(all_results, f, indent=2, ensure_ascii=False, default=str)

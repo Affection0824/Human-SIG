@@ -9,9 +9,9 @@ Purpose:
 
 Figures Generated:
     - Figure 0: SWE-bench Illustration
-    - Figures 1-6: Spearman rho versions
-    - Figures 7-11: Kendall tau versions
-    - Figures 12-16: RBO versions
+    - Figures 2-6: Spearman rho versions
+    - Figures 8-11: Kendall tau versions
+    - Figures 13-16: RBO versions
 
 Tables Generated:
     - Correlation Summary Table
@@ -109,11 +109,6 @@ def get_metric_info(metric: str):
     }
     return metric_map.get(metric, metric_map['spearman_rho'])
 
-
-
-
-
-
 def figure_0_swe_bench_illustration(output_dir: Path):
     """Generate Figure 0: SWE-bench Illustration."""
     logger.info("Generating Figure 0: SWE-bench (Verified) Illustration")
@@ -123,97 +118,8 @@ def figure_0_swe_bench_illustration(output_dir: Path):
     render_figure_0_from_file(label_data_path, output_path)
 
 
-def figure_task_type(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 1):
-    """Generate Task Type Comparison (H1) for different metrics."""
-    metric_info = get_metric_info(metric)
-    metric_col = metric_info['column']
-    ylabel = metric_info['ylabel']
-    metric_name = metric_info['metric_name']
-    
-    logger.info(f"Generating Figure {figure_num}: {metric_name} by Task Type")
-    
-    # Filter out "Mixed" task types
-    df_filtered = df[df['task_type'] != 'Mixed'].copy()
-    
-    # Merge "Generation" and "Agentic" into "Generative"
-    df_filtered['task_type_grouped'] = df_filtered['task_type'].apply(
-        lambda x: 'Generative' if x in ['Generation', 'Agentic'] else x
-    )
-    
-    # Get sample sizes
-    n_mcq = len(df_filtered[df_filtered['task_type_grouped'] == 'MCQ'])
-    n_gen = len(df_filtered[df_filtered['task_type_grouped'] == 'Generative'])
-    
-    # Get medians
-    median_mcq = df_filtered[df_filtered['task_type_grouped'] == 'MCQ'][metric_col].median()
-    median_gen = df_filtered[df_filtered['task_type_grouped'] == 'Generative'][metric_col].median()
-    
-    fig, ax = plt.subplots(figsize=(10, 7))
-    
-    # Boxplot with different light colors for each category
-    palette = {'MCQ': 'lightblue', 'Generative': 'lightgreen'}
-    sns.boxplot(
-        data=df_filtered,
-        x='task_type_grouped',
-        y=metric_col,
-        hue='task_type_grouped',
-        ax=ax,
-        order=['MCQ', 'Generative'],
-        hue_order=['MCQ', 'Generative'],
-        width=0.6,
-        palette=palette,
-        dodge=False,
-        legend=False,
-    )
-    
-    # Stripplot with matching colors for each category
-    for task_type in ['MCQ', 'Generative']:
-        data_subset = df_filtered[df_filtered['task_type_grouped'] == task_type]
-        if len(data_subset) > 0:
-            x_pos = 0 if task_type == 'MCQ' else 1
-            x_coords = np.random.normal(x_pos, 0.1, len(data_subset))
-            ax.scatter(x_coords, data_subset[metric_col], 
-                      color=palette[task_type], alpha=0.7, s=80, edgecolors='black', linewidth=0.5, zorder=3)
-    
-    ax.set_xlabel('Task Type', fontsize=20)
-    ax.set_ylabel(ylabel, fontsize=20)
-    ax.tick_params(labelsize=18)
-    
-    # Add annotations OUTSIDE the plot area (below x-axis)
-    y_min = ax.get_ylim()[0]
-    y_range = ax.get_ylim()[1] - y_min
-    
-    ax.text(0, y_min - y_range * 0.15, f'Median: {median_mcq:.3f}\nN={n_mcq}', 
-            ha='center', va='top', fontsize=16, 
-            bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'))
-    ax.text(1, y_min - y_range * 0.15, f'Median: {median_gen:.3f}\nN={n_gen}', 
-            ha='center', va='top', fontsize=16,
-            bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'))
-    
-    ax.set_ylim(y_min - y_range * 0.25, ax.get_ylim()[1])
-    
-    # Determine output filename
-    if metric == 'spearman_rho':
-        filename = f"Figure_{figure_num}_Task_Type.pdf"
-    elif metric == 'kendall_tau':
-        filename = f"Figure_{figure_num}_Task_Type_Kendall.pdf"
-    else:  # rbo
-        filename = f"Figure_{figure_num}_Task_Type_RBO.pdf"
-    
-    output_path = output_dir / filename
-    plt.tight_layout()
-    plt.savefig(output_path, format='pdf', bbox_inches='tight')
-    plt.close()
-    logger.info(f"Saved Figure {figure_num} to {output_path}")
-
-
-def figure_1_task_type(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 1: Task Type Comparison (H1) using Spearman rho."""
-    figure_task_type(df, output_dir, 'spearman_rho', 1)
-
-
 def figure_scale(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 2):
-    """Generate Scale Effect (H2) for different metrics."""
+    """Generate Scale Effect (H1) for different metrics."""
     metric_info = get_metric_info(metric)
     metric_col = metric_info['column']
     ylabel = metric_info['ylabel']
@@ -279,12 +185,12 @@ def figure_scale(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho
 
 
 def figure_2_scale(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 2: Scale Effect (H2) using Spearman rho."""
+    """Generate Figure 2: Scale Effect (H1) using Spearman rho."""
     figure_scale(df, output_dir, 'spearman_rho', 2)
 
 
 def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 3):
-    """Generate Complexity Categories (H3) for different metrics."""
+    """Generate Complexity Categories (H2) for different metrics."""
     metric_info = get_metric_info(metric)
     metric_col = metric_info['column']
     ylabel = metric_info['ylabel']
@@ -384,12 +290,12 @@ def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearma
 
 
 def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 3: Complexity Categories (H3) using Spearman rho."""
+    """Generate Figure 3: Complexity Categories (H2) using Spearman rho."""
     figure_complexity(df, output_dir, 'spearman_rho', 3)
 
 
 def figure_recency(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 4):
-    """Generate Recency Effect (H4) for different metrics."""
+    """Generate Recency Effect (H3) for different metrics."""
     metric_info = get_metric_info(metric)
     metric_col = metric_info['column']
     ylabel = metric_info['ylabel']
@@ -464,13 +370,13 @@ def figure_recency(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_r
 
 
 def figure_4_recency(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 4: Recency Effect (H4) using Spearman rho."""
+    """Generate Figure 4: Recency Effect (H3) using Spearman rho."""
     figure_recency(df, output_dir, 'spearman_rho', 4)
 
 
-def figure_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict, 
+def figure_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict,
                                 metric: str = 'spearman_rho', figure_num: int = 5):
-    """Generate Difficulty-Variance Joint Effect (H5/H6) for different metrics."""
+    """Generate Difficulty-Variance Joint Effect (H4/H5) for different metrics."""
     metric_info = get_metric_info(metric)
     metric_col = metric_info['column']
     ylabel = metric_info['ylabel']
@@ -483,8 +389,8 @@ def figure_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_re
     df_plot = df_plot[df_plot['difficulty'].notna() & df_plot['cv'].notna() & df_plot[metric_col].notna()].copy()
     
     # Get regression coefficients from hypothesis results
-    beta1_key = f'H6_Difficulty_Beta1_{metric_col}'
-    beta2_key = f'H5_Variance_Beta2_{metric_col}'
+    beta1_key = f'H5_Difficulty_Beta1_{metric_col}'
+    beta2_key = f'H4_Variance_Beta2_{metric_col}'
     beta1 = hypothesis_results.get(beta1_key, {}).get('coefficient', np.nan)
     beta2 = hypothesis_results.get(beta2_key, {}).get('coefficient', np.nan)
     p_beta1 = hypothesis_results.get(beta1_key, {}).get('p_raw', np.nan)
@@ -556,7 +462,7 @@ def figure_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_re
 
 
 def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict):
-    """Generate Figure 5: Difficulty-Variance Joint Effect (H5/H6) using Spearman rho."""
+    """Generate Figure 5: Difficulty-Variance Joint Effect (H4/H5) using Spearman rho."""
     figure_difficulty_variance(df, output_dir, hypothesis_results, 'spearman_rho', 5)
 
 
@@ -582,11 +488,6 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     complexity_map = {'Applying': 1, 'Analyzing': 2, 'Evaluating': 3, 'Creating': 4}
     df_plot['complexity_ordinal'] = df_plot['complexity'].map(complexity_map)
     
-    # Encode task_type as binary (0=MCQ, 1=Generative)
-    df_plot['task_type_binary'] = df_plot['task_type'].apply(
-        lambda x: 1 if x in ['Generation', 'Agentic'] else (0 if x == 'MCQ' else np.nan)
-    )
-    
     # Calculate log(question_count)
     df_plot['log_question_count'] = np.log(df_plot['question_count'])
     
@@ -596,8 +497,7 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
         'Variance (CV)': 'cv',
         'Recency': 'release_date_ordinal',
         'Complexity': 'complexity_ordinal',
-        'Scale': 'log_question_count',
-        'Task Type': 'task_type_binary'
+        'Scale': 'log_question_count'
     }
     
     # Build correlation matrix
@@ -644,7 +544,7 @@ def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
     plt.setp(ax.yaxis.get_majorticklabels(), rotation=0, ha='right')
     
     # Add note with larger font positioned below the figure (outside the plot area)
-    note_text = 'Complexity: 1=Applying, 2=Analyzing, 3=Evaluating, 4=Creating\nTask Type: 0=MCQ, 1=Generative'
+    note_text = 'Complexity: 1=Applying, 2=Analyzing, 3=Evaluating, 4=Creating'
     # Position below the figure using figtext (outside plot area)
     fig.text(0.5, 0.02, note_text, ha='center', va='bottom', fontsize=14, style='italic',
              bbox=dict(boxstyle='round', facecolor='white', alpha=0.7), zorder=4)
@@ -681,6 +581,21 @@ def format_pvalue(p_val):
         return f"{p_val:.4f}"
 
 
+def format_hypothesis_name(result_key: str) -> str:
+    """Map a result key to the H1-H5 label used in manuscript tables."""
+    if result_key.startswith('H1_'):
+        return 'H1 (Scale)'
+    if result_key.startswith('H2_'):
+        return 'H2 (Complexity)'
+    if result_key.startswith('H3_'):
+        return 'H3 (Recency)'
+    if 'H4_Variance_Beta2' in result_key:
+        return 'H4 (Variance)'
+    if 'H5_Difficulty_Beta1' in result_key:
+        return 'H5 (Difficulty)'
+    return result_key
+
+
 def create_results_table_spearman(report: dict, output_path: Path):
     """Create results summary table for Spearman metric only."""
     logger.info("Creating results summary table (Spearman only)...")
@@ -692,24 +607,8 @@ def create_results_table_spearman(report: dict, output_path: Path):
     for key in sorted(spearman_keys):
         result = report[key]
         if isinstance(result, dict):
-            # Extract hypothesis name
-            if key.startswith('H1_'):
-                continue  # Skip H1 as requested
-            elif key.startswith('H2_'):
-                hypothesis = 'H1 (Scale)'
-            elif key.startswith('H3_'):
-                hypothesis = 'H2 (Complexity)'
-            elif key.startswith('H4_'):
-                hypothesis = 'H3 (Recency)'
-            elif 'H6_Difficulty_Beta1' in key:
-                hypothesis = 'H5 (Difficulty)'
-            elif 'H5_Variance_Beta2' in key:
-                hypothesis = 'H4 (Variance)'
-            else:
-                hypothesis = key
-            
             rows.append({
-                'Hypothesis': hypothesis,
+                'Hypothesis': format_hypothesis_name(key),
                 'Effect Size': result.get('effect_size', np.nan),
                 'Effect Size Type': result.get('effect_size_type', 'unknown'),
                 'p_raw': result.get('p_raw', np.nan),
@@ -781,24 +680,8 @@ def create_results_table_kendall(report: dict, output_path: Path):
     for key in sorted(kendall_keys):
         result = report[key]
         if isinstance(result, dict):
-            # Extract hypothesis name
-            if key.startswith('H1_'):
-                continue  # Skip H1 as requested
-            elif key.startswith('H2_'):
-                hypothesis = 'H1 (Scale)'
-            elif key.startswith('H3_'):
-                hypothesis = 'H2 (Complexity)'
-            elif key.startswith('H4_'):
-                hypothesis = 'H3 (Recency)'
-            elif 'H6_Difficulty_Beta1' in key:
-                hypothesis = 'H5 (Difficulty)'
-            elif 'H5_Variance_Beta2' in key:
-                hypothesis = 'H4 (Variance)'
-            else:
-                hypothesis = key
-            
             rows.append({
-                'Hypothesis': hypothesis,
+                'Hypothesis': format_hypothesis_name(key),
                 'Effect Size': result.get('effect_size', np.nan),
                 'Effect Size Type': result.get('effect_size_type', 'unknown'),
                 'p_raw': result.get('p_raw', np.nan),
@@ -870,24 +753,8 @@ def create_results_table_rbo(report: dict, output_path: Path):
     for key in sorted(rbo_keys):
         result = report[key]
         if isinstance(result, dict):
-            # Extract hypothesis name
-            if key.startswith('H1_'):
-                continue  # Skip H1 as requested
-            elif key.startswith('H2_'):
-                hypothesis = 'H1 (Scale)'
-            elif key.startswith('H3_'):
-                hypothesis = 'H2 (Complexity)'
-            elif key.startswith('H4_'):
-                hypothesis = 'H3 (Recency)'
-            elif 'H6_Difficulty_Beta1' in key:
-                hypothesis = 'H5 (Difficulty)'
-            elif 'H5_Variance_Beta2' in key:
-                hypothesis = 'H4 (Variance)'
-            else:
-                hypothesis = key
-            
             rows.append({
-                'Hypothesis': hypothesis,
+                'Hypothesis': format_hypothesis_name(key),
                 'Effect Size': result.get('effect_size', np.nan),
                 'Effect Size Type': result.get('effect_size_type', 'unknown'),
                 'p_raw': result.get('p_raw', np.nan),
@@ -897,7 +764,7 @@ def create_results_table_rbo(report: dict, output_path: Path):
     
     df = pd.DataFrame(rows)
     
-    # Format p-values (RBO doesn't have p-values, but include for consistency)
+    # Format p-values
     df['p_raw_formatted'] = df['p_raw'].apply(format_pvalue)
     df['p_corrected_formatted'] = df['p_corrected'].apply(format_pvalue)
     
@@ -1471,7 +1338,7 @@ def generate_regression_figures_and_tables(df: pd.DataFrame, images_output_dir: 
 def main():
     """Main execution function - generates both tables and figures."""
     parser = argparse.ArgumentParser(description="Generate Figures and Tables")
-    parser.add_argument('--figures', type=int, nargs='*', help='List of figure numbers to generate (e.g., 1 3 4 5 6). If not provided, all are generated.')
+    parser.add_argument('--figures', type=int, nargs='*', help='List of figure numbers to generate (e.g., 0 2 3 4 5). If not provided, all are generated.')
     parser.add_argument('--tables', type=int, nargs='*', help='List of table numbers to generate (e.g., 1 2 5 6 7). If not provided, all are generated.')
     args = parser.parse_args()
 
@@ -1538,8 +1405,6 @@ def main():
     # Original figures (Spearman rho)
     if args.figures is None or 0 in args.figures:
         figure_0_swe_bench_illustration(images_output_dir)
-    if args.figures is None or 1 in args.figures:
-        figure_1_task_type(df, images_output_dir)
     if args.figures is None or 2 in args.figures:
         figure_2_scale(df, images_output_dir)
     if args.figures is None or 3 in args.figures:
@@ -1551,13 +1416,11 @@ def main():
     if args.figures is None or 6 in args.figures:
         figure_6_confounder_heatmap(df, images_output_dir)
     
-    # Kendall tau versions (Figures 7-11)
-    if args.figures is None or any(f in args.figures for f in range(7, 12)):
+    # Kendall tau versions (Figures 8-11)
+    if args.figures is None or any(f in args.figures for f in range(8, 12)):
         logger.info("\n" + "="*60)
-        logger.info("Generating selected Kendall tau versions (Figures 7-11)...")
+        logger.info("Generating selected Kendall tau versions (Figures 8-11)...")
         logger.info("="*60)
-        if args.figures is None or 7 in args.figures:
-            figure_task_type(df, images_output_dir, 'kendall_tau', 7)
         if args.figures is None or 8 in args.figures:
             figure_scale(df, images_output_dir, 'kendall_tau', 8)
         if args.figures is None or 9 in args.figures:
@@ -1567,13 +1430,11 @@ def main():
         if args.figures is None or 11 in args.figures:
             figure_difficulty_variance(df, images_output_dir, hypothesis_results, 'kendall_tau', 11)
     
-    # RBO versions (Figures 12-16)
-    if args.figures is None or any(f in args.figures for f in range(12, 17)):
+    # RBO versions (Figures 13-16)
+    if args.figures is None or any(f in args.figures for f in range(13, 17)):
         logger.info("\n" + "="*60)
-        logger.info("Generating selected RBO versions (Figures 12-16)...")
+        logger.info("Generating selected RBO versions (Figures 13-16)...")
         logger.info("="*60)
-        if args.figures is None or 12 in args.figures:
-            figure_task_type(df, images_output_dir, 'rbo', 12)
         if args.figures is None or 13 in args.figures:
             figure_scale(df, images_output_dir, 'rbo', 13)
         if args.figures is None or 14 in args.figures:

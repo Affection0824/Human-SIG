@@ -198,7 +198,7 @@ def bootstrap_ci(
         data_y: Second array of paired data (must have same length as data_x)
         func: Function that takes (x, y) arrays and returns a scalar statistic
               (e.g., correlation coefficient)
-        n_boot: Number of bootstrap iterations (default: 5000)
+        n_boot: Number of bootstrap iterations (default: 2000)
         
     Returns:
         Tuple of (lower_bound, upper_bound) for 95% confidence interval
@@ -206,37 +206,112 @@ def bootstrap_ci(
     Raises:
         ValueError: If data_x and data_y have different lengths
     """
+    lower, upper = bootstrap_vector_ci(
+        data_x,
+        data_y,
+        func,
+        n_boot=n_boot,
+        n_statistics=1,
+    )
+    return (float(lower[0]), float(upper[0]))
+
+
+def bootstrap_vector_ci(
+    data_x: np.ndarray,
+    data_y: np.ndarray,
+    func: Callable,
+    n_boot: int = 2000,
+    n_statistics: int = 1,
+    progress_callback: Optional[Callable[[int, int], None]] = None,
+) -> Tuple[np.ndarray, np.ndarray]:
+    """Calculate percentile bootstrap CIs for one or more statistics.
+
+    ``func`` is evaluated once per resample and may return either a scalar or
+    a one-dimensional array. Vector output is useful when several statistics,
+    such as multiple regression coefficients, come from the same fitted model:
+    every statistic then uses exactly the same bootstrap samples without
+    fitting the model more than once per iteration.
+
+    Invalid values are omitted independently for each statistic. Exceptions
+    raised by ``func`` mark the whole resample as invalid. A local legacy NumPy
+    random generator preserves the sampling sequence previously produced by
+    ``np.random.seed(42)`` without modifying global random state.
+
+    Args:
+        data_x: First array of paired observations. It may be one- or
+            multi-dimensional, with observations along the first axis.
+        data_y: Second array of paired observations.
+        func: Function returning a scalar or one-dimensional statistic array.
+        n_boot: Number of bootstrap iterations.
+        n_statistics: Expected number of returned statistics.
+        progress_callback: Optional callback receiving ``(completed, total)``
+            once per iteration.
+
+    Returns:
+        Two arrays containing the lower and upper 95% confidence bounds.
+
+    Raises:
+        ValueError: If input lengths, iteration count, or statistic shape is
+            invalid.
+    """
+    data_x = np.asarray(data_x)
+    data_y = np.asarray(data_y)
+
     if len(data_x) != len(data_y):
-        raise ValueError(f"data_x and data_y must have same length, got {len(data_x)} and {len(data_y)}")
-    
+        raise ValueError(
+            "data_x and data_y must have same length, "
+            f"got {len(data_x)} and {len(data_y)}"
+        )
+    if n_boot <= 0:
+        raise ValueError(f"n_boot must be positive, got {n_boot}")
+    if n_statistics <= 0:
+        raise ValueError(
+            f"n_statistics must be positive, got {n_statistics}"
+        )
+
     n = len(data_x)
-    bootstrap_stats = []
-    
-    np.random.seed(42)  # For reproducibility
-    
-    for _ in range(n_boot):
-        # Resample with replacement
-        indices = np.random.choice(n, size=n, replace=True)
-        x_boot = data_x[indices]
-        y_boot = data_y[indices]
-        
-        # Calculate statistic on bootstrap sample
+    if n == 0:
+        empty_bounds = np.full(n_statistics, np.nan, dtype=float)
+        return empty_bounds.copy(), empty_bounds.copy()
+
+    rng = np.random.RandomState(42)
+    bootstrap_stats = np.full((n_boot, n_statistics), np.nan, dtype=float)
+
+    for iteration in range(n_boot):
+        if progress_callback is not None:
+            progress_callback(iteration + 1, n_boot)
+
+        indices = rng.choice(n, size=n, replace=True)
         try:
-            stat = func(x_boot, y_boot)
-            if np.isfinite(stat):
-                bootstrap_stats.append(stat)
+            statistic = np.asarray(
+                func(data_x[indices], data_y[indices]),
+                dtype=float,
+            )
         except Exception:
-            # Skip invalid bootstrap samples
             continue
-    
-    if len(bootstrap_stats) == 0:
-        return (np.nan, np.nan)
-    
-    # Calculate 95% CI (2.5th and 97.5th percentiles)
-    lower = np.percentile(bootstrap_stats, 2.5)
-    upper = np.percentile(bootstrap_stats, 97.5)
-    
-    return (lower, upper)
+
+        statistic = np.atleast_1d(statistic)
+        if statistic.ndim != 1 or statistic.size != n_statistics:
+            raise ValueError(
+                "func must return a scalar or one-dimensional array with "
+                f"{n_statistics} value(s); got shape {statistic.shape}"
+            )
+
+        finite = np.isfinite(statistic)
+        bootstrap_stats[iteration, finite] = statistic[finite]
+
+    lower = np.full(n_statistics, np.nan, dtype=float)
+    upper = np.full(n_statistics, np.nan, dtype=float)
+    for statistic_index in range(n_statistics):
+        valid_values = bootstrap_stats[:, statistic_index]
+        valid_values = valid_values[np.isfinite(valid_values)]
+        if valid_values.size > 0:
+            lower[statistic_index], upper[statistic_index] = np.percentile(
+                valid_values,
+                [2.5, 97.5],
+            )
+
+    return lower, upper
 
 
 def holm_bonferroni_correction(p_values_dict: Dict[str, float], alpha: float = 0.05) -> Dict[str, Dict]:

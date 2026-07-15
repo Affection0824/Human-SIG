@@ -1,7 +1,7 @@
 """
 Step 1: Generate cleaned_data.csv from raw data (deterministic)
 
-Input: data/raw/*/data.csv
+Input: data/raw/**/data.csv
 Output: data/processed/cleaned/{benchmark_id}/cleaned_data.csv
 
 Functions:

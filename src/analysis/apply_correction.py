@@ -7,7 +7,7 @@ Purpose:
     error rate (FWER) while being less conservative than standard Bonferroni.
 
 Input:
-    - hypothesis_test_results.json: Raw p-values from Step 4.3
+    - hypothesis_test_results.json: Raw p-values from Step 7
 
 Output:
     - statistical_significance_report.json: Corrected p-values and significance flags
@@ -35,13 +35,12 @@ def load_hypothesis_results(results_path: Path) -> Dict:
         return json.load(f)
 
 
-def format_conclusion(result: Dict, hypothesis_key: str) -> str:
+def format_conclusion(result: Dict) -> str:
     """
     Generate textual conclusion for a hypothesis test result.
     
     Args:
         result: Result dictionary with p-values and effect sizes
-        hypothesis_key: Hypothesis identifier (e.g., "H1_spearman_rho")
         
     Returns:
         Textual conclusion string
@@ -113,7 +112,7 @@ def apply_correction(hypothesis_results: Dict) -> Dict:
                 'significant_strict': corrected_results[key]['is_significant']
             }
         else:
-            # No p-value (e.g., RBO without p-value)
+            # No valid p-value
             output_results[key] = {
                 **result,
                 'p_raw': result.get('p_raw', np.nan),
@@ -122,7 +121,7 @@ def apply_correction(hypothesis_results: Dict) -> Dict:
             }
         
         # Add conclusion
-        output_results[key]['conclusion'] = format_conclusion(output_results[key], key)
+        output_results[key]['conclusion'] = format_conclusion(output_results[key])
     
     return output_results
 

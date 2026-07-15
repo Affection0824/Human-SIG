@@ -10,23 +10,23 @@ This repository supports three workflows:
 
 All commands below are run from the repository root (`Human-SIG/`).
 
-## Requirements and environments
+## Requirements and environment setup
 
 - [`uv`](https://docs.astral.sh/uv/getting-started/installation/)
 - Python `>=3.14`
 - Chrome for the Selenium scraper only; ChromeDriver is managed automatically
 - Write access to `../overleaf/` when generating manuscript files
 
-`uv` creates the project environment at `.venv/`. Choose the dependency group for the work you are doing:
+From the repository root, run one of the following setup commands. `uv` reads `pyproject.toml` and `uv.lock`, creates or updates `.venv/`, and uses a compatible Python version. If Python 3.14 or newer is not installed locally, `uv` can download it automatically. You do not need to create or activate the virtual environment manually.
 
 | Task | Command |
 |---|---|
-| Processing and non-plotting analysis | `uv sync` |
-| Reproduce final figures and tables | `uv sync --group plotting` |
+| Basic processing and non-plotting analysis | `uv sync` |
+| Complete Steps 3–10 reproduction | `uv sync --group plotting` |
 | Acquire or scrape raw data | `uv sync --group scraping` |
 | Install everything | `uv sync --group plotting --group scraping` |
 
-Running `uv sync` again without a group may remove packages from previously installed optional groups.
+Every option installs the base project dependencies; `plotting` and `scraping` add only the packages needed for those tasks. The commands below use `uv run`, which runs inside `.venv/`. Commands that need an optional group repeat the corresponding `--group` flag so they remain self-contained. Because `uv sync` synchronizes the selected dependency set, rerun the appropriate setup command when switching workflows.
 
 ## Reproduce the manuscript from Step 3
 
@@ -46,7 +46,7 @@ Step 3 reads `selected_lmarena_model` from the existing review files. The `untru
 ### Run Steps 3–10
 
 ```bash
-# Install the environment required by the complete final workflow
+# Create or update the environment required by the complete final workflow
 uv sync --group plotting
 
 # Step 3: build benchmark-to-LMArena mappings
@@ -72,10 +72,9 @@ uv run --group plotting src/analysis/uncertainty_propagation_analysis.py
 
 # Step 10: generate the five manuscript figures and five manuscript tables
 uv run --group plotting src/analysis/generate_plots_tables.py --figures 0 2 3 4 5 --tables 1 2 5 6 7
-
-# Step 10: generate the RBO robustness figures and table
-uv run --group plotting src/analysis/generate_plots_tables.py --figures 12 13 14 15 16 --tables 4
 ```
+
+Step 7 tests H1 Scale, H2 Complexity, H3 Recency, H4 Variance, and H5 Difficulty. H4 and H5 are estimated together in one bivariate robust regression. Each hypothesis is evaluated with Spearman, Kendall, and RBO, so Step 8 corrects 15 metric-level tests.
 
 ## Scope and reproducibility notes
 
@@ -99,15 +98,15 @@ Step 6 follows the model identifiers in `calculate_reference_difficulty.py`:
 - Gemini 2.5 Pro: `gemini-2.5-pro`
 - GPT-5.1: `gpt-5.1`
 
-Reference difficulty is `100 - mean score` across these three models. A benchmark is included only when the required scores are available.
+Reference difficulty is `100 - mean score` across these three models. In the current master table all three model rows are present, and a benchmark is included only when all three scores are available. If a reference-model row is missing entirely, treat the Step 6 error as an input problem and do not use a partial-model result.
 
 ### Exact reproducibility
 
-Steps 3–8 are deterministic or use fixed random seeds. Step 9 performs 10,000 Monte Carlo simulations without a fixed seed, so its simulated means, confidence intervals, p-values, and `uncertainty_table.tex` can vary slightly between runs. PDF files may also differ byte-for-byte because of rendering metadata even when their visual content is unchanged. The workflow is reproducible at the analysis level, but its generated files are not all bit-for-bit reproducible.
+Steps 3–8 are deterministic or use fixed random seeds. Step 5 uses 2,000 bootstrap resamples for each Spearman and Kendall confidence interval; Step 7 uses 5,000 for its bootstrap confidence intervals. Step 9 performs 10,000 Monte Carlo simulations without a fixed seed, so its simulated means, confidence intervals, p-values, and `uncertainty_table.tex` can vary slightly between runs. PDF files may also differ byte-for-byte because of rendering metadata even when their visual content is unchanged. The workflow is reproducible at the analysis level, but its generated files are not all bit-for-bit reproducible.
 
 ### RBO calculation
 
-Step 5 calculates RBO using the manuscript definition. At depth `d`, agreement is the overlap between the two ranking prefixes divided by `d`:
+Step 5 additionally calculates RBO as an auxiliary robustness metric. It does not add a separate workflow step or generation command: its per-benchmark values are stored in `analysis_ready_data.csv` and formatted as a column in `correlation_summary_table.tex` by the existing Step 10 command. At depth `d`, agreement is the overlap between the two ranking prefixes divided by `d`:
 
 ```text
 A_d = |S[:d] intersect T[:d]| / d
@@ -121,10 +120,11 @@ The workflow uses `p=0.9`, restricts both rankings to their shared Study Univers
 Step 10 writes outside this repository to the sibling directory:
 
 ```text
-Human-SIG/
-overleaf/
-├── images/
-└── tables/
+project-parent/
+├── Human-SIG/
+└── overleaf/
+    ├── images/
+    └── tables/
 ```
 
 The script creates `images/` and `tables/` if necessary and overwrites files with matching names.
@@ -133,8 +133,8 @@ The script creates `images/` and `tables/` if necessary and overwrites files wit
 
 | Step | Script | Main input | Main output |
 |---|---|---|---|
-| 1 | `src/processing/step1_generate_cleaned_data.py` | `data/raw/*/data.csv` | `data/processed/cleaned/*/cleaned_data.csv` |
-| 2 | `src/processing/step2_generate_review_files.py` | cleaned data and LMArena Overall | `data/processed/review_files/*.json` and `lmarena_models.json` |
+| 1 | `src/processing/step1_generate_cleaned_data.py` | `data/raw/**/data.csv` | `data/processed/cleaned/*/cleaned_data.csv` |
+| 2 | `src/processing/step2_generate_review_files.py` | cleaned data and LMArena Overall | `data/processed/review_files/*.json` and `data/processed/model_extraction/lmarena_models.json` |
 | 3 | `src/processing/step3_generate_mapping.py` | reviewed `selected_lmarena_model` values | benchmark-level `mapping.json` files |
 | 4 | `src/processing/build_master_table.py` | cleaned data, mappings, metadata, Study Universe | `data/processed/master_table/master_correlation_matrix.csv` |
 | 5 | `src/analysis/compute_features_robust.py` | master table and metadata | `results/analysis_ready_data.csv` |
@@ -142,7 +142,7 @@ The script creates `images/` and `tables/` if necessary and overwrites files wit
 | 7 | `src/analysis/small_n_hypothesis_test.py` | analysis-ready data and metadata | `results/hypothesis_test_results.json` |
 | 8 | `src/analysis/apply_correction.py` | raw hypothesis-test results | `results/statistical_significance_report.json` |
 | 9 | `src/analysis/uncertainty_propagation_analysis.py` | master table, analysis-ready data, raw LMArena data | `results/uncertainty_simulation_results.csv` |
-| 10 | `src/analysis/generate_plots_tables.py` | result files and Figure 0 labels | manuscript PDFs and LaTeX tables |
+| 10 | `src/analysis/generate_plots_tables.py` | Step 5–9 result files and Figure 0 labels | manuscript PDFs and LaTeX tables |
 
 Step 4 excludes a benchmark when fewer than six Study Universe models overlap with it. Step 5 calculates Difficulty, coefficient of variation, and rank correlations with p-values and bootstrap confidence intervals. For the current snapshot, HumanEval and FACTS have fewer than five models in the common subset used for the preferred difficulty calculation, so Step 5 logs a warning and uses its fallback difficulty method.
 
@@ -168,7 +168,7 @@ uv run src/processing/step1_generate_cleaned_data.py
 
 Step 1:
 
-- discovers every `data/raw/*/data.csv` file;
+- recursively discovers every `data/raw/**/data.csv` file;
 - detects model and score columns;
 - parses percentages, decimals, and values with `±` errors;
 - normalizes known 0–1 benchmarks to 0–100;
@@ -236,6 +236,8 @@ uv run --group scraping src/main.py scrape --method all
 
 `manual_direct` is not a scripted method. After acquisition, verify that every expected benchmark directory contains a non-empty `data.csv`; the current CLI prints scraper errors but does not aggregate them into a failing process exit code.
 
+These commands update raw files only. To propagate changed data into the analysis, return to the rebuild workflow at Step 1, complete both manual reviews, run Step 3, and then resume the main workflow at Step 4.
+
 ### Artificial Analysis workflow
 
 Artificial Analysis requires one manual disambiguation step because the public table can repeat a display name for Thinking, Non-Thinking, and Preview variants.
@@ -270,18 +272,6 @@ The main Step 10 command selects these outputs:
 | Table `5` | `../overleaf/tables/reference_difficulty_table.tex` |
 | Table `6` | `../overleaf/tables/overall_correlation_table.tex` |
 | Table `7` | `../overleaf/tables/uncertainty_table.tex` |
-
-RBO robustness outputs are generated separately:
-
-```bash
-uv run --group plotting src/analysis/generate_plots_tables.py --figures 12 13 14 15 16 --tables 4
-```
-
-Optional regression analysis is separate from the five-figure/five-table manuscript workflow:
-
-```bash
-uv run --group plotting src/analysis/regression_analysis.py
-```
 
 ## Figure 0 labels
 
