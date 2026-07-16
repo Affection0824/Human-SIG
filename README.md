@@ -2,6 +2,25 @@
 
 Human-SIG converts public benchmark leaderboards into a common model identity space, compares benchmark rankings with LMArena preferences, and generates the figures and tables used by the manuscript.
 
+## What each processing and analysis step does
+
+| Step | Script | Main input | Main output |
+|---|---|---|---|
+| 1 | `src/processing/step1_generate_cleaned_data.py` | `data/raw/**/data.csv` | `data/processed/cleaned/*/cleaned_data.csv` |
+| 2 | `src/processing/step2_generate_review_files.py` | cleaned data and LMArena Overall | `data/processed/review_files/*.json` and `data/processed/model_extraction/lmarena_models.json` |
+| 3 | `src/processing/step3_generate_mapping.py` | reviewed `selected_lmarena_model` values | benchmark-level `mapping.json` files |
+| 4 | `src/processing/build_master_table.py` | cleaned data, mappings, metadata, Study Universe | `data/processed/master_table/master_correlation_matrix.csv` |
+| 5 | `src/analysis/compute_features_robust.py` | master table and metadata | `results/analysis_ready_data.csv` |
+| 6 | `src/analysis/calculate_reference_difficulty.py` | master table and analysis-ready data | `results/reference_difficulty_comparison.csv` |
+| 7 | `src/analysis/small_n_hypothesis_test.py` | analysis-ready data | `results/hypothesis_test_results.json` |
+| 8 | `src/analysis/apply_correction.py` | raw hypothesis-test results | `results/statistical_significance_report.json` |
+| 9 | `src/analysis/uncertainty_propagation_analysis.py` | master table, analysis-ready data, raw LMArena data | fixed-seed Monte Carlo results in `results/uncertainty_simulation_results.csv` |
+| 10 | `src/analysis/generate_plots_tables.py` | Step 5–9 result files and Figure 1 labels | five manuscript PDFs and five LaTeX tables |
+
+Step 4 excludes a benchmark when fewer than six Study Universe models overlap with it. Step 5 calculates Difficulty, coefficient of variation, Spearman and Kendall correlations with p-values and bootstrap confidence intervals, and descriptive RBO. For the current snapshot, HumanEval and FACTS have fewer than five models in the common subset used for the preferred difficulty calculation, so Step 5 logs a warning and uses its fallback difficulty method.
+
+## Choose a workflow
+
 This repository supports three workflows:
 
 1. **Reproduce the manuscript from Step 3** using the prepared data and reviewed model matches already in the repository.
@@ -62,19 +81,19 @@ uv run src/analysis/compute_features_robust.py
 uv run src/analysis/calculate_reference_difficulty.py
 
 # Step 7: test H1–H5
-uv run --group plotting src/analysis/small_n_hypothesis_test.py
+uv run src/analysis/small_n_hypothesis_test.py
 
 # Step 8: apply Holm–Bonferroni correction
 uv run src/analysis/apply_correction.py
 
 # Step 9: propagate score and LMArena uncertainty
-uv run --group plotting src/analysis/uncertainty_propagation_analysis.py
+uv run src/analysis/uncertainty_propagation_analysis.py
 
 # Step 10: generate the five manuscript figures and five manuscript tables
-uv run --group plotting src/analysis/generate_plots_tables.py --figures 0 2 3 4 5 --tables 1 2 5 6 7
+uv run --group plotting src/analysis/generate_plots_tables.py
 ```
 
-Step 7 tests H1 Scale, H2 Complexity, H3 Recency, H4 Variance, and H5 Difficulty. H4 and H5 are estimated together in one bivariate robust regression. Each hypothesis is evaluated with Spearman, Kendall, and RBO, so Step 8 corrects 15 metric-level tests.
+Step 7 tests H1 Scale, H2 Complexity, H3 Recency, H4 Variance, and H5 Difficulty. For H2, the Kruskal–Wallis test is the primary inference: its p-value is stored as `p_raw`, appears in the hypothesis table, and enters the Step 8 correction. The ordinal linear regression is a complementary trend analysis; its $R^2$ is H2's reported effect size, while its slope and p-value remain available in `hypothesis_test_results.json`. H4 and H5 are estimated together in one bivariate Huber robust regression rather than in separate univariate models. Each hypothesis is evaluated with Spearman, Kendall, and RBO, so Step 8 corrects 15 metric-level tests.
 
 ## Scope and reproducibility notes
 
@@ -85,10 +104,8 @@ Creative Writing v3 is retained in general correlation analyses, but it is delib
 Consequently:
 
 - Step 7 excludes it from the difficulty–variance regression.
-- Step 9 keeps a row for it, but its Monte Carlo fields are unavailable.
+- Step 9 records its observed correlation but deliberately leaves its Monte Carlo fields unavailable because the binomial percentage-accuracy model does not apply.
 - Step 10 excludes it from `uncertainty_table.tex`.
-
-The current Step 9 implementation may emit `RuntimeWarning: invalid value encountered in sqrt` while it encounters this non-percentage score. This warning is expected for Creative Writing v3 and does not invalidate the simulations for the included benchmarks.
 
 ### Reference difficulty models
 
@@ -102,7 +119,9 @@ Reference difficulty is `100 - mean score` across these three models. In the cur
 
 ### Exact reproducibility
 
-Steps 3–8 are deterministic or use fixed random seeds. Step 5 uses 2,000 bootstrap resamples for each Spearman and Kendall confidence interval; Step 7 uses 5,000 for its bootstrap confidence intervals. Step 9 performs 10,000 Monte Carlo simulations without a fixed seed, so its simulated means, confidence intervals, p-values, and `uncertainty_table.tex` can vary slightly between runs. PDF files may also differ byte-for-byte because of rendering metadata even when their visual content is unchanged. The workflow is reproducible at the analysis level, but its generated files are not all bit-for-bit reproducible.
+Steps 3–10 are deterministic or use fixed random seed `42`. Step 5 uses 2,000 bootstrap resamples for each Spearman and Kendall confidence interval; Step 7 uses 5,000 benchmark-level bootstrap resamples for H3–H5; and Step 9 performs 10,000 Monte Carlo trials for each percentage-based benchmark. Generated CSV, JSON, and LaTeX table contents are reproducible for the pinned environment. PDF files may still differ byte-for-byte because of rendering metadata even when their data and visual content are unchanged.
+
+Step 9 samples LMArena Elo values from normal distributions derived from their reported 95% confidence intervals. It models each percentage benchmark score with the binomial standard error implied by its question count. `Nonpositive_Fraction` is the share of perturbation trials with Spearman $\rho \le 0$; it is not a null-hypothesis p-value. `Directionally_Stable_95CI` is true exactly when the simulated 95% interval lies entirely above zero.
 
 ### RBO calculation
 
@@ -113,7 +132,7 @@ A_d = |S[:d] intersect T[:d]| / d
 RBO = (1 - p) * sum(d=1..infinity, p^(d-1) * A_d)
 ```
 
-The workflow uses `p=0.9`, restricts both rankings to their shared Study Universe models, and applies the standard finite-list extrapolation for the unobserved tail. Ties in benchmark rank and LMArena Elo are resolved lexicographically by model ID. Each benchmark is compared with both its matching LMArena category (`rbo`) and LMArena Overall (`rbo_overall`). The calculation is implemented internally and does not require an external RBO package.
+The workflow uses `p=0.9` and restricts both rankings to the same shared set of Study Universe models. For the resulting equal-length finite rankings of length `k`, it uses the standard extrapolated form: the observed sum through depth `k` plus `A_k * p^k`. Ties in benchmark rank and LMArena Elo are resolved lexicographically by model ID. Each benchmark is compared with both its matching LMArena category (`rbo`) and LMArena Overall (`rbo_overall`). The calculation is implemented internally and does not require an external RBO package.
 
 ### Output location
 
@@ -128,23 +147,6 @@ project-parent/
 ```
 
 The script creates `images/` and `tables/` if necessary and overwrites files with matching names.
-
-## What each processing and analysis step does
-
-| Step | Script | Main input | Main output |
-|---|---|---|---|
-| 1 | `src/processing/step1_generate_cleaned_data.py` | `data/raw/**/data.csv` | `data/processed/cleaned/*/cleaned_data.csv` |
-| 2 | `src/processing/step2_generate_review_files.py` | cleaned data and LMArena Overall | `data/processed/review_files/*.json` and `data/processed/model_extraction/lmarena_models.json` |
-| 3 | `src/processing/step3_generate_mapping.py` | reviewed `selected_lmarena_model` values | benchmark-level `mapping.json` files |
-| 4 | `src/processing/build_master_table.py` | cleaned data, mappings, metadata, Study Universe | `data/processed/master_table/master_correlation_matrix.csv` |
-| 5 | `src/analysis/compute_features_robust.py` | master table and metadata | `results/analysis_ready_data.csv` |
-| 6 | `src/analysis/calculate_reference_difficulty.py` | master table and analysis-ready data | `results/reference_difficulty_comparison.csv` |
-| 7 | `src/analysis/small_n_hypothesis_test.py` | analysis-ready data and metadata | `results/hypothesis_test_results.json` |
-| 8 | `src/analysis/apply_correction.py` | raw hypothesis-test results | `results/statistical_significance_report.json` |
-| 9 | `src/analysis/uncertainty_propagation_analysis.py` | master table, analysis-ready data, raw LMArena data | `results/uncertainty_simulation_results.csv` |
-| 10 | `src/analysis/generate_plots_tables.py` | Step 5–9 result files and Figure 0 labels | manuscript PDFs and LaTeX tables |
-
-Step 4 excludes a benchmark when fewer than six Study Universe models overlap with it. Step 5 calculates Difficulty, coefficient of variation, and rank correlations with p-values and bootstrap confidence intervals. For the current snapshot, HumanEval and FACTS have fewer than five models in the common subset used for the preferred difficulty calculation, so Step 5 logs a warning and uses its fallback difficulty method.
 
 ## Rebuild cleaned data and model matching
 
@@ -258,38 +260,38 @@ Artificial Analysis requires one manual disambiguation step because the public t
 
 ## Manuscript outputs and selector IDs
 
-The main Step 10 command selects these outputs:
+Figure and table selectors follow their order of appearance in the paper. Step 10 generates all ten outputs by default; use selectors only to regenerate a subset.
 
 | Selector | Output |
 |---|---|
-| Figure `0` | `../overleaf/images/Figure_0_SWE_Bench_Illustration.pdf` |
+| Figure `1` | `../overleaf/images/Figure_1_SWE_Bench_Illustration.pdf` |
 | Figure `2` | `../overleaf/images/Figure_2_Scale.pdf` |
 | Figure `3` | `../overleaf/images/Figure_3_Complexity_Categories.pdf` |
 | Figure `4` | `../overleaf/images/Figure_4_Recency.pdf` |
 | Figure `5` | `../overleaf/images/Figure_5_Difficulty_Variance.pdf` |
-| Table `1` | `../overleaf/tables/correlation_summary_table.tex` |
-| Table `2` | `../overleaf/tables/results_table_spearman.tex` |
-| Table `5` | `../overleaf/tables/reference_difficulty_table.tex` |
-| Table `6` | `../overleaf/tables/overall_correlation_table.tex` |
-| Table `7` | `../overleaf/tables/uncertainty_table.tex` |
+| Table `1` | `../overleaf/tables/overall_correlation_table.tex` |
+| Table `2` | `../overleaf/tables/reference_difficulty_table.tex` |
+| Table `3` | `../overleaf/tables/correlation_summary_table.tex` |
+| Table `4` | `../overleaf/tables/results_table_spearman.tex` |
+| Table `5` | `../overleaf/tables/uncertainty_table.tex` |
 
-## Figure 0 labels
+## Figure 1 labels
 
-Figure 0 uses `data/figure_0_swe_bench_labels.csv` as an editable label and rank source. Step 10 reuses this file when it exists.
+Figure 1 uses `data/figure_1_swe_bench_labels.csv` to preserve editable labels. Each row has a stable `model_id`; Step 10 recomputes both projected ranks from the current mappings and scores, then carries the matching `display_name` forward. Edit only `display_name` unless the underlying model mapping itself changes.
 
-Export or refresh the default data:
-
-```bash
-uv run --group plotting src/analysis/export_figure_0_swe_bench_data.py
-```
-
-Edit the `display_name` column, then render only Figure 0:
+To intentionally recreate the CSV from current scores and mappings, run the exporter below. This resets `display_name` to `model_id`, so normally Step 10's automatic rank synchronization is preferable.
 
 ```bash
-uv run --group plotting src/analysis/render_figure_0_swe_bench.py
+uv run --group plotting src/analysis/export_figure_1_swe_bench_data.py
 ```
 
-`adjustText` is required; rendering fails instead of falling back to an unadjusted layout when the plotting group is missing.
+Edit the `display_name` column, then render only Figure 1:
+
+```bash
+uv run --group plotting src/analysis/render_figure_1_swe_bench.py
+```
+
+All figure-rendering scripts require `adjustText` for label placement. Install the `plotting` group before rendering; the scripts fail immediately when this dependency is missing rather than silently saving figures with unadjusted, potentially overlapping labels.
 
 ## Repository layout
 
@@ -297,7 +299,7 @@ uv run --group plotting src/analysis/render_figure_0_swe_bench.py
 Human-SIG/
 ├── data/
 │   ├── metadata.json
-│   ├── figure_0_swe_bench_labels.csv
+│   ├── figure_1_swe_bench_labels.csv
 │   ├── raw/
 │   │   ├── artificial_analysis/
 │   │   ├── frontiermath/

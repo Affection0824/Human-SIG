@@ -7,8 +7,6 @@ Purpose:
     datasets where standard asymptotic approximations may not hold.
 
 Mathematical Foundations:
-    - Fisher Z-Transform: Converts correlation coefficients to approximately normal distribution
-      for averaging and aggregation
     - Rank-Biased Overlap (RBO): Measures ranking similarity with emphasis on top-ranked items
     - Bootstrap Resampling: Non-parametric method for confidence interval estimation without
       distributional assumptions
@@ -16,15 +14,14 @@ Mathematical Foundations:
       conservative than standard Bonferroni
     - Huber Loss Regression: Robust regression that minimizes impact of outliers in small-N
       datasets
-    - Permutation Tests: Exact p-value calculation for small sample sizes (N < 30)
+    - Monte Carlo Permutation Tests: p-value estimation for small samples (N < 30)
 
 Why These Methods for Small-N:
-    - Permutation tests provide exact p-values without relying on asymptotic approximations
+    - Monte Carlo permutation tests avoid asymptotic distributional approximations
     - Bootstrap resampling allows confidence interval estimation without distributional assumptions
     - Robust regression (Huber loss) reduces sensitivity to outliers, which is critical when
       sample size is small
     - RBO focuses on top-ranked items, which is more relevant for benchmark evaluation
-    - Fisher Z-transform enables proper aggregation of correlation coefficients
 
 Input/Output:
     - Functions accept numpy arrays or pandas Series
@@ -36,51 +33,19 @@ import numpy as np
 from scipy import stats
 from scipy.stats import spearmanr, kendalltau
 from typing import Tuple, Dict, List, Callable, Optional
-import warnings
-
-
-def fisher_z_transform(r: float) -> float:
-    """
-    Apply Fisher Z-transformation to correlation coefficient.
-    
-    Formula: z = arctanh(r) = 0.5 * ln((1 + r) / (1 - r))
-    
-    The Fisher transformation converts correlation coefficients to an approximately
-    normal distribution, which is useful for:
-    - Averaging multiple correlation coefficients
-    - Computing confidence intervals for correlations
-    - Statistical tests on correlation coefficients
-    
-    Args:
-        r: Correlation coefficient (must be in range [-1, 1])
-        
-    Returns:
-        Fisher Z-transformed value
-        
-    Raises:
-        ValueError: If r is not in valid range [-1, 1]
-    """
-    if not (-1 <= r <= 1):
-        raise ValueError(f"Correlation coefficient must be in range [-1, 1], got {r}")
-    
-    # Handle edge cases
-    if abs(r) >= 1.0:
-        # Return large finite value instead of inf
-        return np.sign(r) * 10.0
-    
-    return np.arctanh(r)
+from statsmodels.robust.norms import HuberT
+from statsmodels.robust.robust_linear_model import RLM
 
 
 def calculate_rbo(list1: List, list2: List, p: float = 0.9) -> float:
     """
     Calculate extrapolated Rank-Biased Overlap for finite ranked lists.
 
-    Agreement at depth d is the common-prefix overlap divided by d. The
-    observed geometrically weighted sum is extrapolated beyond the finite list
-    endpoints, following the finite-list RBO_EXT definition. In this workflow,
-    both inputs contain the same common-model universe and therefore have equal
-    length; the extrapolation reduces to adding ``A_k * p**k`` to the observed
-    sum.
+    Agreement at depth d is the common-prefix overlap divided by d. Both inputs
+    must contain the same number of items because this workflow first projects
+    both rankings onto the same common-model universe. For length k, the finite
+    extrapolated score is the observed weighted sum through k plus
+    ``A_k * p**k``.
 
     Args:
         list1: First ranked list (list of items, ordered by rank)
@@ -92,7 +57,8 @@ def calculate_rbo(list1: List, list2: List, p: float = 0.9) -> float:
         RBO_EXT score in [0, 1].
 
     Raises:
-        ValueError: If p is invalid or either list contains duplicate items.
+        ValueError: If p is invalid, lengths differ, or either list contains
+            duplicate items.
     """
     if not (0 < p < 1):
         raise ValueError(f"Parameter p must be in range (0, 1), got {p}")
@@ -100,79 +66,26 @@ def calculate_rbo(list1: List, list2: List, p: float = 0.9) -> float:
     if len(list1) != len(set(list1)) or len(list2) != len(set(list2)):
         raise ValueError("RBO input rankings must not contain duplicate items")
 
-    if len(list1) == 0 and len(list2) == 0:
+    if len(list1) != len(list2):
+        raise ValueError(
+            "RBO input rankings must have equal length after common-model projection"
+        )
+
+    if len(list1) == 0:
         return 1.0
-    if len(list1) == 0 or len(list2) == 0:
-        return 0.0
 
-    if len(list1) > len(list2):
-        long_list, short_list = list1, list2
-    else:
-        short_list, long_list = list1, list2
+    seen_1 = set()
+    seen_2 = set()
+    weighted_sum = 0.0
+    agreement = 0.0
 
-    short_length = len(short_list)
-    long_length = len(long_list)
-    overlap = [0.0] * long_length
-    agreement = [0.0] * long_length
-    weighted_sum = [0.0] * long_length
+    for depth, (item_1, item_2) in enumerate(zip(list1, list2), start=1):
+        seen_1.add(item_1)
+        seen_2.add(item_2)
+        agreement = len(seen_1 & seen_2) / depth
+        weighted_sum += (1.0 - p) * p ** (depth - 1) * agreement
 
-    short_seen = {short_list[0]}
-    long_seen = {long_list[0]}
-    overlap[0] = 1.0 if short_list[0] == long_list[0] else 0.0
-    agreement[0] = overlap[0]
-    weighted_sum[0] = (1.0 - p) * agreement[0]
-    disjoint_tail = 0.0
-    extrapolation = agreement[0] * p
-
-    for index in range(1, long_length):
-        if index < short_length:
-            short_seen.add(short_list[index])
-            long_seen.add(long_list[index])
-            overlap_increment = 0.0
-            if short_list[index] == long_list[index]:
-                overlap_increment += 1.0
-            else:
-                if short_list[index] in long_seen:
-                    overlap_increment += 1.0
-                if long_list[index] in short_seen:
-                    overlap_increment += 1.0
-
-            overlap[index] = overlap[index - 1] + overlap_increment
-            agreement[index] = (
-                2.0 * overlap[index] / (len(short_seen) + len(long_seen))
-            )
-            weighted_sum[index] = (
-                weighted_sum[index - 1]
-                + (1.0 - p) * p**index * agreement[index]
-            )
-            extrapolation = agreement[index] * p ** (index + 1)
-        else:
-            long_seen.add(long_list[index])
-            overlap_increment = 1.0 if long_list[index] in short_seen else 0.0
-            overlap[index] = overlap[index - 1] + overlap_increment
-            agreement[index] = overlap[index] / (index + 1)
-            weighted_sum[index] = (
-                weighted_sum[index - 1]
-                + (1.0 - p) * p**index * agreement[index]
-            )
-
-            overlap_at_short_end = overlap[short_length - 1]
-            disjoint_tail += (
-                (1.0 - p)
-                * p**index
-                * (
-                    overlap_at_short_end
-                    * (index + 1 - short_length)
-                    / (index + 1)
-                    / short_length
-                )
-            )
-            extrapolation = (
-                (overlap[index] - overlap_at_short_end) / (index + 1)
-                + overlap_at_short_end / short_length
-            ) * p ** (index + 1)
-
-    result = weighted_sum[-1] + disjoint_tail + extrapolation
+    result = weighted_sum + agreement * p ** len(list1)
     return float(min(1.0, max(0.0, result)))
 
 
@@ -327,6 +240,8 @@ def holm_bonferroni_correction(p_values_dict: Dict[str, float], alpha: float = 0
     2. For each p-value p(i), compare to alpha / (m - i + 1)
     3. Reject null hypothesis for p(i) if p(i) <= alpha / (m - i + 1)
     4. Once a hypothesis is not rejected, all subsequent hypotheses are also not rejected
+    5. Make adjusted p-values monotone by taking the cumulative maximum of
+       (m - i + 1) * p(i), capped at 1
     
     Args:
         p_values_dict: Dictionary mapping hypothesis names to raw p-values
@@ -352,13 +267,17 @@ def holm_bonferroni_correction(p_values_dict: Dict[str, float], alpha: float = 0
     
     results = {}
     found_non_significant = False
+    cumulative_adjusted_p = 0.0
     
     for rank, (hypothesis, p_raw) in enumerate(sorted_items, start=1):
         # Adjusted significance level: alpha / (m - rank + 1)
         adjusted_alpha = alpha / (m - rank + 1)
         
-        # Calculate adjusted p-value (multiply by (m - rank + 1), cap at 1.0)
-        p_corrected = min(p_raw * (m - rank + 1), 1.0)
+        # Holm adjusted p-values are cumulative maxima of the scaled p-values.
+        # Without this step, adjusted values can decrease as raw p-values grow.
+        scaled_p = p_raw * (m - rank + 1)
+        cumulative_adjusted_p = max(cumulative_adjusted_p, scaled_p)
+        p_corrected = min(cumulative_adjusted_p, 1.0)
         
         # Check significance
         if found_non_significant:
@@ -403,75 +322,35 @@ def huber_loss_regression(X: np.ndarray, y: np.ndarray) -> Tuple[np.ndarray, Dic
         - coefficients: Array of regression coefficients (including intercept if included)
         - results_dict: Dictionary containing:
             - 'pvalues': p-values for each coefficient
-            - 'rsquared': R-squared value
             - 'fittedvalues': predicted values
             - Additional model statistics
     """
-    try:
-        from statsmodels.robust.robust_linear_model import RLM
-        from statsmodels.robust.norms import HuberT
-        
-        # Create RLM model with Huber's t-criterion
-        model = RLM(y, X, M=HuberT())
-        results = model.fit()
-        
-        coefficients = results.params
-        pvalues = results.pvalues
-        
-        results_dict = {
-            'coefficients': coefficients,
-            'pvalues': pvalues,
-            'rsquared': results.rsquared if hasattr(results, 'rsquared') else np.nan,
-            'fittedvalues': results.fittedvalues,
-            'resid': results.resid,
-            'df_resid': results.df_resid,
-            'df_model': results.df_model
-        }
-        
-        return coefficients, results_dict
-        
-    except ImportError:
-        # Fallback to sklearn if statsmodels not available
-        try:
-            from sklearn.linear_model import HuberRegressor
-            
-            model = HuberRegressor(epsilon=1.35, max_iter=200, alpha=0.0)
-            model.fit(X, y)
-            
-            coefficients = np.append(model.intercept_, model.coef_)
-            
-            # Approximate p-values using t-test (not exact for Huber regression)
-            y_pred = model.predict(X)
-            residuals = y - y_pred
-            mse = np.mean(residuals ** 2)
-            
-            # Simple approximation (not exact for robust regression)
-            results_dict = {
-                'coefficients': coefficients,
-                'pvalues': np.full(len(coefficients), np.nan),  # Not available in sklearn
-                'rsquared': model.score(X, y),
-                'fittedvalues': y_pred,
-                'resid': residuals
-            }
-            
-            return coefficients, results_dict
-            
-        except ImportError:
-            raise ImportError(
-                "Neither statsmodels nor sklearn available. "
-                "Please install statsmodels (recommended) or sklearn for robust regression."
-            )
+    model = RLM(y, X, M=HuberT())
+    results = model.fit()
+
+    coefficients = results.params
+    results_dict = {
+        'coefficients': coefficients,
+        'pvalues': results.pvalues,
+        'fittedvalues': results.fittedvalues,
+        'resid': results.resid,
+        'df_resid': results.df_resid,
+        'df_model': results.df_model,
+    }
+
+    return coefficients, results_dict
 
 
 def calculate_spearman_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, float]:
     """
     Calculate Spearman rank correlation coefficient and p-value.
     
-    For small sample sizes (N < 30), uses permutation test for exact p-value calculation.
+    For small sample sizes (N < 30), estimates the p-value with a fixed-seed
+    Monte Carlo permutation test using 2,000 random permutations.
     For larger samples (N >= 30), uses asymptotic approximation from scipy.stats.spearmanr.
     
     Rationale for conditional logic:
-    - Permutation tests provide exact p-values without distributional assumptions
+    - Monte Carlo permutation tests avoid asymptotic distributional assumptions
     - For small N, asymptotic approximations may be inaccurate
     - For large N, asymptotic approximation is sufficiently accurate and computationally efficient
     
@@ -503,14 +382,13 @@ def calculate_spearman_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float,
     
     # Calculate p-value based on sample size
     if n < 30:
-        # Use permutation test for small sample sizes
-        # Reduce n_resamples for faster computation (still statistically valid)
+        # Use a fixed-seed Monte Carlo permutation test for small samples.
         def statistic(x_data, y_data):
             # Permute y_data under null hypothesis
             return spearmanr(x_data, y_data)[0]
         
         # Permutation test with pairings (preserves pairing structure)
-        # Use 2000 resamples for faster computation (still provides accurate p-values)
+        # Use 2,000 random permutations for a stable, reproducible estimate.
         result = stats.permutation_test(
             (x_clean, y_clean),
             statistic,
@@ -533,11 +411,12 @@ def calculate_kendall_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, 
     """
     Calculate Kendall's tau correlation coefficient and p-value.
     
-    For small sample sizes (N < 30), uses permutation test for exact p-value calculation.
+    For small sample sizes (N < 30), estimates the p-value with a fixed-seed
+    Monte Carlo permutation test using 2,000 random permutations.
     For larger samples (N >= 30), uses asymptotic approximation from scipy.stats.kendalltau.
     
     Rationale for conditional logic:
-    - Permutation tests provide exact p-values without distributional assumptions
+    - Monte Carlo permutation tests avoid asymptotic distributional assumptions
     - For small N, asymptotic approximations may be inaccurate
     - For large N, asymptotic approximation is sufficiently accurate and computationally efficient
     
@@ -569,14 +448,13 @@ def calculate_kendall_with_pvalue(x: np.ndarray, y: np.ndarray) -> Tuple[float, 
     
     # Calculate p-value based on sample size
     if n < 30:
-        # Use permutation test for small sample sizes
-        # Reduce n_resamples for faster computation (still statistically valid)
+        # Use a fixed-seed Monte Carlo permutation test for small samples.
         def statistic(x_data, y_data):
             # Permute y_data under null hypothesis
             return kendalltau(x_data, y_data)[0]
         
         # Permutation test with pairings (preserves pairing structure)
-        # Use 2000 resamples for faster computation (still provides accurate p-values)
+        # Use 2,000 random permutations for a stable, reproducible estimate.
         result = stats.permutation_test(
             (x_clean, y_clean),
             statistic,

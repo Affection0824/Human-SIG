@@ -35,7 +35,7 @@ Key Assumptions:
 import json
 import pandas as pd
 from pathlib import Path
-from typing import Dict, Tuple, Optional
+from typing import Dict, Tuple
 import logging
 
 logging.basicConfig(level=logging.INFO)
@@ -105,15 +105,13 @@ class BenchmarkParser:
             
         Returns:
             Dictionary mapping benchmark model names to LMArena model IDs
-            Returns empty dict if mapping file doesn't exist (for LMArena categories)
+            Mapping dictionary for the requested benchmark
         """
         benchmark_dir = self.cleaned_data_dir / benchmark_id
         mapping_path = benchmark_dir / "mapping.json"
         
         if not mapping_path.exists():
-            # LMArena categories don't have mapping files
-            logger.debug(f"No mapping file found for {benchmark_id}, returning empty mapping")
-            return {}
+            raise FileNotFoundError(f"Mapping file not found: {mapping_path}")
         
         with open(mapping_path, 'r', encoding='utf-8') as f:
             mapping = json.load(f)
@@ -127,7 +125,7 @@ class BenchmarkParser:
         
         This method:
         1. Loads cleaned_data.csv
-        2. Loads mapping.json (if exists)
+        2. Loads the required mapping.json
         3. Maps benchmark model names to LMArena model IDs
         4. Filters to Study Universe models only
         5. Recomputes ranks within Study Universe using method='min' for tie-breaking
@@ -148,13 +146,8 @@ class BenchmarkParser:
         # Load mapping
         mapping = self.load_mapping(benchmark_id)
         
-        # For LMArena categories, model_name is already the LMArena ID
-        if not mapping:
-            # This is a LMArena category, model_name is already the LMArena ID
-            df['lmarena_model_id'] = df['model_name']
-        else:
-            # Map benchmark model names to LMArena model IDs
-            df['lmarena_model_id'] = df['model_name'].map(mapping)
+        # Map benchmark model names to LMArena model IDs.
+        df['lmarena_model_id'] = df['model_name'].map(mapping)
         
         # Filter to Study Universe only
         df_filtered = df[df['lmarena_model_id'].isin(self.study_universe)].copy()

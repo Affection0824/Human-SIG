@@ -13,13 +13,15 @@ Complete Workflow:
        correlation (each benchmark is compared only with its corresponding category)
     3. Compute Difficulty feature using Common Subset (models with elo_overall between 1400-1430)
     4. Compute Variance feature (Coefficient of Variation: CV = σ/μ)
-    5. Calculate Spearman ρ, Kendall τ, and RBO with p-values and 95% confidence intervals
+    5. Calculate Spearman ρ and Kendall τ with p-values and 95% confidence intervals,
+       plus descriptive RBO
     6. Perform sanity check on high-quality benchmarks
 
 Key Assumptions:
     - All benchmarks except Creative Writing v3 are normalized to 0-100 scale (higher is better)
     - Creative Writing v3 uses Elo scores and is not normalized
-    - Each benchmark is compared only with its corresponding LMArena category (not Overall)
+    - Each benchmark is compared with its corresponding LMArena category; parallel Overall
+      results are retained for the category-mapping validation
     - Difficulty is calculated using Common Subset (elo_overall between 1400-1430, inclusive)
     - Creative Writing v3 is excluded from Difficulty calculation
 
@@ -35,7 +37,7 @@ import json
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, Tuple
 import logging
 import sys
 
@@ -121,7 +123,6 @@ def sanitize_benchmark_id(benchmark_id: str) -> str:
 def calculate_difficulty(
     df_master: pd.DataFrame,
     benchmark_id: str,
-    benchmark_meta: Dict,
     elo_min: float = 1400.0,
     elo_max: float = 1430.0
 ) -> Tuple[float, bool]:
@@ -134,7 +135,6 @@ def calculate_difficulty(
     Args:
         df_master: Master correlation matrix DataFrame
         benchmark_id: Benchmark identifier
-        benchmark_meta: Benchmark metadata dictionary
         elo_min: Minimum ELO for Common Subset (default: 1400.0)
         elo_max: Maximum ELO for Common Subset (default: 1430.0)
         
@@ -414,13 +414,15 @@ def main():
         # Calculate Difficulty
         logger.debug(f"  Calculating difficulty for {benchmark_id}...")
         difficulty, is_estimated_difficulty = calculate_difficulty(
-            df_master, benchmark_id, benchmark_meta
+            df_master, benchmark_id
         )
         
         # Calculate subset_avg_score (for reference)
         col_prefix = sanitize_benchmark_id(benchmark_id)
         score_col = f"{col_prefix}_score"
-        if score_col in df_master.columns:
+        if benchmark_id == "Creative Writing v3":
+            subset_avg_score = np.nan
+        elif score_col in df_master.columns:
             common_subset = df_master[
                 (df_master['elo_overall'] >= 1400.0) &
                 (df_master['elo_overall'] <= 1430.0)
@@ -438,9 +440,8 @@ def main():
         logger.info(f"  Calculating correlations for {benchmark_id}...")
         corr_results = calculate_correlations(df_master, benchmark_id, benchmark_meta)
     
-        # --- Experiment 2: Overall Correlation ---
-        # Calculate correlation with elo_overall (in addition to category elo)
-        # This allows comparing category-specific correlation vs general capability correlation
+        # Calculate correlation with elo_overall in addition to category Elo.
+        # These values support the category-mapping validation in Table 1.
         logger.debug(f"  Calculating overall correlations for {benchmark_id}...")
         
         # Initialize overall correlation variables
@@ -554,7 +555,12 @@ def main():
     
     # Save results
     output_path = results_dir / "analysis_ready_data.csv"
-    df_results.to_csv(output_path, index=False, na_rep='NaN')
+    df_results.to_csv(
+        output_path,
+        index=False,
+        na_rep='NaN',
+        lineterminator='\n',
+    )
     logger.info(f"\nSaved analysis-ready data to {output_path}")
     logger.info(f"Shape: {df_results.shape}")
     

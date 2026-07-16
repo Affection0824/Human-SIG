@@ -12,7 +12,6 @@ Functions:
 Note: Only generates cleaned_data.csv, does not generate mapping.json
 """
 
-import json
 import csv
 import re
 from pathlib import Path
@@ -58,7 +57,6 @@ def clean_model_name(model_name: str, raw_csv_path: Path, base_dir: Path) -> str
     
     # Check if this is a selenium benchmark by path (not by benchmark_id)
     raw_dir = base_dir / 'data' / 'raw'
-    selenium_dir = raw_dir / 'selenium'
     is_selenium = False
     try:
         relative_path = raw_csv_path.relative_to(raw_dir)
@@ -68,7 +66,6 @@ def clean_model_name(model_name: str, raw_csv_path: Path, base_dir: Path) -> str
         pass
     
     # Check if this is a vals_ai benchmark by path
-    vals_ai_dir = raw_dir / 'vals_ai'
     is_vals_ai = False
     try:
         relative_path = raw_csv_path.relative_to(raw_dir)

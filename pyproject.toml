@@ -8,24 +8,19 @@ dependencies = [
     "jinja2",
     "numpy",
     "pandas",
-    "scikit-learn",
     "scipy",
     "statsmodels",
-    "tqdm",
 ]
 
 [dependency-groups]
 plotting = [
     "adjustText",
-    "matplotlib",
     "seaborn",
 ]
 
 scraping = [
     "beautifulsoup4",
-    "html5lib",
     "lxml",
-    "openpyxl",
     "selenium",
     "webdriver-manager",
 ]

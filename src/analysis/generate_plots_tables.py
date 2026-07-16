@@ -2,22 +2,18 @@
 Generate Figures and Tables for Manuscript
 
 Purpose:
-    This script generates all figures and tables required for the manuscript.
+    This script generates the five figures and five tables in the manuscript.
     - Figures are saved to ../overleaf/images/ directory as PDF files
     - Tables are saved to ../overleaf/tables/ directory as .tex files
     CRITICAL: overleaf/ is a separate Git repository at the same level as Human-SIG/, NOT inside it.
 
 Figures Generated:
-    - Figure 0: SWE-bench Illustration
-    - Figures 2-6: Spearman rho versions
-    - Figures 8-11: Kendall tau versions
-    - Figures 13-16: RBO versions
+    - Figure 1: SWE-bench illustration
+    - Figures 2-5 in the paper: Spearman hypothesis visualizations
 
 Tables Generated:
-    - Correlation Summary Table
-    - Results Summary Table (Spearman)
-    - Results Summary Table (Kendall)
-    - Results Summary Table (RBO)
+    - Overall-correlation, reference-difficulty, correlation-summary,
+      Spearman-hypothesis, and uncertainty-propagation tables
 
 Requirements:
     - All axis labels and legends must use spaces instead of underscores
@@ -25,33 +21,25 @@ Requirements:
     - High resolution output (DPI ≥ 300)
     - Save as PDF format
 """
-import sys
 import argparse
 import json
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+from adjustText import adjust_text
 from scipy import stats
 from scipy.stats import pearsonr
 from pathlib import Path
 from datetime import datetime
 import logging
-import shutil
 
-from figure_0_swe_bench import ensure_figure_0_label_data, render_figure_0_from_file
+from figure_1_swe_bench import ensure_figure_1_label_data, render_figure_1_from_file
 
 # Initialize logging first
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
-
-# Try to import adjustText
-try:
-    from adjustText import adjust_text
-    HAS_ADJUST_TEXT = True
-except ImportError:
-    HAS_ADJUST_TEXT = False
-    logger.warning("adjustText not available, annotations may overlap")
+PLOT_SEED = 42
 
 # Set style
 sns.set_style("whitegrid")
@@ -69,6 +57,24 @@ plt.rcParams['legend.fontsize'] = 16
 def load_analysis_data(data_path: Path) -> pd.DataFrame:
     """Load analysis-ready data."""
     df = pd.read_csv(data_path)
+    required = {
+        'benchmark_id', 'question_count', 'spearman_rho',
+        'spearman_pvalue', 'spearman_ci_lower', 'spearman_ci_upper',
+        'kendall_tau', 'kendall_pvalue', 'kendall_ci_lower',
+        'kendall_ci_upper', 'rbo', 'sample_size', 'category',
+        'complexity', 'release_date', 'difficulty', 'cv',
+        'spearman_rho_overall',
+    }
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(
+            f"analysis_ready_data.csv is missing columns: {sorted(missing)}"
+        )
+    if len(df) != 28 or df['benchmark_id'].nunique() != 28:
+        raise ValueError(
+            "The manuscript outputs require exactly 28 unique benchmarks; "
+            f"found {len(df)} rows and {df['benchmark_id'].nunique()} IDs"
+        )
     logger.info(f"Loaded {len(df)} benchmarks from analysis_ready_data.csv")
     return df
 
@@ -85,63 +91,37 @@ def load_significance_report(report_path: Path) -> dict:
         return json.load(f)
 
 
-def get_metric_info(metric: str):
-    """Get metric information for plotting."""
-    metric_map = {
-        'spearman_rho': {
-            'column': 'spearman_rho',
-            'ylabel': 'Spearman ρ',
-            'metric_name': 'Spearman',
-            'metric_symbol': 'ρ'
-        },
-        'kendall_tau': {
-            'column': 'kendall_tau',
-            'ylabel': 'Kendall τ',
-            'metric_name': 'Kendall',
-            'metric_symbol': 'τ'
-        },
-        'rbo': {
-            'column': 'rbo',
-            'ylabel': 'RBO',
-            'metric_name': 'RBO',
-            'metric_symbol': 'RBO'
-        }
-    }
-    return metric_map.get(metric, metric_map['spearman_rho'])
-
-def figure_0_swe_bench_illustration(output_dir: Path):
-    """Generate Figure 0: SWE-bench Illustration."""
-    logger.info("Generating Figure 0: SWE-bench (Verified) Illustration")
+def figure_1_swe_bench_illustration(output_dir: Path):
+    """Generate Figure 1: SWE-bench Illustration."""
+    logger.info("Generating Figure 1: SWE-bench (Verified) Illustration")
     base_dir = Path(__file__).parent.parent.parent
-    label_data_path = ensure_figure_0_label_data(base_dir)
-    output_path = output_dir / "Figure_0_SWE_Bench_Illustration.pdf"
-    render_figure_0_from_file(label_data_path, output_path)
+    label_data_path = ensure_figure_1_label_data(base_dir)
+    output_path = output_dir / "Figure_1_SWE_Bench_Illustration.pdf"
+    render_figure_1_from_file(label_data_path, output_path)
 
 
-def figure_scale(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 2):
-    """Generate Scale Effect (H1) for different metrics."""
-    metric_info = get_metric_info(metric)
-    metric_col = metric_info['column']
-    ylabel = metric_info['ylabel']
-    metric_name = metric_info['metric_name']
-    
-    logger.info(f"Generating Figure {figure_num}: Scale Effect with {metric_name}")
+def figure_2_scale(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 2: Scale Effect (H1) using Spearman rho."""
+    metric_col = 'spearman_rho'
+    logger.info("Generating Figure 2: Scale Effect with Spearman rho")
     
     df_plot = df.copy()
     df_plot['log_question_count'] = np.log(df_plot['question_count'])
     
     # Calculate correlation
     df_clean = df_plot[['log_question_count', metric_col]].dropna()
-    if len(df_clean) > 0:
-        corr, p_val = pearsonr(df_clean['log_question_count'], df_clean[metric_col])
-    else:
-        corr, p_val = np.nan, np.nan
+    if len(df_clean) != len(df_plot):
+        raise ValueError(
+            "Figure 2 requires valid question counts and Spearman rho for all benchmarks"
+        )
+    corr, p_val = pearsonr(df_clean['log_question_count'], df_clean[metric_col])
     
     fig, ax = plt.subplots(figsize=(8, 6))
     
     # Regression line
     sns.regplot(data=df_plot, x='log_question_count', y=metric_col, ax=ax,
-                scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
+                scatter=False, ci=95, seed=PLOT_SEED, color='red',
+                line_kws={'linewidth': 2, 'zorder': 1})
     
     # Scatter plot
     ax.scatter(df_plot['log_question_count'], df_plot[metric_col], 
@@ -155,11 +135,12 @@ def figure_scale(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho
                        (row['log_question_count'], row[metric_col]),
                        fontsize=12, alpha=0.7, zorder=4))
     
-    if HAS_ADJUST_TEXT and texts:
+    if texts:
+        np.random.seed(PLOT_SEED)
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Scale (log-transformed question count)', fontsize=20)
-    ax.set_ylabel(ylabel, fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
     ax.tick_params(labelsize=18)
     
     # Add annotations
@@ -169,54 +150,19 @@ def figure_scale(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho
     ax.text(0.05, 0.05, annotation_text, transform=ax.transAxes,
             fontsize=16, verticalalignment='bottom', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
-    # Determine output filename
-    if metric == 'spearman_rho':
-        filename = f"Figure_{figure_num}_Scale.pdf"
-    elif metric == 'kendall_tau':
-        filename = f"Figure_{figure_num}_Scale_Kendall.pdf"
-    else:  # rbo
-        filename = f"Figure_{figure_num}_Scale_RBO.pdf"
-    
-    output_path = output_dir / filename
+    output_path = output_dir / "Figure_2_Scale.pdf"
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure {figure_num} to {output_path}")
+    logger.info(f"Saved Figure 2 to {output_path}")
 
 
-def figure_2_scale(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 2: Scale Effect (H1) using Spearman rho."""
-    figure_scale(df, output_dir, 'spearman_rho', 2)
-
-
-def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 3):
-    """Generate Complexity Categories (H2) for different metrics."""
-    metric_info = get_metric_info(metric)
-    metric_col = metric_info['column']
-    ylabel = metric_info['ylabel']
-    metric_name = metric_info['metric_name']
+def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 3: Complexity Categories (H2) using Spearman rho."""
+    metric_col = 'spearman_rho'
+    logger.info("Generating Figure 3: Complexity Categories with Spearman rho")
     
-    logger.info(f"Generating Figure {figure_num}: Complexity Categories with {metric_name}")
-    
-    # Load metadata to get complexity
-    base_dir = Path(__file__).parent.parent.parent
-    metadata_path = base_dir / "data" / "metadata.json"
-    
-    # Use the passed df (from analysis_ready_data.csv)
     df_plot = df.copy()
-    
-    complexity_map = {}
-    if metadata_path.exists():
-        try:
-            with open(metadata_path, 'r', encoding='utf-8') as f:
-                metadata = json.load(f)
-            for entry in metadata:
-                if 'benchmark_id' in entry and 'complexity' in entry:
-                    complexity_map[entry['benchmark_id']] = entry['complexity']
-        except Exception as e:
-            logger.error(f"Error loading metadata: {e}")
-            
-    df_plot['complexity'] = df_plot['benchmark_id'].map(complexity_map)
     
     category_order = ['Applying', 'Analyzing', 'Evaluating', 'Creating']
     complexity_val = {c: i+1 for i, c in enumerate(category_order)}
@@ -224,6 +170,15 @@ def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearma
     
     # Filter out missing values
     df_plot = df_plot.dropna(subset=['complexity', metric_col])
+    if len(df_plot) != len(df):
+        raise ValueError(
+            "Figure 3 requires complexity and Spearman rho for all benchmarks"
+        )
+    unexpected = set(df_plot['complexity']) - set(category_order)
+    if unexpected:
+        raise ValueError(
+            f"Figure 3 found unsupported complexity levels: {sorted(unexpected)}"
+        )
     
     fig, ax = plt.subplots(figsize=(10, 6))
     
@@ -245,10 +200,11 @@ def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearma
     )
     
     # Stripplot
+    rng = np.random.default_rng(PLOT_SEED)
     for i, cat in enumerate(category_order):
         data_subset = df_plot[df_plot['complexity'] == cat]
         if len(data_subset) > 0:
-            x_coords = np.random.normal(i, 0.1, len(data_subset))
+            x_coords = rng.normal(i, 0.1, len(data_subset))
             ax.scatter(x_coords, data_subset[metric_col], 
                       color=palette[cat], alpha=0.7, s=80, edgecolors='black', linewidth=0.5, zorder=3)
             
@@ -261,7 +217,7 @@ def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearma
         ax.legend(fontsize=14, loc='upper left')
     
     ax.set_xlabel('Prompt Complexity', fontsize=20)
-    ax.set_ylabel(ylabel, fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
     ax.tick_params(labelsize=18)
     
     # Add annotations
@@ -274,34 +230,17 @@ def figure_complexity(df: pd.DataFrame, output_dir: Path, metric: str = 'spearma
                    ha='center', va='top', fontsize=14, 
                    bbox=dict(boxstyle='round', facecolor='white', alpha=0.7))
     
-    # Determine output filename
-    if metric == 'spearman_rho':
-        filename = f"Figure_{figure_num}_Complexity_Categories.pdf"
-    elif metric == 'kendall_tau':
-        filename = f"Figure_{figure_num}_Complexity_Kendall.pdf"
-    else:  # rbo
-        filename = f"Figure_{figure_num}_Complexity_RBO.pdf"
-    
-    output_path = output_dir / filename
+    output_path = output_dir / "Figure_3_Complexity_Categories.pdf"
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure {figure_num} to {output_path}")
+    logger.info(f"Saved Figure 3 to {output_path}")
 
 
-def figure_3_complexity(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 3: Complexity Categories (H2) using Spearman rho."""
-    figure_complexity(df, output_dir, 'spearman_rho', 3)
-
-
-def figure_recency(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_rho', figure_num: int = 4):
-    """Generate Recency Effect (H3) for different metrics."""
-    metric_info = get_metric_info(metric)
-    metric_col = metric_info['column']
-    ylabel = metric_info['ylabel']
-    metric_name = metric_info['metric_name']
-    
-    logger.info(f"Generating Figure {figure_num}: Recency Effect with {metric_name}")
+def figure_4_recency(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 4: Recency Effect (H3) using Spearman rho."""
+    metric_col = 'spearman_rho'
+    logger.info("Generating Figure 4: Recency Effect with Spearman rho")
     
     reference_date = datetime(2021, 1, 1)
     df_plot = df.copy()
@@ -310,23 +249,25 @@ def figure_recency(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_r
         try:
             date_obj = datetime.strptime(date_str, '%Y-%m-%d')
             return (date_obj - reference_date).days
-        except:
+        except (TypeError, ValueError):
             return np.nan
     
     df_plot['release_date_ordinal'] = df_plot['release_date'].apply(date_to_ordinal)
     
     # Calculate correlation
     df_clean = df_plot[['release_date_ordinal', metric_col]].dropna()
-    if len(df_clean) > 0:
-        corr, p_val = stats.spearmanr(df_clean['release_date_ordinal'], df_clean[metric_col])
-    else:
-        corr, p_val = np.nan, np.nan
+    if len(df_clean) != len(df_plot):
+        raise ValueError(
+            "Figure 4 requires valid release dates and Spearman rho for all benchmarks"
+        )
+    corr, p_val = stats.spearmanr(df_clean['release_date_ordinal'], df_clean[metric_col])
     
     fig, ax = plt.subplots(figsize=(10, 6))
     
     # Regression line
     sns.regplot(data=df_plot, x='release_date_ordinal', y=metric_col, ax=ax,
-                scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
+                scatter=False, ci=95, seed=PLOT_SEED, color='red',
+                line_kws={'linewidth': 2, 'zorder': 1})
     
     # Scatter plot
     ax.scatter(df_plot['release_date_ordinal'], df_plot[metric_col], 
@@ -340,11 +281,12 @@ def figure_recency(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_r
                        (row['release_date_ordinal'], row[metric_col]),
                        fontsize=12, alpha=0.7, zorder=4))
     
-    if HAS_ADJUST_TEXT and texts:
+    if texts:
+        np.random.seed(PLOT_SEED)
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Recency (Days since 2021-01-01)', fontsize=20)
-    ax.set_ylabel(ylabel, fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
     ax.tick_params(labelsize=18)
     
     # Add annotations
@@ -354,53 +296,54 @@ def figure_recency(df: pd.DataFrame, output_dir: Path, metric: str = 'spearman_r
     ax.text(0.02, 0.02, annotation_text, transform=ax.transAxes,
             fontsize=16, verticalalignment='bottom', ha='left', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
-    # Determine output filename
-    if metric == 'spearman_rho':
-        filename = f"Figure_{figure_num}_Recency.pdf"
-    elif metric == 'kendall_tau':
-        filename = f"Figure_{figure_num}_Recency_Kendall.pdf"
-    else:  # rbo
-        filename = f"Figure_{figure_num}_Recency_RBO.pdf"
-    
-    output_path = output_dir / filename
+    output_path = output_dir / "Figure_4_Recency.pdf"
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure {figure_num} to {output_path}")
+    logger.info(f"Saved Figure 4 to {output_path}")
 
 
-def figure_4_recency(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 4: Recency Effect (H3) using Spearman rho."""
-    figure_recency(df, output_dir, 'spearman_rho', 4)
-
-
-def figure_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict,
-                                metric: str = 'spearman_rho', figure_num: int = 5):
-    """Generate Difficulty-Variance Joint Effect (H4/H5) for different metrics."""
-    metric_info = get_metric_info(metric)
-    metric_col = metric_info['column']
-    ylabel = metric_info['ylabel']
-    metric_name = metric_info['metric_name']
-    
-    logger.info(f"Generating Figure {figure_num}: Difficulty-Variance with {metric_name}")
+def figure_5_difficulty_variance(
+    df: pd.DataFrame,
+    output_dir: Path,
+    hypothesis_results: dict,
+):
+    """Generate Figure 5: joint H4/H5 result using Spearman rho."""
+    metric_col = 'spearman_rho'
+    logger.info("Generating Figure 5: Difficulty-Variance with Spearman rho")
     
     # Exclude Creative Writing v3
     df_plot = df[df['benchmark_id'] != 'Creative Writing v3'].copy()
     df_plot = df_plot[df_plot['difficulty'].notna() & df_plot['cv'].notna() & df_plot[metric_col].notna()].copy()
     
     # Get regression coefficients from hypothesis results
-    beta1_key = f'H5_Difficulty_Beta1_{metric_col}'
-    beta2_key = f'H4_Variance_Beta2_{metric_col}'
+    beta1_key = 'H5_Difficulty_Beta1_spearman_rho'
+    beta2_key = 'H4_Variance_Beta2_spearman_rho'
     beta1 = hypothesis_results.get(beta1_key, {}).get('coefficient', np.nan)
     beta2 = hypothesis_results.get(beta2_key, {}).get('coefficient', np.nan)
+    intercept = hypothesis_results.get(beta1_key, {}).get('intercept', np.nan)
     p_beta1 = hypothesis_results.get(beta1_key, {}).get('p_raw', np.nan)
     p_beta2 = hypothesis_results.get(beta2_key, {}).get('p_raw', np.nan)
-    
+
+    if len(df_plot) != 27:
+        raise ValueError(
+            "Figure 5 requires 27 non-Creative-Writing benchmarks; "
+            f"found {len(df_plot)}"
+        )
+    if not np.all(np.isfinite([intercept, beta1, beta2, p_beta1, p_beta2])):
+        raise ValueError(
+            "Figure 5 requires finite bivariate Huber coefficients and p-values"
+        )
+
     fig, ax = plt.subplots(figsize=(10, 7))
     
-    # Regression line
-    sns.regplot(data=df_plot, x='difficulty', y=metric_col, ax=ax,
-                scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
+    # Plot the fitted bivariate Huber model at the median observed CV. This is
+    # the same model reported in the annotation, rather than an unrelated
+    # univariate least-squares fit.
+    x_line = np.linspace(df_plot['difficulty'].min(), df_plot['difficulty'].max(), 100)
+    median_cv = df_plot['cv'].median()
+    y_line = intercept + beta1 * x_line + beta2 * median_cv
+    ax.plot(x_line, y_line, color='red', linewidth=2, zorder=1)
     
     # Scatter plot with size and color encoding
     scatter = ax.scatter(df_plot['difficulty'], df_plot[metric_col],
@@ -415,11 +358,12 @@ def figure_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_re
                    (row['difficulty'], row[metric_col]),
                    fontsize=12, alpha=0.7, zorder=4))
     
-    if HAS_ADJUST_TEXT and texts:
+    if texts:
+        np.random.seed(PLOT_SEED)
         adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
     
     ax.set_xlabel('Difficulty (Easy → Hard)', fontsize=20)
-    ax.set_ylabel(ylabel, fontsize=20)
+    ax.set_ylabel('Spearman ρ', fontsize=20)
     ax.tick_params(labelsize=18)
     
     # Add colorbar
@@ -446,117 +390,11 @@ def figure_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_re
     ax.text(0.98, 0.02, annotation_text, transform=ax.transAxes,
             fontsize=16, verticalalignment='bottom', ha='right', bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
     
-    # Determine output filename
-    if metric == 'spearman_rho':
-        filename = f"Figure_{figure_num}_Difficulty_Variance.pdf"
-    elif metric == 'kendall_tau':
-        filename = f"Figure_{figure_num}_Difficulty_Variance_Kendall.pdf"
-    else:  # rbo
-        filename = f"Figure_{figure_num}_Difficulty_Variance_RBO.pdf"
-    
-    output_path = output_dir / filename
+    output_path = output_dir / "Figure_5_Difficulty_Variance.pdf"
     plt.tight_layout()
     plt.savefig(output_path, format='pdf', bbox_inches='tight')
     plt.close()
-    logger.info(f"Saved Figure {figure_num} to {output_path}")
-
-
-def figure_5_difficulty_variance(df: pd.DataFrame, output_dir: Path, hypothesis_results: dict):
-    """Generate Figure 5: Difficulty-Variance Joint Effect (H4/H5) using Spearman rho."""
-    figure_difficulty_variance(df, output_dir, hypothesis_results, 'spearman_rho', 5)
-
-
-def figure_6_confounder_heatmap(df: pd.DataFrame, output_dir: Path):
-    """Generate Figure 6: Confounder Correlation Heatmap."""
-    logger.info("Generating heatmap using data: Correlation matrix of independent variables (from analysis_ready_data.csv)")
-    
-    # Prepare variables
-    df_plot = df.copy()
-    
-    # Convert release_date to ordinal
-    reference_date = datetime(2021, 1, 1)
-    def date_to_ordinal(date_str):
-        try:
-            date_obj = datetime.strptime(date_str, '%Y-%m-%d')
-            return (date_obj - reference_date).days
-        except:
-            return np.nan
-    
-    df_plot['release_date_ordinal'] = df_plot['release_date'].apply(date_to_ordinal)
-    
-    # Encode complexity as ordinal
-    complexity_map = {'Applying': 1, 'Analyzing': 2, 'Evaluating': 3, 'Creating': 4}
-    df_plot['complexity_ordinal'] = df_plot['complexity'].map(complexity_map)
-    
-    # Calculate log(question_count)
-    df_plot['log_question_count'] = np.log(df_plot['question_count'])
-    
-    # Select variables for correlation matrix
-    vars_for_corr = {
-        'Difficulty': 'difficulty',
-        'Variance (CV)': 'cv',
-        'Recency': 'release_date_ordinal',
-        'Complexity': 'complexity_ordinal',
-        'Scale': 'log_question_count'
-    }
-    
-    # Build correlation matrix
-    corr_data = {}
-    for label, col in vars_for_corr.items():
-        corr_data[label] = df_plot[col].values
-    
-    df_corr = pd.DataFrame(corr_data)
-    corr_matrix = df_corr.corr()
-    
-    logger.info(
-        "Generating heatmap from analysis_ready_data.csv using a %dx%d correlation matrix",
-        corr_matrix.shape[0],
-        corr_matrix.shape[1],
-    )
-    logger.debug("Heatmap correlation matrix:\n%s", corr_matrix.to_string())
-    
-    # Increase figure height and adjust width for better vertical label display
-    # Add extra space at bottom for note text
-    fig, ax = plt.subplots(figsize=(10, 10))
-    fig.subplots_adjust(bottom=0.15)  # Add space at bottom for note text
-    
-    # Heatmap with larger font
-    # Use cbar=False to avoid duplicate colorbar, then add it manually
-    sns.heatmap(corr_matrix, annot=True, fmt='.2f', cmap='coolwarm', center=0,
-                square=True, linewidths=0.5, cbar=False, ax=ax,
-                vmin=-1, vmax=1, annot_kws={'fontsize': 16})
-    
-    # Add colorbar manually (only once)
-    sm = plt.cm.ScalarMappable(cmap='coolwarm', norm=plt.Normalize(vmin=-1, vmax=1))
-    sm.set_array([])
-    cbar = plt.colorbar(sm, ax=ax, shrink=0.8)
-    cbar.set_label('Correlation', fontsize=16)
-    cbar.ax.tick_params(labelsize=16)
-    
-    # NO TITLE (as per requirements)
-    
-    # Move axis labels to top and rotate them vertically
-    ax.xaxis.tick_top()
-    ax.xaxis.set_label_position('top')
-    
-    # Rotate x-axis labels vertically
-    plt.setp(ax.xaxis.get_majorticklabels(), rotation=90, ha='center')
-    plt.setp(ax.yaxis.get_majorticklabels(), rotation=0, ha='right')
-    
-    # Add note with larger font positioned below the figure (outside the plot area)
-    note_text = 'Complexity: 1=Applying, 2=Analyzing, 3=Evaluating, 4=Creating'
-    # Position below the figure using figtext (outside plot area)
-    fig.text(0.5, 0.02, note_text, ha='center', va='bottom', fontsize=14, style='italic',
-             bbox=dict(boxstyle='round', facecolor='white', alpha=0.7), zorder=4)
-    
-    # Increase tick label font size
-    ax.tick_params(labelsize=16, top=True, bottom=False, labeltop=True, labelbottom=False)
-    
-    output_path = output_dir / "Figure_6_Confounder_Heatmap.pdf"
-    plt.tight_layout()
-    plt.savefig(output_path, format='pdf', bbox_inches='tight')
-    plt.close()
-    logger.info(f"Saved Figure 6 to {output_path}")
+    logger.info(f"Saved Figure 5 to {output_path}")
 
 
 # ============================================================================
@@ -597,26 +435,41 @@ def format_hypothesis_name(result_key: str) -> str:
 
 
 def create_results_table_spearman(report: dict, output_path: Path):
-    """Create results summary table for Spearman metric only."""
+    """Create the Spearman hypothesis table.
+
+    For H2, ``effect_size`` is the complementary ordinal-regression R-squared,
+    while ``p_raw`` is the primary Kruskal-Wallis p-value.
+    """
     logger.info("Creating results summary table (Spearman only)...")
     
     # Filter to Spearman results only
-    spearman_keys = [k for k in report.keys() if 'spearman_rho' in k and not k.startswith('$')]
+    expected_keys = {
+        'H1_spearman_rho',
+        'H2_spearman_rho',
+        'H3_spearman_rho',
+        'H4_Variance_Beta2_spearman_rho',
+        'H5_Difficulty_Beta1_spearman_rho',
+    }
+    missing = expected_keys - set(report)
+    if missing:
+        raise ValueError(f"Significance report is missing tests: {sorted(missing)}")
+    spearman_keys = sorted(expected_keys)
     
     rows = []
     for key in sorted(spearman_keys):
         result = report[key]
-        if isinstance(result, dict):
-            rows.append({
-                'Hypothesis': format_hypothesis_name(key),
-                'Effect Size': result.get('effect_size', np.nan),
-                'Effect Size Type': result.get('effect_size_type', 'unknown'),
-                'p_raw': result.get('p_raw', np.nan),
-                'p_corrected': result.get('p_corrected', np.nan),
-                'significant_strict': result.get('significant_strict', False),
-                'ci_lower': result.get('ci_lower', np.nan),
-                'ci_upper': result.get('ci_upper', np.nan)
-            })
+        if not isinstance(result, dict):
+            raise ValueError(f"Significance report entry {key} is not an object")
+        rows.append({
+            'Hypothesis': format_hypothesis_name(key),
+            'Effect Size': result.get('effect_size', np.nan),
+            'Effect Size Type': result.get('effect_size_type', 'unknown'),
+            'p_raw': result.get('p_raw', np.nan),
+            'p_corrected': result.get('p_corrected', np.nan),
+            'is_significant': result.get('is_significant', False),
+            'ci_lower': result.get('ci_lower', np.nan),
+            'ci_upper': result.get('ci_upper', np.nan)
+        })
     
     df = pd.DataFrame(rows)
     
@@ -632,8 +485,8 @@ def create_results_table_spearman(report: dict, output_path: Path):
     )
     
     # Select columns for table
-    df_table = df[['Hypothesis', 'Effect Size', 'p_raw_formatted', 'p_corrected_formatted', 
-                   'significant_strict', 'CI']].copy()
+    df_table = df[['Hypothesis', 'Effect Size', 'p_raw_formatted', 'p_corrected_formatted',
+                   'is_significant', 'CI']].copy()
     df_table.columns = ['Hypothesis', 'Effect Size', 'p (raw)', 'p (corrected)', 
                         'Significant', '95% CI']
     
@@ -652,142 +505,6 @@ def create_results_table_spearman(report: dict, output_path: Path):
             index=False,
             float_format='%.3f',
             column_format='lrrrrr',
-            escape=True
-        )
-        # Remove caption and label lines
-        lines = latex_str.split('\n')
-        filtered_lines = []
-        for line in lines:
-            if '\\caption' not in line and '\\label' not in line:
-                filtered_lines.append(line)
-        latex_str = '\n'.join(filtered_lines)
-        # Replace \end{tabular} with \bottomrule\n\end{tabular} if not already present
-        if '\\bottomrule' not in latex_str:
-            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
-        f.write(latex_str)
-    
-    logger.info("Table saved successfully")
-
-
-def create_results_table_kendall(report: dict, output_path: Path):
-    """Create results summary table for Kendall metric only."""
-    logger.info("Creating results summary table (Kendall only)...")
-    
-    # Filter to Kendall results only
-    kendall_keys = [k for k in report.keys() if 'kendall_tau' in k and not k.startswith('$')]
-    
-    rows = []
-    for key in sorted(kendall_keys):
-        result = report[key]
-        if isinstance(result, dict):
-            rows.append({
-                'Hypothesis': format_hypothesis_name(key),
-                'Effect Size': result.get('effect_size', np.nan),
-                'Effect Size Type': result.get('effect_size_type', 'unknown'),
-                'p_raw': result.get('p_raw', np.nan),
-                'p_corrected': result.get('p_corrected', np.nan),
-                'significant_strict': result.get('significant_strict', False),
-                'ci_lower': result.get('ci_lower', np.nan),
-                'ci_upper': result.get('ci_upper', np.nan)
-            })
-    
-    df = pd.DataFrame(rows)
-    
-    # Format p-values
-    df['p_raw_formatted'] = df['p_raw'].apply(format_pvalue)
-    df['p_corrected_formatted'] = df['p_corrected'].apply(format_pvalue)
-    
-    # Format CI
-    df['CI'] = df.apply(
-        lambda row: f"[{row['ci_lower']:.3f}, {row['ci_upper']:.3f}]" 
-        if pd.notna(row['ci_lower']) and pd.notna(row['ci_upper']) else "N/A",
-        axis=1
-    )
-    
-    # Select columns for table
-    df_table = df[['Hypothesis', 'Effect Size', 'p_raw_formatted', 'p_corrected_formatted', 
-                   'significant_strict', 'CI']].copy()
-    df_table.columns = ['Hypothesis', 'Effect Size', 'p (raw)', 'p (corrected)', 
-                        'Significant', '95% CI']
-    
-    # Format effect size
-    df_table['Effect Size'] = df_table['Effect Size'].apply(
-        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
-    )
-    
-    # Convert boolean to Yes/No
-    df_table['Significant'] = df_table['Significant'].apply(lambda x: 'Yes' if x else 'No')
-    
-    # Save to LaTeX
-    logger.info(f"Saving table to {output_path}")
-    with open(output_path, 'w', encoding='utf-8') as f:
-        latex_str = df_table.to_latex(
-            index=False,
-            float_format='%.3f',
-            column_format='lrrrrr',
-            escape=True
-        )
-        # Remove caption and label lines
-        lines = latex_str.split('\n')
-        filtered_lines = []
-        for line in lines:
-            if '\\caption' not in line and '\\label' not in line:
-                filtered_lines.append(line)
-        latex_str = '\n'.join(filtered_lines)
-        # Replace \end{tabular} with \bottomrule\n\end{tabular} if not already present
-        if '\\bottomrule' not in latex_str:
-            latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
-        f.write(latex_str)
-    
-    logger.info("Table saved successfully")
-
-
-def create_results_table_rbo(report: dict, output_path: Path):
-    """Create results summary table for RBO metric only."""
-    logger.info("Creating results summary table (RBO only)...")
-    
-    # Filter to RBO results only
-    rbo_keys = [k for k in report.keys() if 'rbo' in k and not k.startswith('$')]
-    
-    rows = []
-    for key in sorted(rbo_keys):
-        result = report[key]
-        if isinstance(result, dict):
-            rows.append({
-                'Hypothesis': format_hypothesis_name(key),
-                'Effect Size': result.get('effect_size', np.nan),
-                'Effect Size Type': result.get('effect_size_type', 'unknown'),
-                'p_raw': result.get('p_raw', np.nan),
-                'p_corrected': result.get('p_corrected', np.nan),
-                'significant_strict': result.get('significant_strict', False)
-            })
-    
-    df = pd.DataFrame(rows)
-    
-    # Format p-values
-    df['p_raw_formatted'] = df['p_raw'].apply(format_pvalue)
-    df['p_corrected_formatted'] = df['p_corrected'].apply(format_pvalue)
-    
-    # Select columns for table
-    df_table = df[['Hypothesis', 'Effect Size', 'p_raw_formatted', 'p_corrected_formatted', 
-                   'significant_strict']].copy()
-    df_table.columns = ['Hypothesis', 'Effect Size', 'p (raw)', 'p (corrected)', 'Significant']
-    
-    # Format effect size
-    df_table['Effect Size'] = df_table['Effect Size'].apply(
-        lambda x: f"{x:.3f}" if pd.notna(x) else "N/A"
-    )
-    
-    # Convert boolean to Yes/No
-    df_table['Significant'] = df_table['Significant'].apply(lambda x: 'Yes' if x else 'No')
-    
-    # Save to LaTeX
-    logger.info(f"Saving table to {output_path}")
-    with open(output_path, 'w', encoding='utf-8') as f:
-        latex_str = df_table.to_latex(
-            index=False,
-            float_format='%.3f',
-            column_format='lrrrr',
             escape=True
         )
         # Remove caption and label lines
@@ -947,20 +664,26 @@ def create_correlation_summary_table(df: pd.DataFrame, output_path: Path):
     logger.info("Table saved successfully")
 
 
-def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
-    """Experiment 1: Reference Difficulty Comparison Table."""
+def create_reference_difficulty_table(base_dir: Path, output_path: Path):
+    """Create the manuscript's reference-difficulty comparison table."""
     csv_path = base_dir / "results" / "reference_difficulty_comparison.csv"
-    logger.info("Creating Exp 1 reference difficulty table from %s", csv_path)
-    
+    logger.info("Creating reference difficulty table from %s", csv_path)
+
     if not csv_path.exists():
-        logger.warning(f"Experiment 1 data not found at {csv_path}. Skipping table.")
-        return
-    
-    try:
-        df = pd.read_csv(csv_path)
-    except Exception as e:
-        logger.error("Failed to read Exp 1 CSV %s: %s", csv_path, e)
-        return
+        raise FileNotFoundError(f"Reference difficulty data not found: {csv_path}")
+    df = pd.read_csv(csv_path)
+
+    required = {
+        'Benchmark_Name',
+        'Original_Difficulty',
+        'Reference_Difficulty',
+        'Reference_Avg_Score',
+    }
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(
+            f"Reference difficulty data is missing columns: {sorted(missing)}"
+        )
 
     # We only want Benchmark Name, Original Difficulty, Reference Difficulty
     # The columns in the csv are: Benchmark_Name,Original_Difficulty,Reference_Difficulty,Reference_Avg_Score
@@ -973,38 +696,33 @@ def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
     # Drop rows with NaN for correlation calculation
     df_clean = df.dropna(subset=['Original Difficulty', 'Reference Difficulty'])
     
-    logger.debug("Exp 1 table preview before dropna:\n%s", df.head())
-    logger.debug("Exp 1 clean table shape: %s", df_clean.shape)
-    
-    if len(df_clean) > 2:
-        x = df_clean['Original Difficulty']
-        y = df_clean['Reference Difficulty']
-        r, p_val = pearsonr(x, y)
-        
-        # Calculate 95% CI for Pearson r
-        z = np.arctanh(r)
-        sigma = 1.0 / np.sqrt(len(df_clean) - 3)
-        ci_lower = np.tanh(z - 1.96 * sigma)
-        ci_upper = np.tanh(z + 1.96 * sigma)
-        
-        try:
-            from stats_utils import format_pvalue
-            p_str = format_pvalue(p_val)
-        except ImportError:
-            if p_val < 0.001:
-                p_str = f"{p_val:.2e}"
-            else:
-                p_str = f"{p_val:.4f}"
-        
-        stats_rows = [
-            {'Benchmark Name': 'Pearson r', 'Original Difficulty': '', 'Reference Difficulty': f"{r:.4f}"},
-            {'Benchmark Name': '95% CI', 'Original Difficulty': '', 'Reference Difficulty': f"[{ci_lower:.4f}, {ci_upper:.4f}]"},
-            {'Benchmark Name': 'p-value', 'Original Difficulty': '', 'Reference Difficulty': p_str}
-        ]
-        df_stats = pd.DataFrame(stats_rows)
-        df_combined = pd.concat([df, df_stats], ignore_index=True)
-    else:
-        df_combined = df
+    logger.debug("Reference-difficulty table preview before dropna:\n%s", df.head())
+    logger.debug("Reference-difficulty clean table shape: %s", df_clean.shape)
+
+    if len(df_clean) <= 3:
+        raise ValueError(
+            "Reference-difficulty correlation and Fisher-z CI require "
+            "at least four complete rows"
+        )
+
+    x = df_clean['Original Difficulty']
+    y = df_clean['Reference Difficulty']
+    r, p_val = pearsonr(x, y)
+
+    # Calculate the Fisher-z 95% CI for Pearson r.
+    z = np.arctanh(r)
+    sigma = 1.0 / np.sqrt(len(df_clean) - 3)
+    ci_lower = np.tanh(z - 1.96 * sigma)
+    ci_upper = np.tanh(z + 1.96 * sigma)
+    p_str = format_pvalue(p_val)
+
+    stats_rows = [
+        {'Benchmark Name': 'Pearson r', 'Original Difficulty': '', 'Reference Difficulty': f"{r:.4f}"},
+        {'Benchmark Name': '95% CI', 'Original Difficulty': '', 'Reference Difficulty': f"[{ci_lower:.4f}, {ci_upper:.4f}]"},
+        {'Benchmark Name': 'p-value', 'Original Difficulty': '', 'Reference Difficulty': p_str}
+    ]
+    df_stats = pd.DataFrame(stats_rows)
+    df_combined = pd.concat([df, df_stats], ignore_index=True)
     
     with open(output_path, 'w', encoding='utf-8') as f:
         # Use to_latex with column_format='lrr' for right alignment of numeric columns
@@ -1017,13 +735,12 @@ def create_exp1_reference_difficulty_table(base_dir: Path, output_path: Path):
         if '\\bottomrule' not in latex_str:
             latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
         f.write(latex_str)
-    logger.info(f"Saved Exp 1 table to {output_path}")
+    logger.info(f"Saved reference difficulty table to {output_path}")
 
-def create_exp2_overall_correlation_table(df: pd.DataFrame, output_path: Path):
-    """Experiment 2: Compare Category Spearman with Overall Spearman."""
+def create_overall_correlation_table(df: pd.DataFrame, output_path: Path):
+    """Compare category-specific and Overall Spearman correlations."""
     if 'spearman_rho_overall' not in df.columns:
-        logger.warning("Experiment 2 overall correlation data not found. Skipping table.")
-        return
+        raise ValueError("analysis_ready_data.csv has no spearman_rho_overall column")
         
     df_table = df[['benchmark_id', 'spearman_rho', 'spearman_rho_overall']].copy()
     df_table = df_table.dropna(subset=['spearman_rho_overall'])
@@ -1053,19 +770,44 @@ def create_exp2_overall_correlation_table(df: pd.DataFrame, output_path: Path):
         if '\\bottomrule' not in latex_str:
             latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
         f.write(latex_str)
-    logger.info(f"Saved Exp 2 table to {output_path}")
+    logger.info(f"Saved overall correlation table to {output_path}")
 
-def create_exp3_uncertainty_table(base_dir: Path, output_path: Path):
-    """Experiment 3: Uncertainty Propagation Table."""
+def create_uncertainty_table(base_dir: Path, output_path: Path):
+    """Create the Monte Carlo uncertainty-propagation table."""
     csv_path = base_dir / "results" / "uncertainty_simulation_results.csv"
     if not csv_path.exists():
-        logger.warning(f"Experiment 3 data not found at {csv_path}. Skipping table.")
-        return
-        
+        raise FileNotFoundError(f"Uncertainty data not found: {csv_path}")
+
     df = pd.read_csv(csv_path)
-    
+
+    required = {
+        'Benchmark', 'N_Samples', 'N_Questions', 'Orig_Spearman',
+        'Simulated_Rho', 'Simulated_95_CI_Lower',
+        'Simulated_95_CI_Upper', 'Nonpositive_Fraction',
+    }
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(f"Uncertainty data is missing columns: {sorted(missing)}")
+
+    excluded = df[df['Simulated_Rho'].isna()]['Benchmark'].tolist()
+    if excluded != ['Creative Writing v3']:
+        raise ValueError(
+            "Only Creative Writing v3 may lack uncertainty simulations; "
+            f"found {excluded}"
+        )
+
     # Filter out Creative Writing v3
     df = df[df['Benchmark'] != 'Creative Writing v3']
+    simulation_columns = [
+        'Simulated_Rho',
+        'Simulated_95_CI_Lower',
+        'Simulated_95_CI_Upper',
+        'Nonpositive_Fraction',
+    ]
+    if len(df) != 27 or df[simulation_columns].isna().any().any():
+        raise ValueError(
+            "Uncertainty table requires 27 complete simulated benchmarks"
+        )
 
     # Custom formatting functions
     def format_rho_custom(rho):
@@ -1076,11 +818,11 @@ def create_exp3_uncertainty_table(base_dir: Path, output_path: Path):
             return f"\\bfseries {val_str}"
         return val_str
 
-    def format_p_custom(p):
-        if pd.isna(p):
+    def format_fraction(value):
+        if pd.isna(value):
             return "N/A"
-        val_str = f"{p:.4f}"
-        if p > 0.05:
+        val_str = f"{value:.4f}"
+        if value > 0.05:
             return f"\\itshape {val_str}"
         return val_str
 
@@ -1091,7 +833,7 @@ def create_exp3_uncertainty_table(base_dir: Path, output_path: Path):
         'Original $\\rho$': df['Orig_Spearman'].apply(format_rho_custom),
         'Simulated $\\rho$': df['Simulated_Rho'].apply(format_rho_custom),
         'Simulated 95\\% CI': df.apply(lambda row: f"[{row['Simulated_95_CI_Lower']:.3f}, {row['Simulated_95_CI_Upper']:.3f}]" if pd.notna(row['Simulated_95_CI_Lower']) else "N/A", axis=1),
-        'Simulated p-value': df['Simulated_P_Value'].apply(format_p_custom)
+        'Non-positive fraction': df['Nonpositive_Fraction'].apply(format_fraction)
     })
     
     # Sort by Original Rho descending to match markdown (using raw values for sorting would be better but this maintains current logic order)
@@ -1101,7 +843,8 @@ def create_exp3_uncertainty_table(base_dir: Path, output_path: Path):
     
     with open(output_path, 'w', encoding='utf-8') as f:
         # Column alignment: First column left (l), rest right (r)
-        # Columns: Benchmark, Models, Questions, Original rho, Simulated rho, CI, p-value
+        # Columns: Benchmark, Models, Questions, Original rho, Simulated rho, CI,
+        # non-positive fraction
         # Total 7 columns -> lrrrrrr
         latex_str = df_table.to_latex(index=False, escape=False, column_format='lrrrrrr')
         lines = latex_str.split('\n')
@@ -1110,236 +853,29 @@ def create_exp3_uncertainty_table(base_dir: Path, output_path: Path):
         if '\\bottomrule' not in latex_str:
             latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
         f.write(latex_str)
-    logger.info(f"Saved Exp 3 table to {output_path}")
-
-def copy_exp4_regression_images(base_dir: Path, images_output_dir: Path):
-    """Experiment 4: Copy univariate regression images to Overleaf with new numbers (17-22)."""
-    figures_dir = base_dir / "results" / "figures"
-    if not figures_dir.exists():
-        logger.warning(f"Experiment 4 figures dir not found at {figures_dir}. Skipping.")
-        return
-        
-    # The regression script creates files like univariate_{x}_vs_{y}.png
-    # We want to map them to Figure_17 through Figure_22
-    # dependent_vars = ['spearman_rho', 'kendall_tau']
-    # independent_vars = ['difficulty', 'cv', 'sample_size']
-    
-    dependent_vars = ['spearman_rho', 'kendall_tau']
-    independent_vars = ['difficulty', 'cv', 'sample_size']
-    
-    fig_num = 17
-    for y in dependent_vars:
-        for x in independent_vars:
-            src_file = figures_dir / f"Figure_{fig_num}_Regression_{x}_vs_{y}.pdf"
-            if src_file.exists():
-                dst_file = images_output_dir / f"Figure_{fig_num}_Regression_{x}_vs_{y}.pdf"
-                shutil.copy2(src_file, dst_file)
-                logger.info(f"Copied {src_file.name} to {dst_file.name}")
-            else:
-                # Fallback to check if png exists (though we should have generated pdf)
-                src_file_png = figures_dir / f"Figure_{fig_num}_Regression_{x}_vs_{y}.png"
-                if src_file_png.exists():
-                     logger.warning(f"Found PNG instead of PDF for Figure {fig_num}: {src_file_png}")
-                else:
-                     logger.warning(f"Source file not found: {src_file}")
-            fig_num += 1
-
-
-def perform_univariate_regression_and_plot(df: pd.DataFrame, x_col: str, y_metric: str, 
-                                          output_dir: Path, figure_name: str, 
-                                          xlabel: str, ylabel: str):
-    """
-    Perform univariate regression and plot the result.
-    
-    Args:
-        df: DataFrame containing the data
-        x_col: Column name for independent variable
-        y_metric: Metric name (spearman_rho, kendall_tau, rbo)
-        output_dir: Directory to save the plot
-        figure_name: Filename for the plot
-        xlabel: Label for x-axis
-        ylabel: Label for y-axis
-    """
-    metric_info = get_metric_info(y_metric)
-    y_col = metric_info['column']
-    
-    # Prepare data (drop NaNs)
-    # Ensure columns exist
-    if x_col not in df.columns or y_col not in df.columns:
-        logger.warning(f"Columns {x_col} or {y_col} not found in DataFrame.")
-        return None
-        
-    df_plot = df[[x_col, y_col, 'benchmark_id']].dropna().copy()
-    
-    if len(df_plot) < 3:
-        logger.warning(f"Not enough data points for regression on {x_col} vs {y_col} (N={len(df_plot)})")
-        return None
-    
-    # Perform linear regression
-    slope, intercept, r_value, p_value, std_err = stats.linregress(df_plot[x_col], df_plot[y_col])
-    
-    # Create plot
-    fig, ax = plt.subplots(figsize=(10, 6))
-    
-    # Regression line
-    sns.regplot(data=df_plot, x=x_col, y=y_col, ax=ax,
-                scatter=False, ci=95, color='red', line_kws={'linewidth': 2, 'zorder': 1})
-    
-    # Scatter plot
-    ax.scatter(df_plot[x_col], df_plot[y_col], 
-               alpha=0.6, s=60, edgecolors='black', linewidth=0.5, zorder=5)
-    
-    # Add benchmark labels
-    texts = []
-    for idx, row in df_plot.iterrows():
-        texts.append(ax.annotate(row['benchmark_id'], 
-                   (row[x_col], row[y_col]),
-                   fontsize=12, alpha=0.7, zorder=4))
-    
-    if HAS_ADJUST_TEXT and texts:
-        adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle='->', color='gray', lw=0.5))
-    
-    # Set labels
-    ax.set_xlabel(xlabel, fontsize=20)
-    ax.set_ylabel(ylabel, fontsize=20)
-    ax.tick_params(labelsize=18)
-    
-    # Add annotations (stats)
-    n = len(df_plot)
-    p_str = f"{p_value:.4f}" if p_value >= 0.0001 else f"{p_value:.2e}"
-    annotation_text = f'Slope (β) = {slope:.3f}, p = {p_str}\nN = {n}'
-    
-    # Position annotation in bottom right
-    ax.text(0.98, 0.02, annotation_text, transform=ax.transAxes,
-            fontsize=16, verticalalignment='bottom', ha='right', 
-            bbox=dict(boxstyle='round', facecolor='white', alpha=0.8), zorder=3)
-    
-    # Save figure
-    output_path = output_dir / figure_name
-    plt.tight_layout()
-    plt.savefig(output_path, format='pdf', bbox_inches='tight')
-    plt.close()
-    logger.info(f"Saved figure to {output_path}")
-    
-    return {
-        'x_variable': x_col,
-        'y_metric': y_metric,
-        'slope': slope,
-        'intercept': intercept,
-        'r_value': r_value,
-        'p_value': p_value,
-        'std_err': std_err,
-        'n': n
-    }
-
-def generate_regression_figures_and_tables(df: pd.DataFrame, images_output_dir: Path, tables_output_dir: Path):
-    """Generate regression figures (17-22) and their corresponding stats table."""
-    logger.info("\n" + "="*60)
-    logger.info("Generating regression figures (17-22)...")
-    logger.info("="*60)
-
-    # Check for missing values in difficulty/cv
-    missing_features = df[df['difficulty'].isna() | df['cv'].isna()]
-    if not missing_features.empty:
-        logger.warning(f"Benchmarks missing difficulty/cv features ({len(missing_features)}):")
-        logger.warning(missing_features['benchmark_id'].tolist())
-    
-    # Perform regressions
-    results = []
-    metrics = ['spearman_rho', 'kendall_tau', 'rbo']
-    fig_num = 17
-
-    # 1. Difficulty vs Correlation
-    for metric in metrics:
-        metric_name_clean = get_metric_info(metric)['metric_name'].replace(' ', '_').replace('(', '').replace(')', '')
-        figure_name = f"Figure_{fig_num}_Difficulty_vs_{metric_name_clean}.pdf"
-        
-        res = perform_univariate_regression_and_plot(
-            df, 
-            x_col='difficulty', 
-            y_metric=metric, 
-            output_dir=images_output_dir, 
-            figure_name=figure_name,
-            xlabel='Difficulty (Easy → Hard)',
-            ylabel=get_metric_info(metric)['ylabel']
-        )
-        if res:
-            res['x_variable'] = 'Difficulty'
-            res['Figure'] = f"Figure {fig_num}"
-            results.append(res)
-        
-        fig_num += 1
-            
-    # 2. Variance (CV) vs Correlation
-    for metric in metrics:
-        metric_name_clean = get_metric_info(metric)['metric_name'].replace(' ', '_').replace('(', '').replace(')', '')
-        figure_name = f"Figure_{fig_num}_CV_vs_{metric_name_clean}.pdf"
-        
-        res = perform_univariate_regression_and_plot(
-            df, 
-            x_col='cv', 
-            y_metric=metric, 
-            output_dir=images_output_dir, 
-            figure_name=figure_name,
-            xlabel='Variance (CV)',
-            ylabel=get_metric_info(metric)['ylabel']
-        )
-        if res:
-            res['x_variable'] = 'Variance (CV)'
-            res['Figure'] = f"Figure {fig_num}"
-            results.append(res)
-        
-        fig_num += 1
-
-    if results:
-        df_results = pd.DataFrame(results)
-        
-        # 1. Rename metric names
-        metric_map = {
-            'spearman_rho': r'Spearman $\rho$',
-            'kendall_tau': r'Kendall $\tau$',
-            'rbo': 'RBO'
-        }
-        df_results['y_metric'] = df_results['y_metric'].map(metric_map)
-
-        # 2. Select and rename columns
-        # Restore columns as requested: x_variable, y_metric, slope, intercept, r_value, p_value, std_err
-        # Keep 'n' and 'Figure' removed as per previous instruction, but restore others.
-        # Wait, user said: "Original header contained x_variable & y_metric & slope & intercept & r_value & p_value & std_err & n & Figure ... I only asked to remove the LAST TWO columns, why did you remove so many?"
-        # So I should keep: x_variable, y_metric, slope, intercept, r_value, p_value, std_err
-        # And remove: n, Figure
-        
-        cols_to_keep = ['x_variable', 'y_metric', 'slope', 'intercept', 'r_value', 'p_value', 'std_err']
-        df_results = df_results[cols_to_keep]
-        
-        # Rename columns as requested. 'r-value' and 'p-value' should be lowercase.
-        df_results.columns = ['Variable', 'Metric', 'Slope', 'Intercept', 'r-value', 'p-value', 'Std Err']
-        
-        # 3. Save to LaTeX with custom alignment
-        stats_output_path = tables_output_dir / "regression_analysis_stats.tex"
-        with open(stats_output_path, 'w', encoding='utf-8') as f:
-            # column_format='lllllll' -> First two left aligned, others left aligned as requested
-            # Columns: Variable, Metric, Slope, Intercept, R-value, p-value, Std Err (Total 7)
-            latex_str = df_results.to_latex(index=False, float_format="%.4f", escape=False, column_format='lllllll')
-            
-            # Add midrule after header
-            lines = latex_str.split('\n')
-            filtered_lines = [line for line in lines if '\\caption' not in line and '\\label' not in line]
-            latex_str = '\n'.join(filtered_lines)
-            if '\\bottomrule' not in latex_str:
-                latex_str = latex_str.replace('\\end{tabular}', '\\bottomrule\n\\end{tabular}')
-            f.write(latex_str)
-        logger.info(f"Saved regression statistics to {stats_output_path}")
+    logger.info(f"Saved uncertainty table to {output_path}")
 
 # ============================================================================
 # Main Execution Function
 # ============================================================================
 
 def main():
-    """Main execution function - generates both tables and figures."""
-    parser = argparse.ArgumentParser(description="Generate Figures and Tables")
-    parser.add_argument('--figures', type=int, nargs='*', help='List of figure numbers to generate (e.g., 0 2 3 4 5). If not provided, all are generated.')
-    parser.add_argument('--tables', type=int, nargs='*', help='List of table numbers to generate (e.g., 1 2 5 6 7). If not provided, all are generated.')
+    """Generate the manuscript's five figures and five tables."""
+    parser = argparse.ArgumentParser(description="Generate manuscript figures and tables")
+    parser.add_argument(
+        '--figures',
+        type=int,
+        nargs='+',
+        choices=range(1, 6),
+        help='Paper figure numbers to generate (1-5). If omitted, generate all five.',
+    )
+    parser.add_argument(
+        '--tables',
+        type=int,
+        nargs='+',
+        choices=range(1, 6),
+        help='Paper table numbers to generate (1-5). If omitted, generate all five.',
+    )
     args = parser.parse_args()
 
     base_dir = Path(__file__).parent.parent.parent  # Human-SIG/
@@ -1373,22 +909,17 @@ def main():
     logger.info("Generating selected tables...")
     logger.info("="*60)
     
+    # Table selectors follow the order in which tables appear in the paper.
     if args.tables is None or 1 in args.tables:
-        create_correlation_summary_table(df, tables_output_dir / "correlation_summary_table.tex")
+        create_overall_correlation_table(df, tables_output_dir / "overall_correlation_table.tex")
     if args.tables is None or 2 in args.tables:
-        create_results_table_spearman(report, tables_output_dir / "results_table_spearman.tex")
+        create_reference_difficulty_table(base_dir, tables_output_dir / "reference_difficulty_table.tex")
     if args.tables is None or 3 in args.tables:
-        create_results_table_kendall(report, tables_output_dir / "appendix_results_table_kendall.tex")
+        create_correlation_summary_table(df, tables_output_dir / "correlation_summary_table.tex")
     if args.tables is None or 4 in args.tables:
-        create_results_table_rbo(report, tables_output_dir / "appendix_results_table_rbo.tex")
-    
-    # New tables for experiments 1, 2, 3
+        create_results_table_spearman(report, tables_output_dir / "results_table_spearman.tex")
     if args.tables is None or 5 in args.tables:
-        create_exp1_reference_difficulty_table(base_dir, tables_output_dir / "reference_difficulty_table.tex")
-    if args.tables is None or 6 in args.tables:
-        create_exp2_overall_correlation_table(df, tables_output_dir / "overall_correlation_table.tex")
-    if args.tables is None or 7 in args.tables:
-        create_exp3_uncertainty_table(base_dir, tables_output_dir / "uncertainty_table.tex")
+        create_uncertainty_table(base_dir, tables_output_dir / "uncertainty_table.tex")
     
     logger.info("\n" + "="*60)
     logger.info("Selected tables generated successfully!")
@@ -1402,9 +933,9 @@ def main():
     logger.info("Generating selected figures...")
     logger.info("="*60)
     
-    # Original figures (Spearman rho)
-    if args.figures is None or 0 in args.figures:
-        figure_0_swe_bench_illustration(images_output_dir)
+    # Figure selectors follow the order in which figures appear in the paper.
+    if args.figures is None or 1 in args.figures:
+        figure_1_swe_bench_illustration(images_output_dir)
     if args.figures is None or 2 in args.figures:
         figure_2_scale(df, images_output_dir)
     if args.figures is None or 3 in args.figures:
@@ -1413,40 +944,6 @@ def main():
         figure_4_recency(df, images_output_dir)
     if args.figures is None or 5 in args.figures:
         figure_5_difficulty_variance(df, images_output_dir, hypothesis_results)
-    if args.figures is None or 6 in args.figures:
-        figure_6_confounder_heatmap(df, images_output_dir)
-    
-    # Kendall tau versions (Figures 8-11)
-    if args.figures is None or any(f in args.figures for f in range(8, 12)):
-        logger.info("\n" + "="*60)
-        logger.info("Generating selected Kendall tau versions (Figures 8-11)...")
-        logger.info("="*60)
-        if args.figures is None or 8 in args.figures:
-            figure_scale(df, images_output_dir, 'kendall_tau', 8)
-        if args.figures is None or 9 in args.figures:
-            figure_complexity(df, images_output_dir, 'kendall_tau', 9)
-        if args.figures is None or 10 in args.figures:
-            figure_recency(df, images_output_dir, 'kendall_tau', 10)
-        if args.figures is None or 11 in args.figures:
-            figure_difficulty_variance(df, images_output_dir, hypothesis_results, 'kendall_tau', 11)
-    
-    # RBO versions (Figures 13-16)
-    if args.figures is None or any(f in args.figures for f in range(13, 17)):
-        logger.info("\n" + "="*60)
-        logger.info("Generating selected RBO versions (Figures 13-16)...")
-        logger.info("="*60)
-        if args.figures is None or 13 in args.figures:
-            figure_scale(df, images_output_dir, 'rbo', 13)
-        if args.figures is None or 14 in args.figures:
-            figure_complexity(df, images_output_dir, 'rbo', 14)
-        if args.figures is None or 15 in args.figures:
-            figure_recency(df, images_output_dir, 'rbo', 15)
-        if args.figures is None or 16 in args.figures:
-            figure_difficulty_variance(df, images_output_dir, hypothesis_results, 'rbo', 16)
-    
-    # New figures for experiment 4 (Regression)
-    if args.figures is None or any(f in args.figures for f in range(17, 23)) or (args.tables is None or 8 in args.tables):
-        generate_regression_figures_and_tables(df, images_output_dir, tables_output_dir)
     
     logger.info("\n" + "="*60)
     logger.info("Selected figures generated successfully!")

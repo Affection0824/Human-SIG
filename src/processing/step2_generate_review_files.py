@@ -1,8 +1,8 @@
 """
-Step 2: Generate review_files from cleaned_data (non-deterministic)
+Step 2: Generate heuristic review files from cleaned data (deterministic)
 
 Input: data/processed/cleaned/{benchmark_id}/cleaned_data.csv
-Output: data/processed/review_files/{benchmark_id}_review.json
+Output: data/processed/review_files/{benchmark_id}.json
 
 Functions:
 1. Regenerate lmarena_models.json from LMArena raw data (updated every run)
@@ -35,7 +35,7 @@ FAMILIES = {
     'gemma', 'codestral', 'chatgpt', 'mimo', 'hunyuan', 'doubao',
     'apriel', 'kat', 'minimax', 'oss', 'yi', 'command', 'stepfun',
     'ling', 'ring', 'longcat', 'mai', 'intellect', 'cohere', 'tencent',
-    'nvidia', 'meta', 'amazon', 'minimax', 'moonshot', 'z', 'zhipu',
+    'nvidia', 'meta', 'amazon', 'moonshot', 'z', 'zhipu',
     'baidu', 'alibaba', 'xiaomi', 'meituan', 'ant', 'inclusion', '01',
     'snowflake', 'databricks', 'mosaic', 'tii', 'internlm', 'microsoft',
     'azure', 'nexusflow', 'lmsys', 'allen', 'ai21', 'ibm', 'reka',
@@ -1033,7 +1033,7 @@ def process_benchmark(
                 'other_info': benchmark_info.get('other_info'),
             },
             'candidates': candidates,
-            'untrusted': 1,  # Default untrusted (completed by agent)
+            'untrusted': 1,  # Must be cleared during manual review.
             'selected_lmarena_model': selected_lmarena_model
         }
     
@@ -1079,8 +1079,10 @@ def main():
     lmarena_models = load_lmarena_models(lmarena_file, lmarena_raw_csv)
     
     if not lmarena_models:
-        print("Error: Unable to load or generate LMArena model information, script cannot continue")
-        return
+        raise RuntimeError(
+            "Unable to load or generate LMArena model information; "
+            "Step 2 cannot continue"
+        )
     
     print(f"Total {len(lmarena_models)} LMArena models available for matching")
     print("=" * 60)
@@ -1090,7 +1092,6 @@ def main():
     print(f"\nFound {len(cleaned_csv_files)} cleaned_data.csv files")
     
     # Pre-calculate artificial_analysis directory path (for checking)
-    raw_dir = base_dir / 'data' / 'raw'
     artificial_analysis_dir = raw_dir / 'artificial_analysis'
     
     # Track if we've processed artificial_analysis unified list
@@ -1111,10 +1112,7 @@ def main():
         
         # Special handling: Check if this is an artificial_analysis benchmark
         # If so, skip individual processing (will be processed as unified list)
-        is_artificial_analysis = False
         if artificial_analysis_dir.exists() and (artificial_analysis_dir / benchmark_id / 'data.csv').exists():
-            is_artificial_analysis = True
-            
             # Process artificial_analysis unified list only once
             if not artificial_analysis_processed:
                 print(f"\n{'=' * 60}")
@@ -1133,8 +1131,10 @@ def main():
                     )
                     artificial_analysis_processed = True
                 else:
-                    print(f"  Warning: Unified artificial_analysis model list not found at {unified_csv_path}")
-                    print(f"  Please run step1 first to generate the unified list")
+                    raise FileNotFoundError(
+                        "Unified artificial_analysis model list not found at "
+                        f"{unified_csv_path}; run Step 1 first"
+                    )
                 print(f"{'=' * 60}")
             
             # Skip individual artificial_analysis benchmark processing

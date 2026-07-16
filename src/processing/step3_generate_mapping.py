@@ -14,14 +14,14 @@ Functions:
 import json
 import csv
 from pathlib import Path
-from typing import Dict, Set
+from typing import Set
 
 
 def load_benchmark_models(cleaned_csv_path: Path) -> Set[str]:
     """Load model names from cleaned_data.csv"""
     models = set()
     if not cleaned_csv_path.exists():
-        return models
+        raise FileNotFoundError(f"Cleaned benchmark data not found: {cleaned_csv_path}")
     
     with open(cleaned_csv_path, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
@@ -34,7 +34,6 @@ def process_review_file(
     review_file: Path,
     benchmark_id: str,
     cleaned_dir: Path,
-    base_dir: Path
 ):
     """Process a single review_file and generate mapping.json"""
     print(f"\nProcessing: {review_file.name}")
@@ -43,24 +42,17 @@ def process_review_file(
     with open(review_file, 'r', encoding='utf-8') as f:
         review_data = json.load(f)
     
-    # For non-artificial_analysis benchmarks, no filtering needed
-    # (artificial_analysis benchmarks are handled separately in main())
-    filter_models = None
-    
     # Extract mappings (only process string type selected_lmarena_model)
     mapping = {}
     lmarena_to_benchmark = {}  # Used to detect duplicate mappings
     duplicate_count = 0
     
     for model_name, entry in review_data.items():
-        # If filtering is needed, only include models in the benchmark's cleaned_data.csv
-        if filter_models is not None and model_name not in filter_models:
-            continue
-        
         selected_model = entry.get('selected_lmarena_model')
-        
+
         # Only record string type selected_lmarena_model (exclude 0 and -1)
-        if isinstance(selected_model, str) and selected_model:
+        if isinstance(selected_model, str) and selected_model.strip():
+            selected_model = selected_model.strip()
             # Check if another model already maps to the same LMArena model
             if selected_model in lmarena_to_benchmark:
                 # Mapping already exists, skip this model (keep only the first one)
@@ -72,7 +64,7 @@ def process_review_file(
             lmarena_to_benchmark[selected_model] = model_name
     
     if duplicate_count > 0:
-        print(f"  Patch: Found {duplicate_count} duplicate LMArena mappings, kept only the first one")
+        print(f"  Found {duplicate_count} duplicate LMArena mappings; kept the first mapping")
     
     # Write mapping.json
     output_dir = cleaned_dir / benchmark_id
@@ -93,6 +85,9 @@ def main():
     raw_dir = base_dir / 'data' / 'raw'
     artificial_analysis_dir = raw_dir / 'artificial_analysis'
     
+    if not review_files_dir.exists():
+        raise FileNotFoundError(f"Review-file directory not found: {review_files_dir}")
+
     # Find all review_files (exclude artificial_analysis.json which is handled separately)
     review_files = [f for f in review_files_dir.glob('*.json') if f.name != 'artificial_analysis.json']
     print(f"Found {len(review_files)} review files")
@@ -127,8 +122,7 @@ def main():
             filter_models = load_benchmark_models(cleaned_csv_path)
             
             if not filter_models:
-                print(f"    Warning: No models found in {cleaned_csv_path}")
-                continue
+                raise ValueError(f"No models found in {cleaned_csv_path}")
             
             print(f"    Filtering by {benchmark_id} cleaned_data.csv: {len(filter_models)} models")
             
@@ -145,7 +139,8 @@ def main():
                 selected_model = entry.get('selected_lmarena_model')
                 
                 # Only record string type selected_lmarena_model (exclude 0 and -1)
-                if isinstance(selected_model, str) and selected_model:
+                if isinstance(selected_model, str) and selected_model.strip():
+                    selected_model = selected_model.strip()
                     # Check if another model already maps to the same LMArena model
                     if selected_model in lmarena_to_benchmark:
                         duplicate_count += 1
@@ -156,7 +151,7 @@ def main():
                     lmarena_to_benchmark[selected_model] = model_name
             
             if duplicate_count > 0:
-                print(f"    Patch: Found {duplicate_count} duplicate LMArena mappings, kept only the first one")
+                print(f"    Found {duplicate_count} duplicate LMArena mappings; kept the first mapping")
             
             # Write mapping.json for this benchmark
             output_dir = cleaned_dir / benchmark_id
@@ -187,7 +182,6 @@ def main():
             review_file,
             benchmark_id,
             cleaned_dir,
-            base_dir
         )
     
     print("\nCompleted!")

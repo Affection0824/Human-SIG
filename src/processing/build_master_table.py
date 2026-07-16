@@ -20,7 +20,7 @@ Merge Strategy:
     - Models that appear in benchmarks but cannot be mapped to Study Universe are excluded
 
 Why Both Score and Rank Columns:
-    - Score columns: Used for Pearson and Spearman correlation analysis
+    - Score columns: Used for rank-correlation analysis and uncertainty propagation
     - Rank columns: Used for RBO (Rank-Biased Overlap) calculation
     - Both are necessary for comprehensive correlation analysis across different metrics
 
@@ -32,7 +32,6 @@ Input:
 
 Output:
     - Master table: Human-SIG/data/processed/master_table/master_correlation_matrix.csv
-    - Overlap statistics: Human-SIG/results/data_overlap_stats.json
 
 Workflow:
     1. Load Study Universe from LMArena-Overall
@@ -42,20 +41,18 @@ Workflow:
        b. Check overlap count (N >= 6 required)
        c. Left join to df_master
        d. Add {benchmark_id}_score and {benchmark_id}_rank columns
-    4. Calculate overlap statistics
-    5. Save master table and overlap stats
+    4. Calculate overlap statistics for validation and logging
+    5. Save the master table
 """
 
 import json
 import pandas as pd
-import numpy as np
 from pathlib import Path
 from typing import Dict, List, Tuple
 import logging
 import re
 
 import sys
-from pathlib import Path
 
 # Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
@@ -77,7 +74,7 @@ def sanitize_column_name(benchmark_id: str) -> str:
         benchmark_id: Original benchmark identifier (e.g., "SWE-bench (Verified)")
         
     Returns:
-        Sanitized column name (e.g., "SWE-bench__Verified_")
+        Sanitized column name (e.g., "SWE-bench_Verified")
     """
     # Replace spaces and special characters with underscores
     # Keep parentheses as underscores for readability
@@ -113,13 +110,14 @@ def load_lmarena_elo_scores(cleaned_data_dir: Path) -> pd.DataFrame:
     }
     
     df_elo = None
+    missing_categories = []
     
     for category_name, elo_column in lmarena_categories.items():
         category_dir = cleaned_data_dir / category_name
         csv_path = category_dir / "cleaned_data.csv"
         
         if not csv_path.exists():
-            logger.warning(f"LMArena category file not found: {csv_path}")
+            missing_categories.append(category_name)
             continue
         
         df_category = pd.read_csv(csv_path)
@@ -136,6 +134,11 @@ def load_lmarena_elo_scores(cleaned_data_dir: Path) -> pd.DataFrame:
             # Left join to preserve all models
             df_elo = df_elo.join(df_category, how='outer')
     
+    if missing_categories:
+        raise FileNotFoundError(
+            "Missing required LMArena category data: "
+            + ", ".join(missing_categories)
+        )
     if df_elo is None:
         raise ValueError("No LMArena category data found")
     
@@ -169,8 +172,6 @@ def get_benchmark_list(metadata_path: Path) -> List[Dict]:
 def build_master_table(
     cleaned_data_dir: Path,
     metadata_path: Path,
-    output_dir: Path,
-    results_dir: Path,
     min_overlap: int = 6
 ) -> Tuple[pd.DataFrame, Dict]:
     """
@@ -179,8 +180,6 @@ def build_master_table(
     Args:
         cleaned_data_dir: Path to cleaned data directory
         metadata_path: Path to metadata.json
-        output_dir: Directory to save master table
-        results_dir: Directory to save overlap statistics
         min_overlap: Minimum overlap count required to include benchmark (default: 6)
         
     Returns:
@@ -297,19 +296,15 @@ def main():
     cleaned_data_dir = base_dir / "data" / "processed" / "cleaned"
     metadata_path = base_dir / "data" / "metadata.json"
     output_dir = base_dir / "data" / "processed" / "master_table"
-    results_dir = base_dir / "results"
-    
-    # Create output directories
+
+    # Create output directory
     output_dir.mkdir(parents=True, exist_ok=True)
-    results_dir.mkdir(parents=True, exist_ok=True)
     
     # Build master table
     logger.info("Starting master table construction...")
     df_master, overlap_stats = build_master_table(
         cleaned_data_dir=cleaned_data_dir,
         metadata_path=metadata_path,
-        output_dir=output_dir,
-        results_dir=results_dir,
         min_overlap=6
     )
     

@@ -21,31 +21,40 @@
     "sample_size": 28
   },
   "H2_spearman_rho": {
+    "primary_test": "kruskal_wallis",
     "test_statistic": 1.3010832583786391,
     "p_raw": 0.7288758619064539,
+    "trend_test": "ordinal_linear_regression",
     "regression_p_value": 0.9777292312956388,
     "regression_slope": -0.0009042956821534281,
     "regression_r2": 3.055433655166171e-05,
     "effect_size": 3.055433655166171e-05,
-    "effect_size_type": "r_squared"
+    "effect_size_type": "r_squared",
+    "sample_size": 28
   },
   "H2_kendall_tau": {
+    "primary_test": "kruskal_wallis",
     "test_statistic": 1.7256657932814523,
     "p_raw": 0.6312428583314813,
+    "trend_test": "ordinal_linear_regression",
     "regression_p_value": 0.7545404941329622,
     "regression_slope": -0.008787744742361615,
     "regression_r2": 0.0038254350063458473,
     "effect_size": 0.0038254350063458473,
-    "effect_size_type": "r_squared"
+    "effect_size_type": "r_squared",
+    "sample_size": 28
   },
   "H2_rbo": {
+    "primary_test": "kruskal_wallis",
     "test_statistic": 1.0680849399710661,
     "p_raw": 0.7847835484787213,
+    "trend_test": "ordinal_linear_regression",
     "regression_p_value": 0.7088586350533016,
     "regression_slope": -0.012997320514442329,
     "regression_r2": 0.005451425568839061,
     "effect_size": 0.005451425568839061,
-    "effect_size_type": "r_squared"
+    "effect_size_type": "r_squared",
+    "sample_size": 28
   },
   "H3_spearman_rho": {
     "correlation": 0.03791923375707463,
@@ -75,7 +84,9 @@
     "sample_size": 28
   },
   "H4_Variance_Beta2_spearman_rho": {
+    "model": "bivariate_huber_robust_regression",
     "coefficient": 0.025482055162824452,
+    "intercept": 0.497136694481098,
     "p_raw": 0.9030000690288952,
     "effect_size": 0.025482055162824452,
     "effect_size_type": "beta_coefficient",
@@ -84,7 +95,9 @@
     "sample_size": 27
   },
   "H5_Difficulty_Beta1_spearman_rho": {
+    "model": "bivariate_huber_robust_regression",
     "coefficient": 0.0016236965546010862,
+    "intercept": 0.497136694481098,
     "p_raw": 0.5156351429105572,
     "effect_size": 0.0016236965546010862,
     "effect_size_type": "beta_coefficient",
@@ -93,7 +106,9 @@
     "sample_size": 27
   },
   "H4_Variance_Beta2_kendall_tau": {
+    "model": "bivariate_huber_robust_regression",
     "coefficient": 0.03260132567474186,
+    "intercept": 0.36961840804586404,
     "p_raw": 0.8617147229516339,
     "effect_size": 0.03260132567474186,
     "effect_size_type": "beta_coefficient",
@@ -102,7 +117,9 @@
     "sample_size": 27
   },
   "H5_Difficulty_Beta1_kendall_tau": {
+    "model": "bivariate_huber_robust_regression",
     "coefficient": 0.001282848782647576,
+    "intercept": 0.36961840804586404,
     "p_raw": 0.5660995895300982,
     "effect_size": 0.001282848782647576,
     "effect_size_type": "beta_coefficient",
@@ -111,7 +128,9 @@
     "sample_size": 27
   },
   "H4_Variance_Beta2_rbo": {
+    "model": "bivariate_huber_robust_regression",
     "coefficient": 0.17541809421614332,
+    "intercept": 0.507791263118975,
     "p_raw": 0.4819725255714089,
     "effect_size": 0.17541809421614332,
     "effect_size_type": "beta_coefficient",
@@ -120,7 +139,9 @@
     "sample_size": 27
   },
   "H5_Difficulty_Beta1_rbo": {
+    "model": "bivariate_huber_robust_regression",
     "coefficient": -0.0006356164566541941,
+    "intercept": 0.507791263118975,
     "p_raw": 0.8311066483046465,
     "effect_size": -0.0006356164566541941,
     "effect_size_type": "beta_coefficient",

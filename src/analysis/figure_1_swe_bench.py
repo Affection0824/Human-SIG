@@ -1,5 +1,5 @@
 """
-Shared utilities for exporting and rendering Figure 0.
+Shared utilities for exporting and rendering Figure 1.
 """
 
 from __future__ import annotations
@@ -9,6 +9,7 @@ import logging
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 from adjustText import adjust_text
@@ -16,6 +17,7 @@ from matplotlib.lines import Line2D
 from scipy.stats import spearmanr
 
 logger = logging.getLogger(__name__)
+FIGURE_SEED = 42
 
 
 def configure_figure_style() -> None:
@@ -33,25 +35,39 @@ def configure_figure_style() -> None:
 
 def default_label_data_path(base_dir: Path) -> Path:
     """Return the default editable label data path."""
-    return base_dir / "data" / "figure_0_swe_bench_labels.csv"
+    return base_dir / "data" / "figure_1_swe_bench_labels.csv"
 
 
 def default_output_path(base_dir: Path) -> Path:
-    """Return the default Figure 0 output path."""
-    return base_dir.parent / "overleaf" / "images" / "Figure_0_SWE_Bench_Illustration.pdf"
+    """Return the default Figure 1 output path."""
+    return base_dir.parent / "overleaf" / "images" / "Figure_1_SWE_Bench_Illustration.pdf"
 
 
-def ensure_figure_0_label_data(base_dir: Path, output_path: Path | None = None) -> Path:
-    """Reuse an existing editable CSV, or create it with default labels if missing."""
+def ensure_figure_1_label_data(base_dir: Path, output_path: Path | None = None) -> Path:
+    """Synchronize ranks with current data while preserving editable labels."""
     output_path = output_path or default_label_data_path(base_dir)
+    current = build_figure_1_rank_dataframe(base_dir)
+
     if output_path.exists():
-        logger.info("Reusing existing Figure 0 label data at %s", output_path)
-        return output_path
-    return export_figure_0_label_data(base_dir, output_path)
+        existing = load_figure_1_label_data(output_path)
+        labels = existing.set_index("model_id")["display_name"]
+        current["display_name"] = current["model_id"].map(labels).fillna(
+            current["model_id"]
+        )
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    current.to_csv(
+        output_path,
+        index=False,
+        encoding="utf-8",
+        lineterminator="\n",
+    )
+    logger.info("Synchronized Figure 1 label data at %s", output_path)
+    return output_path
 
 
-def build_figure_0_rank_dataframe(base_dir: Path) -> pd.DataFrame:
-    """Build the minimal label/rank dataframe used to draw Figure 0."""
+def build_figure_1_rank_dataframe(base_dir: Path) -> pd.DataFrame:
+    """Build the minimal label/rank dataframe used to draw Figure 1."""
     swe_bench_path = base_dir / "data" / "processed" / "cleaned" / "SWE-bench (Verified)"
     lmarena_coding_path = base_dir / "data" / "processed" / "cleaned" / "LMArena-Coding"
 
@@ -77,6 +93,7 @@ def build_figure_0_rank_dataframe(base_dir: Path) -> pd.DataFrame:
 
         rank_pairs.append(
             {
+                "model_id": lmarena_model_name,
                 "display_name": lmarena_model_name,
                 "swe_score": float(swe_row["score"]),
                 "lmarena_score": float(lmarena_row["score"]),
@@ -85,49 +102,66 @@ def build_figure_0_rank_dataframe(base_dir: Path) -> pd.DataFrame:
 
     rank_df = pd.DataFrame(rank_pairs)
     if rank_df.empty:
-        raise ValueError("No overlapping mapped models were found for Figure 0.")
+        raise ValueError("No overlapping mapped models were found for Figure 1.")
 
-    rank_df = rank_df.sort_values("swe_score", ascending=False).reset_index(drop=True)
+    rank_df = rank_df.sort_values(
+        ["swe_score", "model_id"], ascending=[False, True]
+    ).reset_index(drop=True)
     rank_df["swe_rank"] = range(1, len(rank_df) + 1)
 
-    rank_df = rank_df.sort_values("lmarena_score", ascending=False).reset_index(drop=True)
+    rank_df = rank_df.sort_values(
+        ["lmarena_score", "model_id"], ascending=[False, True]
+    ).reset_index(drop=True)
     rank_df["lmarena_rank"] = range(1, len(rank_df) + 1)
 
     rank_df = rank_df.sort_values("lmarena_rank").reset_index(drop=True)
-    return rank_df[["display_name", "swe_rank", "lmarena_rank"]]
+    return rank_df[["model_id", "display_name", "swe_rank", "lmarena_rank"]]
 
 
-def export_figure_0_label_data(base_dir: Path, output_path: Path | None = None) -> Path:
-    """Export the editable label/rank data file for Figure 0."""
+def export_figure_1_label_data(base_dir: Path, output_path: Path | None = None) -> Path:
+    """Export the editable label/rank data file for Figure 1."""
     output_path = output_path or default_label_data_path(base_dir)
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
-    rank_df = build_figure_0_rank_dataframe(base_dir)
-    rank_df.to_csv(output_path, index=False, encoding="utf-8")
-    logger.info("Exported Figure 0 label data to %s", output_path)
+    rank_df = build_figure_1_rank_dataframe(base_dir)
+    rank_df.to_csv(
+        output_path,
+        index=False,
+        encoding="utf-8",
+        lineterminator="\n",
+    )
+    logger.info("Exported Figure 1 label data to %s", output_path)
     return output_path
 
 
-def load_figure_0_label_data(data_path: Path) -> pd.DataFrame:
-    """Load the editable label/rank data file for Figure 0."""
+def load_figure_1_label_data(data_path: Path) -> pd.DataFrame:
+    """Load the editable label/rank data file for Figure 1."""
     rank_df = pd.read_csv(data_path)
 
-    required_columns = {"display_name", "swe_rank", "lmarena_rank"}
+    required_columns = {"model_id", "display_name", "swe_rank", "lmarena_rank"}
     missing = required_columns - set(rank_df.columns)
     if missing:
-        raise ValueError(f"Figure 0 label data is missing required columns: {sorted(missing)}")
+        raise ValueError(f"Figure 1 label data is missing required columns: {sorted(missing)}")
 
+    rank_df["model_id"] = rank_df["model_id"].astype(str).str.strip()
     rank_df["display_name"] = rank_df["display_name"].fillna("").astype(str)
     rank_df["swe_rank"] = pd.to_numeric(rank_df["swe_rank"], errors="raise")
     rank_df["lmarena_rank"] = pd.to_numeric(rank_df["lmarena_rank"], errors="raise")
+    if rank_df["model_id"].duplicated().any():
+        raise ValueError("Figure 1 label data contains duplicate model_id values")
+    expected_ranks = set(range(1, len(rank_df) + 1))
+    if set(rank_df["swe_rank"]) != expected_ranks:
+        raise ValueError("Figure 1 SWE-bench ranks are not a complete 1..N permutation")
+    if set(rank_df["lmarena_rank"]) != expected_ranks:
+        raise ValueError("Figure 1 LMArena ranks are not a complete 1..N permutation")
     return rank_df
 
 
-def render_figure_0_from_file(data_path: Path, output_path: Path) -> Path:
-    """Render Figure 0 from the editable label/rank data file."""
+def render_figure_1_from_file(data_path: Path, output_path: Path) -> Path:
+    """Render Figure 1 from the editable label/rank data file."""
     configure_figure_style()
-    rank_df = load_figure_0_label_data(data_path)
-    logger.info("Rendering Figure 0 from %s with %d labeled points", data_path, len(rank_df))
+    rank_df = load_figure_1_label_data(data_path)
+    logger.info("Rendering Figure 1 from %s with %d labeled points", data_path, len(rank_df))
 
     fig, ax = plt.subplots(figsize=(12, 7))
 
@@ -162,6 +196,7 @@ def render_figure_0_from_file(data_path: Path, output_path: Path) -> Path:
             )
         )
 
+    np.random.seed(FIGURE_SEED)
     adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="->", color="gray", lw=0.5))
 
     spearman_rho, _ = spearmanr(rank_df["swe_rank"], rank_df["lmarena_rank"])
@@ -209,5 +244,5 @@ def render_figure_0_from_file(data_path: Path, output_path: Path) -> Path:
     plt.tight_layout()
     plt.savefig(output_path, format="pdf", bbox_inches="tight")
     plt.close()
-    logger.info("Saved Figure 0 to %s", output_path)
+    logger.info("Saved Figure 1 to %s", output_path)
     return output_path

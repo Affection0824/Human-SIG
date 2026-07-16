@@ -47,10 +47,7 @@ def format_conclusion(result: Dict) -> str:
     """
     p_raw = result.get('p_raw', np.nan)
     p_corrected = result.get('p_corrected', np.nan)
-    significant = result.get(
-        'significant_strict',
-        result.get('is_significant', False),
-    )
+    significant = result.get('is_significant', False)
     effect_size = result.get('effect_size', np.nan)
     effect_type = result.get('effect_size_type', 'unknown')
     
@@ -65,8 +62,12 @@ def format_conclusion(result: Dict) -> str:
     if pd.notna(effect_size):
         if effect_type == 'beta_coefficient':
             conclusion += f"Effect size (β) = {effect_size:.3f}."
-        elif effect_type in ['spearman_rho', 'pearson_r']:
-            conclusion += f"Correlation (r) = {effect_size:.3f}."
+        elif effect_type == 'spearman_rho':
+            conclusion += f"Spearman correlation (ρ) = {effect_size:.3f}."
+        elif effect_type == 'pearson_r':
+            conclusion += f"Pearson correlation (r) = {effect_size:.3f}."
+        elif effect_type == 'r_squared':
+            conclusion += f"Ordinal-regression effect size (R²) = {effect_size:.3f}."
         elif effect_type == 'median_difference':
             conclusion += f"Median difference = {effect_size:.3f}."
         else:
@@ -91,9 +92,16 @@ def apply_correction(hypothesis_results: Dict) -> Dict:
     
     for key, result in hypothesis_results.items():
         p_raw = result.get('p_raw', np.nan)
-        if pd.notna(p_raw):
-            p_values_dict[key] = p_raw
+        if not np.isfinite(p_raw):
+            raise ValueError(f"Hypothesis result {key} has no finite p_raw")
+        p_values_dict[key] = p_raw
         full_results[key] = result
+
+    if len(p_values_dict) != 15:
+        raise ValueError(
+            "Holm-Bonferroni correction requires the 15 prespecified tests; "
+            f"found {len(p_values_dict)}"
+        )
     
     # Apply Holm-Bonferroni correction
     logger.info(f"Applying Holm-Bonferroni correction to {len(p_values_dict)} tests...")
@@ -103,22 +111,12 @@ def apply_correction(hypothesis_results: Dict) -> Dict:
     output_results = {}
     
     for key, result in full_results.items():
-        if key in corrected_results:
-            # Merge correction results
-            output_results[key] = {
-                **result,
-                'p_raw': corrected_results[key]['p_raw'],
-                'p_corrected': corrected_results[key]['p_corrected'],
-                'significant_strict': corrected_results[key]['is_significant']
-            }
-        else:
-            # No valid p-value
-            output_results[key] = {
-                **result,
-                'p_raw': result.get('p_raw', np.nan),
-                'p_corrected': np.nan,
-                'significant_strict': False
-            }
+        output_results[key] = {
+            **result,
+            'p_raw': corrected_results[key]['p_raw'],
+            'p_corrected': corrected_results[key]['p_corrected'],
+            'is_significant': corrected_results[key]['is_significant']
+        }
         
         # Add conclusion
         output_results[key]['conclusion'] = format_conclusion(output_results[key])
@@ -139,23 +137,24 @@ def main():
     # Apply correction
     corrected_results = apply_correction(hypothesis_results)
     
-    # Format output according to schema
-    output = {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "description": "Statistical significance report for all hypotheses after Holm-Bonferroni correction",
-        **corrected_results
-    }
-    
     # Save results
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(output, f, indent=2, ensure_ascii=False, default=str)
+    with open(output_path, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(
+            corrected_results,
+            f,
+            indent=2,
+            ensure_ascii=False,
+            allow_nan=False,
+        )
     
     logger.info(f"Saved corrected results to {output_path}")
     
     # Print summary
     logger.info("\n=== Correction Summary ===")
-    significant_count = sum(1 for r in corrected_results.values() if r.get('significant_strict', False))
+    significant_count = sum(
+        1 for result in corrected_results.values()
+        if result.get('is_significant', False)
+    )
     total_count = len(corrected_results)
     logger.info(f"Total tests: {total_count}")
     logger.info(f"Significant after correction: {significant_count}")

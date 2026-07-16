@@ -3,13 +3,14 @@ Small-N Hypothesis Testing Script
 
 Purpose:
     This script executes targeted statistical tests for each hypothesis (H1-H5) using
-    methods appropriate for small sample sizes (N=28 benchmarks). Instead of a single
+    methods appropriate for the small benchmark sample (N=28 overall; N=27 for
+    H4/H5 after excluding Creative Writing v3). Instead of a single
     multivariate regression which lacks statistical power, this script performs:
-    - Bootstrapped Univariate Analysis for individual factors
+    - Hypothesis-specific univariate analyses for H1-H3
     - Controlled Bivariate Robust Regression to disentangle confounding factors
 
 Why Small-N Protocols:
-    - N=28 is too small for a full multivariable regression
+    - N=28 overall (N=27 for H4/H5) is too small for a full multivariable regression
     - Multivariate regression would have insufficient statistical power
     - Targeted tests allow rigorous testing of individual hypotheses while maintaining power
 
@@ -21,7 +22,6 @@ Statistical Methods:
 
 Input:
     - analysis_ready_data.csv: Contains features and correlation coefficients for all benchmarks
-    - metadata.json: Contains benchmark metadata
 
 Output:
     - Statistical test results for all hypotheses (H1-H5)
@@ -66,6 +66,25 @@ def load_analysis_data(data_path: Path) -> pd.DataFrame:
         DataFrame with benchmark features and correlations
     """
     df = pd.read_csv(data_path)
+    required = {
+        'benchmark_id', 'question_count', 'complexity', 'release_date',
+        'difficulty', 'cv', 'spearman_rho', 'kendall_tau', 'rbo',
+    }
+    missing = required - set(df.columns)
+    if missing:
+        raise ValueError(
+            f"analysis_ready_data.csv is missing columns: {sorted(missing)}"
+        )
+    if len(df) != 28 or df['benchmark_id'].nunique() != 28:
+        raise ValueError(
+            "Hypothesis testing requires exactly 28 unique benchmarks; "
+            f"found {len(df)} rows and {df['benchmark_id'].nunique()} IDs"
+        )
+    metrics = ['spearman_rho', 'kendall_tau', 'rbo']
+    if df[metrics].isna().any().any():
+        raise ValueError("All 28 benchmarks require finite Spearman, Kendall, and RBO values")
+    if df['question_count'].isna().any() or (df['question_count'] <= 0).any():
+        raise ValueError("All benchmarks require a positive question_count")
     logger.info(f"Loaded {len(df)} benchmarks from analysis_ready_data.csv")
     return df
 
@@ -92,22 +111,10 @@ def test_h1_scale(df: pd.DataFrame) -> Dict:
     
     # Test for each correlation metric
     for metric in ['spearman_rho', 'kendall_tau', 'rbo']:
-        if metric not in df_test.columns:
-            continue
-        
         # Get paired data
         df_paired = df_test[['log_question_count', metric]].dropna()
-        
-        if len(df_paired) < 3:
-            logger.warning(f"  Insufficient data for {metric}")
-            results[f'H1_{metric}'] = {
-                'correlation': np.nan,
-                'p_raw': np.nan,
-                'effect_size': np.nan,
-                'effect_size_type': 'pearson_r',
-                'sample_size': len(df_paired)
-            }
-            continue
+        if len(df_paired) != 28:
+            raise ValueError(f"H1 requires 28 complete observations for {metric}")
         
         x = df_paired['log_question_count'].values
         y = df_paired[metric].values
@@ -131,47 +138,24 @@ def test_h1_scale(df: pd.DataFrame) -> Dict:
 
 def test_h2_complexity(df: pd.DataFrame) -> Dict:
     """
-    Test H2: High-complexity tasks (Evaluating, Creating) show lower correlation
-    than low-complexity tasks (Applying, Analyzing).
-    
-    Uses Kruskal-Wallis H-test for overall difference and 
-    ordinal linear regression for the trend.
+    Test H2: Higher task complexity is associated with stronger correlation.
+
+    The Kruskal-Wallis H-test is the primary inferential test: its p-value is
+    stored as ``p_raw`` and enters the Holm-Bonferroni correction in Step 8.
+    Ordinal linear regression is a complementary trend analysis whose R-squared
+    is reported as H2's effect size.
     """
     logger.info("Testing H2: Complexity Categories")
     
-    base_dir = Path(__file__).parent.parent.parent
-    metadata_path = base_dir / "data" / "metadata.json"
-    
-    # 1. Load data
-    # Use the passed dataframe directly
-    df_corr = df.copy()
-    
-    # 2. Load metadata
-    complexity_map = {}
-    if metadata_path.exists():
-        try:
-            with open(metadata_path, 'r', encoding='utf-8') as f:
-                metadata = json.load(f)
-            for entry in metadata:
-                if 'benchmark_id' in entry and 'complexity' in entry:
-                    complexity_map[entry['benchmark_id']] = entry['complexity']
-    
-        except Exception as e:
-            logger.error(f"Error loading metadata: {e}")
-    else:
-        logger.warning(f"Metadata file not found at {metadata_path}")
-        
-    # 3. Map complexity
-    df_test = df_corr.copy()
-    df_test['complexity'] = df_test['benchmark_id'].map(complexity_map)
-    
-    # Filter out benchmarks without complexity
-    df_test = df_test.dropna(subset=['complexity'])
+    df_test = df.copy()
     logger.info(f"  Analyzed {len(df_test)} benchmarks with complexity data")
 
     complexity_order = ['Applying', 'Analyzing', 'Evaluating', 'Creating']
     complexity_val = {c: i+1 for i, c in enumerate(complexity_order)}
     df_test['complexity_val'] = df_test['complexity'].map(complexity_val)
+    if df_test['complexity_val'].isna().any():
+        invalid = sorted(set(df_test.loc[df_test['complexity_val'].isna(), 'complexity']))
+        raise ValueError(f"H2 found missing or unsupported complexity levels: {invalid}")
     
     results = {}
     
@@ -182,81 +166,35 @@ def test_h2_complexity(df: pd.DataFrame) -> Dict:
         'RBO': 'rbo'
     }
     
-    # Set style (matched to analyze_complexity.py)
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    sns.set_theme(style="whitegrid")
-    plt.rcParams['font.family'] = 'DejaVu Sans'
-
     # Test for each correlation metric
     for metric_name, metric_col in metrics.items():
-        if metric_col not in df_test.columns:
-             logger.warning(f"  Metric {metric_col} not found in data")
-             continue
-        
-        # 1. Kruskal-Wallis Test
-        groups = [df_test[df_test['complexity'] == c][metric_col].values for c in complexity_order]
-        clean_groups = [g for g in groups if len(g) > 0]
-        
-        if len(clean_groups) < 2:
-            logger.warning(f"  Insufficient groups for {metric_name}")
-            continue
-            
-        kw_stat, kw_p = stats.kruskal(*clean_groups)
-        
-        # 2. Linear Regression (Ordinal)
+        # 1. Primary inference: Kruskal-Wallis test across complexity groups.
+        groups = [
+            df_test.loc[df_test['complexity'] == c, metric_col].dropna().values
+            for c in complexity_order
+        ]
+        if any(len(group) == 0 for group in groups):
+            raise ValueError(f"H2 requires all four complexity groups for {metric_name}")
+        kw_stat, kw_p = stats.kruskal(*groups)
+
+        # 2. Complementary trend analysis: ordinal linear regression.
         df_metric = df_test.dropna(subset=['complexity_val', metric_col])
         slope, intercept, r_value, p_value, std_err = stats.linregress(df_metric['complexity_val'], df_metric[metric_col])
         
         results[f'H2_{metric_col}'] = {
+            'primary_test': 'kruskal_wallis',
             'test_statistic': kw_stat,
             'p_raw': kw_p,
+            'trend_test': 'ordinal_linear_regression',
             'regression_p_value': p_value,
             'regression_slope': slope,
             'regression_r2': r_value**2,
             'effect_size': r_value**2,
-            'effect_size_type': 'r_squared'
+            'effect_size_type': 'r_squared',
+            'sample_size': len(df_metric)
         }
         
-        # 3. Plot
-        plt.figure(figsize=(10, 6))
-        
-        # Boxplot
-        sns.boxplot(
-            x='complexity',
-            y=metric_col,
-            hue='complexity',
-            data=df_test,
-            order=complexity_order,
-            hue_order=complexity_order,
-            palette="Set2",
-            showfliers=False,
-            dodge=False,
-            legend=False,
-        )
-        
-        # Stripplot
-        sns.stripplot(x='complexity', y=metric_col, data=df_test, order=complexity_order, color=".25", alpha=0.6)
-        
-        # Add regression line
-        # Create x-values for regression line (0 to 3 for plotting, but regression used 1 to 4)
-        x_vals = np.array([0, 3])
-        y_vals = intercept + slope * (x_vals + 1) # +1 because complexity_val is 1-based
-        
-        plt.plot(x_vals, y_vals, color='red', linestyle='--', linewidth=2, label=f'Regression (p={p_value:.3f})')
-        
-        plt.title(f'{metric_name} Correlation by Complexity Level', fontsize=14)
-        plt.xlabel('Complexity Level', fontsize=12)
-        plt.ylabel(f'{metric_name} Correlation', fontsize=12)
-        plt.legend()
-        
-        # Save plot - DISABLED to avoid redundancy
-        # plot_path = output_dir / f'complexity_{metric_name.lower()}.png'
-        # plt.savefig(plot_path, dpi=300, bbox_inches='tight')
-        plt.close()
-        
         logger.info(f"  {metric_name}: KW p={kw_p:.4f}, Reg p={p_value:.4f}, Slope={slope:.4f}")
-        # logger.info(f"  Saved plot to {plot_path}")
     
     return results
 
@@ -277,13 +215,13 @@ def test_h3_recency(df: pd.DataFrame) -> Dict:
     
     # Convert release_date to ordinal (days since reference date)
     df_test = df.copy()
-    reference_date = datetime(2020, 1, 1)
+    reference_date = datetime(2021, 1, 1)
     
     def date_to_ordinal(date_str):
         try:
             date_obj = datetime.strptime(date_str, '%Y-%m-%d')
             return (date_obj - reference_date).days
-        except:
+        except (TypeError, ValueError):
             return np.nan
     
     df_test['release_date_ordinal'] = df_test['release_date'].apply(date_to_ordinal)
@@ -292,22 +230,10 @@ def test_h3_recency(df: pd.DataFrame) -> Dict:
     
     # Test for each correlation metric
     for metric in ['spearman_rho', 'kendall_tau', 'rbo']:
-        if metric not in df_test.columns:
-            continue
-        
         # Get paired data
         df_paired = df_test[['release_date_ordinal', metric]].dropna()
-        
-        if len(df_paired) < 3:
-            logger.warning(f"  Insufficient data for {metric}")
-            results[f'H3_{metric}'] = {
-                'correlation': np.nan,
-                'p_raw': np.nan,
-                'effect_size': np.nan,
-                'effect_size_type': 'spearman_rho',
-                'sample_size': len(df_paired)
-            }
-            continue
+        if len(df_paired) != 28:
+            raise ValueError(f"H3 requires 28 valid release dates for {metric}")
         
         x = df_paired['release_date_ordinal'].values
         y = df_paired[metric].values
@@ -346,7 +272,7 @@ def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
     """
     Test H4 (Variance) and H5 (Difficulty) using bivariate robust regression.
     
-    Model: correlation_metric ~ β₁ * Difficulty + β₂ * CV + ε
+    Model: correlation_metric = β₀ + β₁ * Difficulty + β₂ * CV + ε
     
     H4 is supported if β₂ (CV coefficient) is significant and positive.
     H5 is supported if β₁ (Difficulty coefficient) is significant and negative.
@@ -359,7 +285,7 @@ def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
     """
     logger.info("Testing H4/H5: Difficulty-Variance joint effect")
     
-    # Exclude Creative Writing v3 from Difficulty calculation
+    # Exclude Creative Writing v3 because no defensible Difficulty value exists.
     df_test = df[df['benchmark_id'] != 'Creative Writing v3'].copy()
     
     # Filter to benchmarks with valid Difficulty and CV
@@ -369,6 +295,11 @@ def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
     ].copy()
     
     logger.info(f"  Using {len(df_test)} benchmarks (excluding Creative Writing v3)")
+    if len(df_test) != 27:
+        raise ValueError(
+            "H4/H5 require exactly 27 benchmarks with defined Difficulty and CV; "
+            f"found {len(df_test)}"
+        )
     
     results = {}
     
@@ -379,9 +310,6 @@ def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
     
     # Test for each correlation metric
     for metric in ['spearman_rho', 'kendall_tau', 'rbo']:
-        if metric not in df_test.columns:
-            continue
-        
         y = df_test[metric].dropna().values
         
         # Filter X to match y (remove rows where y is NaN)
@@ -389,21 +317,8 @@ def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
         X_filtered = X[mask]
         y_filtered = y
         
-        if len(y_filtered) < 3:
-            logger.warning(f"  Insufficient data for {metric}")
-            results[f'H4_Variance_Beta2_{metric}'] = {
-                'coefficient': np.nan,
-                'p_raw': np.nan,
-                'effect_size': np.nan,
-                'effect_size_type': 'beta_coefficient'
-            }
-            results[f'H5_Difficulty_Beta1_{metric}'] = {
-                'coefficient': np.nan,
-                'p_raw': np.nan,
-                'effect_size': np.nan,
-                'effect_size_type': 'beta_coefficient'
-            }
-            continue
+        if len(y_filtered) != 27:
+            raise ValueError(f"H4/H5 require 27 complete observations for {metric}")
         
         # Robust regression
         try:
@@ -413,6 +328,7 @@ def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
             # coefficients[0] = intercept, coefficients[1] = Difficulty (β₁), coefficients[2] = CV (β₂)
             beta1 = coefficients[1] if len(coefficients) > 1 else np.nan
             beta2 = coefficients[2] if len(coefficients) > 2 else np.nan
+            intercept = coefficients[0] if len(coefficients) > 0 else np.nan
             
             pvalues = reg_results.get('pvalues', [np.nan] * len(coefficients))
             p_beta1 = pvalues[1] if len(pvalues) > 1 else np.nan
@@ -453,18 +369,16 @@ def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
             beta1_ci_upper, beta2_ci_upper = ci_upper
             logger.info(f"    Completed bootstrap CI for {metric}")
             
-        except Exception as e:
-            logger.error(f"  Error in robust regression for {metric}: {e}")
-            beta1 = np.nan
-            beta2 = np.nan
-            p_beta1 = np.nan
-            p_beta2 = np.nan
-            beta1_ci_lower = beta1_ci_upper = np.nan
-            beta2_ci_lower = beta2_ci_upper = np.nan
+        except Exception as exc:
+            raise RuntimeError(
+                f"H4/H5 robust regression failed for {metric}"
+            ) from exc
         
         # H4: Variance coefficient (β₂)
         results[f'H4_Variance_Beta2_{metric}'] = {
+            'model': 'bivariate_huber_robust_regression',
             'coefficient': beta2,
+            'intercept': intercept,
             'p_raw': p_beta2,
             'effect_size': beta2,
             'effect_size_type': 'beta_coefficient',
@@ -475,7 +389,9 @@ def test_h4_h5_difficulty_variance(df: pd.DataFrame) -> Dict:
 
         # H5: Difficulty coefficient (β₁)
         results[f'H5_Difficulty_Beta1_{metric}'] = {
+            'model': 'bivariate_huber_robust_regression',
             'coefficient': beta1,
+            'intercept': intercept,
             'p_raw': p_beta1,
             'effect_size': beta1,
             'effect_size_type': 'beta_coefficient',
@@ -524,6 +440,23 @@ def main():
     logger.info("\n" + "="*60)
     h4_h5_results = test_h4_h5_difficulty_variance(df)
     all_results.update(h4_h5_results)
+
+    expected_results = {
+        *(f'H1_{metric}' for metric in ['spearman_rho', 'kendall_tau', 'rbo']),
+        *(f'H2_{metric}' for metric in ['spearman_rho', 'kendall_tau', 'rbo']),
+        *(f'H3_{metric}' for metric in ['spearman_rho', 'kendall_tau', 'rbo']),
+        *(f'H4_Variance_Beta2_{metric}' for metric in ['spearman_rho', 'kendall_tau', 'rbo']),
+        *(f'H5_Difficulty_Beta1_{metric}' for metric in ['spearman_rho', 'kendall_tau', 'rbo']),
+    }
+    if set(all_results) != expected_results:
+        raise RuntimeError(
+            "Step 7 did not produce the required 15 tests; "
+            f"missing={sorted(expected_results - set(all_results))}, "
+            f"extra={sorted(set(all_results) - expected_results)}"
+        )
+    for key, result in all_results.items():
+        if not np.isfinite(result['p_raw']) or not np.isfinite(result['effect_size']):
+            raise RuntimeError(f"Step 7 produced a non-finite result for {key}")
     
     # Print summary
     logger.info("\n" + "="*60)
@@ -539,8 +472,15 @@ def main():
     
     # Save results for Step 8 Holm-Bonferroni correction
     output_path = base_dir / "results" / "hypothesis_test_results.json"
-    with open(output_path, 'w', encoding='utf-8') as f:
-        json.dump(all_results, f, indent=2, ensure_ascii=False, default=str)
+    with open(output_path, 'w', encoding='utf-8', newline='\n') as f:
+        json.dump(
+            all_results,
+            f,
+            indent=2,
+            ensure_ascii=False,
+            allow_nan=False,
+            default=float,
+        )
     
     logger.info(f"\nSaved hypothesis test results to {output_path}")
 
