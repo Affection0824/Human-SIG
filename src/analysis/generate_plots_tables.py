@@ -91,13 +91,26 @@ def load_significance_report(report_path: Path) -> dict:
         return json.load(f)
 
 
-def figure_1_swe_bench_illustration(output_dir: Path):
-    """Generate Figure 1: SWE-bench Illustration."""
+def figure_1_swe_bench_illustration(df: pd.DataFrame, output_dir: Path):
+    """Generate Figure 1 using the stored main-analysis Spearman result."""
     logger.info("Generating Figure 1: SWE-bench (Verified) Illustration")
     base_dir = Path(__file__).parent.parent.parent
     label_data_path = ensure_figure_1_label_data(base_dir)
     output_path = output_dir / "Figure_1_SWE_Bench_Illustration.pdf"
-    render_figure_1_from_file(label_data_path, output_path)
+    rows = df.loc[
+        df["benchmark_id"] == "SWE-bench (Verified)",
+        "spearman_rho",
+    ]
+    if len(rows) != 1 or pd.isna(rows.iloc[0]):
+        raise ValueError(
+            "Figure 1 requires exactly one stored Spearman result for "
+            "SWE-bench (Verified)"
+        )
+    render_figure_1_from_file(
+        label_data_path,
+        output_path,
+        spearman_rho=float(rows.iloc[0]),
+    )
 
 
 def figure_2_scale(df: pd.DataFrame, output_dir: Path):
@@ -935,7 +948,7 @@ def main():
     
     # Figure selectors follow the order in which figures appear in the paper.
     if args.figures is None or 1 in args.figures:
-        figure_1_swe_bench_illustration(images_output_dir)
+        figure_1_swe_bench_illustration(df, images_output_dir)
     if args.figures is None or 2 in args.figures:
         figure_2_scale(df, images_output_dir)
     if args.figures is None or 3 in args.figures:

@@ -14,7 +14,6 @@ import pandas as pd
 import seaborn as sns
 from adjustText import adjust_text
 from matplotlib.lines import Line2D
-from scipy.stats import spearmanr
 
 logger = logging.getLogger(__name__)
 FIGURE_SEED = 42
@@ -104,17 +103,18 @@ def build_figure_1_rank_dataframe(base_dir: Path) -> pd.DataFrame:
     if rank_df.empty:
         raise ValueError("No overlapping mapped models were found for Figure 1.")
 
+    # Figure coordinates follow the same midrank convention documented for
+    # Spearman correlation. Model identifiers are used only to make label
+    # ordering deterministic; renaming a displayed model cannot change ranks.
+    rank_df["swe_rank"] = rank_df["swe_score"].rank(
+        method="average", ascending=False
+    )
+    rank_df["lmarena_rank"] = rank_df["lmarena_score"].rank(
+        method="average", ascending=False
+    )
     rank_df = rank_df.sort_values(
-        ["swe_score", "model_id"], ascending=[False, True]
+        ["lmarena_rank", "model_id"], ascending=[True, True]
     ).reset_index(drop=True)
-    rank_df["swe_rank"] = range(1, len(rank_df) + 1)
-
-    rank_df = rank_df.sort_values(
-        ["lmarena_score", "model_id"], ascending=[False, True]
-    ).reset_index(drop=True)
-    rank_df["lmarena_rank"] = range(1, len(rank_df) + 1)
-
-    rank_df = rank_df.sort_values("lmarena_rank").reset_index(drop=True)
     return rank_df[["model_id", "display_name", "swe_rank", "lmarena_rank"]]
 
 
@@ -149,23 +149,41 @@ def load_figure_1_label_data(data_path: Path) -> pd.DataFrame:
     rank_df["lmarena_rank"] = pd.to_numeric(rank_df["lmarena_rank"], errors="raise")
     if rank_df["model_id"].duplicated().any():
         raise ValueError("Figure 1 label data contains duplicate model_id values")
-    expected_ranks = set(range(1, len(rank_df) + 1))
-    if set(rank_df["swe_rank"]) != expected_ranks:
-        raise ValueError("Figure 1 SWE-bench ranks are not a complete 1..N permutation")
-    if set(rank_df["lmarena_rank"]) != expected_ranks:
-        raise ValueError("Figure 1 LMArena ranks are not a complete 1..N permutation")
+    n = len(rank_df)
+    expected_rank_sum = n * (n + 1) / 2
+    for column, label in (
+        ("swe_rank", "SWE-bench"),
+        ("lmarena_rank", "LMArena"),
+    ):
+        values = rank_df[column].to_numpy(dtype=float)
+        if not np.isfinite(values).all():
+            raise ValueError(f"Figure 1 {label} ranks contain non-finite values")
+        if ((values < 1) | (values > n)).any():
+            raise ValueError(f"Figure 1 {label} ranks must lie within 1..N")
+        if not np.isclose(values.sum(), expected_rank_sum):
+            raise ValueError(
+                f"Figure 1 {label} ranks do not form a complete midrank assignment"
+            )
     return rank_df
 
 
-def render_figure_1_from_file(data_path: Path, output_path: Path) -> Path:
-    """Render Figure 1 from the editable label/rank data file."""
+def render_figure_1_from_file(
+    data_path: Path,
+    output_path: Path,
+    spearman_rho: float,
+) -> Path:
+    """Render Figure 1 using editable labels and a stored analysis result."""
     configure_figure_style()
     rank_df = load_figure_1_label_data(data_path)
+    if not np.isfinite(spearman_rho):
+        raise ValueError("Figure 1 requires a finite stored Spearman coefficient")
     logger.info("Rendering Figure 1 from %s with %d labeled points", data_path, len(rank_df))
 
     fig, ax = plt.subplots(figsize=(12, 7))
 
-    max_rank = int(max(rank_df["swe_rank"].max(), rank_df["lmarena_rank"].max()))
+    max_rank = int(
+        np.ceil(max(rank_df["swe_rank"].max(), rank_df["lmarena_rank"].max()))
+    )
     ax.plot([1, max_rank], [1, max_rank], "r--", linewidth=2, zorder=1)
 
     ax.scatter(
@@ -199,7 +217,6 @@ def render_figure_1_from_file(data_path: Path, output_path: Path) -> Path:
     np.random.seed(FIGURE_SEED)
     adjust_text(texts, ax=ax, arrowprops=dict(arrowstyle="->", color="gray", lw=0.5))
 
-    spearman_rho, _ = spearmanr(rank_df["swe_rank"], rank_df["lmarena_rank"])
     ax.text(
         0.02,
         0.98,

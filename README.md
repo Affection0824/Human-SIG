@@ -277,7 +277,7 @@ Figure and table selectors follow their order of appearance in the paper. Step 1
 
 ## Figure 1 labels
 
-Figure 1 uses `data/figure_1_swe_bench_labels.csv` to preserve editable labels. Each row has a stable `model_id`; Step 10 recomputes both projected ranks from the current mappings and scores, then carries the matching `display_name` forward. Edit only `display_name` unless the underlying model mapping itself changes.
+Figure 1 uses `data/figure_1_swe_bench_labels.csv` to preserve editable labels. Each row has a stable `model_id`; Step 10 recomputes both projected midranks from the current mappings and scores, then carries the matching `display_name` forward. The figure does not recalculate Spearman correlation: it displays the authoritative `spearman_rho` already produced by Step 5 in `results/analysis_ready_data.csv`. Edit only `display_name` unless the underlying model mapping itself changes; display-name changes cannot affect ranks or the displayed coefficient.
 
 To intentionally recreate the CSV from current scores and mappings, run the exporter below. This resets `display_name` to `model_id`, so normally Step 10's automatic rank synchronization is preferable.
 
