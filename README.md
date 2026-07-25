@@ -194,7 +194,7 @@ Step 2 is a deterministic heuristic matcher, not a trusted final review. It:
 - proposes LMArena candidates; and
 - writes review entries with `untrusted: 1`.
 
-LMArena benchmarks are skipped because they already use LMArena model identities. The ten Artificial Analysis benchmarks share `data/processed/review_files/artificial_analysis.json`.
+LMArena benchmarks are skipped because they already use LMArena model identities. The ten Artificial Analysis datasets in the repository snapshot, including the preserved AIME dataset, share `data/processed/review_files/artificial_analysis.json`.
 
 For each review entry:
 
@@ -208,7 +208,7 @@ For each review entry:
 uv run src/processing/step3_generate_mapping.py
 ```
 
-Step 3 includes non-empty string-valued `selected_lmarena_model` entries; numeric sentinel values such as `0` and `-1` are ignored. If multiple benchmark names select the same LMArena model, the first entry is retained. Artificial Analysis uses its unified review file and creates a filtered mapping for each of its ten benchmarks.
+Step 3 includes non-empty string-valued `selected_lmarena_model` entries; numeric sentinel values such as `0` and `-1` are ignored. If multiple benchmark names select the same LMArena model, the first entry is retained. Artificial Analysis uses its unified review file and creates a filtered mapping for each of the ten datasets in the repository snapshot, including the preserved AIME dataset.
 
 ## Update raw benchmark data
 
@@ -230,19 +230,36 @@ The unified CLI accepts the following methods:
 | `frontiermath` | Put table HTML in each tier directory under `data/raw/frontiermath/` | `uv run --group scraping src/main.py scrape --method frontiermath` |
 | `artificial_analysis` | Follow the separate workflow below | `uv run --group scraping src/main.py scrape --method artificial_analysis` |
 
+### Benchmark-to-method mapping
+
+The directory names below are the benchmark identifiers expected by the processing code. Use the corresponding acquisition method and keep each resulting file at `data/raw/{method}/{benchmark}/data.csv`.
+
+| Acquisition method | Benchmark directories |
+|---|---|
+| `manual_direct` | `FACTS`, `WritingBench` |
+| `pandas_read_html` | `Aider Polyglot`, `Terminal-Bench v2.0` |
+| `selenium` | `ARC-AGI-2`, `Creative Writing v3`, `GPQA`, `HMMT (Feb 2025)`, `HumanEval`, `IFEval`, `SuperGPQA`, `SWE-bench (Verified)`, `SWE-bench Bash Only` |
+| `vals_ai` | `IOI`, `MATH-500`, `MGSM` |
+| `frontiermath` | `FrontierMath Tier 1-3`, `FrontierMath Tier 4` |
+| `artificial_analysis` | `AA-LCR`, `GPQA Diamond`, `Humanity's Last Exam`, `IFBench`, `LiveCodeBench`, `MMLU-Pro`, `SciCode`, `tau2-Bench Telecom`, `Terminal-Bench Hard`; `AIME` is a preserved repository snapshot rather than a currently refreshable column |
+
+LMArena supplies the human-preference reference rankings rather than benchmark scores. The `lmarena` method processes `LMArena-Overall`, `LMArena-Math`, `LMArena-Coding`, `LMArena-Instruction Following`, `LMArena-Creative Writing`, `LMArena-Hard Prompts`, and `LMArena-Expert`.
+
 Run every registered scripted method with:
 
 ```bash
 uv run --group scraping src/main.py scrape --method all
 ```
 
-`manual_direct` is not a scripted method. After acquisition, verify that every expected benchmark directory contains a non-empty `data.csv`; the current CLI prints scraper errors but does not aggregate them into a failing process exit code.
+`manual_direct` is not a scripted method. The `all` command also cannot reconstruct AIME from a newly copied Artificial Analysis unified table; preserve the repository's AIME snapshot as described below. After acquisition, verify that every expected benchmark directory contains a non-empty `data.csv`; the current CLI prints scraper errors but does not aggregate them into a failing process exit code.
 
 These commands update raw files only. To propagate changed data into the analysis, return to the rebuild workflow at Step 1, complete both manual reviews, run Step 3, and then resume the main workflow at Step 4.
 
 ### Artificial Analysis workflow
 
 Artificial Analysis requires one manual disambiguation step because the public table can repeat a display name for Thinking, Non-Thinking, and Preview variants.
+
+The current Artificial Analysis unified models table used by this workflow no longer exposes AIME as a benchmark column. Therefore, a new scrape cannot recreate `data/raw/artificial_analysis/AIME/data.csv`. That file is the frozen AIME snapshot used by this repository: keep it unchanged when refreshing the other nine Artificial Analysis benchmarks. Before following the steps below, save a copy of the tracked AIME file; after Step 4, restore that copy if the scraper replaced it. An AIME file containing only model-identification columns and no AIME score is not valid.
 
 1. Copy the complete table HTML to `data/raw/artificial_analysis/input.txt`.
 2. Generate the combined editable CSV:
