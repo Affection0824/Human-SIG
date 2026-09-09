@@ -1,20 +1,22 @@
 # Human-SIG
 
-Human-SIG converts public benchmark leaderboards into a common model identity space, compares benchmark rankings with LMArena preferences, and generates the figures and tables used by the manuscript.
+Human-SIG converts public benchmark leaderboards into a common model identity space, compares benchmark rankings with Arena preferences, and generates the figures and tables used by the manuscript.
+
+Note: LMArena is the former name of Arena. In this README, descriptive references use Arena, while repository identifiers that still use the legacy name LMArena are kept unchanged.
 
 ## What each processing and analysis step does
 
 | Step | Script | Main input | Main output |
 |---|---|---|---|
 | 1 | `src/processing/step1_generate_cleaned_data.py` | `data/raw/**/data.csv` | `data/processed/cleaned/*/cleaned_data.csv` |
-| 2 | `src/processing/step2_generate_review_files.py` | cleaned data and LMArena Overall | `data/processed/review_files/*.json` and `data/processed/model_extraction/lmarena_models.json` |
+| 2 | `src/processing/step2_generate_review_files.py` | cleaned data and Arena Overall (`LMArena-Overall`) | `data/processed/review_files/*.json` and `data/processed/model_extraction/lmarena_models.json` |
 | 3 | `src/processing/step3_generate_mapping.py` | reviewed `selected_lmarena_model` values | benchmark-level `mapping.json` files |
 | 4 | `src/processing/build_master_table.py` | cleaned data, mappings, metadata, Study Universe | `data/processed/master_table/master_correlation_matrix.csv` |
 | 5 | `src/analysis/compute_features_robust.py` | master table and metadata | `results/analysis_ready_data.csv` |
 | 6 | `src/analysis/calculate_reference_difficulty.py` | master table and analysis-ready data | `results/reference_difficulty_comparison.csv` |
 | 7 | `src/analysis/small_n_hypothesis_test.py` | analysis-ready data | `results/hypothesis_test_results.json` |
 | 8 | `src/analysis/apply_correction.py` | raw hypothesis-test results | `results/statistical_significance_report.json` |
-| 9 | `src/analysis/uncertainty_propagation_analysis.py` | master table, analysis-ready data, raw LMArena data | fixed-seed Monte Carlo results in `results/uncertainty_simulation_results.csv` |
+| 9 | `src/analysis/uncertainty_propagation_analysis.py` | master table, analysis-ready data, raw Arena data | fixed-seed Monte Carlo results in `results/uncertainty_simulation_results.csv` |
 | 10 | `src/analysis/generate_plots_tables.py` | Step 5–9 result files and Figure 1 labels | five manuscript PDFs and five LaTeX tables |
 
 Step 4 excludes a benchmark when fewer than six Study Universe models overlap with it. Step 5 calculates Difficulty, coefficient of variation, Spearman and Kendall correlations with p-values and bootstrap confidence intervals, and descriptive RBO. For the current snapshot, HumanEval and FACTS have fewer than five models in the common subset used for the preferred difficulty calculation, so Step 5 logs a warning and uses its fallback difficulty method.
@@ -58,7 +60,7 @@ The repository must already contain:
 - `data/processed/cleaned/*/cleaned_data.csv`
 - `data/processed/review_files/*.json`
 - `data/metadata.json`
-- the prepared LMArena raw data under `data/raw/lmarena/`
+- the prepared Arena raw data under `data/raw/lmarena/`
 
 Step 3 reads `selected_lmarena_model` from the existing review files. The `untrusted` field is review metadata and is not used by the mapping script.
 
@@ -68,7 +70,7 @@ Step 3 reads `selected_lmarena_model` from the existing review files. The `untru
 # Create or update the environment required by the complete final workflow
 uv sync --group plotting
 
-# Step 3: build benchmark-to-LMArena mappings
+# Step 3: build benchmark-to-Arena mappings
 uv run src/processing/step3_generate_mapping.py
 
 # Step 4: build the master table
@@ -86,7 +88,7 @@ uv run src/analysis/small_n_hypothesis_test.py
 # Step 8: apply Holm–Bonferroni correction
 uv run src/analysis/apply_correction.py
 
-# Step 9: propagate score and LMArena uncertainty
+# Step 9: propagate score and Arena uncertainty
 uv run src/analysis/uncertainty_propagation_analysis.py
 
 # Step 10: generate the five manuscript figures and five manuscript tables
@@ -121,7 +123,7 @@ Reference difficulty is `100 - mean score` across these three models. In the cur
 
 Steps 3–10 are deterministic or use fixed random seed `42`. Step 5 uses 2,000 bootstrap resamples for each Spearman and Kendall confidence interval; Step 7 uses 5,000 benchmark-level bootstrap resamples for H3–H5; and Step 9 performs 10,000 Monte Carlo trials for each percentage-based benchmark. Generated CSV, JSON, and LaTeX table contents are reproducible for the pinned environment. PDF files may still differ byte-for-byte because of rendering metadata even when their data and visual content are unchanged.
 
-Step 9 samples LMArena Elo values from normal distributions derived from their reported 95% confidence intervals. It models each percentage benchmark score with the binomial standard error implied by its question count. `Nonpositive_Fraction` is the share of perturbation trials with Spearman $\rho \le 0$; it is not a null-hypothesis p-value. `Directionally_Stable_95CI` is true exactly when the simulated 95% interval lies entirely above zero.
+Step 9 samples Arena Elo values from normal distributions derived from their reported 95% confidence intervals. It models each percentage benchmark score with the binomial standard error implied by its question count. `Nonpositive_Fraction` is the share of perturbation trials with Spearman $\rho \le 0$; it is not a null-hypothesis p-value. `Directionally_Stable_95CI` is true exactly when the simulated 95% interval lies entirely above zero.
 
 ### RBO calculation
 
@@ -132,7 +134,7 @@ A_d = |S[:d] intersect T[:d]| / d
 RBO = (1 - p) * sum(d=1..infinity, p^(d-1) * A_d)
 ```
 
-The workflow uses `p=0.9` and restricts both rankings to the same shared set of Study Universe models. For the resulting equal-length finite rankings of length `k`, it uses the standard extrapolated form: the observed sum through depth `k` plus `A_k * p^k`. Ties in benchmark rank and LMArena Elo are resolved lexicographically by model ID. Each benchmark is compared with both its matching LMArena category (`rbo`) and LMArena Overall (`rbo_overall`). The calculation is implemented internally and does not require an external RBO package.
+The workflow uses `p=0.9` and restricts both rankings to the same shared set of Study Universe models. For the resulting equal-length finite rankings of length `k`, it uses the standard extrapolated form: the observed sum through depth `k` plus `A_k * p^k`. Ties in benchmark rank and Arena Elo are resolved lexicographically by model ID. Each benchmark is compared with both its matching Arena category (`rbo`) and Arena Overall (`rbo_overall`). The calculation is implemented internally and does not require an external RBO package.
 
 ### Output location
 
@@ -188,17 +190,17 @@ uv run src/processing/step2_generate_review_files.py
 
 Step 2 is a deterministic heuristic matcher, not a trusted final review. It:
 
-- rebuilds `data/processed/model_extraction/lmarena_models.json` from LMArena Overall;
+- rebuilds `data/processed/model_extraction/lmarena_models.json` from Arena Overall (`LMArena-Overall`);
 - defines the Study Universe as models with Overall score `>= 1330`;
 - parses model family, subfamily, version, date, parameters, and other qualifiers;
-- proposes LMArena candidates; and
+- proposes Arena candidates; and
 - writes review entries with `untrusted: 1`.
 
-LMArena benchmarks are skipped because they already use LMArena model identities. The ten Artificial Analysis datasets in the repository snapshot, including the preserved AIME dataset, share `data/processed/review_files/artificial_analysis.json`.
+Arena benchmarks (`LMArena-*` in repository naming) are skipped because they already use Arena model identities. The ten Artificial Analysis datasets in the repository snapshot, including the preserved AIME dataset, share `data/processed/review_files/artificial_analysis.json`.
 
 For each review entry:
 
-- set `selected_lmarena_model` to the correct LMArena model identifier, or `0` when no corresponding model exists;
+- set `selected_lmarena_model` to the correct Arena model identifier, or `0` when no corresponding model exists;
 - set `untrusted` to `0` after the decision is reviewed; and
 - keep the JSON syntactically valid.
 
@@ -208,7 +210,7 @@ For each review entry:
 uv run src/processing/step3_generate_mapping.py
 ```
 
-Step 3 includes non-empty string-valued `selected_lmarena_model` entries; numeric sentinel values such as `0` and `-1` are ignored. If multiple benchmark names select the same LMArena model, the first entry is retained. Artificial Analysis uses its unified review file and creates a filtered mapping for each of the ten datasets in the repository snapshot, including the preserved AIME dataset.
+Step 3 includes non-empty string-valued `selected_lmarena_model` entries; numeric sentinel values such as `0` and `-1` are ignored. If multiple benchmark names select the same Arena model, the first entry is retained. Artificial Analysis uses its unified review file and creates a filtered mapping for each of the ten datasets in the repository snapshot, including the preserved AIME dataset.
 
 ## Update raw benchmark data
 
@@ -243,7 +245,7 @@ The directory names below are the benchmark identifiers expected by the processi
 | `frontiermath` | `FrontierMath Tier 1-3`, `FrontierMath Tier 4` |
 | `artificial_analysis` | `AA-LCR`, `GPQA Diamond`, `Humanity's Last Exam`, `IFBench`, `LiveCodeBench`, `MMLU-Pro`, `SciCode`, `tau2-Bench Telecom`, `Terminal-Bench Hard`; `AIME` is a preserved repository snapshot rather than a currently refreshable column |
 
-LMArena supplies the human-preference reference rankings rather than benchmark scores. The `lmarena` method processes `LMArena-Overall`, `LMArena-Math`, `LMArena-Coding`, `LMArena-Instruction Following`, `LMArena-Creative Writing`, `LMArena-Hard Prompts`, and `LMArena-Expert`.
+Arena supplies the human-preference reference rankings rather than benchmark scores. The `lmarena` method processes `LMArena-Overall`, `LMArena-Math`, `LMArena-Coding`, `LMArena-Instruction Following`, `LMArena-Creative Writing`, `LMArena-Hard Prompts`, and `LMArena-Expert`.
 
 Run every registered scripted method with:
 
